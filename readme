@@ -1,3 +1,8 @@
 Terminal Visualizer
-Ruby program to read a data set from a csv-formatted file and visualize 
+Ruby program to read a data set from a csv-formatted file and visualize
 the data as terminal output.
+
+Written with Ruby 2.2.2
+
+Tested:
+    Linux: running with Ruby 2.2.2
