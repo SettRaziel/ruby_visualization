@@ -6,3 +6,6 @@ Written with Ruby 2.2.2
 
 Tested:
     Linux: running with Ruby 2.2.2
+
+Requirements:
+    csv
