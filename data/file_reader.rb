@@ -1,8 +1,7 @@
-#!/home/benjamin/.rvm/rubies/default/bin/ruby
 # @Author: Benjamin Held
 # @Date:   2015-05-30 21:00:25
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-05-31 15:04:22
+# @Last Modified time: 2015-06-01 08:30:32
 
 require 'csv'
 
