@@ -1,6 +1,9 @@
 Terminal Visualizer
 Ruby program to read a data set from a csv-formatted file and visualize
-the data as terminal output.
+the data as terminal output. The first line of data will be drawn as the
+bottom line in the visualized output.
+
+usage: ruby terminal_vis.rb <filename>
 
 Written with Ruby 2.2.2
 
