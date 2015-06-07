@@ -1,12 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-06 11:07:34
+# @Last Modified time: 2015-06-07 11:41:23
 
-require_relative './graphics/string'
-require_relative './graphics/color_legend'
-require_relative './data/data_repository'
-require_relative './output/output'
+require_relative '../lib/graphics/string'
+require_relative '../lib/graphics/color_legend'
+require_relative '../lib/data/data_repository'
+require_relative '../lib/output/output'
 
 begin
   require 'Win32/Console/ANSI' if RUBY_PLATFORM =~ /win32/
