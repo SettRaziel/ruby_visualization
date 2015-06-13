@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-13 15:17:03
+# @Last Modified time: 2015-06-13 21:56:57
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -26,7 +26,7 @@ end
 def print_help
     puts "TerminalVis help:"
     puts "  --help: show help text"
-    # puts "      -m: process the file <filename> containing meta data"
+    puts "      -m: process the file <filename> containing meta data"
     exit(0)
 end
 
@@ -35,6 +35,7 @@ def apply_m(filename)
     meta_data = repository.add_data(filename)
     Output.new(repository.repository[meta_data]).
     print_data(meta_data.name, repository.repository[meta_data])
+    exit(0)
 end
 
 def apply_standard(filename)

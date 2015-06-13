@@ -1,14 +1,14 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-11 20:33:26
+# @Last Modified time: 2015-06-13 15:36:41
 
 class MetaData
     attr_reader :name, :domain_x, :domain_y, :domain_z
 
     def initialize(metadata)
 
-        raise IndexError if meta.length != 12
+        raise IndexError if metadata.length != 12
 
         @name = metadata[8]
         @domain_x = DataDomain.new(metadata[0], metadata[1], \
