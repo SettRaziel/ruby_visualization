@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-13 21:56:57
+# @Last Modified time: 2015-06-14 09:44:53
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -18,7 +18,7 @@ def determine_parameter
             parameter << entry if entry =~ regex
         end
     end
-    STDERR.puts "error: unrecognized parameter." if (parameter.length == 0 &&
+    STDERR.puts "Error: unrecognized parameter." if (parameter.length == 0 &&
         ARGV.length > 1)
     return parameter
 end
@@ -31,11 +31,15 @@ def print_help
 end
 
 def apply_m(filename)
-    repository = DataRepository.new()
-    meta_data = repository.add_data(filename)
-    Output.new(repository.repository[meta_data]).
-    print_data(meta_data.name, repository.repository[meta_data])
-    exit(0)
+    begin
+        repository = DataRepository.new()
+        meta_data = repository.add_data(filename)
+        Output.new(repository.repository[meta_data]).
+        print_data(meta_data.name, repository.repository[meta_data])
+    rescue Exception => e
+        STDERR.puts "Error trying to use terminal_vis with option -m"
+        exit(0)
+    end
 end
 
 def apply_standard(filename)
@@ -62,7 +66,6 @@ filename = ARGV[ARGV.length-1]
 if (ARGV.length < 1)
     print_error()
 elsif (ARGV.length == 1 && determine_parameter().length == 0)
-    puts "#{ARGV[ARGV.length-1]}"
     apply_standard(filename)
 else
     parameter = determine_parameter()
@@ -70,5 +73,4 @@ else
         print_help() if (ARGV.length == 1 && entry.eql?("--help"))
         apply_m(filename) if (entry.eql?("-m"))
     end
-    print_error()
 end
