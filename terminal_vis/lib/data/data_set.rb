@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:41:25
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-02 22:20:44
+# @Last Modified time: 2015-06-14 09:34:54
 
 class DataSet
     attr_reader :min_value, :max_value, :data
@@ -15,11 +15,18 @@ class DataSet
 
     def process_data(raw_data)
         row = 0
-        raw_data.each { |line|
-            @data[row] = line.map { |s| s.to_f }
-            row += 1
-        }
-        find_extreme_values()
+        begin
+            raw_data.each { |line|
+                @data[row] = line.map { |s|
+                    Float(s)
+                    s.to_f }
+                row += 1
+            }
+            find_extreme_values()
+        rescue Exception => e
+            STDERR.puts "Error in data set: tried to parse non float argument."
+            exit(0)
+        end
     end
 
     def find_extreme_values

@@ -1,14 +1,18 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-13 15:36:41
+# @Last Modified time: 2015-06-14 09:42:28
 
 class MetaData
     attr_reader :name, :domain_x, :domain_y, :domain_z
 
     def initialize(metadata)
 
-        raise IndexError if metadata.length != 12
+        if metadata.length != 12
+            STDERR.puts "Error in meta data: incorrect number of arguments:" \
+            " #{metadata.length}."
+            exit(0)
+        end
 
         @name = metadata[8]
         @domain_x = DataDomain.new(metadata[0], metadata[1], \
@@ -25,9 +29,13 @@ class DataDomain
 
     def initialize(name, lower, upper, step)
         @name = name
-        @lower = lower
-        @upper = upper
-        @step = step
+        begin
+            @lower = Float(lower)
+            @upper = Float(upper)
+            @step = Float(step)
+        rescue ArgumentError => e
+            STDERR.puts "Error in meta data: non number argument."
+        end
     end
 
 end
