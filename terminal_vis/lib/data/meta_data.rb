@@ -1,25 +1,26 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-16 17:08:15
+# @Last Modified time: 2015-06-16 17:18:06
 
 # MetaData stores meta information about the data set
 # two dimensional data set =>
-# <data_name>,
-# <axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
-# <axis_description_y>,<lower_boundary_y>,<upper_boundary_y>
+# @name => <data_name>,
+# @domain_x => <axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
+# @domain_y => <axis_description_y>,<lower_boundary_y>,<upper_boundary_y>
+# @domain_z => nil
 #
 # three dimensional data set =>
-# <data_name>,
-# <axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
-# <axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,
-# <axis_description_z>,<lower_boundary_z>,<upper_boundary_z>
+# @name => <data_name>,
+# @domain_x => <axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
+# @domain_y => <axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,
+# @domain_z => <axis_description_z>,<lower_boundary_z>,<upper_boundary_z>
 class MetaData
     attr_reader :name, :domain_x, :domain_y, :domain_z
 
     def initialize(metadata)
 
-        if (metadata.length != 13 || metadata.length != 9)
+        if !(metadata.length == 13 || metadata.length == 9)
             STDERR.puts "Error in meta data: incorrect number of arguments:" \
             " #{metadata.length}."
             exit(0)
