@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-16 17:18:06
+# @Last Modified time: 2015-06-17 17:24:20
 
 # MetaData stores meta information about the data set
 # two dimensional data set =>
@@ -41,6 +41,11 @@ class MetaData
     end
 end
 
+# DataDomain represents the meta data for one dimension
+# @name => name of the data
+# @lower => lower boundary of the dimension
+# @upper => upper boundary of the dimension
+# @step => step range between two values
 class DataDomain
     attr_reader :name, :lower, :upper, :step
 

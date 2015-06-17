@@ -1,8 +1,13 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-30 13:34:57
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-05-31 13:32:06
+# @Last Modified time: 2015-06-17 17:42:15
 
+# Class to color output field according to color in @value_legend
+# @value_legend => color map for value interval
+# @min_value => left interval value
+# @max_value => right interval value
+# @delta => steps between tow values
 class ColorLegend
     attr_reader :value_legend, :min_value, :max_value, :delta
 
@@ -12,16 +17,20 @@ class ColorLegend
         create_color_legend()
     end
 
+    # creates output string for given value
+    # value => formatted String
     def print_color_for_data(value)
         create_output_string_for(value)
     end
 
+    # prints list of interval values
     def print_interval_borders
         @value_legend.each_index {
             |i| puts "value at #{i}: #{@value_legend[i]}"
         }
     end
 
+    # prints color legend with given colors
     def print_color_legend
         puts "Legend: #{min_value}; #{max_value}"
         @value_legend.each { |value| print create_output_string_for(value) }
@@ -30,6 +39,8 @@ class ColorLegend
 
     private
 
+    # creates color legend
+    # @min_value + i * delta => @value_legend[i]
     def create_color_legend
         length = 6
         @value_legend = Array.new(length+1)
@@ -40,6 +51,8 @@ class ColorLegend
 
     end
 
+    # creates output string for a given value
+    # value => formatted String
     def create_output_string_for(value)
         return 'oo'.blue_bg.hide if (value <= @value_legend[1])
         return 'oo'.cyan_bg.hide if (value <= @value_legend[2])
