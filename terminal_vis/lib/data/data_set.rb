@@ -1,8 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:41:25
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-14 09:34:54
+# @Last Modified time: 2015-06-18 17:06:43
 
+# Class to represent a two dimensional data set
+# @min_value => minimal value of the data
+# @max_value => maximal value of the data
+# @data => the data
 class DataSet
     attr_reader :min_value, :max_value, :data
 
@@ -13,6 +17,8 @@ class DataSet
 
     private
 
+    # processes the raw data and parses it in number values
+    # @data => parsed data
     def process_data(raw_data)
         row = 0
         begin
@@ -29,6 +35,9 @@ class DataSet
         end
     end
 
+    # searches fot the minimal and maximal value
+    # @min_value => minimal value of the data set
+    # @max_value => maximal value of the data set
     def find_extreme_values
         @min_value = @data[0][1].to_f
         @max_value = @data[0][1].to_f

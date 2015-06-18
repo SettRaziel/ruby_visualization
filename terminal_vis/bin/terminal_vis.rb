@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-14 09:44:53
+# @Last Modified time: 2015-06-18 17:15:24
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -9,6 +9,7 @@ require_relative '../lib/data/data_repository'
 require_relative '../lib/output/output'
 require_relative '../lib/parameter/parameter_repository'
 
+# call to determine the parameter from the argument array
 def determine_parameter
     para_repo = ParameterRepository.new()
     parameter = Array.new()
@@ -23,6 +24,7 @@ def determine_parameter
     return parameter
 end
 
+# call to print the help text
 def print_help
     puts "TerminalVis help:"
     puts "  --help: show help text"
@@ -30,6 +32,7 @@ def print_help
     exit(0)
 end
 
+# call for the usage with meta data parameter -m
 def apply_m(filename)
     begin
         repository = DataRepository.new()
@@ -42,12 +45,14 @@ def apply_m(filename)
     end
 end
 
+# call for the standard behavior of the script
 def apply_standard(filename)
     repository = DataRepository.new(filename,2001)
     Output.new(repository.repository[2001]).
     print_data(2001,repository.repository[2001])
 end
 
+# call for standard error output
 def print_error
     STDERR.puts "Invalid number of arguments: usage ruby <script> " \
     "[parameter] <filename>"
@@ -55,6 +60,10 @@ def print_error
     exit(0)
 end
 
+#-------------------------------------------------------------------------------
+# Terminal Visualization Script
+# Version 0.1
+# created by Benjamin Held, Juni 2015
 begin
   require 'Win32/Console/ANSI' if RUBY_PLATFORM =~ /win32/
 rescue LoadError

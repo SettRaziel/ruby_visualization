@@ -1,12 +1,13 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-11 20:34:38
+# @Last Modified time: 2015-06-18 17:11:42
 
 require_relative '../data/data_set'
 require_relative '../graphics/color_legend'
 
 # Simple output for the terminal visualization
+# @legend => color legend used for the output
 class Output
     attr_reader :legend
 
