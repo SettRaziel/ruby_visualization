@@ -3,7 +3,7 @@ Ruby program to read a data set from a csv-formatted file and visualize
 the data as terminal output. The first line of data will be drawn as the
 bottom line in the visualized output.
 
-usage: ruby terminal_vis.rb <filename>
+usage: ruby terminal_vis.rb [parameter] <filename>
 parameters:
     --help: shows help text in terminal
         -m: considers a data set with meta data
@@ -20,11 +20,14 @@ Meta data format (in single line):
 <axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,
 <axis_description_z>,<lower_boundary_z>,<upper_boundary_z>
 
-Written with Ruby 2.2.2
+Written in Ruby 2.2.2
 
 Tested:
     Linux: running with Ruby 2.2.2
     Windows: needed testing
 
 Requirements:
-    csv
+    csv (all)
+    Win32/Console/ANSI (Windows)
+
+created by: Benjamin Held
