@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-18 17:11:42
+# @Last Modified time: 2015-06-20 16:28:24
 
 require_relative '../data/data_set'
 require_relative '../graphics/color_legend'
@@ -17,12 +17,25 @@ class Output
     end
 
     # Reversed the data to print it in the correct occurence
-    def print_data(key, data_set)
+    def print_data(key, data_set, meta_data = nil)
         reversed_data = data_set.data.to_a.reverse.to_h
+
         reversed_data.each_value { |row|
+            print "  "
             row.each { |value| print legend.print_color_for_data(value) }
             puts ""
         }
+
+        if (meta_data != nil)
+            print "\nY-axis with #{meta_data.domain_y.name} from " \
+                 "#{meta_data.domain_y.lower}"
+            puts " up to #{meta_data.domain_y.upper} and steprange" \
+                 " #{meta_data.domain_y.step}."
+            print "X-axis with #{meta_data.domain_x.name} from " \
+                  "#{meta_data.domain_x.lower}"
+            puts " up to #{meta_data.domain_x.upper} and steprange" \
+                 " #{meta_data.domain_x.step}."
+        end
 
         puts "Dataset: #{key}"
 
