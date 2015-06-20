@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-20 16:19:13
+# @Last Modified time: 2015-06-20 16:32:04
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -63,7 +63,7 @@ end
 #-------------------------------------------------------------------------------
 # Terminal Visualization Script
 # Version 0.1
-# created by Benjamin Held, Juni 2015
+# created by Benjamin Held, June 2015
 begin
   require 'Win32/Console/ANSI' if RUBY_PLATFORM =~ /win32/
 rescue LoadError
