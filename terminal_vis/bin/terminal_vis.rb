@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-20 16:32:04
+# @Last Modified time: 2015-06-21 19:08:52
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -38,7 +38,7 @@ def apply_m(filename)
         repository = DataRepository.new()
         meta_data = repository.add_data(filename)
         Output.new(repository.repository[meta_data]).
-        print_data(meta_data.name, repository.repository[meta_data], meta_data)
+        print_data(repository.repository[meta_data], meta_data)
     rescue Exception => e
         STDERR.puts "Error trying to use terminal_vis with option -m"
         exit(0)
@@ -47,9 +47,10 @@ end
 
 # call for the standard behavior of the script
 def apply_standard(filename)
-    repository = DataRepository.new(filename,"#{filename}")
-    Output.new(repository.repository["#{filename}"]).
-    print_data("#{filename}",repository.repository["#{filename}"])
+    repository = DataRepository.new()
+    meta_data = repository.add_data_with_default_meta(filename)
+    Output.new(repository.repository[meta_data]).
+    print_data(repository.repository[meta_data], meta_data)
 end
 
 # call for standard error output

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-17 17:44:15
+# @Last Modified time: 2015-06-21 19:02:45
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -25,6 +25,16 @@ class DataRepository
         meta_data = check_for_metadata()
         check_for_existenz(meta_data)
         @repository[meta_data] = create_dataset(@data)
+        @data = nil
+        return meta_data
+    end
+
+    def add_data_with_default_meta(filename)
+        data_set = create_dataset(read_file(filename))
+        meta_string = ["#{filename}", "X", 0, data_set.data[0].size, 1, \
+                       "Y", 0, data_set.data.size, 1]
+        meta_data = MetaData.new(meta_string)
+        @repository[meta_data] = data_set
         return meta_data
     end
 
