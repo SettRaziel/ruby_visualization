@@ -1,10 +1,11 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-21 19:02:45
+# @Last Modified time: 2015-06-22 16:54:15
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
+require_relative 'data_series'
 require_relative 'meta_data'
 
 
@@ -16,7 +17,8 @@ class DataRepository
         add_data(filename) if (key == nil && filename != nil)
         if (filename != nil && key != nil)
             check_for_existenz(key)
-            @repository[key] = create_dataset(read_file(filename))
+            read_file(filename)
+            @repository[key] = create_dataset()
         end
     end
 
@@ -24,17 +26,26 @@ class DataRepository
         @data = read_file(filename)
         meta_data = check_for_metadata()
         check_for_existenz(meta_data)
-        @repository[meta_data] = create_dataset(@data)
+        @repository[meta_data] = create_dataset()
         @data = nil
         return meta_data
     end
 
     def add_data_with_default_meta(filename)
-        data_set = create_dataset(read_file(filename))
-        meta_string = ["#{filename}", "X", 0, data_set.data[0].size, 1, \
-                       "Y", 0, data_set.data.size, 1]
+        @data = read_file(filename)
+        data_series = create_dataset()
+
+        if (data_series.data.size > 1)
+            meta_string = ["#{filename}", "X", 0, data_series.data.size, 1, \
+                           "Y", 0, data_series.data.size, 1, \
+                           "Z", 0, data_series.data.size, 1]
+        else
+            meta_string = ["#{filename}", "X", 0, data_series.data.size, 1, \
+                               "Y", 0, data_series.data.size, 1]
+        end
+
         meta_data = MetaData.new(meta_string)
-        @repository[meta_data] = data_set
+        @repository[meta_data] = data_series
         return meta_data
     end
 
@@ -42,9 +53,23 @@ class DataRepository
 
     attr :data
 
-    def create_dataset(data)
-        # parse multiple data sets
-        DataSet.new(data)
+    def create_dataset()
+        data = Array.new()
+        value = DataSeries.new()
+
+        # parse multiple data sets (but at least 1)
+        @data.each { |line|
+            if (line.empty?)
+                value.add_data_set(DataSet.new(data))
+                data = Array.new()
+            else
+                data << line
+            end
+        }
+
+        # get the last data set, since the loop ended before putting it there
+        value.add_data_set(DataSet.new(data))
+        return value
     end
 
     def read_file(filename)
