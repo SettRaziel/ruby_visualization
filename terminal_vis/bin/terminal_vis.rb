@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-23 17:22:06
+# @Last Modified time: 2015-06-24 17:51:56
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -12,16 +12,26 @@ require_relative '../lib/parameter/parameter_repository'
 # call to determine the parameter from the argument array
 def determine_parameter
     para_repo = ParameterRepository.new()
-    parameter = Array.new()
-    para_repo.parameter_regex.each_value do |regex|
-        ARGV.each do |entry|
+    ARGV.each { |entry|
+        valid_parameter = false
+
+        para_repo.parameter_regex.each_value { |regex|
             # puts "Found parameter: #{entry}" if entry =~ regex
-            parameter << entry if entry =~ regex
+            if (entry =~ regex)
+                para_repo.parameter_used[entry] = true
+                valid_parameter = true
+            end
+        }
+
+        if (!valid_parameter)
+            print_error("Error: unrecognized parameter: #{entry}")
         end
+    }
+
+    if (para_repo.parameter_used.size == 0 && ARGV.length > 1)
+        print_error("Error: unrecognized parameter: #{ARGV[0]}.")
     end
-    STDERR.puts "Error: unrecognized parameter." if (parameter.length == 0 &&
-        ARGV.length > 1)
-    return parameter
+    return para_repo
 end
 
 # call to print the help text
@@ -54,9 +64,8 @@ def apply_standard(filename)
 end
 
 # call for standard error output
-def print_error
-    STDERR.puts "Invalid number of arguments: usage ruby <script> " \
-    "[parameter] <filename>"
+def print_error(message)
+    STDERR.puts "#{message}"
     STDERR.puts "For help type: ruby <script> --help"
     exit(0)
 end
@@ -72,14 +81,16 @@ rescue LoadError
 end
 
 filename = ARGV[ARGV.length-1]
+parameter_repo = determine_parameter()
 
 if (ARGV.length < 1)
-    print_error()
-elsif (ARGV.length == 1 && determine_parameter().length == 0)
+    message = "Invalid number of arguments: usage ruby <script> " \
+    "[parameter] <filename>"
+    print_error(message)
+elsif (ARGV.length == 1 && parameter_repo.parameter_used.size == 0)
     apply_standard(filename)
 else
-    parameter = determine_parameter()
-    parameter.each do |entry|
+    parameter_repo.parameter_used.each_key do |entry|
         print_help() if (ARGV.length == 1 && entry.eql?("--help"))
         apply_m(filename) if (entry.eql?("-m"))
     end
