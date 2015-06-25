@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-24 17:29:18
+# @Last Modified time: 2015-06-25 19:13:46
 
 # Parameter repository storing the valid parameter of the script
 # @parameter_regex => Hash of regular expressions of valid parameters
@@ -17,5 +17,14 @@ class ParameterRepository
         @parameter_regex["-m"] = /-m/
         # parameter for the index of the data set that should be shown
         @parameter_regex["-i"] = /-i/
+        # regex matching the allowed file name specification
+        @parameter_regex["file"] = %r{
+            \A                      # start of string
+            ((\.\/)|(\.\.\/)+)      # relativ path or upwards
+            ([\-\w\s]+\/)*          # 0-n subsirectories
+            [\-\w\s]*[a-zA-Z0-9]    # filename
+            (\.[a-zA-Z0-9]+)?       # extension
+            \z                      # end of string
+            }x
     end
 end

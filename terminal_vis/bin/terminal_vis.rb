@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-24 17:51:56
+# @Last Modified time: 2015-06-25 19:14:48
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -15,10 +15,10 @@ def determine_parameter
     ARGV.each { |entry|
         valid_parameter = false
 
-        para_repo.parameter_regex.each_value { |regex|
-            # puts "Found parameter: #{entry}" if entry =~ regex
+        para_repo.parameter_regex.each_key { |key|
+            regex = para_repo.parameter_regex[key]
             if (entry =~ regex)
-                para_repo.parameter_used[entry] = true
+                para_repo.parameter_used[key] = true
                 valid_parameter = true
             end
         }
@@ -28,7 +28,7 @@ def determine_parameter
         end
     }
 
-    if (para_repo.parameter_used.size == 0 && ARGV.length > 1)
+    if (para_repo.parameter_used.size == 0 && ARGV.length > 0)
         print_error("Error: unrecognized parameter: #{ARGV[0]}.")
     end
     return para_repo
@@ -87,11 +87,9 @@ if (ARGV.length < 1)
     message = "Invalid number of arguments: usage ruby <script> " \
     "[parameter] <filename>"
     print_error(message)
-elsif (ARGV.length == 1 && parameter_repo.parameter_used.size == 0)
+elsif (ARGV.length == 1 && parameter_repo.parameter_used["file"])
     apply_standard(filename)
 else
-    parameter_repo.parameter_used.each_key do |entry|
-        print_help() if (ARGV.length == 1 && entry.eql?("--help"))
-        apply_m(filename) if (entry.eql?("-m"))
-    end
+    print_help() if (parameter_repo.parameter_used["--help"])
+    apply_m(filename) if (parameter_repo.parameter_used["-m"])
 end
