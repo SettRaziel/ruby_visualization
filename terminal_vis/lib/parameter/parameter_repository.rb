@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-25 19:13:46
+# @Last Modified time: 2015-06-26 18:50:55
 
 # Parameter repository storing the valid parameter of the script
 # @parameter_regex => Hash of regular expressions of valid parameters
@@ -12,11 +12,11 @@ class ParameterRepository
     def initialize
         @parameter_regex = Hash.new()
         @parameter_used = Hash.new()
-        @parameter_regex["--help"] = /--help/   # help parameter
+        @parameter_regex["--help"] = /\A--help\z/   # help parameter
         # parameter for using file with meta data
-        @parameter_regex["-m"] = /-m/
+        @parameter_regex["-m"] = /\A-m\z/
         # parameter for the index of the data set that should be shown
-        @parameter_regex["-i"] = /-i/
+        # @parameter_regex["-i"] = /\A-i\z/
         # regex matching the allowed file name specification
         @parameter_regex["file"] = %r{
             \A                      # start of string

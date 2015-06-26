@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-25 19:14:48
+# @Last Modified time: 2015-06-26 18:46:34
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
