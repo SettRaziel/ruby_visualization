@@ -1,14 +1,16 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-23 17:18:54
+# @Last Modified time: 2015-06-28 17:40:31
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
 require_relative 'data_series'
 require_relative 'meta_data'
 
-
+# data repository storing the read data and handling the meta information
+# @repository => Hash of metadata and the corresponding data set or
+# data series
 class DataRepository
     attr_reader :repository
 
@@ -22,6 +24,7 @@ class DataRepository
         end
     end
 
+    # reads the file and creates meta information and data of its content
     def add_data(filename)
         @data = read_file(filename)
         meta_data = check_for_metadata()
@@ -31,6 +34,8 @@ class DataRepository
         return meta_data
     end
 
+    # reads the file and creates data of its content with default meta
+    # information
     def add_data_with_default_meta(filename)
         @data = read_file(filename)
         data_series = create_dataset()
@@ -53,6 +58,7 @@ class DataRepository
 
     attr :data
 
+    # creates DataSets of the parsed data and stores it into a DataSeries
     def create_dataset()
         data = Array.new()
         value = DataSeries.new()
@@ -72,10 +78,13 @@ class DataRepository
         return value
     end
 
+    # calls the FileReader to get the content of the file
     def read_file(filename)
         FileReader.new(filename).data
     end
 
+    # checks for meta data in the first line of the raw data and creates
+    # meta information from it
     def check_for_metadata()
         meta_string = @data[0]
         @data.delete_at(1)
@@ -83,6 +92,7 @@ class DataRepository
         MetaData.new(meta_string)
     end
 
+    # checks if a given key already exists in the repository
     def check_for_existenz(key)
         if (@repository[key] != nil)
                 puts "Info: A data set with this key already exists." \

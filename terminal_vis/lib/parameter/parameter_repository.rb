@@ -1,11 +1,10 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-27 16:40:25
+# @Last Modified time: 2015-06-28 17:35:31
 
 # Parameter repository storing the valid parameter of the script
-# @parameter_regex => Hash of regular expressions of valid parameters
-# @parameter_used => Hash of used parameters in script call
+# @parameter => Hash of valid parameters and their values
 class ParameterRepository
     attr_reader :parameters
 
@@ -32,23 +31,34 @@ class ParameterRepository
         check_for_valid_filepath()
     end
 
+    # checks if the parsed filename is a valid unix or windows file name
     def check_for_valid_filepath
         filepath = parameters[:file]
-        file_regex= %r{
+        unixfile_regex= %r{
             \A                      # start of string
             ((\.\/)|(\.\.\/)+)      # relativ path or upwards
             ([\-\w\s]+\/)*          # 0-n subsirectories
             [\-\w\s]*[a-zA-Z0-9]    # filename
             (\.[a-zA-Z0-9]+)?       # extension
             \z                      # end of string
-            }x
+        }x
 
-        if (!filepath =~ file_regex)
+        windowsfile_regex = %r{
+            \A                      # start of string
+            ([A-Z]:)?\\?            # device name
+            ([\-\w\s]+\\)*          # directories
+            [\-\w\s]*[a-zA-Z0-9]    # filename
+            (\.[a-zA-Z0-9]+)?       # extension
+            \z                      # end of string
+        }x
+
+        if (!(filepath =~ unixfile_regex || filepath =~ windowsfile_regex))
             STDERR.puts "Error: invalid filepath: #{filepath}"
             exit(0)
         end
     end
 
+    # error message in the case of an invalid argument
     def print_invalid_parameter(arg)
         STDERR.puts "Error: invalid argument: #{arg}"
         exit(0)
