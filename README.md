@@ -12,25 +12,25 @@ parameters:
 ```
 
 ##Meta data format (in single line):
-### two dimensional data set:
-`<data_name>,
-<axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
-<axis_description_y>,<lower_boundary_y>,<upper_boundary_y>`
+#### Two dimensional data set:
+`<data_name>,`
+`<axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,`
+`<axis_description_y>,<lower_boundary_y>,<upper_boundary_y>`
 
-### three dimensional data set:
-`<data_name>,
-<axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
-<axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,
-<axis_description_z>,<lower_boundary_z>,<upper_boundary_z>`
+#### Three dimensional data set:
+`<data_name>,`
+`<axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,`
+`<axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,`
+`<axis_description_z>,<lower_boundary_z>,<upper_boundary_z>`
 
-##
+## Used version
 Written in Ruby 2.2.2
 
-## Tested:
+## Tested
 * Linux: running with Ruby 2.2.2
-* Windows: needed testing
+* Windows: not tested
 
-## Requirements:
+## Requirements
 * csv (all)
 * Win32/Console/ANSI (Windows)
 
