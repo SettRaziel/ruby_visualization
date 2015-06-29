@@ -15,16 +15,16 @@ parameters:
 #### Two dimensional data set:
 ```
 <data_name>,
-<axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
-<axis_description_y>,<lower_boundary_y>,<upper_boundary_y>
+<axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,<step_range_x>,
+<axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,<step_range_y>
 ```
 
 #### Three dimensional data set:
 ```
 <data_name>,
-<axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
-<axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,
-<axis_description_z>,<lower_boundary_z>,<upper_boundary_z>
+<axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,<step_range_x>,
+<axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,<step_range_y>
+<axis_description_z>,<lower_boundary_z>,<upper_boundary_z>,<step_range_z>
 ```
 
 ## Used version
