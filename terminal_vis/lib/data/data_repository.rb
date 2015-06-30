@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-28 17:40:31
+# @Last Modified time: 2015-06-30 09:07:12
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -41,12 +41,14 @@ class DataRepository
         data_series = create_dataset()
 
         if (data_series.series.size > 1)
-            meta_string = ["#{filename}", "X", 0, data_series.series.size, 1, \
-                           "Y", 0, data_series.series.size, 1, \
+            meta_string = ["#{filename}", \
+                           "X", 0, data_series.series[0].data[0].size, 1, \
+                           "Y", 0, data_series.series[0].data.size, 1, \
                            "Z", 0, data_series.series.size, 1]
         else
-            meta_string = ["#{filename}", "X", 0, data_series.series.size, 1, \
-                               "Y", 0, data_series.series.size, 1]
+            meta_string = ["#{filename}", \
+                            "X", 0, data_series.series[0].data[0].size, 1, \
+                            "Y", 0, data_series.series[0].data.size, 1]
         end
 
         meta_data = MetaData.new(meta_string)
