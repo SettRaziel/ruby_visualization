@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-27 16:37:50
+# @Last Modified time: 2015-06-30 17:45:47
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -12,8 +12,16 @@ require_relative '../lib/parameter/parameter_repository'
 # call to print the help text
 def print_help
     puts "TerminalVis help:"
-    puts "  --help: show help text"
-    puts "      -m: process the file <filename> containing meta data"
+    puts " -h, --help     show help text"
+    puts " -v, --version  prints the current version of the project"
+    puts " -m             process the file <filename> containing meta data"
+    exit(0)
+end
+
+# call to print version number and author
+def print_version
+    puts "terminal_visualization version 0.1"
+    puts "Created by Benjamin Held (June 2015)"
     exit(0)
 end
 
@@ -55,6 +63,11 @@ end
 
 @parameter_repository = ParameterRepository.new(ARGV)
 @data_repository = DataRepository.new()
+print_version() if (@parameter_repository.parameters[:version])
+print_help() if (@parameter_repository.parameters[:help])
+
+@parameter_repository.check_for_valid_filepath()
+
 
 if (ARGV.length < 1)
     message = "Invalid number of arguments: usage ruby <script> " \
@@ -63,7 +76,6 @@ if (ARGV.length < 1)
 elsif (ARGV.length == 1 && @parameter_repository.parameters[:file])
     apply_standard(@parameter_repository.parameters[:file])
 else
-    print_help() if (@parameter_repository.parameters[:help])
     if (@parameter_repository.parameters[:meta])
         apply_m(@parameter_repository.parameters[:file])
     end

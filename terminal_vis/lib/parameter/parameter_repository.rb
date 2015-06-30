@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-30 08:58:20
+# @Last Modified time: 2015-06-30 17:47:55
 
 # Parameter repository storing the valid parameter of the script
 # @parameter => Hash of valid parameters and their values
@@ -28,19 +28,18 @@ class ParameterRepository
             end
         }
 
-        check_for_valid_filepath()
     end
 
     # checks if the parsed filename is a valid unix or windows file name
     def check_for_valid_filepath
         filepath = parameters[:file]
         unixfile_regex= %r{
-            \A                      # start of string
-            ((\.\/)|(\.\.\/)+|(\/)) # relativ path or upwards or absolute
-            ([\-\w\s]+\/)*          # 0-n subsirectories
-            [\-\w\s]*[a-zA-Z0-9]    # filename
-            (\.[a-zA-Z0-9]+)?       # extension
-            \z                      # end of string
+            \A                       # start of string
+            ((\.\/)|(\.\.\/)+|(\/))? # relativ path or upwards or absolute
+            ([\-\w\s]+\/)*           # 0-n subsirectories
+            [\-\w\s]*[a-zA-Z0-9]     # filename
+            (\.[a-zA-Z0-9]+)?        # extension
+            \z                       # end of string
         }x
 
         windowsfile_regex = %r{
