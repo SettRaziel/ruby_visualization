@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-28 17:35:31
+# @Last Modified time: 2015-06-30 08:58:20
 
 # Parameter repository storing the valid parameter of the script
 # @parameter => Hash of valid parameters and their values
@@ -36,7 +36,7 @@ class ParameterRepository
         filepath = parameters[:file]
         unixfile_regex= %r{
             \A                      # start of string
-            ((\.\/)|(\.\.\/)+)      # relativ path or upwards
+            ((\.\/)|(\.\.\/)+|(\/)) # relativ path or upwards or absolute
             ([\-\w\s]+\/)*          # 0-n subsirectories
             [\-\w\s]*[a-zA-Z0-9]    # filename
             (\.[a-zA-Z0-9]+)?       # extension
