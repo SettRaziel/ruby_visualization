@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-21 19:08:37
+# @Last Modified time: 2015-06-30 17:25:31
 
 require_relative '../data/data_set'
 require_relative '../graphics/color_legend'
@@ -37,6 +37,6 @@ class Output
 
         puts "Dataset: #{meta_data.name}"
 
-        legend.print_color_legend
+        legend.print_color_legend()
     end
 end

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-30 09:07:12
+# @Last Modified time: 2015-06-30 17:24:52
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -61,7 +61,7 @@ class DataRepository
     attr :data
 
     # creates DataSets of the parsed data and stores it into a DataSeries
-    def create_dataset()
+    def create_dataset
         data = Array.new()
         value = DataSeries.new()
 
@@ -87,7 +87,7 @@ class DataRepository
 
     # checks for meta data in the first line of the raw data and creates
     # meta information from it
-    def check_for_metadata()
+    def check_for_metadata
         meta_string = @data[0]
         @data.delete_at(1)
         @data.delete_at(0)
