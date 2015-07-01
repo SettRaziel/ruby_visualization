@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-30 17:47:55
+# @Last Modified time: 2015-07-01 15:14:24
 
 # Parameter repository storing the valid parameter of the script
 # @parameter => Hash of valid parameters and their values
@@ -16,7 +16,7 @@ class ParameterRepository
                 when '-h', '--help'    then parameters[:help] = true
                 when '-v', '--version' then parameters[:version] = true
                 when '-m'              then parameters[:meta] = true
-                # when '-i'              then unflagged_arguments.unshift(:index)
+                when '-i'              then unflagged_arguments.unshift(:index)
                 when /-[a-z]|--[a-z]+/ then print_invalid_parameter(arg)
             else
                 if (arg_key = unflagged_arguments.shift)

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-30 17:45:47
+# @Last Modified time: 2015-07-01 15:59:58
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -29,8 +29,10 @@ end
 def apply_m(filename)
     begin
         meta_data = @data_repository.add_data(filename)
+        index = get_and_check_index(meta_data)
         Output.new(@data_repository.repository[meta_data]).
-        print_data(@data_repository.repository[meta_data].series[0], meta_data)
+        print_data(@data_repository.repository[meta_data].
+                    series[index], meta_data)
     rescue Exception => e
         STDERR.puts "Error trying to use terminal_vis with option -m"
         exit(0)
@@ -40,8 +42,36 @@ end
 # call for the standard behavior of the script
 def apply_standard(filename)
     meta_data = @data_repository.add_data_with_default_meta(filename)
+    index = get_and_check_index(meta_data)
     Output.new(@data_repository.repository[meta_data]).
-    print_data(@data_repository.repository[meta_data].series[0], meta_data)
+    print_data(@data_repository.repository[meta_data].series[index], meta_data)
+end
+
+# checks if option -i was used and determines if a valid parameter was entered
+# default return is 0
+def get_and_check_index(meta_data)
+    index = 0   # default data set if -i not set or only one data set
+    if (@parameter_repository.parameters[:index])
+        begin   # make sure that parameter of -i is an integer
+            index = Integer(@parameter_repository.parameters[:index]) - 1
+        rescue ArgumentError
+            message = "ArgumentError: argument of -i is not a number:" \
+                      "#{@parameter_repository.parameters[:index]}"
+            print_error(message)
+        end
+
+        # check if provided integer index lies in range of dataseries
+        if (index < 0 ||
+            index >= @data_repository.repository[meta_data].series.size)
+            text_index = @parameter_repository.parameters[:index]
+            data_size = @data_repository.repository[meta_data].series.size
+            message = "Error: input #{text_index} for -i is not valid" \
+                      "for dataset with length #{data_size}"
+            print_error(message)
+        end
+    end
+
+    return index
 end
 
 # call for standard error output
@@ -73,10 +103,8 @@ if (ARGV.length < 1)
     message = "Invalid number of arguments: usage ruby <script> " \
     "[parameters] <filename>"
     print_error(message)
-elsif (ARGV.length == 1 && @parameter_repository.parameters[:file])
+elsif (!@parameter_repository.parameters[:meta])
     apply_standard(@parameter_repository.parameters[:file])
 else
-    if (@parameter_repository.parameters[:meta])
-        apply_m(@parameter_repository.parameters[:file])
-    end
+    apply_m(@parameter_repository.parameters[:file])
 end
