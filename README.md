@@ -7,8 +7,9 @@ bottom line in the visualized output.
 ```
 usage: ruby terminal_vis.rb [parameter] <filename>
 parameters:
-    --help: shows help text in terminal
-        -m: considers a data set with meta data
+-h, --help     show help text
+-v, --version  prints the current version of the project
+-m             process the file <filename> containing meta data
 ```
 
 ##Meta data format (in single line):
@@ -23,7 +24,7 @@ parameters:
 ```
 <data_name>,
 <axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,<step_range_x>,
-<axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,<step_range_y>
+<axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,<step_range_y>,
 <axis_description_z>,<lower_boundary_z>,<upper_boundary_z>,<step_range_z>
 ```
 
