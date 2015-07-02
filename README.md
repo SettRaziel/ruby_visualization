@@ -10,6 +10,8 @@ parameters:
 -h, --help     show help text
 -v, --version  prints the current version of the project
 -m             process the file <filename> containing meta data
+-i <index>     shows the dataset at index, if index lies within
+               [1,2, ..., number of datasets]
 ```
 
 ##Meta data format (in single line):
