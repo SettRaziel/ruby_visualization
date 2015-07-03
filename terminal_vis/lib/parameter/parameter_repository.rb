@@ -1,10 +1,10 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-01 15:14:24
+# @Last Modified time: 2015-07-03 12:29:59
 
 # Parameter repository storing the valid parameter of the script
-# @parameter => Hash of valid parameters and their values
+# @parameters => Hash of valid parameters and their values
 class ParameterRepository
     attr_reader :parameters
 
@@ -22,12 +22,17 @@ class ParameterRepository
                 if (arg_key = unflagged_arguments.shift)
                     parameters[arg_key] = arg
                 else
-                    STDERR.puts "Error: invalid combination of parameters."
-                    exit(0)
+                    print_error("Error: invalid combination of parameters.")
                 end
             end
         }
 
+        # check if all parameters have been handled correctly
+        # only with -h and -v should be the :file element left
+        if (unflagged_arguments.size > 0 &&
+            !(@parameters[:help] || @parameters[:version]))
+            print_error("Error: invalid combination of parameters.")
+        end
     end
 
     # checks if the parsed filename is a valid unix or windows file name
@@ -57,9 +62,16 @@ class ParameterRepository
         end
     end
 
+    private
+
     # error message in the case of an invalid argument
     def print_invalid_parameter(arg)
-        STDERR.puts "Error: invalid argument: #{arg}"
+        print_error("Error: invalid argument: #{arg}")
+    end
+
+    # method for printing a given error message
+    def print_error(message)
+        STDERR.puts "#{message}"
         exit(0)
     end
 end
