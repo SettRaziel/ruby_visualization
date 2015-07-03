@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-02 12:28:45
+# @Last Modified time: 2015-07-03 11:42:33
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -93,6 +93,12 @@ rescue LoadError
   raise 'You must gem install win32console to use color on Windows.'
 end
 
+if (ARGV.length < 1)
+    message = "Invalid number of arguments: usage ruby <script> " \
+    "[parameters] <filename>"
+    print_error(message)
+end
+
 @parameter_repository = ParameterRepository.new(ARGV)
 @data_repository = DataRepository.new()
 print_version() if (@parameter_repository.parameters[:version])
@@ -100,12 +106,7 @@ print_help() if (@parameter_repository.parameters[:help])
 
 @parameter_repository.check_for_valid_filepath()
 
-
-if (ARGV.length < 1)
-    message = "Invalid number of arguments: usage ruby <script> " \
-    "[parameters] <filename>"
-    print_error(message)
-elsif (!@parameter_repository.parameters[:meta])
+if (!@parameter_repository.parameters[:meta])
     apply_standard(@parameter_repository.parameters[:file])
 else
     apply_m(@parameter_repository.parameters[:file])
