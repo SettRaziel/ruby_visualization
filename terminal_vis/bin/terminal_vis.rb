@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-03 11:42:33
+# @Last Modified time: 2015-07-04 14:56:54
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -68,7 +68,7 @@ def get_and_check_index(meta_data)
             text_index = @parameter_repository.parameters[:index]
             data_size = @data_repository.repository[meta_data].series.size
             message = "Error: input #{text_index} for -i is not valid" \
-                      "for dataset with length #{data_size}"
+                      " for dataset with length #{data_size}"
             print_error(message)
         end
     end
@@ -99,15 +99,19 @@ if (ARGV.length < 1)
     print_error(message)
 end
 
-@parameter_repository = ParameterRepository.new(ARGV)
-@data_repository = DataRepository.new()
-print_version() if (@parameter_repository.parameters[:version])
-print_help() if (@parameter_repository.parameters[:help])
+begin
+    @parameter_repository = ParameterRepository.new(ARGV)
+    @data_repository = DataRepository.new()
+    print_version() if (@parameter_repository.parameters[:version])
+    print_help() if (@parameter_repository.parameters[:help])
 
-@parameter_repository.check_for_valid_filepath()
+    @parameter_repository.check_for_valid_filepath()
 
-if (!@parameter_repository.parameters[:meta])
-    apply_standard(@parameter_repository.parameters[:file])
-else
-    apply_m(@parameter_repository.parameters[:file])
+    if (!@parameter_repository.parameters[:meta])
+        apply_standard(@parameter_repository.parameters[:file])
+    else
+        apply_m(@parameter_repository.parameters[:file])
+    end
+rescue ArgumentError => e
+    print_error(e.message)
 end
