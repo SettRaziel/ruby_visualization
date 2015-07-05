@@ -1,13 +1,16 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-04 14:52:51
+# @Last Modified time: 2015-07-05 12:22:02
 
 # Parameter repository storing the valid parameter of the script
 # @parameters => Hash of valid parameters and their values
+# raises ArgumentError
 class ParameterRepository
     attr_reader :parameters
 
+    # raises ArgumentError if parameters occur after reading the filepath
+    # raises ArgumentError for an invalid combination of script parameters
     def initialize(argv)
         @parameters = Hash.new()
         unflagged_arguments = [:file]
@@ -44,6 +47,7 @@ class ParameterRepository
     end
 
     # checks if the parsed filename is a valid unix or windows file name
+    # raises ArgumentError if filepath is not valid
     def check_for_valid_filepath
         filepath = parameters[:file]
         unixfile_regex= %r{
@@ -72,6 +76,7 @@ class ParameterRepository
     private
 
     # error message in the case of an invalid argument
+    # raises Argument Error if an invalid argument is provided
     def raise_invalid_parameter(arg)
         raise ArgumentError, "Error: invalid argument: #{arg}"
     end

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-17 17:24:20
+# @Last Modified time: 2015-07-05 12:16:01
 
 # MetaData stores meta information about the data set
 # two dimensional data set =>
@@ -15,15 +15,16 @@
 # @domain_x => <axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
 # @domain_y => <axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,
 # @domain_z => <axis_description_z>,<lower_boundary_z>,<upper_boundary_z>
+# raises IndexError when parameter metadata has not the correct size
 class MetaData
     attr_reader :name, :domain_x, :domain_y, :domain_z
 
+    # raises IndexError when parameter metadata has not the correct size
     def initialize(metadata)
 
         if !(metadata.length == 13 || metadata.length == 9)
-            STDERR.puts "Error in meta data: incorrect number of arguments:" \
-            " #{metadata.length}."
-            exit(0)
+            raise IndexError, "Error in meta data: incorrect number of" \
+                              " arguments: #{metadata.length}."
         end
 
         @name = metadata[0]
@@ -46,6 +47,7 @@ end
 # @lower => lower boundary of the dimension
 # @upper => upper boundary of the dimension
 # @step => step range between two values
+# raises ArgumentError if parsing of attribute values fails
 class DataDomain
     attr_reader :name, :lower, :upper, :step
 
@@ -56,7 +58,7 @@ class DataDomain
             @upper = Float(upper)
             @step = Float(step)
         rescue ArgumentError => e
-            STDERR.puts "Error in meta data: non number argument."
+            raise ArgumentError, "Error in data domain: non number argument."
         end
     end
 

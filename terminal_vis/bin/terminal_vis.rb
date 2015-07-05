@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-04 14:56:54
+# @Last Modified time: 2015-07-05 12:15:36
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -36,8 +36,7 @@ def apply_m(filename)
         print_data(@data_repository.repository[meta_data].
                     series[index], meta_data)
     rescue Exception => e
-        STDERR.puts "Error trying to use terminal_vis with option -m"
-        exit(0)
+        print_error(e.message.concat(" Error while using option -m."))
     end
 end
 
