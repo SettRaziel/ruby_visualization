@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-06 18:05:09
+# @Last Modified time: 2015-07-07 18:31:13
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -31,7 +31,7 @@ end
 def apply_m(filename)
     begin
         meta_data = @data_repository.add_data(filename)
-        create_output(meta_data, index)
+        create_output(meta_data)
     rescue Exception => e
         print_error(e.message.concat(" Error while using option -m."))
     end
@@ -40,14 +40,15 @@ end
 # call for the standard behavior of the script
 def apply_standard(filename)
     meta_data = @data_repository.add_data_with_default_meta(filename)
-    create_output(meta_data, index)
+    create_output(meta_data)
 end
 
-# creates output based on metadata and
+# creates output based on metadata and index
 def create_output(meta_data)
     index = get_and_check_index(meta_data)
     Output.new(@data_repository.repository[meta_data]).
     print_data(@data_repository.repository[meta_data].series[index], meta_data)
+    @data_repository.check_data_completeness(meta_data)
 end
 
 # checks if option -i was used, determines if a valid parameter was entered

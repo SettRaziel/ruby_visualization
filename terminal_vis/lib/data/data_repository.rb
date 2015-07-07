@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-30 17:24:52
+# @Last Modified time: 2015-07-07 18:34:41
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -42,18 +42,38 @@ class DataRepository
 
         if (data_series.series.size > 1)
             meta_string = ["#{filename}", \
-                           "X", 0, data_series.series[0].data[0].size, 1, \
-                           "Y", 0, data_series.series[0].data.size, 1, \
+                           "X", 0, data_series.series[0].data[0].size - 1, 1, \
+                           "Y", 0, data_series.series[0].data.size - 1, 1, \
                            "Z", 0, data_series.series.size, 1]
         else
             meta_string = ["#{filename}", \
-                            "X", 0, data_series.series[0].data[0].size, 1, \
-                            "Y", 0, data_series.series[0].data.size, 1]
+                            "X", 0, data_series.series[0].data[0].size - 1, 1, \
+                            "Y", 0, data_series.series[0].data.size - 1, 1]
         end
 
         meta_data = MetaData.new(meta_string)
         @repository[meta_data] = data_series
         return meta_data
+    end
+
+    def check_data_completeness(meta_data)
+        data_series = @repository[meta_data]
+        number_value_x = Integer((meta_data.domain_x.upper - \
+                    meta_data.domain_x.lower) / meta_data.domain_x.step) + 1
+        number_value_y = Integer((meta_data.domain_y.upper - \
+                    meta_data.domain_y.lower) / meta_data.domain_y.step) + 1
+
+        data_series.series.each { |data_set|
+            number_data_x = data_set.data[0].size
+            number_data_y = data_set.data.size
+
+            if (number_value_x != number_data_x ||
+                number_value_y != number_data_y)
+                puts "Warning: Size of one dataset does not match with " \
+                     "meta_data: #{number_value_x}, #{number_value_y} and " \
+                     "data_set: #{number_data_x}, #{number_data_y}."
+            end
+        }
     end
 
     private
