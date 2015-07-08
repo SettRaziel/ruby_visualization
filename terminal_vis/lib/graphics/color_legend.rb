@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-30 13:34:57
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-17 17:42:15
+# @Last Modified time: 2015-07-08 15:47:59
 
 # Class to color output field according to color in @value_legend
 # @value_legend => color map for value interval
@@ -46,7 +46,7 @@ class ColorLegend
         @value_legend = Array.new(length+1)
         @delta = (@max_value.to_f - @min_value.to_f).abs / length
         @value_legend.each_index {
-            |i| @value_legend[i] = @min_value + i*@delta
+            |i| @value_legend[i] = @min_value + i * @delta
         }
 
     end
