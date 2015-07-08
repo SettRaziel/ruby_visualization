@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Output - RDoc Documentation</title>
+<title>class DataSeries - RDoc Documentation</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
@@ -72,7 +72,7 @@
     
     <li ><a href="#method-c-new">::new</a>
     
-    <li ><a href="#method-i-print_data">#print_data</a>
+    <li ><a href="#method-i-add_data_set">#add_data_set</a>
     
   </ul>
 </div>
@@ -80,15 +80,16 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-Output">
-  <h1 id="class-Output" class="class">
-    class Output
+<main role="main" aria-labelledby="class-DataSeries">
+  <h1 id="class-DataSeries" class="class">
+    class DataSeries
   </h1>
 
   <section class="description">
     
-<p>Simple output for the terminal visualization @legend =&gt; color legend
-used for the output</p>
+<p>Class to represent a series of multiple data sets @min_value =&gt; minimal
+value of the data, initial = nil @max_value =&gt; maximal value of the
+data, initial = nil @series =&gt; array of data sets, initial empty</p>
 
   </section>
 
@@ -109,9 +110,35 @@ used for the output</p>
       </header>
 
       
-      <div id="attribute-i-legend" class="method-detail">
+      <div id="attribute-i-max_value" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">legend</span><span
+          <span class="method-name">max_value</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-min_value" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">min_value</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-series" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">series</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
@@ -136,7 +163,7 @@ used for the output</p>
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(data_set)</span>
+            class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -145,15 +172,18 @@ used for the output</p>
 
         <div class="method-description">
           
-          <p>Initialization with data set that should be visualized</p>
+          
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/output/output.rb, line 15</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">data_set</span>)
-    <span class="ruby-ivar">@legend</span> = <span class="ruby-constant">ColorLegend</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">data_set</span>.<span class="ruby-identifier">min_value</span>, <span class="ruby-identifier">data_set</span>.<span class="ruby-identifier">max_value</span>)
+            <pre><span class="ruby-comment"># File lib/data/data_series.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
+    <span class="ruby-ivar">@series</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>()
+
+    <span class="ruby-ivar">@min_value</span> = <span class="ruby-keyword">nil</span>
+    <span class="ruby-ivar">@max_value</span> = <span class="ruby-keyword">nil</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -173,11 +203,11 @@ used for the output</p>
        </header>
 
     
-      <div id="method-i-print_data" class="method-detail ">
+      <div id="method-i-add_data_set" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">print_data</span><span
-            class="method-args">(data_set, meta_data)</span>
+          <span class="method-name">add_data_set</span><span
+            class="method-args">(data_set)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -186,30 +216,23 @@ used for the output</p>
 
         <div class="method-description">
           
-          <p>Reversed the data to print it in the correct occurence</p>
+          <p>adds a data set to the array and checks if there are new maximum and
+minimum values</p>
           
           
 
           
-          <div class="method-source-code" id="print_data-source">
-            <pre><span class="ruby-comment"># File lib/output/output.rb, line 20</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">print_data</span>(<span class="ruby-identifier">data_set</span>, <span class="ruby-identifier">meta_data</span>)
-    <span class="ruby-identifier">reversed_data</span> = <span class="ruby-identifier">data_set</span>.<span class="ruby-identifier">data</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">to_h</span>
+          <div class="method-source-code" id="add_data_set-source">
+            <pre><span class="ruby-comment"># File lib/data/data_series.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_data_set</span>(<span class="ruby-identifier">data_set</span>)
+    <span class="ruby-ivar">@series</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">data_set</span>
 
-    <span class="ruby-identifier">reversed_data</span>.<span class="ruby-identifier">each_value</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;  &quot;</span>
-        <span class="ruby-identifier">row</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span> <span class="ruby-identifier">print</span> <span class="ruby-identifier">legend</span>.<span class="ruby-identifier">print_color_for_data</span>(<span class="ruby-identifier">value</span>) }
-        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;&quot;</span>
-    }
-
-    <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;\nY-axis with #{meta_data.domain_y.name} from &quot;</span>               <span class="ruby-node">&quot;#{meta_data.domain_y.lower}&quot;</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot; up to #{meta_data.domain_y.upper} and steprange&quot;</span>               <span class="ruby-node">&quot; #{meta_data.domain_y.step}.&quot;</span>
-    <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;X-axis with #{meta_data.domain_x.name} from &quot;</span>                <span class="ruby-node">&quot;#{meta_data.domain_x.lower}&quot;</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot; up to #{meta_data.domain_x.upper} and steprange&quot;</span>               <span class="ruby-node">&quot; #{meta_data.domain_x.step}.&quot;</span>
-
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Dataset: #{meta_data.name}&quot;</span>
-
-    <span class="ruby-identifier">legend</span>.<span class="ruby-identifier">print_color_legend</span>()
+    <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@min_value</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@min_value</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data_set</span>.<span class="ruby-identifier">min_value</span>)
+        <span class="ruby-ivar">@min_value</span> = <span class="ruby-identifier">data_set</span>.<span class="ruby-identifier">min_value</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@max_value</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@max_value</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">data_set</span>.<span class="ruby-identifier">max_value</span>)
+        <span class="ruby-ivar">@max_value</span> = <span class="ruby-identifier">data_set</span>.<span class="ruby-identifier">max_value</span>
+    <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

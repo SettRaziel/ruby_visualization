@@ -58,7 +58,7 @@
   <h3>Parent</h3>
 
   
-  <p class="link">Object
+  <p class="link"><a href="Object.html">Object</a>
   
 </div>
 
@@ -71,6 +71,10 @@
   <ul class="link-list" role="directory">
     
     <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-create_color_legend">#create_color_legend</a>
+    
+    <li ><a href="#method-i-create_output_string_for">#create_output_string_for</a>
     
     <li ><a href="#method-i-print_color_for_data">#print_color_for_data</a>
     
@@ -91,8 +95,10 @@
 
   <section class="description">
     
-<p>@Author: Benjamin Held @Date:   2015-05-30 13:34:57 @Last Modified by:  
-Benjamin Held @Last Modified time: 2015-05-31 13:32:06</p>
+<p>Class to color output field according to color in @value_legend
+@value_legend =&gt; color map for value interval @min_value =&gt; left
+interval value @max_value =&gt; right interval value @delta =&gt; steps
+between tow values</p>
 
   </section>
 
@@ -194,7 +200,7 @@ Benjamin Held @Last Modified time: 2015-05-31 13:32:06</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File terminal_vis/lib/graphics/color_legend.rb, line 9</span>
+            <pre><span class="ruby-comment"># File lib/graphics/color_legend.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">min_value</span>, <span class="ruby-identifier">max_value</span>)
     <span class="ruby-ivar">@min_value</span> = <span class="ruby-identifier">min_value</span>
     <span class="ruby-ivar">@max_value</span> = <span class="ruby-identifier">max_value</span>
@@ -231,13 +237,14 @@ Benjamin Held @Last Modified time: 2015-05-31 13:32:06</p>
 
         <div class="method-description">
           
-          
+          <p>creates output string for given value value =&gt; formatted <a
+href="String.html">String</a></p>
           
           
 
           
           <div class="method-source-code" id="print_color_for_data-source">
-            <pre><span class="ruby-comment"># File terminal_vis/lib/graphics/color_legend.rb, line 15</span>
+            <pre><span class="ruby-comment"># File lib/graphics/color_legend.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">print_color_for_data</span>(<span class="ruby-identifier">value</span>)
     <span class="ruby-identifier">create_output_string_for</span>(<span class="ruby-identifier">value</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -264,13 +271,13 @@ Benjamin Held @Last Modified time: 2015-05-31 13:32:06</p>
 
         <div class="method-description">
           
-          
+          <p>prints color legend with given colors</p>
           
           
 
           
           <div class="method-source-code" id="print_color_legend-source">
-            <pre><span class="ruby-comment"># File terminal_vis/lib/graphics/color_legend.rb, line 25</span>
+            <pre><span class="ruby-comment"># File lib/graphics/color_legend.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">print_color_legend</span>
     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Legend: #{min_value}; #{max_value}&quot;</span>
     <span class="ruby-ivar">@value_legend</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span> <span class="ruby-identifier">print</span> <span class="ruby-identifier">create_output_string_for</span>(<span class="ruby-identifier">value</span>) }
@@ -299,17 +306,104 @@ Benjamin Held @Last Modified time: 2015-05-31 13:32:06</p>
 
         <div class="method-description">
           
-          
+          <p>prints list of interval values</p>
           
           
 
           
           <div class="method-source-code" id="print_interval_borders-source">
-            <pre><span class="ruby-comment"># File terminal_vis/lib/graphics/color_legend.rb, line 19</span>
+            <pre><span class="ruby-comment"># File lib/graphics/color_legend.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">print_interval_borders</span>
     <span class="ruby-ivar">@value_legend</span>.<span class="ruby-identifier">each_index</span> {
         <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;value at #{i}: #{@value_legend[i]}&quot;</span>
     }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-create_color_legend" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_color_legend</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>creates color legend @min_value + i * delta =&gt; @<a
+href="i">value_legend</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="create_color_legend-source">
+            <pre><span class="ruby-comment"># File lib/graphics/color_legend.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_color_legend</span>
+    <span class="ruby-identifier">length</span> = <span class="ruby-value">6</span>
+    <span class="ruby-ivar">@value_legend</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">length</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>)
+    <span class="ruby-ivar">@delta</span> = (<span class="ruby-ivar">@max_value</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@min_value</span>.<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">abs</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">length</span>
+    <span class="ruby-ivar">@value_legend</span>.<span class="ruby-identifier">each_index</span> {
+        <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@value_legend</span>[<span class="ruby-identifier">i</span>] = <span class="ruby-ivar">@min_value</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">*</span> <span class="ruby-ivar">@delta</span>
+    }
+
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-create_output_string_for" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_output_string_for</span><span
+            class="method-args">(value)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>creates output string for a given value value =&gt; formatted <a
+href="String.html">String</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="create_output_string_for-source">
+            <pre><span class="ruby-comment"># File lib/graphics/color_legend.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_output_string_for</span>(<span class="ruby-identifier">value</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;oo&#39;</span>.<span class="ruby-identifier">blue_bg</span>.<span class="ruby-identifier">hide</span> <span class="ruby-keyword">if</span> (<span class="ruby-identifier">value</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-ivar">@value_legend</span>[<span class="ruby-value">1</span>])
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;oo&#39;</span>.<span class="ruby-identifier">cyan_bg</span>.<span class="ruby-identifier">hide</span> <span class="ruby-keyword">if</span> (<span class="ruby-identifier">value</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-ivar">@value_legend</span>[<span class="ruby-value">2</span>])
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;oo&#39;</span>.<span class="ruby-identifier">green_bg</span>.<span class="ruby-identifier">hide</span> <span class="ruby-keyword">if</span> (<span class="ruby-identifier">value</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-ivar">@value_legend</span>[<span class="ruby-value">3</span>])
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;oo&#39;</span>.<span class="ruby-identifier">yellow_bg</span>.<span class="ruby-identifier">hide</span> <span class="ruby-keyword">if</span> (<span class="ruby-identifier">value</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-ivar">@value_legend</span>[<span class="ruby-value">4</span>])
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;oo&#39;</span>.<span class="ruby-identifier">red_bg</span>.<span class="ruby-identifier">hide</span> <span class="ruby-keyword">if</span> (<span class="ruby-identifier">value</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-ivar">@value_legend</span>[<span class="ruby-value">5</span>])
+    <span class="ruby-string">&#39;oo&#39;</span>.<span class="ruby-identifier">magenta_bg</span>.<span class="ruby-identifier">hide</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

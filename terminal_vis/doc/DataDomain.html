@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class FileReader - RDoc Documentation</title>
+<title>class DataDomain - RDoc Documentation</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
@@ -78,15 +78,18 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-FileReader">
-  <h1 id="class-FileReader" class="class">
-    class FileReader
+<main role="main" aria-labelledby="class-DataDomain">
+  <h1 id="class-DataDomain" class="class">
+    class DataDomain
   </h1>
 
   <section class="description">
     
-<p>Simple file reader using the csv library to read a csv file requires csv
-raises IOError if csv throws an exception</p>
+<p><a href="DataDomain.html">DataDomain</a> represents the meta data for one
+dimension @name =&gt; name of the data @lower =&gt; lower boundary of the
+dimension @upper =&gt; upper boundary of the dimension @step =&gt; step
+range between two values raises ArgumentError if parsing of attribute
+values fails</p>
 
   </section>
 
@@ -107,9 +110,48 @@ raises IOError if csv throws an exception</p>
       </header>
 
       
-      <div id="attribute-i-data" class="method-detail">
+      <div id="attribute-i-lower" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">data</span><span
+          <span class="method-name">lower</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-name" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">name</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-step" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">step</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-upper" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">upper</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
@@ -134,7 +176,7 @@ raises IOError if csv throws an exception</p>
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(filename)</span>
+            class="method-args">(name, lower, upper, step)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -149,12 +191,15 @@ raises IOError if csv throws an exception</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/data/file_reader.rb, line 14</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">filename</span>)
+            <pre><span class="ruby-comment"># File lib/data/meta_data.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">lower</span>, <span class="ruby-identifier">upper</span>, <span class="ruby-identifier">step</span>)
+    <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>
     <span class="ruby-keyword">begin</span>
-        <span class="ruby-ivar">@data</span> = <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">filename</span>)
-    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">IOError</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-string">&quot;.&quot;</span>)
+        <span class="ruby-ivar">@lower</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">lower</span>)
+        <span class="ruby-ivar">@upper</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">upper</span>)
+        <span class="ruby-ivar">@step</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">step</span>)
+    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">ArgumentError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Error in data domain: non number argument.&quot;</span>
     <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
