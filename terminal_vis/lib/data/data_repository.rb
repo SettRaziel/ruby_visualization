@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-07 18:34:41
+# @Last Modified time: 2015-07-10 10:36:12
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -56,6 +56,8 @@ class DataRepository
         return meta_data
     end
 
+    # checks if all data sets in a data_series have the dimension specified
+    # in the meta_data information
     def check_data_completeness(meta_data)
         data_series = @repository[meta_data]
         number_value_x = Integer((meta_data.domain_x.upper - \
@@ -63,15 +65,16 @@ class DataRepository
         number_value_y = Integer((meta_data.domain_y.upper - \
                     meta_data.domain_y.lower) / meta_data.domain_y.step) + 1
 
-        data_series.series.each { |data_set|
+        data_series.series.each_with_index { |data_set, index|
             number_data_x = data_set.data[0].size
             number_data_y = data_set.data.size
 
             if (number_value_x != number_data_x ||
                 number_value_y != number_data_y)
-                puts "Warning: Size of one dataset does not match with " \
-                     "meta_data: #{number_value_x}, #{number_value_y} and " \
-                     "data_set: #{number_data_x}, #{number_data_y}."
+                puts "Warning: Size of dataset #{index + 1} does not match " \
+                     "with meta data information."
+                puts "  meta_data: #{number_value_x}, #{number_value_y}"
+                puts "  data_set: #{number_data_x}, #{number_data_y}"
             end
         }
     end
