@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-10 10:29:45
+# @Last Modified time: 2015-07-12 14:24:57
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -43,12 +43,26 @@ def apply_standard(filename)
     create_output(meta_data)
 end
 
-# creates output based on metadata and index
+# creates output based on metadata and parameters
 def create_output(meta_data)
-    index = get_and_check_index(meta_data)
+    if (@parameter_repository.parameters[:all])
+        data_series = @data_repository.repository[meta_data]
+        data_series.series.each_index { |index|
+            create_single_output_at_index(meta_data, index)
+            print "press Enter to continue ..."
+            # STDIN to read from console when providing parameters in ARGV
+            STDIN.gets.chomp
+        }
+    else
+        create_single_output_at_index(meta_data, get_and_check_index(meta_data))
+    end
+    @data_repository.check_data_completeness(meta_data)
+end
+
+# creates default output or output with an index using -i
+def create_single_output_at_index(meta_data, index)
     Output.new(@data_repository.repository[meta_data]).
     print_data(@data_repository.repository[meta_data].series[index], meta_data)
-    @data_repository.check_data_completeness(meta_data)
 end
 
 # checks if option -i was used, determines if a valid parameter was entered
