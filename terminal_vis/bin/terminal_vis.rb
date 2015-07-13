@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-12 14:24:57
+# @Last Modified time: 2015-07-13 14:43:23
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -48,15 +48,24 @@ def create_output(meta_data)
     if (@parameter_repository.parameters[:all])
         data_series = @data_repository.repository[meta_data]
         data_series.series.each_index { |index|
+            print_output_head(index, meta_data)
             create_single_output_at_index(meta_data, index)
             print "press Enter to continue ..."
             # STDIN to read from console when providing parameters in ARGV
             STDIN.gets.chomp
         }
     else
-        create_single_output_at_index(meta_data, get_and_check_index(meta_data))
+        index = get_and_check_index(meta_data)
+        print_output_head(index, meta_data)
+        create_single_output_at_index(meta_data, index)
     end
     @data_repository.check_data_completeness(meta_data)
+end
+
+def print_output_head(index, meta_data)
+    z_delta = index * meta_data.domain_z.step
+    puts "\nPrinting dataset for #{meta_data.domain_z.lower + z_delta}"
+    puts "\n"
 end
 
 # creates default output or output with an index using -i

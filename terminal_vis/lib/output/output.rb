@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-30 17:25:31
+# @Last Modified time: 2015-07-13 14:43:50
 
 require_relative '../data/data_set'
 require_relative '../graphics/color_legend'
@@ -26,6 +26,11 @@ class Output
             puts ""
         }
 
+        puts ""
+        legend.print_color_legend()
+
+        puts "\nDataset: #{meta_data.name}"
+
         print "\nY-axis with #{meta_data.domain_y.name} from " \
              "#{meta_data.domain_y.lower}"
         puts " up to #{meta_data.domain_y.upper} and steprange" \
@@ -34,9 +39,12 @@ class Output
               "#{meta_data.domain_x.lower}"
         puts " up to #{meta_data.domain_x.upper} and steprange" \
              " #{meta_data.domain_x.step}."
-
-        puts "Dataset: #{meta_data.name}"
-
-        legend.print_color_legend()
+        if (meta_data.domain_z != nil)
+            print "Z-axis with #{meta_data.domain_z.name} from " \
+              "#{meta_data.domain_z.lower}"
+            puts " up to #{meta_data.domain_z.upper} and steprange" \
+                 " #{meta_data.domain_z.step}."
+        end
+        puts "\n"
     end
 end
