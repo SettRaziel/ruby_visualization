@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-14 12:36:38
+# @Last Modified time: 2015-07-14 12:59:30
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -11,12 +11,15 @@ require_relative '../lib/parameter/parameter_repository'
 
 # call to print the help text
 def print_help
-    puts "TerminalVis help:"
+    puts "usage: ruby <script> [parameters] <filename>"
+    puts "\nTerminalVis help:"
     puts " -h, --help     show help text"
     puts " -v, --version  prints the current version of the project"
     puts " -m             process the file <filename> containing meta data"
     puts " -i <index>     shows the dataset at index, if index lies within" \
                           " [1,2, ..., number of datasets]"
+    puts " -a, --all      prints all possible datasets of a dataseries with " \
+                          "a pause between the output of every dataset."
     exit(0)
 end
 
