@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-13 14:43:23
+# @Last Modified time: 2015-07-14 12:36:38
 
 require_relative '../lib/graphics/string'
 require_relative '../lib/graphics/color_legend'
@@ -62,6 +62,8 @@ def create_output(meta_data)
     @data_repository.check_data_completeness(meta_data)
 end
 
+# creates a headline before printing the data set based on the values
+# of the z dimension
 def print_output_head(index, meta_data)
     z_delta = index * meta_data.domain_z.step
     puts "\nPrinting dataset for #{meta_data.domain_z.lower + z_delta}"
