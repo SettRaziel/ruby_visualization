@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-13 14:43:50
+# @Last Modified time: 2015-07-15 08:22:36
 
 require_relative '../data/data_set'
 require_relative '../graphics/color_legend'
@@ -17,7 +17,10 @@ class Output
     end
 
     # Reversed the data to print it in the correct occurence
-    def print_data(data_set, meta_data)
+    def print_data(data_set, index, meta_data)
+
+        print_output_head(index, meta_data)
+
         reversed_data = data_set.data.to_a.reverse.to_h
 
         reversed_data.each_value { |row|
@@ -45,6 +48,16 @@ class Output
             puts " up to #{meta_data.domain_z.upper} and steprange" \
                  " #{meta_data.domain_z.step}."
         end
+        puts "\n"
+    end
+
+    private
+
+    # creates a headline before printing the data set based on the values
+    # of the z dimension
+    def print_output_head(index, meta_data)
+        z_delta = index * meta_data.domain_z.step
+        puts "\nPrinting dataset for #{meta_data.domain_z.lower + z_delta}"
         puts "\n"
     end
 end
