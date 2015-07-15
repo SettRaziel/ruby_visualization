@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-10 10:36:12
+# @Last Modified time: 2015-07-15 08:09:59
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -44,7 +44,7 @@ class DataRepository
             meta_string = ["#{filename}", \
                            "X", 0, data_series.series[0].data[0].size - 1, 1, \
                            "Y", 0, data_series.series[0].data.size - 1, 1, \
-                           "Z", 0, data_series.series.size, 1]
+                           "Z", 1, data_series.series.size, 1]
         else
             meta_string = ["#{filename}", \
                             "X", 0, data_series.series[0].data[0].size - 1, 1, \
