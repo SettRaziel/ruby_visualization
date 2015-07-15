@@ -1,10 +1,9 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-15 08:24:22
+# @Last Modified time: 2015-07-15 08:48:54
 
 require_relative '../lib/graphics/string'
-require_relative '../lib/graphics/color_legend'
 require_relative '../lib/data/data_repository'
 require_relative '../lib/output/output'
 require_relative '../lib/parameter/parameter_repository'
