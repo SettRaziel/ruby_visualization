@@ -1,9 +1,10 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-16 12:31:08
+# @Last Modified time: 2015-07-17 13:09:26
 
 require_relative '../data/data_set'
+require_relative '../data/data_series'
 require_relative '../graphics/color_legend'
 
 # Simple output for the terminal visualization
@@ -12,8 +13,8 @@ class Output
     attr_reader :legend
 
     # Initialization with data set that should be visualized
-    def initialize(data_set)
-        @legend = ColorLegend.new(data_set.min_value, data_set.max_value)
+    def initialize(data_series)
+        @legend = ColorLegend.new(data_series.min_value, data_series.max_value)
     end
 
     # Reversed the data to print it in the correct occurence
@@ -34,6 +35,8 @@ class Output
         puts ""
         legend.print_color_legend()
 
+        puts "Dataset extreme values: %.3f; %.3f" %
+                                      [data_set.min_value, data_set.max_value]
         print_meta_information(meta_data)
 
         puts "\n"
@@ -46,19 +49,18 @@ class Output
     def print_meta_information(meta_data)
         puts "\nDataset: #{meta_data.name}"
 
-        print "\nX-axis with #{meta_data.domain_x.name} from " \
-              "#{meta_data.domain_x.lower}"
-        puts " up to #{meta_data.domain_x.upper} and steprange" \
-             " #{meta_data.domain_x.step}."
-        print "Y-axis with #{meta_data.domain_y.name} from " \
-             "#{meta_data.domain_y.lower}"
-        puts " up to #{meta_data.domain_y.upper} and steprange" \
-             " #{meta_data.domain_y.step}."
+        print "\nX-axis with #{meta_data.domain_x.name} from %.1f up to %.1f" %
+                            [meta_data.domain_x.lower, meta_data.domain_x.upper]
+        puts " and steprange %.1f." % meta_data.domain_x.step
+        print "Y-axis with #{meta_data.domain_y.name} from %.1f up to %.1f" %
+                            [meta_data.domain_y.lower, meta_data.domain_y.upper]
+        puts " and steprange %.1f." % meta_data.domain_y.step
+
         if (meta_data.domain_z != nil)
-            print "Z-axis with #{meta_data.domain_z.name} from " \
-              "#{meta_data.domain_z.lower}"
-            puts " up to #{meta_data.domain_z.upper} and steprange" \
-                 " #{meta_data.domain_z.step}."
+            print "Z-axis with #{meta_data.domain_z.name} from %.1f up to " %
+                             meta_data.domain_z.lower
+            puts "%.1f and steprange %.1f." %
+                            [meta_data.domain_z.upper, meta_data.domain_z.step]
         end
     end
 
@@ -66,7 +68,8 @@ class Output
     # of the z dimension
     def print_output_head(index, meta_data)
         z_delta = index * meta_data.domain_z.step
-        puts "\nPrinting dataset for #{meta_data.domain_z.lower + z_delta}"
+        puts "\nPrinting dataset for %.2f" %
+                    (meta_data.domain_z.lower + z_delta)
         puts "\n"
     end
 end
