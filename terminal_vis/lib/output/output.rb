@@ -1,8 +1,9 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-17 13:09:26
+# @Last Modified time: 2015-07-18 12:48:15
 
+require_relative '../graphics/string'
 require_relative '../data/data_set'
 require_relative '../data/data_series'
 require_relative '../graphics/color_legend'

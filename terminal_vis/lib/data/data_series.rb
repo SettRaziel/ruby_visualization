@@ -1,7 +1,9 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-22 15:49:04
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-23 17:21:20
+# @Last Modified time: 2015-07-18 12:50:30
+
+require_relative 'data_set'
 
 # Class to represent a series of multiple data sets
 # @min_value => minimal value of the data, initial = nil
