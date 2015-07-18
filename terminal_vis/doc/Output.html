@@ -136,7 +136,7 @@ used for the output</p>
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(data_set)</span>
+            class="method-args">(data_series)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -151,9 +151,9 @@ used for the output</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/output/output.rb, line 15</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">data_set</span>)
-    <span class="ruby-ivar">@legend</span> = <span class="ruby-constant">ColorLegend</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">data_set</span>.<span class="ruby-identifier">min_value</span>, <span class="ruby-identifier">data_set</span>.<span class="ruby-identifier">max_value</span>)
+            <pre><span class="ruby-comment"># File lib/output/output.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">data_series</span>)
+    <span class="ruby-ivar">@legend</span> = <span class="ruby-constant">ColorLegend</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">data_series</span>.<span class="ruby-identifier">min_value</span>, <span class="ruby-identifier">data_series</span>.<span class="ruby-identifier">max_value</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -177,7 +177,7 @@ used for the output</p>
         
         <div class="method-heading">
           <span class="method-name">print_data</span><span
-            class="method-args">(data_set, meta_data)</span>
+            class="method-args">(data_set, index, meta_data)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -192,8 +192,13 @@ used for the output</p>
 
           
           <div class="method-source-code" id="print_data-source">
-            <pre><span class="ruby-comment"># File lib/output/output.rb, line 20</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">print_data</span>(<span class="ruby-identifier">data_set</span>, <span class="ruby-identifier">meta_data</span>)
+            <pre><span class="ruby-comment"># File lib/output/output.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">print_data</span>(<span class="ruby-identifier">data_set</span>, <span class="ruby-identifier">index</span>, <span class="ruby-identifier">meta_data</span>)
+
+    <span class="ruby-identifier">print_output_head</span>(<span class="ruby-identifier">index</span>, <span class="ruby-identifier">meta_data</span>)
+
+    <span class="ruby-comment"># reverse the data to start with the highest y-value as the first</span>
+    <span class="ruby-comment"># output line</span>
     <span class="ruby-identifier">reversed_data</span> = <span class="ruby-identifier">data_set</span>.<span class="ruby-identifier">data</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">to_h</span>
 
     <span class="ruby-identifier">reversed_data</span>.<span class="ruby-identifier">each_value</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
@@ -202,14 +207,14 @@ used for the output</p>
         <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;&quot;</span>
     }
 
-    <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;\nY-axis with #{meta_data.domain_y.name} from &quot;</span>               <span class="ruby-node">&quot;#{meta_data.domain_y.lower}&quot;</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot; up to #{meta_data.domain_y.upper} and steprange&quot;</span>               <span class="ruby-node">&quot; #{meta_data.domain_y.step}.&quot;</span>
-    <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;X-axis with #{meta_data.domain_x.name} from &quot;</span>                <span class="ruby-node">&quot;#{meta_data.domain_x.lower}&quot;</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot; up to #{meta_data.domain_x.upper} and steprange&quot;</span>               <span class="ruby-node">&quot; #{meta_data.domain_x.step}.&quot;</span>
-
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Dataset: #{meta_data.name}&quot;</span>
-
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;&quot;</span>
     <span class="ruby-identifier">legend</span>.<span class="ruby-identifier">print_color_legend</span>()
+
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Dataset extreme values: %.3f; %.3f&quot;</span> <span class="ruby-operator">%</span>
+                                  [<span class="ruby-identifier">data_set</span>.<span class="ruby-identifier">min_value</span>, <span class="ruby-identifier">data_set</span>.<span class="ruby-identifier">max_value</span>]
+    <span class="ruby-identifier">print_meta_information</span>(<span class="ruby-identifier">meta_data</span>)
+
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;\n&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

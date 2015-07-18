@@ -74,8 +74,6 @@
     
     <li ><a href="#method-i-check_for_valid_filepath">#check_for_valid_filepath</a>
     
-    <li ><a href="#method-i-raise_invalid_parameter">#raise_invalid_parameter</a>
-    
   </ul>
 </div>
 
@@ -169,6 +167,7 @@ ArgumentError for an invalid combination of script parameters</p>
             <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;-v&#39;</span>, <span class="ruby-string">&#39;--version&#39;</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">parameters</span>[<span class="ruby-value">:version</span>] = <span class="ruby-keyword">true</span>
             <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;-m&#39;</span>              <span class="ruby-keyword">then</span> <span class="ruby-identifier">parameters</span>[<span class="ruby-value">:meta</span>] = <span class="ruby-keyword">true</span>
             <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;-i&#39;</span>              <span class="ruby-keyword">then</span> <span class="ruby-identifier">unflagged_arguments</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-value">:index</span>)
+            <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;-a&#39;</span>, <span class="ruby-string">&#39;--all&#39;</span>     <span class="ruby-keyword">then</span> <span class="ruby-identifier">parameters</span>[<span class="ruby-value">:all</span>] = <span class="ruby-keyword">true</span>
             <span class="ruby-keyword">when</span> <span class="ruby-regexp">/-[a-z]|--[a-z]+/</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">raise_invalid_parameter</span>(<span class="ruby-identifier">arg</span>)
         <span class="ruby-keyword">else</span>
             <span class="ruby-keyword">if</span> (<span class="ruby-identifier">arg_key</span> = <span class="ruby-identifier">unflagged_arguments</span>.<span class="ruby-identifier">shift</span>)
@@ -227,7 +226,7 @@ ArgumentError if filepath is not valid</p>
 
           
           <div class="method-source-code" id="check_for_valid_filepath-source">
-            <pre><span class="ruby-comment"># File lib/parameter/parameter_repository.rb, line 51</span>
+            <pre><span class="ruby-comment"># File lib/parameter/parameter_repository.rb, line 52</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">check_for_valid_filepath</span>
     <span class="ruby-identifier">filepath</span> = <span class="ruby-identifier">parameters</span>[<span class="ruby-value">:file</span>]
     <span class="ruby-identifier">unixfile_regex</span>= <span class="ruby-node">%r{
@@ -251,48 +250,6 @@ ArgumentError if filepath is not valid</p>
     <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span>(<span class="ruby-identifier">filepath</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">unixfile_regex</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">filepath</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">windowsfile_regex</span>))
         <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Error: invalid filepath: #{filepath}&quot;</span>
     <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-    </section>
-  
-     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
-       <header>
-         <h3>Private Instance Methods</h3>
-       </header>
-
-    
-      <div id="method-i-raise_invalid_parameter" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">raise_invalid_parameter</span><span
-            class="method-args">(arg)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>error message in the case of an invalid argument raises Argument Error if
-an invalid argument is provided</p>
-          
-          
-
-          
-          <div class="method-source-code" id="raise_invalid_parameter-source">
-            <pre><span class="ruby-comment"># File lib/parameter/parameter_repository.rb, line 80</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">raise_invalid_parameter</span>(<span class="ruby-identifier">arg</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Error: invalid argument: #{arg}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
