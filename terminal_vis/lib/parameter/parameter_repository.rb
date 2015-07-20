@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-20 12:33:06
+# @Last Modified time: 2015-07-20 12:45:32
 
 # Parameter repository storing the valid parameter of the script
 # @parameters => Hash of valid parameters and their values
@@ -9,6 +9,8 @@
 class ParameterRepository
     attr_reader :parameters
 
+    # initialize
+    # argv => Array of input parameters
     # raises ArgumentError if parameters occur after reading the filepath
     # raises ArgumentError for an invalid combination of script parameters
     def initialize(argv)
@@ -50,6 +52,7 @@ class ParameterRepository
     private
 
     # error message in the case of an invalid argument
+    # arg => invalid parameter string
     # raises Argument Error if an invalid argument is provided
     def raise_invalid_parameter(arg)
         raise ArgumentError, "Error: invalid argument: #{arg}"
