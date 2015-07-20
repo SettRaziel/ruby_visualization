@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-10 10:25:32
+# @Last Modified time: 2015-07-20 12:33:06
 
 # Parameter repository storing the valid parameter of the script
 # @parameters => Hash of valid parameters and their values
@@ -44,33 +44,6 @@ class ParameterRepository
         if (unflagged_arguments.size > 0 &&
             !(@parameters[:help] || @parameters[:version]))
             raise ArgumentError, "Error: invalid combination of parameters."
-        end
-    end
-
-    # checks if the parsed filename is a valid unix or windows file name
-    # raises ArgumentError if filepath is not valid
-    def check_for_valid_filepath
-        filepath = parameters[:file]
-        unixfile_regex= %r{
-            \A                       # start of string
-            ((\.\/)|(\.\.\/)+|(\/))? # relativ path or upwards or absolute
-            ([\-\w\s]+\/)*           # 0-n subsirectories
-            [\-\w\s]*[a-zA-Z0-9]     # filename
-            (\.[a-zA-Z0-9]+)?        # extension
-            \z                       # end of string
-        }x
-
-        windowsfile_regex = %r{
-            \A                      # start of string
-            ([A-Z]:)?\\?            # device name
-            ([\-\w\s]+\\)*          # directories
-            [\-\w\s]*[a-zA-Z0-9]    # filename
-            (\.[a-zA-Z0-9]+)?       # extension
-            \z                      # end of string
-        }x
-
-        if (!(filepath =~ unixfile_regex || filepath =~ windowsfile_regex))
-            raise ArgumentError, "Error: invalid filepath: #{filepath}"
         end
     end
 

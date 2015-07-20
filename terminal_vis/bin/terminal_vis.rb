@@ -1,12 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-19 10:10:47
+# @Last Modified time: 2015-07-20 11:54:25
 
 
 require_relative '../lib/data/data_repository'
 require_relative '../lib/output/output'
-require_relative '../lib/parameter/parameter_repository'
+require_relative '../lib/parameter/parameter_handler'
 
 # call to print the help text
 def print_help
@@ -47,7 +47,7 @@ end
 
 # creates output based on metadata and parameters
 def create_output(meta_data)
-    if (@parameter_repository.parameters[:all])
+    if (@parameter_handler.repository.parameters[:all])
         data_series = @data_repository.repository[meta_data]
         data_series.series.each_index { |index|
             create_single_output_at_index(meta_data, index)
@@ -74,19 +74,20 @@ end
 # default return is 0
 def get_and_check_index(meta_data)
     index = 0   # default data set if -i not set or only one data set
-    if (@parameter_repository.parameters[:index])
+    if (@parameter_handler.repository.parameters[:index])
         begin   # make sure that parameter of -i is an integer
-            index = Integer(@parameter_repository.parameters[:index]) - 1
+            index =
+                   Integer(@parameter_handler.repository.parameters[:index]) - 1
         rescue ArgumentError
             message = "ArgumentError: argument of -i is not a number:" \
-                      "#{@parameter_repository.parameters[:index]}"
+                      "#{@parameter_handler.repository.parameters[:index]}"
             print_error(message)
         end
 
         # check if provided integer index lies in range of dataseries
         if (index < 0 ||
             index >= @data_repository.repository[meta_data].series.size)
-            text_index = @parameter_repository.parameters[:index]
+            text_index = @parameter_handler.repository.parameters[:index]
             data_size = @data_repository.repository[meta_data].series.size
             message = "Error: input #{text_index} for -i is not valid" \
                       " for dataset with length #{data_size}"
@@ -121,17 +122,15 @@ if (ARGV.length < 1)
 end
 
 begin
-    @parameter_repository = ParameterRepository.new(ARGV)
+    @parameter_handler = ParameterHandler.new(ARGV)
     @data_repository = DataRepository.new()
-    print_version() if (@parameter_repository.parameters[:version])
-    print_help() if (@parameter_repository.parameters[:help])
+    print_version() if (@parameter_handler.repository.parameters[:version])
+    print_help() if (@parameter_handler.repository.parameters[:help])
 
-    @parameter_repository.check_for_valid_filepath()
-
-    if (!@parameter_repository.parameters[:meta])
-        apply_standard(@parameter_repository.parameters[:file])
+    if (!@parameter_handler.repository.parameters[:meta])
+        apply_standard(@parameter_handler.repository.parameters[:file])
     else
-        apply_m(@parameter_repository.parameters[:file])
+        apply_m(@parameter_handler.repository.parameters[:file])
     end
 rescue ArgumentError => e
     print_error(e.message)
