@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-20 11:54:25
+# @Last Modified time: 2015-07-21 12:08:35
 
 
 require_relative '../lib/data/data_repository'
@@ -15,10 +15,11 @@ def print_help
     puts " -h, --help     show help text"
     puts " -v, --version  prints the current version of the project"
     puts " -m             process the file <filename> containing meta data"
-    puts " -i <index>     shows the dataset at index, if index lies within" \
-                          " [1,2, ..., number of datasets]"
+    puts " -i <index>     shows the dataset at index, if index lies within " \
+                          "[1,2, ..., number of datasets], excludes -a, --all."
     puts " -a, --all      prints all possible datasets of a dataseries with " \
-                          "a pause between the output of every dataset."
+                          "a pause between the output of every dataset, " \
+                          "excludes -i".
     exit(0)
 end
 
@@ -89,7 +90,7 @@ def get_and_check_index(meta_data)
             index >= @data_repository.repository[meta_data].series.size)
             text_index = @parameter_handler.repository.parameters[:index]
             data_size = @data_repository.repository[meta_data].series.size
-            message = "Error: input #{text_index} for -i is not valid" \
+            message = " Error: input #{text_index} for -i is not valid" \
                       " for dataset with length #{data_size}"
             print_error(message)
         end
