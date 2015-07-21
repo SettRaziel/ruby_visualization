@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-20 12:32:36
+# @Last Modified time: 2015-07-21 12:01:03
 
 require_relative 'parameter_repository'
 
@@ -25,6 +25,7 @@ class ParameterHandler
     # private method with calls of the different validations methods
     def validate_parameters
         check_for_valid_filepath()
+        check_occurence_of_a_and_i()
     end
 
     # checks if the parsed filename is a valid unix or windows file name
@@ -51,6 +52,16 @@ class ParameterHandler
 
         if (!(filepath =~ unixfile_regex || filepath =~ windowsfile_regex))
             raise ArgumentError, "Error: invalid filepath: #{filepath}"
+        end
+    end
+
+    # check if both parameters -a, --all and -i are given as parameters, which
+    # are disjunct in their functionality
+    # raises ArgumentError if both parameters are set
+    def check_occurence_of_a_and_i
+        if (repository.parameters[:all] && repository.parameters[:index])
+            raise ArgumentError,
+                             "Error: parameters -a and -i secludes themselves"
         end
     end
 end
