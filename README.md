@@ -11,9 +11,9 @@ parameters:
 -v, --version  prints the current version of the project
 -m             process the file <filename> containing meta data
 -i <index>     shows the dataset at index, if index lies within
-               [1,2, ..., number of datasets]
+               [1,2, ..., number of datasets], excludes -a, --all
 -a, --all      prints all possible datasets of a dataseries with
-               a pause between the output of every dataset.
+               a pause between the output of every dataset, excludes -i.
 ```
 
 ##Meta data format (in single line):

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-21 12:08:35
+# @Last Modified time: 2015-07-22 10:40:48
 
 
 require_relative '../lib/data/data_repository'
@@ -16,7 +16,7 @@ def print_help
     puts " -v, --version  prints the current version of the project"
     puts " -m             process the file <filename> containing meta data"
     puts " -i <index>     shows the dataset at index, if index lies within " \
-                          "[1,2, ..., number of datasets], excludes -a, --all."
+                          "[1,2, ..., number of datasets], excludes -a, --all"
     puts " -a, --all      prints all possible datasets of a dataseries with " \
                           "a pause between the output of every dataset, " \
                           "excludes -i".
