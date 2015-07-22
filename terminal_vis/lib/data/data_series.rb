@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-22 15:49:04
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-18 12:50:30
+# @Last Modified time: 2015-07-22 11:21:17
 
 require_relative 'data_set'
 
@@ -12,6 +12,9 @@ require_relative 'data_set'
 class DataSeries
     attr_reader :min_value, :max_value, :series
 
+    # initialization
+    # min_value and max_value are initialized with nil because no extreme
+    # values ae determined at this moment
     def initialize
         @series = Array.new()
 

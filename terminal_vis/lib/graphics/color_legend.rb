@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-30 13:34:57
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-17 12:56:15
+# @Last Modified time: 2015-07-22 11:25:17
 
 # Class to color output field according to color in @value_legend
 # @value_legend => color map for value interval
@@ -11,6 +11,7 @@
 class ColorLegend
     attr_reader :value_legend, :min_value, :max_value, :delta
 
+    # initialization
     def initialize(min_value, max_value)
         @min_value = min_value
         @max_value = max_value

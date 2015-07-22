@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-15 08:09:59
+# @Last Modified time: 2015-07-22 11:21:35
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -14,6 +14,9 @@ require_relative 'meta_data'
 class DataRepository
     attr_reader :repository
 
+    # initialization
+    # filename => filepath, default: nil
+    # key => key for the data series, default: nil
     def initialize(filename = nil,key = nil)
         @repository = Hash.new()
         add_data(filename) if (key == nil && filename != nil)
@@ -124,4 +127,5 @@ class DataRepository
                      " Overwriting..."
         end
     end
+
 end

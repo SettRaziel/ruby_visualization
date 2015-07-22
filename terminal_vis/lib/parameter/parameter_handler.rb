@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-21 12:01:03
+# @Last Modified time: 2015-07-22 11:20:07
 
 require_relative 'parameter_repository'
 
@@ -64,4 +64,5 @@ class ParameterHandler
                              "Error: parameters -a and -i secludes themselves"
         end
     end
+
 end

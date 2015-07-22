@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:41:25
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-06-18 17:06:43
+# @Last Modified time: 2015-07-22 11:23:02
 
 # Class to represent a two dimensional data set
 # @min_value => minimal value of the data
@@ -10,6 +10,8 @@
 class DataSet
     attr_reader :min_value, :max_value, :data
 
+    # initialization
+    # raw_data => unformatted lines with data
     def initialize(raw_data)
         @data = Hash.new()
         process_data(raw_data)
@@ -48,4 +50,5 @@ class DataSet
             }
         }
     end
+
 end
