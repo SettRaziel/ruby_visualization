@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-22 15:49:04
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-22 11:21:17
+# @Last Modified time: 2015-07-23 09:07:17
 
 require_relative 'data_set'
 
@@ -14,7 +14,7 @@ class DataSeries
 
     # initialization
     # min_value and max_value are initialized with nil because no extreme
-    # values ae determined at this moment
+    # values are not necessarily present at this moment
     def initialize
         @series = Array.new()
 
