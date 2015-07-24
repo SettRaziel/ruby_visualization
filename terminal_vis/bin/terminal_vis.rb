@@ -1,11 +1,11 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-22 10:40:48
+# @Last Modified time: 2015-07-23 09:13:42
 
 
 require_relative '../lib/data/data_repository'
-require_relative '../lib/output/output'
+require_relative '../lib/output/data_output'
 require_relative '../lib/parameter/parameter_handler'
 
 # call to print the help text
@@ -65,7 +65,7 @@ end
 
 # creates default output or output with an index using -i
 def create_single_output_at_index(meta_data, index)
-    Output.new(@data_repository.repository[meta_data]).
+    DataOutput.new(@data_repository.repository[meta_data]).
     print_data(@data_repository.repository[meta_data].series[index],
                index, meta_data)
 end

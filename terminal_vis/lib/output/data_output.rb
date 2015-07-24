@@ -1,16 +1,16 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-22 11:40:04
+# @Last Modified time: 2015-07-24 11:08:16
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
 require_relative '../data/data_series'
 require_relative '../graphics/color_legend'
 
-# Simple output for the terminal visualization
+# Simple data output for the terminal visualization
 # @legend => color legend used for the output
-class Output
+class DataOutput
     attr_reader :legend
 
     # Initialization with data set that should be visualized
