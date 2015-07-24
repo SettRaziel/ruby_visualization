@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-23 09:13:42
+# @Last Modified time: 2015-07-24 11:24:39
 
 
 require_relative '../lib/data/data_repository'
@@ -65,9 +65,8 @@ end
 
 # creates default output or output with an index using -i
 def create_single_output_at_index(meta_data, index)
-    DataOutput.new(@data_repository.repository[meta_data]).
-    print_data(@data_repository.repository[meta_data].series[index],
-               index, meta_data)
+    DataOutput.print_data(@data_repository.repository[meta_data],
+                          index, meta_data)
 end
 
 # checks if option -i was used, determines if a valid parameter was entered

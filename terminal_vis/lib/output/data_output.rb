@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-24 11:08:16
+# @Last Modified time: 2015-07-24 11:38:43
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -9,18 +9,13 @@ require_relative '../data/data_series'
 require_relative '../graphics/color_legend'
 
 # Simple data output for the terminal visualization
-# @legend => color legend used for the output
 class DataOutput
-    attr_reader :legend
-
-    # Initialization with data set that should be visualized
-    def initialize(data_series)
-        @legend = ColorLegend.new(data_series.min_value, data_series.max_value)
-    end
 
     # Reversed the data to print it in the correct occurence
-    def print_data(data_set, index, meta_data)
+    def self.print_data(data_series, index, meta_data)
 
+        data_set = data_series.series[index]
+        legend = ColorLegend.new(data_series.min_value, data_series.max_value)
         print_output_head(index, meta_data)
 
         # reverse the data to start with the highest y-value as the first
@@ -47,7 +42,7 @@ class DataOutput
 
     # prints the meta information consisting of dataset name and informations
     # of the different dimensions
-    def print_meta_information(meta_data)
+    def self.print_meta_information(meta_data)
         puts "\nDataset: #{meta_data.name}"
 
         print "\nX-axis with #{meta_data.domain_x.name} from %.1f up to %.1f" %
@@ -67,10 +62,11 @@ class DataOutput
 
     # creates a headline before printing the data set based on the values
     # of the z dimension
-    def print_output_head(index, meta_data)
+    def self.print_output_head(index, meta_data)
         z_delta = index * meta_data.domain_z.step
         puts "\nPrinting dataset for %.2f" %
                     (meta_data.domain_z.lower + z_delta)
         puts "\n"
     end
+
 end
