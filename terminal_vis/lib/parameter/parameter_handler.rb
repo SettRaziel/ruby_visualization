@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-22 11:20:07
+# @Last Modified time: 2015-07-25 12:31:03
 
 require_relative 'parameter_repository'
 
@@ -24,7 +24,7 @@ class ParameterHandler
 
     # private method with calls of the different validations methods
     def validate_parameters
-        check_for_valid_filepath()
+        check_for_valid_filepath() if (repository.parameters[:file])
         check_occurence_of_a_and_i()
     end
 
