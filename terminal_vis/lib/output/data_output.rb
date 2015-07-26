@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-24 11:38:43
+# @Last Modified time: 2015-07-26 13:27:28
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -11,7 +11,7 @@ require_relative '../graphics/color_legend'
 # Simple data output for the terminal visualization
 class DataOutput
 
-    # Reversed the data to print it in the correct occurence
+    # reverses the data to print it in the correct occurence
     def self.print_data(data_series, index, meta_data)
 
         data_set = data_series.series[index]
