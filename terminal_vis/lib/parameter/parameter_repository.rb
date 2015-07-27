@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-22 11:19:59
+# @Last Modified time: 2015-07-27 14:42:11
 
 # Parameter repository storing the valid parameter of the script
 # @parameters => Hash of valid parameters and their values
@@ -23,10 +23,19 @@ class ParameterRepository
             end
 
             case arg
-                when '-h', '--help'    then parameters[:help] = true
+                when '-h', '--help'
+                    if(parameters.keys.last != nil)
+                        # help in context to a parameter
+                        parameters[:help] = parameters.keys.last
+                    else
+                        # help without parameter => global help
+                        parameters[:help] = true
+                    end
                 when '-v', '--version' then parameters[:version] = true
                 when '-m'              then parameters[:meta] = true
-                when '-i'              then unflagged_arguments.unshift(:index)
+                when '-i'
+                    parameters[:index] = true
+                    unflagged_arguments.unshift(:index)
                 when '-a', '--all'     then parameters[:all] = true
                 when /-[a-z]|--[a-z]+/ then raise_invalid_parameter(arg)
             else

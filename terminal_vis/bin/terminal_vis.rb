@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-25 12:23:34
+# @Last Modified time: 2015-07-27 14:32:27
 
 
 require_relative '../lib/data/data_repository'
@@ -11,7 +11,7 @@ require_relative '../lib/parameter/parameter_handler'
 
 # call to print the help text
 def print_help
-    HelpOutput.print_help()
+    HelpOutput.print_help_for(@parameter_handler.repository.parameters[:help])
     exit(0)
 end
 
@@ -116,8 +116,8 @@ end
 begin
     @parameter_handler = ParameterHandler.new(ARGV)
     @data_repository = DataRepository.new()
-    print_version() if (@parameter_handler.repository.parameters[:version])
     print_help() if (@parameter_handler.repository.parameters[:help])
+    print_version() if (@parameter_handler.repository.parameters[:version])
 
     if (!@parameter_handler.repository.parameters[:meta])
         apply_standard(@parameter_handler.repository.parameters[:file])
