@@ -6,6 +6,7 @@ bottom line in the visualized output.
 ## Usage
 ```
 usage: ruby terminal_vis.rb [parameter] <filename>
+help usage : ruby terminal_vis.rb [parameter]  (-h | --help)
 parameters:
 -h, --help     show help text
 -v, --version  prints the current version of the project
