@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-05 12:16:01
+# @Last Modified time: 2015-07-29 08:55:17
 
 # MetaData stores meta information about the data set
 # two dimensional data set =>
@@ -19,6 +19,7 @@
 class MetaData
     attr_reader :name, :domain_x, :domain_y, :domain_z
 
+    # initialization
     # raises IndexError when parameter metadata has not the correct size
     def initialize(metadata)
 
@@ -51,6 +52,8 @@ end
 class DataDomain
     attr_reader :name, :lower, :upper, :step
 
+    # initialization
+    # raises ArgumentError when one of the parameters is not a number
     def initialize(name, lower, upper, step)
         @name = name
         begin

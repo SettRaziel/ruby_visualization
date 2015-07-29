@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-30 08:57:40
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-22 11:25:57
+# @Last Modified time: 2015-07-29 09:02:36
 
 # Class to modify a String in color and typo
 class String
@@ -31,6 +31,7 @@ class String
         "\033[5m#{self}\033[0m"
     end
 
+    # String => exchanged grounds
     def exchange_grounds
         "\033[7m#{self}\033[0m"
     end
