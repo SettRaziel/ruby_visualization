@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-27 14:32:27
+# @Last Modified time: 2015-07-29 09:42:25
 
 
 require_relative '../lib/data/data_repository'
@@ -17,7 +17,7 @@ end
 
 # call to print version number and author
 def print_version
-    puts "terminal_visualization version 0.3"
+    puts "terminal_visualization version 0.3.1"
     puts "Created by Benjamin Held (June 2015)"
     exit(0)
 end
@@ -99,7 +99,7 @@ end
 
 #-------------------------------------------------------------------------------
 # Terminal Visualization Script
-# Version 0.3
+# Version 0.3.1
 # created by Benjamin Held, June 2015
 begin
   require 'Win32/Console/ANSI' if RUBY_PLATFORM =~ /win32/
