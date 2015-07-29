@@ -185,13 +185,14 @@ values fails</p>
 
         <div class="method-description">
           
-          
+          <p>initialization raises ArgumentError when one of the parameters is not a
+number</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/data/meta_data.rb, line 54</span>
+            <pre><span class="ruby-comment"># File lib/data/meta_data.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">lower</span>, <span class="ruby-identifier">upper</span>, <span class="ruby-identifier">step</span>)
     <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>
     <span class="ruby-keyword">begin</span>

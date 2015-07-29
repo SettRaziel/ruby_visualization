@@ -150,13 +150,14 @@ series</p>
 
         <div class="method-description">
           
-          
+          <p>initialization filename =&gt; filepath, default: nil key =&gt; key for the
+data series, default: nil</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/data/data_repository.rb, line 17</span>
+            <pre><span class="ruby-comment"># File lib/data/data_repository.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">filename</span> = <span class="ruby-keyword">nil</span>,<span class="ruby-identifier">key</span> = <span class="ruby-keyword">nil</span>)
     <span class="ruby-ivar">@repository</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>()
     <span class="ruby-identifier">add_data</span>(<span class="ruby-identifier">filename</span>) <span class="ruby-keyword">if</span> (<span class="ruby-identifier">key</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">filename</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>)
@@ -203,7 +204,7 @@ series</p>
 
           
           <div class="method-source-code" id="add_data-source">
-            <pre><span class="ruby-comment"># File lib/data/data_repository.rb, line 28</span>
+            <pre><span class="ruby-comment"># File lib/data/data_repository.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">add_data</span>(<span class="ruby-identifier">filename</span>)
     <span class="ruby-ivar">@data</span> = <span class="ruby-identifier">read_file</span>(<span class="ruby-identifier">filename</span>)
     <span class="ruby-identifier">meta_data</span> = <span class="ruby-identifier">check_for_metadata</span>()
@@ -242,7 +243,7 @@ information</p>
 
           
           <div class="method-source-code" id="add_data_with_default_meta-source">
-            <pre><span class="ruby-comment"># File lib/data/data_repository.rb, line 39</span>
+            <pre><span class="ruby-comment"># File lib/data/data_repository.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">add_data_with_default_meta</span>(<span class="ruby-identifier">filename</span>)
     <span class="ruby-ivar">@data</span> = <span class="ruby-identifier">read_file</span>(<span class="ruby-identifier">filename</span>)
     <span class="ruby-identifier">data_series</span> = <span class="ruby-identifier">create_dataset</span>()
@@ -287,7 +288,7 @@ the meta_data information</p>
 
           
           <div class="method-source-code" id="check_data_completeness-source">
-            <pre><span class="ruby-comment"># File lib/data/data_repository.rb, line 61</span>
+            <pre><span class="ruby-comment"># File lib/data/data_repository.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">check_data_completeness</span>(<span class="ruby-identifier">meta_data</span>)
     <span class="ruby-identifier">data_series</span> = <span class="ruby-ivar">@repository</span>[<span class="ruby-identifier">meta_data</span>]
     <span class="ruby-identifier">number_value_x</span> = <span class="ruby-constant">Integer</span>((<span class="ruby-identifier">meta_data</span>.<span class="ruby-identifier">domain_x</span>.<span class="ruby-identifier">upper</span> <span class="ruby-operator">-</span>                      <span class="ruby-identifier">meta_data</span>.<span class="ruby-identifier">domain_x</span>.<span class="ruby-identifier">lower</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">meta_data</span>.<span class="ruby-identifier">domain_x</span>.<span class="ruby-identifier">step</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>

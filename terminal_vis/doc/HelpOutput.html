@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class DataSet - RDoc Documentation</title>
+<title>class HelpOutput - RDoc Documentation</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
@@ -70,7 +70,7 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-c-new">::new</a>
+    <li ><a href="#method-c-print_help_for">::print_help_for</a>
     
   </ul>
 </div>
@@ -78,16 +78,14 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-DataSet">
-  <h1 id="class-DataSet" class="class">
-    class DataSet
+<main role="main" aria-labelledby="class-HelpOutput">
+  <h1 id="class-HelpOutput" class="class">
+    class HelpOutput
   </h1>
 
   <section class="description">
     
-<p>Class to represent a two dimensional data set @min_value =&gt; minimal
-value of the data @max_value =&gt; maximal value of the data @data =&gt;
-the data</p>
+<p>Output class for help text</p>
 
   </section>
 
@@ -102,53 +100,6 @@ the data</p>
     
 
     
-    <section class="attribute-method-details" class="method-section">
-      <header>
-        <h3>Attributes</h3>
-      </header>
-
-      
-      <div id="attribute-i-data" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">data</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-max_value" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">max_value</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-min_value" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">min_value</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-    </section>
-    
 
     
      <section id="public-class-5Buntitled-5D-method-details" class="method-section">
@@ -157,11 +108,11 @@ the data</p>
        </header>
 
     
-      <div id="method-c-new" class="method-detail ">
+      <div id="method-c-print_help_for" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(raw_data)</span>
+          <span class="method-name">print_help_for</span><span
+            class="method-args">(parameter)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -170,16 +121,23 @@ the data</p>
 
         <div class="method-description">
           
-          <p>initialization raw_data =&gt; unformatted lines with data</p>
+          <p>method to print the help text for the given parameter raises ArgumentError
+when a non existent parameter is provided</p>
           
           
 
           
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/data/data_set.rb, line 15</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">raw_data</span>)
-    <span class="ruby-ivar">@data</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>()
-    <span class="ruby-identifier">process_data</span>(<span class="ruby-identifier">raw_data</span>)
+          <div class="method-source-code" id="print_help_for-source">
+            <pre><span class="ruby-comment"># File lib/output/help_output.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">print_help_for</span>(<span class="ruby-identifier">parameter</span>)
+    <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@parameters</span>[<span class="ruby-identifier">parameter</span>])
+        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;TerminalVis help:&quot;</span>.<span class="ruby-identifier">yellow</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@parameters</span>[<span class="ruby-identifier">parameter</span>]
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">parameter</span>)
+        <span class="ruby-identifier">print_help</span>
+    <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;help entry for #{parameter} does not exist&quot;</span>
+    <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

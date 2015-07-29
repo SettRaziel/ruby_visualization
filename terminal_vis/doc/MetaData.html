@@ -196,13 +196,14 @@ raises IndexError when parameter metadata has not the correct size</p>
 
         <div class="method-description">
           
-          <p>raises IndexError when parameter metadata has not the correct size</p>
+          <p>initialization raises IndexError when parameter metadata has not the
+correct size</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/data/meta_data.rb, line 23</span>
+            <pre><span class="ruby-comment"># File lib/data/meta_data.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">metadata</span>)
 
     <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>(<span class="ruby-identifier">metadata</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">13</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">metadata</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">9</span>)

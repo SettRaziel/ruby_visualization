@@ -190,14 +190,20 @@ between tow values</p>
 
         <div class="method-description">
           
-          
+          <p>initialization constraint: <a
+href="ColorLegend.html#attribute-i-max_value">#max_value</a> &gt; <a
+href="ColorLegend.html#attribute-i-min_value">#min_value</a></p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/graphics/color_legend.rb, line 14</span>
+            <pre><span class="ruby-comment"># File lib/graphics/color_legend.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">min_value</span>, <span class="ruby-identifier">max_value</span>)
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">max_value</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">min_value</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>,
+              <span class="ruby-string">&quot;Error in ColorLegend: max_value &lt;= min_value\n&quot;</span>
+    <span class="ruby-keyword">end</span>
     <span class="ruby-ivar">@min_value</span> = <span class="ruby-identifier">min_value</span>
     <span class="ruby-ivar">@max_value</span> = <span class="ruby-identifier">max_value</span>
     <span class="ruby-identifier">create_color_legend</span>()
@@ -240,7 +246,7 @@ href="String.html">String</a></p>
 
           
           <div class="method-source-code" id="print_color_for_data-source">
-            <pre><span class="ruby-comment"># File lib/graphics/color_legend.rb, line 22</span>
+            <pre><span class="ruby-comment"># File lib/graphics/color_legend.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">print_color_for_data</span>(<span class="ruby-identifier">value</span>)
     <span class="ruby-identifier">create_output_string_for</span>(<span class="ruby-identifier">value</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -273,7 +279,7 @@ href="String.html">String</a></p>
 
           
           <div class="method-source-code" id="print_color_legend-source">
-            <pre><span class="ruby-comment"># File lib/graphics/color_legend.rb, line 34</span>
+            <pre><span class="ruby-comment"># File lib/graphics/color_legend.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">print_color_legend</span>
     <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Legend: %.3f; ; %.3f delta = %.3f&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">min_value</span>, <span class="ruby-identifier">max_value</span>, <span class="ruby-identifier">delta</span>]
     <span class="ruby-ivar">@value_legend</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span> <span class="ruby-identifier">print</span> <span class="ruby-identifier">create_output_string_for</span>(<span class="ruby-identifier">value</span>) }
@@ -308,7 +314,7 @@ href="String.html">String</a></p>
 
           
           <div class="method-source-code" id="print_interval_borders-source">
-            <pre><span class="ruby-comment"># File lib/graphics/color_legend.rb, line 27</span>
+            <pre><span class="ruby-comment"># File lib/graphics/color_legend.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">print_interval_borders</span>
     <span class="ruby-ivar">@value_legend</span>.<span class="ruby-identifier">each_index</span> {
         <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;value at #{i}: #{@value_legend[i]}&quot;</span>

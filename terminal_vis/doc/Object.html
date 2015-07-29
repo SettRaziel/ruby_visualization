@@ -139,7 +139,7 @@
 
           
           <div class="method-source-code" id="apply_m-source">
-            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 33</span>
+            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">apply_m</span>(<span class="ruby-identifier">filename</span>)
     <span class="ruby-keyword">begin</span>
         <span class="ruby-identifier">meta_data</span> = <span class="ruby-ivar">@data_repository</span>.<span class="ruby-identifier">add_data</span>(<span class="ruby-identifier">filename</span>)
@@ -177,7 +177,7 @@
 
           
           <div class="method-source-code" id="apply_standard-source">
-            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 43</span>
+            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">apply_standard</span>(<span class="ruby-identifier">filename</span>)
     <span class="ruby-identifier">meta_data</span> = <span class="ruby-ivar">@data_repository</span>.<span class="ruby-identifier">add_data_with_default_meta</span>(<span class="ruby-identifier">filename</span>)
     <span class="ruby-identifier">create_output</span>(<span class="ruby-identifier">meta_data</span>)
@@ -211,9 +211,9 @@
 
           
           <div class="method-source-code" id="create_output-source">
-            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 49</span>
+            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create_output</span>(<span class="ruby-identifier">meta_data</span>)
-    <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@parameter_repository</span>.<span class="ruby-identifier">parameters</span>[<span class="ruby-value">:all</span>])
+    <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@parameter_handler</span>.<span class="ruby-identifier">repository</span>.<span class="ruby-identifier">parameters</span>[<span class="ruby-value">:all</span>])
         <span class="ruby-identifier">data_series</span> = <span class="ruby-ivar">@data_repository</span>.<span class="ruby-identifier">repository</span>[<span class="ruby-identifier">meta_data</span>]
         <span class="ruby-identifier">data_series</span>.<span class="ruby-identifier">series</span>.<span class="ruby-identifier">each_index</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
             <span class="ruby-identifier">create_single_output_at_index</span>(<span class="ruby-identifier">meta_data</span>, <span class="ruby-identifier">index</span>)
@@ -256,11 +256,10 @@
 
           
           <div class="method-source-code" id="create_single_output_at_index-source">
-            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 66</span>
+            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 59</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create_single_output_at_index</span>(<span class="ruby-identifier">meta_data</span>, <span class="ruby-identifier">index</span>)
-    <span class="ruby-constant">Output</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@data_repository</span>.<span class="ruby-identifier">repository</span>[<span class="ruby-identifier">meta_data</span>]).
-    <span class="ruby-identifier">print_data</span>(<span class="ruby-ivar">@data_repository</span>.<span class="ruby-identifier">repository</span>[<span class="ruby-identifier">meta_data</span>].<span class="ruby-identifier">series</span>[<span class="ruby-identifier">index</span>],
-               <span class="ruby-identifier">index</span>, <span class="ruby-identifier">meta_data</span>)
+    <span class="ruby-constant">DataOutput</span>.<span class="ruby-identifier">print_data</span>(<span class="ruby-ivar">@data_repository</span>.<span class="ruby-identifier">repository</span>[<span class="ruby-identifier">meta_data</span>],
+                          <span class="ruby-identifier">index</span>, <span class="ruby-identifier">meta_data</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -292,23 +291,24 @@ and returns the index on success default return is 0</p>
 
           
           <div class="method-source-code" id="get_and_check_index-source">
-            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 75</span>
+            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 67</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_and_check_index</span>(<span class="ruby-identifier">meta_data</span>)
     <span class="ruby-identifier">index</span> = <span class="ruby-value">0</span>   <span class="ruby-comment"># default data set if -i not set or only one data set</span>
-    <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@parameter_repository</span>.<span class="ruby-identifier">parameters</span>[<span class="ruby-value">:index</span>])
+    <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@parameter_handler</span>.<span class="ruby-identifier">repository</span>.<span class="ruby-identifier">parameters</span>[<span class="ruby-value">:index</span>])
         <span class="ruby-keyword">begin</span>   <span class="ruby-comment"># make sure that parameter of -i is an integer</span>
-            <span class="ruby-identifier">index</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-ivar">@parameter_repository</span>.<span class="ruby-identifier">parameters</span>[<span class="ruby-value">:index</span>]) <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+            <span class="ruby-identifier">index</span> =
+                   <span class="ruby-constant">Integer</span>(<span class="ruby-ivar">@parameter_handler</span>.<span class="ruby-identifier">repository</span>.<span class="ruby-identifier">parameters</span>[<span class="ruby-value">:index</span>]) <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
         <span class="ruby-keyword">rescue</span> <span class="ruby-constant">ArgumentError</span>
-            <span class="ruby-identifier">message</span> = <span class="ruby-string">&quot;ArgumentError: argument of -i is not a number:&quot;</span>                        <span class="ruby-node">&quot;#{@parameter_repository.parameters[:index]}&quot;</span>
+            <span class="ruby-identifier">message</span> = <span class="ruby-string">&quot;ArgumentError: argument of -i is not a number:&quot;</span>                        <span class="ruby-node">&quot;#{@parameter_handler.repository.parameters[:index]}&quot;</span>
             <span class="ruby-identifier">print_error</span>(<span class="ruby-identifier">message</span>)
         <span class="ruby-keyword">end</span>
 
         <span class="ruby-comment"># check if provided integer index lies in range of dataseries</span>
         <span class="ruby-keyword">if</span> (<span class="ruby-identifier">index</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span>
             <span class="ruby-identifier">index</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@data_repository</span>.<span class="ruby-identifier">repository</span>[<span class="ruby-identifier">meta_data</span>].<span class="ruby-identifier">series</span>.<span class="ruby-identifier">size</span>)
-            <span class="ruby-identifier">text_index</span> = <span class="ruby-ivar">@parameter_repository</span>.<span class="ruby-identifier">parameters</span>[<span class="ruby-value">:index</span>]
+            <span class="ruby-identifier">text_index</span> = <span class="ruby-ivar">@parameter_handler</span>.<span class="ruby-identifier">repository</span>.<span class="ruby-identifier">parameters</span>[<span class="ruby-value">:index</span>]
             <span class="ruby-identifier">data_size</span> = <span class="ruby-ivar">@data_repository</span>.<span class="ruby-identifier">repository</span>[<span class="ruby-identifier">meta_data</span>].<span class="ruby-identifier">series</span>.<span class="ruby-identifier">size</span>
-            <span class="ruby-identifier">message</span> = <span class="ruby-node">&quot;Error: input #{text_index} for -i is not valid&quot;</span>                        <span class="ruby-node">&quot; for dataset with length #{data_size}&quot;</span>
+            <span class="ruby-identifier">message</span> = <span class="ruby-node">&quot; Error: input #{text_index} for -i is not valid&quot;</span>                        <span class="ruby-node">&quot; for dataset with length #{data_size}&quot;</span>
             <span class="ruby-identifier">print_error</span>(<span class="ruby-identifier">message</span>)
         <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
@@ -344,7 +344,7 @@ and returns the index on success default return is 0</p>
 
           
           <div class="method-source-code" id="print_error-source">
-            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 101</span>
+            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">print_error</span>(<span class="ruby-identifier">message</span>)
     <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{message}&quot;</span>
     <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;For help type: ruby &lt;script&gt; --help&quot;</span>
@@ -379,15 +379,9 @@ and returns the index on success default return is 0</p>
 
           
           <div class="method-source-code" id="print_help-source">
-            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 12</span>
+            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">print_help</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;usage: ruby &lt;script&gt; [parameters] &lt;filename&gt;&quot;</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;\nTerminalVis help:&quot;</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot; -h, --help     show help text&quot;</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot; -v, --version  prints the current version of the project&quot;</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot; -m             process the file &lt;filename&gt; containing meta data&quot;</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot; -i &lt;index&gt;     shows the dataset at index, if index lies within&quot;</span>                            <span class="ruby-string">&quot; [1,2, ..., number of datasets]&quot;</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot; -a, --all      prints all possible datasets of a dataseries with &quot;</span>                            <span class="ruby-string">&quot;a pause between the output of every dataset.&quot;</span>
+    <span class="ruby-constant">HelpOutput</span>.<span class="ruby-identifier">print_help_for</span>(<span class="ruby-ivar">@parameter_handler</span>.<span class="ruby-identifier">repository</span>.<span class="ruby-identifier">parameters</span>[<span class="ruby-value">:help</span>])
     <span class="ruby-identifier">exit</span>(<span class="ruby-value">0</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -419,9 +413,9 @@ and returns the index on success default return is 0</p>
 
           
           <div class="method-source-code" id="print_version-source">
-            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 26</span>
+            <pre><span class="ruby-comment"># File bin/terminal_vis.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">print_version</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;terminal_visualization version 0.2&quot;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;terminal_visualization version 0.3&quot;</span>
     <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Created by Benjamin Held (June 2015)&quot;</span>
     <span class="ruby-identifier">exit</span>(<span class="ruby-value">0</span>)
 <span class="ruby-keyword">end</span></pre>

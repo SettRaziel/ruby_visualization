@@ -143,13 +143,13 @@ raises IOError if csv throws an exception</p>
 
         <div class="method-description">
           
-          
+          <p>initialization filename =&gt; filepath of the file which should be read</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/data/file_reader.rb, line 14</span>
+            <pre><span class="ruby-comment"># File lib/data/file_reader.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">filename</span>)
     <span class="ruby-keyword">begin</span>
         <span class="ruby-ivar">@data</span> = <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">filename</span>)

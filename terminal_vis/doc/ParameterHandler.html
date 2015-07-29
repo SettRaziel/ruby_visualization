@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class DataSet - RDoc Documentation</title>
+<title>class ParameterHandler - RDoc Documentation</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
@@ -78,16 +78,17 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-DataSet">
-  <h1 id="class-DataSet" class="class">
-    class DataSet
+<main role="main" aria-labelledby="class-ParameterHandler">
+  <h1 id="class-ParameterHandler" class="class">
+    class ParameterHandler
   </h1>
 
   <section class="description">
     
-<p>Class to represent a two dimensional data set @min_value =&gt; minimal
-value of the data @max_value =&gt; maximal value of the data @data =&gt;
-the data</p>
+<p>class to seperate the storage of the parameter in a repository entity and
+checking for valid parameter combination as part of the application logic
+@repository =&gt; parameter repository which reads and stores the parameter
+provided as arguments in script call raises ArgumentError</p>
 
   </section>
 
@@ -108,35 +109,9 @@ the data</p>
       </header>
 
       
-      <div id="attribute-i-data" class="method-detail">
+      <div id="attribute-i-repository" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">data</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-max_value" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">max_value</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-min_value" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">min_value</span><span
+          <span class="method-name">repository</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
@@ -161,7 +136,7 @@ the data</p>
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(raw_data)</span>
+            class="method-args">(argv)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -170,16 +145,16 @@ the data</p>
 
         <div class="method-description">
           
-          <p>initialization raw_data =&gt; unformatted lines with data</p>
+          <p>initialize argv =&gt; Array of input parameters</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/data/data_set.rb, line 15</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">raw_data</span>)
-    <span class="ruby-ivar">@data</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>()
-    <span class="ruby-identifier">process_data</span>(<span class="ruby-identifier">raw_data</span>)
+            <pre><span class="ruby-comment"># File lib/parameter/parameter_handler.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">argv</span>)
+    <span class="ruby-ivar">@repository</span> = <span class="ruby-constant">ParameterRepository</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">argv</span>)
+    <span class="ruby-identifier">validate_parameters</span>()
 <span class="ruby-keyword">end</span></pre>
           </div>
           
