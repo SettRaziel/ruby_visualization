@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-26 13:27:28
+# @Last Modified time: 2015-08-01 11:13:40
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -12,7 +12,8 @@ require_relative '../graphics/color_legend'
 class DataOutput
 
     # reverses the data to print it in the correct occurence
-    def self.print_data(data_series, index, meta_data)
+    def self.print_data(data_series, index, meta_data,
+                                                with_extreme_values=false)
 
         data_set = data_series.series[index]
         legend = ColorLegend.new(data_series.min_value, data_series.max_value)
@@ -24,7 +25,14 @@ class DataOutput
 
         reversed_data.each_value { |row|
             print "  "
-            row.each { |value| print legend.print_color_for_data(value) }
+            row.each { |value|
+                if (with_extreme_values)
+                    create_output_with_extremes(data_set,value,legend)
+                else
+                    print legend.create_output_string_for(value,'  ')
+                end
+
+            }
             puts ""
         }
 
@@ -67,6 +75,21 @@ class DataOutput
         puts "\nPrinting dataset for %.2f" %
                     (meta_data.domain_z.lower + z_delta)
         puts "\n"
+    end
+
+    def self.create_output_with_extremes(data_set, value, legend)
+        # create normal output
+        if (value > data_set.min_value && value < data_set.max_value)
+            print legend.create_output_string_for(value,'  ')
+        # create output for minimum
+        elsif (value == data_set.min_value)
+            print legend.create_output_string_for(value,'--').
+                  white.bright
+        # create output for maximum
+        else
+            print legend.create_output_string_for(value,'++').
+                  white.bright
+        end
     end
 
 end
