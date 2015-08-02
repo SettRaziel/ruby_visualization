@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-01 11:13:40
+# @Last Modified time: 2015-08-02 10:16:18
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -12,24 +12,33 @@ require_relative '../graphics/color_legend'
 class DataOutput
 
     # reverses the data to print it in the correct occurence
-    def self.print_data(data_series, index, meta_data,
-                                                with_extreme_values=false)
+    def self.print_data(data_series, index, meta_data, with_extreme_values)
 
         data_set = data_series.series[index]
         legend = ColorLegend.new(data_series.min_value, data_series.max_value)
         print_output_head(index, meta_data)
+        extreme_coordinates = {
+            :maximum => Array.new(),
+            :minimum => Array.new()
+        }
 
         # reverse the data to start with the highest y-value as the first
         # output line
         reversed_data = data_set.data.to_a.reverse.to_h
 
-        reversed_data.each_value { |row|
+        reversed_data.each_pair { |key, row|
             print "  "
-            row.each { |value|
+            row.each_index { |index|
                 if (with_extreme_values)
-                    create_output_with_extremes(data_set,value,legend)
+                    output = create_output_with_extremes(data_set,row[index],
+                                                                      legend)
+                    if (output == :maximum)
+                        extreme_coordinates[:maximum] << [index, key]
+                    elsif (output == :minimum)
+                        extreme_coordinates[:minimum] << [index, key]
+                    end
                 else
-                    print legend.create_output_string_for(value,'  ')
+                    print legend.create_output_string_for(row[index], '  ')
                 end
 
             }
@@ -39,8 +48,13 @@ class DataOutput
         puts ""
         legend.print_color_legend()
 
-        puts "Dataset extreme values: %.3f; %.3f" %
-                                      [data_set.min_value, data_set.max_value]
+        if (with_extreme_values)
+            puts "Dataset extreme values:"
+            print_extrema_information(extreme_coordinates[:maximum],
+                                                 "Maximum", data_set.max_value)
+            print_extrema_information(extreme_coordinates[:minimum],
+                                                 "Minimum", data_set.min_value)
+        end
         print_meta_information(meta_data)
 
         puts "\n"
@@ -81,15 +95,23 @@ class DataOutput
         # create normal output
         if (value > data_set.min_value && value < data_set.max_value)
             print legend.create_output_string_for(value,'  ')
+            return nil
         # create output for minimum
         elsif (value == data_set.min_value)
-            print legend.create_output_string_for(value,'--').
-                  white.bright
+            print legend.create_output_string_for(value,'--').white.bright
+            return :minimum
         # create output for maximum
         else
-            print legend.create_output_string_for(value,'++').
-                  white.bright
+            print legend.create_output_string_for(value,'++').white.bright
+            return :maximum
         end
+    end
+
+    def self.print_extrema_information(coordinates, type, value)
+        while (coordinates.size > 0)
+                coordinate = coordinates.shift
+                puts "  %s %.3f at %s." % [type, value, coordinate]
+            end
     end
 
 end
