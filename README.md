@@ -14,7 +14,10 @@ parameters:
 -i <index>     shows the dataset at index, if index lies within
                [1,2, ..., number of datasets], excludes -a, --all
 -a, --all      prints all possible datasets of a dataseries with
-               a pause between the output of every dataset, excludes -i.
+               a pause between the output of every dataset, excludes -i
+-e, --extreme  marks the extreme values in a dataset with ++ for a maximum
+               and -- for a minimum, also prints the coordinates of the
+               extreme values below the legend.
 ```
 
 ##Meta data format (in single line):

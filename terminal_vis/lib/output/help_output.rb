@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-28 13:11:05
+# @Last Modified time: 2015-08-03 10:37:46
 
 # Output class for help text
 class HelpOutput
@@ -23,15 +23,19 @@ class HelpOutput
 
     # hash which stores available paramaeters and their help text
     @parameters = {
-        :help => ' -h, --help     show help text',
+        :help =>    ' -h, --help     show help text',
         :version => ' -v, --version  prints the current version of the project',
-        :meta => ' -m             process the file <filename> containing' \
-                 ' meta data',
-        :index => ' -i <index>     shows the dataset at index, if index lies ' \
-                  'within [1,2, ..., number of datasets], excludes -a, --all',
-        :all => ' -a, --all      prints all possible datasets of a ' \
-                ' dataseries with a pause between the output of every ' \
-                'dataset, excludes -i',
+        :meta =>    ' -m             process the file <filename> containing' \
+                    ' meta data',
+        :index =>   ' -i <index>     shows the dataset at index, if index ' \
+                    'lies within [1,2, ..., number of datasets], excludes ' \
+                    '-a, --all',
+        :all =>     ' -a, --all      prints all possible datasets of a ' \
+                    ' dataseries with a pause between the output of every ' \
+                    'dataset, excludes -i',
+        :extreme => ' -e, --extreme  marks the extreme values in a dataset ' \
+                    'with ++ for a maximum and -- for a minimum, also prints ' \
+                    'the coordinates of the extreme values below the legend'
     }
 
     # method to print the default help text
@@ -41,13 +45,10 @@ class HelpOutput
         puts "help usage for parameter:".green +
              " ruby <script> <parameter> (-h | --help)"
         puts "\nTerminalVis help:".yellow
-        puts " -h, --help     show help text"
-        puts " -v, --version  prints the current version of the project"
-        puts " -m             process the file <filename> containing meta data"
-        puts " -i <index>     shows the dataset at index, if index lies " \
-             "within [1,2, ..., number of datasets], excludes -a, --all"
-        puts " -a, --all      prints all possible datasets of a dataseries " \
-             "with a pause between the output of every dataset, excludes -i."
+
+        @parameters.each_value { |value|
+            puts value
+        }
     end
 
 end
