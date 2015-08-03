@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-02 10:16:18
+# @Last Modified time: 2015-08-03 10:27:12
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -91,6 +91,9 @@ class DataOutput
         puts "\n"
     end
 
+    # in case of extreme values this method checks, if the current value
+    # is equal one of the two extreme values, if true denote the special
+    # markings
     def self.create_output_with_extremes(data_set, value, legend)
         # create normal output
         if (value > data_set.min_value && value < data_set.max_value)
@@ -107,6 +110,7 @@ class DataOutput
         end
     end
 
+    # prints all the coordinates of the given extreme value
     def self.print_extrema_information(coordinates, type, value)
         while (coordinates.size > 0)
                 coordinate = coordinates.shift
