@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-22 11:21:35
+# @Last Modified time: 2015-08-01 11:28:55
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -67,6 +67,8 @@ class DataRepository
                     meta_data.domain_x.lower) / meta_data.domain_x.step) + 1
         number_value_y = Integer((meta_data.domain_y.upper - \
                     meta_data.domain_y.lower) / meta_data.domain_y.step) + 1
+        number_value_z = Integer((meta_data.domain_z.upper - \
+                    meta_data.domain_z.lower) / meta_data.domain_z.step) + 1
 
         data_series.series.each_with_index { |data_set, index|
             number_data_x = data_set.data[0].size
@@ -80,6 +82,14 @@ class DataRepository
                 puts "  data_set: #{number_data_x}, #{number_data_y}"
             end
         }
+
+        number_data_z = data_series.series.size
+        if (number_value_z != number_data_z)
+            puts "Warning: Size of dataseries does not match with" \
+                 " meta data information."
+            puts "  meta_data: #{number_value_z} datasets to data_series: " \
+                 "#{number_data_z} datasets"
+        end
     end
 
     private
