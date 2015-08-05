@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-04 13:14:42
+# @Last Modified time: 2015-08-05 12:41:22
 
 require_relative '../data/meta_data'
 require 'matrix'
@@ -21,14 +21,34 @@ class Interpolator
                                "data domain."
         end
 
+        x_index = get_index_to_next_lower_datapoint(meta_data.domain_x, x)
+        y_index = get_index_to_next_lower_datapoint(meta_data.domain_y, y)
+
         if ( coordinate_on_datapoint(meta_data.domain_x, x) &&
              coordinate_on_datapoint(meta_data.domain_y, y))
-            # return value at datapoint
+            # return value of datapoint
+            return data_set.data[y_index][x_index]
         end
 
-        if ( coordinate_on_datapoint(meta_data.domain_x, x) ||
-             coordinate_on_datapoint(meta_data.domain_y, y))
-            # find the two datapoints and call linear interpolation
+        if (coordinate_on_datapoint(meta_data.domain_x, x))
+            # find the two datapoints with same x and call linear interpolation
+            y_coordinate = get_coordinate_to_index(meta_data.domain_y, y_index)
+            return linear_interpolation(
+                DataPoint.new(x, y_coordinate, data_set.data[y_index][x_index]),
+                DataPoint.new(x, y_coordinate + meta_data.domain_y.step,
+                    data_set.data[y_index + 1][x_index]),
+                DataPoint.new(x,y))
+        end
+
+
+        if (coordinate_on_datapoint(meta_data.domain_y, y))
+            # find the two datapoints with same y and call linear interpolation
+            x_coordinate = get_coordinate_to_index(meta_data.domain_x, x_index)
+            return linear_interpolation(
+                DataPoint.new(x_coordinate, y, data_set.data[y_index][x_index]),
+                DataPoint.new(x_coordinate + meta_data.domain_x.step, y,
+                    data_set.data[y_index][x_index + 1]),
+                DataPoint.new(x,y))
         end
 
         #do bilinear interpolation
@@ -41,8 +61,7 @@ class Interpolator
     def self.linear_interpolation(data_point0, data_point1, coordinate)
         r = (coordinate.coordinate - data_point0.coordinate).
         dot(data_point1.coordinate - data_point0.coordinate) /
-        (data_point1.coordinate.magnitude**2 -
-         data_point0.coordinate.magnitude**2).abs
+        (data_point1.coordinate - data_point0.coordinate).magnitude**2
         ((1-r)* data_point0.value + r* data_point1.value).round(3)
     end
 
@@ -62,6 +81,17 @@ class Interpolator
     # coordinate => component of the coordinate to check
     def self.coordinate_on_datapoint(data_domain, coordinate)
         (coordinate % data_domain.step == 0)
+    end
+
+    # singleton method to get the index to the next down rounded datapoint
+    def self.get_index_to_next_lower_datapoint(data_domain, coordinate)
+        ((coordinate - data_domain.lower) / data_domain.step).floor
+    end
+
+    # singleton methode to calculate coordinate value to the corresponding
+    # index
+    def self.get_coordinate_to_index(data_domain, index)
+        data_domain.lower + index * data_domain.step
     end
 
 end
