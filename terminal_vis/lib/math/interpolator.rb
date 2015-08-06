@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-05 12:41:22
+# @Last Modified time: 2015-08-06 13:12:18
 
 require_relative '../data/meta_data'
 require 'matrix'
@@ -30,6 +30,7 @@ class Interpolator
             return data_set.data[y_index][x_index]
         end
 
+
         if (coordinate_on_datapoint(meta_data.domain_x, x))
             # find the two datapoints with same x and call linear interpolation
             y_coordinate = get_coordinate_to_index(meta_data.domain_y, y_index)
@@ -51,7 +52,27 @@ class Interpolator
                 DataPoint.new(x,y))
         end
 
-        #do bilinear interpolation
+        y_coordinate = get_coordinate_to_index(meta_data.domain_y, y_index)
+        x_coordinate = get_coordinate_to_index(meta_data.domain_x, x_index)
+        #getting boundary data points
+        d_xy = DataPoint.new(x_coordinate,y_coordinate,
+                             data_set.data[y_index][x_index])
+        d_x1y = DataPoint.new(x_coordinate + meta_data.domain_x.step,
+                              y_coordinate, data_set.data[y_index][x_index + 1])
+        d_xy1 = DataPoint.new(x_coordinate,
+                              y_coordinate + meta_data.domain_y.step,
+                              data_set.data[y_index + 1][x_index])
+        d_x1y1 = DataPoint.new(x_coordinate + meta_data.domain_x.step ,
+                               y_coordinate + meta_data.domain_y.step,
+                               data_set.data[y_index + 1][x_index + 1])
+        coordinate = DataPoint.new(x, y)
+
+        # interpolate
+        r = calculate_interpolation_factor(d_xy, d_x1y, coordinate)
+        s = calculate_interpolation_factor(d_xy, d_xy1, coordinate)
+        (1-r) * (1-s) * d_xy.value + r * (1-s) * d_x1y.value +
+        r * s * d_x1y1.value + (1-r) * s * d_xy1.value
+
     end
 
     # singleton method for linar interpolation between two points
@@ -59,9 +80,7 @@ class Interpolator
     # data_point1 => second datapoint
     # coordinate => datapoint of interpolation
     def self.linear_interpolation(data_point0, data_point1, coordinate)
-        r = (coordinate.coordinate - data_point0.coordinate).
-        dot(data_point1.coordinate - data_point0.coordinate) /
-        (data_point1.coordinate - data_point0.coordinate).magnitude**2
+        r = calculate_interpolation_factor(data_point0, data_point1, coordinate)
         ((1-r)* data_point0.value + r* data_point1.value).round(3)
     end
 
@@ -92,6 +111,16 @@ class Interpolator
     # index
     def self.get_coordinate_to_index(data_domain, index)
         data_domain.lower + index * data_domain.step
+    end
+
+    # singleton method to calculate interpolation coefficient with
+    # accuracy to the fifth digit
+    def self.calculate_interpolation_factor(data_point0, data_point1,
+                                                                  coordinate)
+        ( (coordinate.coordinate - data_point0.coordinate).
+          dot(data_point1.coordinate - data_point0.coordinate) /
+          (data_point1.coordinate - data_point0.coordinate).magnitude**2).
+        round(5)
     end
 
 end
