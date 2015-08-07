@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-03 10:37:46
+# @Last Modified time: 2015-08-07 11:21:52
 
 # Output class for help text
 class HelpOutput
@@ -25,17 +25,20 @@ class HelpOutput
     @parameters = {
         :help =>    ' -h, --help     show help text',
         :version => ' -v, --version  prints the current version of the project',
-        :meta =>    ' -m             process the file <filename> containing' \
-                    ' meta data',
-        :index =>   ' -i <index>     shows the dataset at index, if index ' \
-                    'lies within [1,2, ..., number of datasets], excludes ' \
-                    '-a, --all',
         :all =>     ' -a, --all      prints all possible datasets of a ' \
                     ' dataseries with a pause between the output of every ' \
                     'dataset, excludes -i',
+        :coord =>   ' -c, --coord    ' + 'arguments:'.red + ' <x> <y>'.yellow +
+                    '; interpolates the data for the given coordinate (x,y) ' \
+                    'at default dataset index 0, can be combined with -i',
         :extreme => ' -e, --extreme  marks the extreme values in a dataset ' \
                     'with ++ for a maximum and -- for a minimum, also prints ' \
-                    'the coordinates of the extreme values below the legend'
+                    'the coordinates of the extreme values below the legend',
+        :index =>   ' -i             ' + 'argument:'.red + ' <index>'.yellow +
+                    '; shows the dataset at index, if index lies within ' \
+                    '[1,2, ..., number of datasets], excludes -a, --all',
+        :meta =>    ' -m             process the file <filename> containing' \
+                    ' meta data'
     }
 
     # method to print the default help text
