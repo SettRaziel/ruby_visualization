@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-02 08:35:14
+# @Last Modified time: 2015-08-07 10:58:53
 
 # Parameter repository storing the valid parameter of the script
 # @parameters => Hash of valid parameters and their values
@@ -19,29 +19,38 @@ class ParameterRepository
         has_read_file = false
         argv.each { |arg|
             if (has_read_file)
-                raise ArgumentError, "Error: found parameters after filepath"
+                raise ArgumentError, "Error: found filepath: " \
+                                     "#{@parameters[:file]}, but there are " \
+                                     "other arguments left."
             end
 
             case arg
                 when '-h', '--help'
-                    if(parameters.keys.last != nil)
+                    if(@parameters.keys.last != nil)
                         # help in context to a parameter
-                        parameters[:help] = parameters.keys.last
+                        @parameters[:help] = @parameters.keys.last
                     else
                         # help without parameter => global help
-                        parameters[:help] = true
+                        @parameters[:help] = true
                     end
-                when '-v', '--version' then parameters[:version] = true
-                when '-a', '--all'     then parameters[:all] = true
-                when '-e', '--extreme' then parameters[:extreme] = true
+                when '-v', '--version' then @parameters[:version] = true
+                when '-a', '--all'     then @parameters[:all] = true
+                when '-c', '--coord'
+                    @parameters[:coord] = Array.new()
+                    2.times{ unflagged_arguments.unshift(:coord) }
+                when '-e', '--extreme' then @parameters[:extreme] = true
                 when '-i'
-                    parameters[:index] = true
+                    @parameters[:index] = nil
                     unflagged_arguments.unshift(:index)
-                when '-m'              then parameters[:meta] = true
+                when '-m'              then @parameters[:meta] = true
                 when /-[a-z]|--[a-z]+/ then raise_invalid_parameter(arg)
             else
                 if (arg_key = unflagged_arguments.shift)
-                    parameters[arg_key] = arg
+                    if(@parameters[arg_key] != nil)
+                        @parameters[arg_key] << arg
+                    else
+                        @parameters[arg_key] = arg
+                    end
                 else
                     raise ArgumentError,
                             "Error: invalid combination of parameters."
