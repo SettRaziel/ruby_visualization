@@ -1,13 +1,14 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-02 08:43:40
+# @Last Modified time: 2015-08-08 08:45:01
 
 
 require_relative '../lib/data/data_repository'
 require_relative '../lib/output/data_output'
 require_relative '../lib/output/help_output'
 require_relative '../lib/parameter/parameter_handler'
+require_relative '../lib/math/interpolator'
 
 # call to print the help text
 def print_help
@@ -22,20 +23,18 @@ def print_version
     exit(0)
 end
 
-# call for the usage with meta data parameter -m
-def apply_m(filename)
+def create_metadata
     begin
-        meta_data = @data_repository.add_data(filename)
-        create_output(meta_data)
+        if (@parameter_handler.repository.parameters[:meta])
+            @data_repository.
+             add_data(@parameter_handler.repository.parameters[:file])
+        else
+            @data_repository.add_data_with_default_meta(
+                             @parameter_handler.repository.parameters[:file])
+        end
     rescue Exception => e
-        print_error(e.message.concat(" Error while using option -m."))
+        print_error(e.message.concat(" Error while creating metadata."))
     end
-end
-
-# call for the standard behavior of the script
-def apply_standard(filename)
-    meta_data = @data_repository.add_data_with_default_meta(filename)
-    create_output(meta_data)
 end
 
 # creates output based on metadata and parameters
@@ -53,6 +52,21 @@ def create_output(meta_data)
         create_single_output_at_index(meta_data, index)
     end
     @data_repository.check_data_completeness(meta_data)
+end
+
+# interpolates the data for the provided coordinate and prints the result
+def interpolate_for_coordinate(meta_data)
+    index = get_and_check_index(meta_data)
+
+    x_coordinate = Float(@parameter_handler.repository.parameters[:coord][0])
+    y_coordinate = Float(@parameter_handler.repository.parameters[:coord][1])
+
+    value = Interpolator.bilinear_interpolation(meta_data,
+                @data_repository.repository[meta_data].series[index],
+                x_coordinate, y_coordinate)
+
+    puts "Interpolated value for coordinate (#{x_coordinate}, " \
+         "#{y_coordinate}) of dataset #{index} with result: #{value.round(3)}."
 end
 
 # creates default output or output with an index using -i
@@ -120,10 +134,12 @@ begin
     print_help() if (@parameter_handler.repository.parameters[:help])
     print_version() if (@parameter_handler.repository.parameters[:version])
 
-    if (!@parameter_handler.repository.parameters[:meta])
-        apply_standard(@parameter_handler.repository.parameters[:file])
+    meta_data = create_metadata()
+
+    if (@parameter_handler.repository.parameters[:coord])
+        interpolate_for_coordinate(meta_data)
     else
-        apply_m(@parameter_handler.repository.parameters[:file])
+        create_output(meta_data)
     end
 rescue ArgumentError => e
     print_error(e.message)
