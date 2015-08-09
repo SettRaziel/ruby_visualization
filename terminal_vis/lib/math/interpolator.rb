@@ -1,12 +1,13 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-06 13:12:18
+# @Last Modified time: 2015-08-09 13:12:58
 
 require_relative '../data/meta_data'
 require 'matrix'
 
 # singleton math class to interpolate data between a set of points
+# raises RangeError
 class Interpolator
 
     # singleton method for bilinear interpolation
@@ -14,6 +15,7 @@ class Interpolator
     # data_set => dataset where a coordinate should be interpolated
     # x => x-coordinate of the interpolation point
     # y => y-coordinate of the interpolation point
+    # raises RangeError if coordinates are out of bounds
     def self.bilinear_interpolation(meta_data, data_set, x, y)
         if ( !coordinate_in_dataset(meta_data.domain_x, x) ||
              !coordinate_in_dataset(meta_data.domain_x, x))
@@ -103,18 +105,29 @@ class Interpolator
     end
 
     # singleton method to get the index to the next down rounded datapoint
+    # data_domain => domain of the meta_data corresponding to the coordinate
+    # coordinate => component of the coordinate to check
     def self.get_index_to_next_lower_datapoint(data_domain, coordinate)
         ((coordinate - data_domain.lower) / data_domain.step).floor
     end
 
     # singleton methode to calculate coordinate value to the corresponding
     # index
+    # data_domain => domain of the meta_data which coordinate should be
+    # calculated
+    # index => index of the data set to calculate the corresponding coordinate
     def self.get_coordinate_to_index(data_domain, index)
         data_domain.lower + index * data_domain.step
     end
 
     # singleton method to calculate interpolation coefficient with
     # accuracy to the fifth digit
+    # data_point0 => DataPoint with coordinates and value needed for the
+    # interpolation
+    # data_point1 => DataPoint with coordinates and value needed for the
+    # interpolation
+    # coordinate => DataPoint with coordinate where the data should be
+    # interpolated
     def self.calculate_interpolation_factor(data_point0, data_point1,
                                                                   coordinate)
         ( (coordinate.coordinate - data_point0.coordinate).

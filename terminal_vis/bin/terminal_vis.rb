@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-08 08:45:01
+# @Last Modified time: 2015-08-09 13:07:32
 
 
 require_relative '../lib/data/data_repository'
@@ -23,6 +23,7 @@ def print_version
     exit(0)
 end
 
+# creates the meta data based on the provided parameters
 def create_metadata
     begin
         if (@parameter_handler.repository.parameters[:meta])
@@ -33,7 +34,7 @@ def create_metadata
                              @parameter_handler.repository.parameters[:file])
         end
     rescue Exception => e
-        print_error(e.message.concat(" Error while creating metadata."))
+        print_error('Error while creating metadata: '.concat(e.message))
     end
 end
 
