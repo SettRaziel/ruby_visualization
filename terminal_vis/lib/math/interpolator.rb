@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-10 15:30:32
+# @Last Modified time: 2015-08-10 15:34:37
 
 require_relative '../data/meta_data'
 require 'matrix'
@@ -145,6 +145,10 @@ class DataPoint
     attr_reader :coordinate
     attr_accessor :value
 
+    # initialization
+    # x => coordinate in first dimension, default: 0.0
+    # y => coordinate in second dimension, default: 0.0
+    # value => data value at coordinate (x,y), default: 0.0
     def initialize(x=0.0, y=0.0, value=0.0)
         @coordinate = Vector[x,y]
         @value = value
