@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-09 13:07:32
+# @Last Modified time: 2015-08-10 15:29:59
 
 
 require_relative '../lib/data/data_repository'
@@ -18,8 +18,8 @@ end
 
 # call to print version number and author
 def print_version
-    puts "terminal_visualization version 0.3.1"
-    puts "Created by Benjamin Held (June 2015)"
+    puts 'terminal_visualization version 0.3.1'
+    puts 'Created by Benjamin Held (June 2015)'
     exit(0)
 end
 
@@ -34,7 +34,7 @@ def create_metadata
                              @parameter_handler.repository.parameters[:file])
         end
     rescue Exception => e
-        print_error('Error while creating metadata: '.concat(e.message))
+        print_error(' Error while creating metadata: '.concat(e.message))
     end
 end
 
@@ -44,7 +44,7 @@ def create_output(meta_data)
         data_series = @data_repository.repository[meta_data]
         data_series.series.each_index { |index|
             create_single_output_at_index(meta_data, index)
-            print "press Enter to continue ..."
+            print 'press Enter to continue ...'
             # STDIN to read from console when providing parameters in ARGV
             STDIN.gets.chomp
         }
@@ -87,7 +87,7 @@ def get_and_check_index(meta_data)
             index =
                    Integer(@parameter_handler.repository.parameters[:index]) - 1
         rescue ArgumentError
-            message = "ArgumentError: argument of -i is not a number:" \
+            message = " Error: argument of -i is not a number:" \
                       "#{@parameter_handler.repository.parameters[:index]}"
             print_error(message)
         end
@@ -109,7 +109,7 @@ end
 # call for standard error output
 def print_error(message)
     STDERR.puts "#{message}"
-    STDERR.puts "For help type: ruby <script> --help"
+    STDERR.puts 'For help type: ruby <script> --help'
     exit(0)
 end
 
@@ -124,8 +124,8 @@ rescue LoadError
 end
 
 if (ARGV.length < 1)
-    message = "Invalid number of arguments: usage ruby <script> " \
-    "[parameters] <filename>"
+    message = 'Invalid number of arguments: usage ruby <script> ' \
+    '[parameters] <filename>'
     print_error(message)
 end
 

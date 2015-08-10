@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-09 13:12:58
+# @Last Modified time: 2015-08-10 15:30:32
 
 require_relative '../data/meta_data'
 require 'matrix'
@@ -19,7 +19,7 @@ class Interpolator
     def self.bilinear_interpolation(meta_data, data_set, x, y)
         if ( !coordinate_in_dataset(meta_data.domain_x, x) ||
              !coordinate_in_dataset(meta_data.domain_x, x))
-            raise RangeError, " coordinate (#{x}, #{y}) do not lie with " \
+            raise RangeError, " coordinate (#{x}, #{y}) does not lie with " \
                                "data domain."
         end
 

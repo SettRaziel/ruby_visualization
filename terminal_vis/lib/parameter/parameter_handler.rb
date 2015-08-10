@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-07-25 12:31:03
+# @Last Modified time: 2015-08-10 15:31:41
 
 require_relative 'parameter_repository'
 
@@ -51,7 +51,7 @@ class ParameterHandler
         }x
 
         if (!(filepath =~ unixfile_regex || filepath =~ windowsfile_regex))
-            raise ArgumentError, "Error: invalid filepath: #{filepath}"
+            raise ArgumentError, " Error: invalid filepath: #{filepath}"
         end
     end
 
@@ -61,7 +61,7 @@ class ParameterHandler
     def check_occurence_of_a_and_i
         if (repository.parameters[:all] && repository.parameters[:index])
             raise ArgumentError,
-                             "Error: parameters -a and -i secludes themselves"
+                             ' Error: parameters -a and -i secludes themselves'
         end
     end
 

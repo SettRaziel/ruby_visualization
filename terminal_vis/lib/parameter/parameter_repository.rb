@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-07 10:58:53
+# @Last Modified time: 2015-08-10 15:31:06
 
 # Parameter repository storing the valid parameter of the script
 # @parameters => Hash of valid parameters and their values
@@ -53,7 +53,7 @@ class ParameterRepository
                     end
                 else
                     raise ArgumentError,
-                            "Error: invalid combination of parameters."
+                            ' Error: invalid combination of parameters.'
                 end
             end
 
@@ -64,7 +64,7 @@ class ParameterRepository
         # only with -h and -v should be the :file element left
         if (unflagged_arguments.size > 0 &&
             !(@parameters[:help] || @parameters[:version]))
-            raise ArgumentError, "Error: invalid combination of parameters."
+            raise ArgumentError, 'Error: invalid combination of parameters.'
         end
     end
 
@@ -74,7 +74,7 @@ class ParameterRepository
     # arg => invalid parameter string
     # raises Argument Error if an invalid argument is provided
     def raise_invalid_parameter(arg)
-        raise ArgumentError, "Error: invalid argument: #{arg}"
+        raise ArgumentError, " Error: invalid argument: #{arg}"
     end
 
 end
