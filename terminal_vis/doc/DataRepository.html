@@ -293,6 +293,7 @@ the meta_data information</p>
     <span class="ruby-identifier">data_series</span> = <span class="ruby-ivar">@repository</span>[<span class="ruby-identifier">meta_data</span>]
     <span class="ruby-identifier">number_value_x</span> = <span class="ruby-constant">Integer</span>((<span class="ruby-identifier">meta_data</span>.<span class="ruby-identifier">domain_x</span>.<span class="ruby-identifier">upper</span> <span class="ruby-operator">-</span>                      <span class="ruby-identifier">meta_data</span>.<span class="ruby-identifier">domain_x</span>.<span class="ruby-identifier">lower</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">meta_data</span>.<span class="ruby-identifier">domain_x</span>.<span class="ruby-identifier">step</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
     <span class="ruby-identifier">number_value_y</span> = <span class="ruby-constant">Integer</span>((<span class="ruby-identifier">meta_data</span>.<span class="ruby-identifier">domain_y</span>.<span class="ruby-identifier">upper</span> <span class="ruby-operator">-</span>                      <span class="ruby-identifier">meta_data</span>.<span class="ruby-identifier">domain_y</span>.<span class="ruby-identifier">lower</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">meta_data</span>.<span class="ruby-identifier">domain_y</span>.<span class="ruby-identifier">step</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+    <span class="ruby-identifier">number_value_z</span> = <span class="ruby-constant">Integer</span>((<span class="ruby-identifier">meta_data</span>.<span class="ruby-identifier">domain_z</span>.<span class="ruby-identifier">upper</span> <span class="ruby-operator">-</span>                      <span class="ruby-identifier">meta_data</span>.<span class="ruby-identifier">domain_z</span>.<span class="ruby-identifier">lower</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">meta_data</span>.<span class="ruby-identifier">domain_z</span>.<span class="ruby-identifier">step</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
 
     <span class="ruby-identifier">data_series</span>.<span class="ruby-identifier">series</span>.<span class="ruby-identifier">each_with_index</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">data_set</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
         <span class="ruby-identifier">number_data_x</span> = <span class="ruby-identifier">data_set</span>.<span class="ruby-identifier">data</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">size</span>
@@ -305,6 +306,12 @@ the meta_data information</p>
             <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;  data_set: #{number_data_x}, #{number_data_y}&quot;</span>
         <span class="ruby-keyword">end</span>
     }
+
+    <span class="ruby-identifier">number_data_z</span> = <span class="ruby-identifier">data_series</span>.<span class="ruby-identifier">series</span>.<span class="ruby-identifier">size</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">number_value_z</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">number_data_z</span>)
+        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Warning: Size of dataseries does not match with&quot;</span>                   <span class="ruby-string">&quot; meta data information.&quot;</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;  meta_data: #{number_value_z} datasets to data_series: &quot;</span>                   <span class="ruby-node">&quot;#{number_data_z} datasets&quot;</span>
+    <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

@@ -158,31 +158,39 @@ invalid combination of script parameters</p>
     <span class="ruby-identifier">has_read_file</span> = <span class="ruby-keyword">false</span>
     <span class="ruby-identifier">argv</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
         <span class="ruby-keyword">if</span> (<span class="ruby-identifier">has_read_file</span>)
-            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Error: found parameters after filepath&quot;</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Error: found filepath: &quot;</span>                                       <span class="ruby-node">&quot;#{@parameters[:file]}, but there are &quot;</span>                                       <span class="ruby-string">&quot;other arguments left.&quot;</span>
         <span class="ruby-keyword">end</span>
 
         <span class="ruby-keyword">case</span> <span class="ruby-identifier">arg</span>
             <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;-h&#39;</span>, <span class="ruby-string">&#39;--help&#39;</span>
-                <span class="ruby-keyword">if</span>(<span class="ruby-identifier">parameters</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>)
+                <span class="ruby-keyword">if</span>(<span class="ruby-ivar">@parameters</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>)
                     <span class="ruby-comment"># help in context to a parameter</span>
-                    <span class="ruby-identifier">parameters</span>[<span class="ruby-value">:help</span>] = <span class="ruby-identifier">parameters</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">last</span>
+                    <span class="ruby-ivar">@parameters</span>[<span class="ruby-value">:help</span>] = <span class="ruby-ivar">@parameters</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">last</span>
                 <span class="ruby-keyword">else</span>
                     <span class="ruby-comment"># help without parameter =&gt; global help</span>
-                    <span class="ruby-identifier">parameters</span>[<span class="ruby-value">:help</span>] = <span class="ruby-keyword">true</span>
+                    <span class="ruby-ivar">@parameters</span>[<span class="ruby-value">:help</span>] = <span class="ruby-keyword">true</span>
                 <span class="ruby-keyword">end</span>
-            <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;-v&#39;</span>, <span class="ruby-string">&#39;--version&#39;</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">parameters</span>[<span class="ruby-value">:version</span>] = <span class="ruby-keyword">true</span>
-            <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;-m&#39;</span>              <span class="ruby-keyword">then</span> <span class="ruby-identifier">parameters</span>[<span class="ruby-value">:meta</span>] = <span class="ruby-keyword">true</span>
+            <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;-v&#39;</span>, <span class="ruby-string">&#39;--version&#39;</span> <span class="ruby-keyword">then</span> <span class="ruby-ivar">@parameters</span>[<span class="ruby-value">:version</span>] = <span class="ruby-keyword">true</span>
+            <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;-a&#39;</span>, <span class="ruby-string">&#39;--all&#39;</span>     <span class="ruby-keyword">then</span> <span class="ruby-ivar">@parameters</span>[<span class="ruby-value">:all</span>] = <span class="ruby-keyword">true</span>
+            <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;-c&#39;</span>, <span class="ruby-string">&#39;--coord&#39;</span>
+                <span class="ruby-ivar">@parameters</span>[<span class="ruby-value">:coord</span>] = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>()
+                <span class="ruby-value">2</span>.<span class="ruby-identifier">times</span>{ <span class="ruby-identifier">unflagged_arguments</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-value">:coord</span>) }
+            <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;-e&#39;</span>, <span class="ruby-string">&#39;--extreme&#39;</span> <span class="ruby-keyword">then</span> <span class="ruby-ivar">@parameters</span>[<span class="ruby-value">:extreme</span>] = <span class="ruby-keyword">true</span>
             <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;-i&#39;</span>
-                <span class="ruby-identifier">parameters</span>[<span class="ruby-value">:index</span>] = <span class="ruby-keyword">true</span>
+                <span class="ruby-ivar">@parameters</span>[<span class="ruby-value">:index</span>] = <span class="ruby-keyword">nil</span>
                 <span class="ruby-identifier">unflagged_arguments</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-value">:index</span>)
-            <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;-a&#39;</span>, <span class="ruby-string">&#39;--all&#39;</span>     <span class="ruby-keyword">then</span> <span class="ruby-identifier">parameters</span>[<span class="ruby-value">:all</span>] = <span class="ruby-keyword">true</span>
+            <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;-m&#39;</span>              <span class="ruby-keyword">then</span> <span class="ruby-ivar">@parameters</span>[<span class="ruby-value">:meta</span>] = <span class="ruby-keyword">true</span>
             <span class="ruby-keyword">when</span> <span class="ruby-regexp">/-[a-z]|--[a-z]+/</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">raise_invalid_parameter</span>(<span class="ruby-identifier">arg</span>)
         <span class="ruby-keyword">else</span>
             <span class="ruby-keyword">if</span> (<span class="ruby-identifier">arg_key</span> = <span class="ruby-identifier">unflagged_arguments</span>.<span class="ruby-identifier">shift</span>)
-                <span class="ruby-identifier">parameters</span>[<span class="ruby-identifier">arg_key</span>] = <span class="ruby-identifier">arg</span>
+                <span class="ruby-keyword">if</span>(<span class="ruby-ivar">@parameters</span>[<span class="ruby-identifier">arg_key</span>] <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>)
+                    <span class="ruby-ivar">@parameters</span>[<span class="ruby-identifier">arg_key</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">arg</span>
+                <span class="ruby-keyword">else</span>
+                    <span class="ruby-ivar">@parameters</span>[<span class="ruby-identifier">arg_key</span>] = <span class="ruby-identifier">arg</span>
+                <span class="ruby-keyword">end</span>
             <span class="ruby-keyword">else</span>
                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>,
-                        <span class="ruby-string">&quot;Error: invalid combination of parameters.&quot;</span>
+                        <span class="ruby-string">&#39; Error: invalid combination of parameters.&#39;</span>
             <span class="ruby-keyword">end</span>
         <span class="ruby-keyword">end</span>
 
@@ -193,7 +201,7 @@ invalid combination of script parameters</p>
     <span class="ruby-comment"># only with -h and -v should be the :file element left</span>
     <span class="ruby-keyword">if</span> (<span class="ruby-identifier">unflagged_arguments</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span>
         <span class="ruby-operator">!</span>(<span class="ruby-ivar">@parameters</span>[<span class="ruby-value">:help</span>] <span class="ruby-operator">||</span> <span class="ruby-ivar">@parameters</span>[<span class="ruby-value">:version</span>]))
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Error: invalid combination of parameters.&quot;</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&#39;Error: invalid combination of parameters.&#39;</span>
     <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>

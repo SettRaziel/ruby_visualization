@@ -86,6 +86,8 @@
     
     <li ><a href="#method-i-cyan_bg">#cyan_bg</a>
     
+    <li ><a href="#method-i-dark_gray_bg">#dark_gray_bg</a>
+    
     <li ><a href="#method-i-exchange_grounds">#exchange_grounds</a>
     
     <li ><a href="#method-i-gray">#gray</a>
@@ -97,6 +99,34 @@
     <li ><a href="#method-i-hide">#hide</a>
     
     <li ><a href="#method-i-italic">#italic</a>
+    
+    <li ><a href="#method-i-light_blue">#light_blue</a>
+    
+    <li ><a href="#method-i-light_blue_bg">#light_blue_bg</a>
+    
+    <li ><a href="#method-i-light_cyan">#light_cyan</a>
+    
+    <li ><a href="#method-i-light_cyan_bg">#light_cyan_bg</a>
+    
+    <li ><a href="#method-i-light_gray">#light_gray</a>
+    
+    <li ><a href="#method-i-light_gray_bg">#light_gray_bg</a>
+    
+    <li ><a href="#method-i-light_green">#light_green</a>
+    
+    <li ><a href="#method-i-light_green_bg">#light_green_bg</a>
+    
+    <li ><a href="#method-i-light_magenta">#light_magenta</a>
+    
+    <li ><a href="#method-i-light_magenta_bg">#light_magenta_bg</a>
+    
+    <li ><a href="#method-i-light_red">#light_red</a>
+    
+    <li ><a href="#method-i-light_red_bg">#light_red_bg</a>
+    
+    <li ><a href="#method-i-light_yellow">#light_yellow</a>
+    
+    <li ><a href="#method-i-light_yellow_bg">#light_yellow_bg</a>
     
     <li ><a href="#method-i-magenta">#magenta</a>
     
@@ -129,7 +159,8 @@
 
   <section class="description">
     
-<p>Class to modify a <a href="String.html">String</a> in color and typo</p>
+<p>Class to modify a <a href="String.html">String</a> in color and typo e
+stands for the esc code</p>
 
   </section>
 
@@ -171,9 +202,9 @@
 
           
           <div class="method-source-code" id="black-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 45</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">black</span>
-    <span class="ruby-node">&quot;\033[30m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[30m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -204,9 +235,9 @@
 
           
           <div class="method-source-code" id="black_bg-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 85</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 121</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">black_bg</span>
-    <span class="ruby-node">&quot;\033[40m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[40m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -237,9 +268,9 @@
 
           
           <div class="method-source-code" id="blink-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 30</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">blink</span>
-    <span class="ruby-node">&quot;\033[5m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[5m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -270,9 +301,9 @@
 
           
           <div class="method-source-code" id="blue-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 65</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 81</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">blue</span>
-    <span class="ruby-node">&quot;\033[34m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[34m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -303,9 +334,9 @@
 
           
           <div class="method-source-code" id="blue_bg-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 105</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 156</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">blue_bg</span>
-    <span class="ruby-node">&quot;\033[44m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[44m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -336,9 +367,9 @@
 
           
           <div class="method-source-code" id="bright-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 10</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">bright</span>
-    <span class="ruby-node">&quot;\033[1m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[1m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -369,9 +400,9 @@
 
           
           <div class="method-source-code" id="cyan-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 75</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 101</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">cyan</span>
-    <span class="ruby-node">&quot;\033[36m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[36m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -402,9 +433,42 @@
 
           
           <div class="method-source-code" id="cyan_bg-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 115</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 176</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">cyan_bg</span>
-    <span class="ruby-node">&quot;\033[46m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[46m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-dark_gray_bg" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dark_gray_bg</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; background colored dark_gray</p>
+          
+          
+
+          
+          <div class="method-source-code" id="dark_gray_bg-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 196</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dark_gray_bg</span>
+    <span class="ruby-node">&quot;\e[100m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -429,15 +493,15 @@
 
         <div class="method-description">
           
-          <p><a href="String.html">String</a> =&gt; exchanged grounds</p>
+          <p><a href="String.html">String</a> =&gt; exchanged color and background</p>
           
           
 
           
           <div class="method-source-code" id="exchange_grounds-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 35</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">exchange_grounds</span>
-    <span class="ruby-node">&quot;\033[7m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[7m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -468,9 +532,9 @@
 
           
           <div class="method-source-code" id="gray-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 15</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">gray</span>
-    <span class="ruby-node">&quot;\033[2m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[2m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -501,9 +565,9 @@
 
           
           <div class="method-source-code" id="green-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 55</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">green</span>
-    <span class="ruby-node">&quot;\033[32m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[32m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -534,9 +598,9 @@
 
           
           <div class="method-source-code" id="green_bg-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 95</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 136</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">green_bg</span>
-    <span class="ruby-node">&quot;\033[42m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[42m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -567,9 +631,9 @@
 
           
           <div class="method-source-code" id="hide-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 40</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 41</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">hide</span>
-    <span class="ruby-node">&quot;\033[8m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[8m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -600,9 +664,485 @@
 
           
           <div class="method-source-code" id="italic-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 20</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">italic</span>
-    <span class="ruby-node">&quot;\033[3m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[3m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-light_blue" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">light_blue</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; colored <a
+href="String.html#method-i-light_blue">#light_blue</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="light_blue-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">light_blue</span>
+    <span class="ruby-node">&quot;\e[94m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-light_blue_bg" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">light_blue_bg</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; background colored <a
+href="String.html#method-i-light_blue">#light_blue</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="light_blue_bg-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 161</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">light_blue_bg</span>
+    <span class="ruby-node">&quot;\e[104m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-light_cyan" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">light_cyan</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; colored <a
+href="String.html#method-i-light_cyan">#light_cyan</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="light_cyan-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 106</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">light_cyan</span>
+    <span class="ruby-node">&quot;\e[96m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-light_cyan_bg" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">light_cyan_bg</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; background colored <a
+href="String.html#method-i-light_cyan">#light_cyan</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="light_cyan_bg-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 181</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">light_cyan_bg</span>
+    <span class="ruby-node">&quot;\e[106m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-light_gray" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">light_gray</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; colored <a
+href="String.html#method-i-light_gray">#light_gray</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="light_gray-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 111</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">light_gray</span>
+    <span class="ruby-node">&quot;\e[37m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-light_gray_bg" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">light_gray_bg</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; background colored <a
+href="String.html#method-i-light_gray">#light_gray</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="light_gray_bg-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 191</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">light_gray_bg</span>
+    <span class="ruby-node">&quot;\e[47m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-light_green" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">light_green</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; colored <a
+href="String.html#method-i-light_green">#light_green</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="light_green-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">light_green</span>
+    <span class="ruby-node">&quot;\e[92m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-light_green_bg" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">light_green_bg</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; background colored <a
+href="String.html#method-i-light_green">#light_green</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="light_green_bg-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 141</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">light_green_bg</span>
+    <span class="ruby-node">&quot;\e[102m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-light_magenta" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">light_magenta</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; colored <a
+href="String.html#method-i-light_magenta">#light_magenta</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="light_magenta-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 96</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">light_magenta</span>
+    <span class="ruby-node">&quot;\e[95m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-light_magenta_bg" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">light_magenta_bg</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; background colored <a
+href="String.html#method-i-light_magenta">#light_magenta</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="light_magenta_bg-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 171</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">light_magenta_bg</span>
+    <span class="ruby-node">&quot;\e[105m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-light_red" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">light_red</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; colored <a
+href="String.html#method-i-light_red">#light_red</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="light_red-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">light_red</span>
+    <span class="ruby-node">&quot;\e[91m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-light_red_bg" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">light_red_bg</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; background colored <a
+href="String.html#method-i-light_red">#light_red</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="light_red_bg-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 131</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">light_red_bg</span>
+    <span class="ruby-node">&quot;\e[101m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-light_yellow" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">light_yellow</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; colored <a
+href="String.html#method-i-light_yellow">#light_yellow</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="light_yellow-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 76</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">light_yellow</span>
+    <span class="ruby-node">&quot;\e[93m#{self}\e[0m&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-light_yellow_bg" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">light_yellow_bg</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="String.html">String</a> =&gt; background colored <a
+href="String.html#method-i-light_yellow">#light_yellow</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="light_yellow_bg-source">
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 151</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">light_yellow_bg</span>
+    <span class="ruby-node">&quot;\e[103m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -633,9 +1173,9 @@
 
           
           <div class="method-source-code" id="magenta-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 70</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 91</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">magenta</span>
-    <span class="ruby-node">&quot;\033[35m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[35m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -666,9 +1206,9 @@
 
           
           <div class="method-source-code" id="magenta_bg-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 110</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 166</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">magenta_bg</span>
-    <span class="ruby-node">&quot;\033[45m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[45m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -699,9 +1239,9 @@
 
           
           <div class="method-source-code" id="red-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 50</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 51</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">red</span>
-    <span class="ruby-node">&quot;\033[31m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[31m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -732,9 +1272,9 @@
 
           
           <div class="method-source-code" id="red_bg-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 90</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 126</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">red_bg</span>
-    <span class="ruby-node">&quot;\033[41m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[41m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -766,9 +1306,9 @@ href="String.html">String</a></p>
 
           
           <div class="method-source-code" id="underline-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 25</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">underline</span>
-    <span class="ruby-node">&quot;\033[4m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[4m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -799,9 +1339,9 @@ href="String.html">String</a></p>
 
           
           <div class="method-source-code" id="white-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 80</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 116</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">white</span>
-    <span class="ruby-node">&quot;\033[37m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[97m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -832,9 +1372,9 @@ href="String.html">String</a></p>
 
           
           <div class="method-source-code" id="white_bg-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 120</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 186</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">white_bg</span>
-    <span class="ruby-node">&quot;\033[47m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[107m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -865,9 +1405,9 @@ href="String.html">String</a></p>
 
           
           <div class="method-source-code" id="yellow-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 60</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 71</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">yellow</span>
-    <span class="ruby-node">&quot;\033[33m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[33m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -898,9 +1438,9 @@ href="String.html">String</a></p>
 
           
           <div class="method-source-code" id="yellow_bg-source">
-            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 100</span>
+            <pre><span class="ruby-comment"># File lib/graphics/string.rb, line 146</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">yellow_bg</span>
-    <span class="ruby-node">&quot;\033[43m#{self}\033[0m&quot;</span>
+    <span class="ruby-node">&quot;\e[43m#{self}\e[0m&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
