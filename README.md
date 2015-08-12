@@ -13,7 +13,7 @@ parameters:
 -m             process the file <filename> containing meta data
 -a, --all      prints all possible datasets of a dataseries with
                a pause between the output of every dataset, excludes -i
- -c, --coord   arguments: <x> <y>; interpolates the data for the given
+-c, --coord    arguments: <x> <y>; interpolates the data for the given
                coordinate (x,y) at default dataset index 0, can be
                combined with -i
 -e, --extreme  marks the extreme values in a dataset with ++ for a maximum
