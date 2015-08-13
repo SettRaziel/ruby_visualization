@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-11 11:53:14
+# @Last Modified time: 2015-08-12 19:57:54
 
 
 require_relative '../lib/data/data_repository'
@@ -142,6 +142,6 @@ begin
     else
         create_output(meta_data)
     end
-rescue ArgumentError => e
+rescue ArgumentError, IndexError => e
     print_error(e.message)
 end

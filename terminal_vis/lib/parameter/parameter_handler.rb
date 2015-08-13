@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-10 15:31:41
+# @Last Modified time: 2015-08-13 13:24:46
 
 require_relative 'parameter_repository'
 
@@ -26,6 +26,7 @@ class ParameterHandler
     def validate_parameters
         check_for_valid_filepath() if (repository.parameters[:file])
         check_occurence_of_a_and_i()
+        check_number_of_parameters(:coord, 2)
     end
 
     # checks if the parsed filename is a valid unix or windows file name
@@ -62,6 +63,17 @@ class ParameterHandler
         if (repository.parameters[:all] && repository.parameters[:index])
             raise ArgumentError,
                              ' Error: parameters -a and -i secludes themselves'
+        end
+    end
+
+    # checks the correct number of parameters for the given key
+    def check_number_of_parameters(key, count_parameters)
+        if (repository.parameters[key])
+            value = repository.parameters[key]
+            if (value.size != count_parameters)
+                raise IndexError,
+                    " Error: invalid number of parameters for option: #{key} "
+            end
         end
     end
 
