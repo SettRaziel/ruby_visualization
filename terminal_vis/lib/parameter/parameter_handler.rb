@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-13 13:24:46
+# @Last Modified time: 2015-08-15 09:33:48
 
 require_relative 'parameter_repository'
 
@@ -25,8 +25,11 @@ class ParameterHandler
     # private method with calls of the different validations methods
     def validate_parameters
         check_for_valid_filepath() if (repository.parameters[:file])
-        check_occurence_of_a_and_i()
+
         check_number_of_parameters(:coord, 2)
+        check_number_of_parameters(:delta, 2)
+
+        check_occurence_of_a_and_i()
     end
 
     # checks if the parsed filename is a valid unix or windows file name

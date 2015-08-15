@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-10 15:31:06
+# @Last Modified time: 2015-08-12 19:47:28
 
 # Parameter repository storing the valid parameter of the script
 # @parameters => Hash of valid parameters and their values
@@ -38,6 +38,9 @@ class ParameterRepository
                 when '-c', '--coord'
                     @parameters[:coord] = Array.new()
                     2.times{ unflagged_arguments.unshift(:coord) }
+                when '-d', '--delta'
+                    @parameters[:delta] = Array.new()
+                    2.times{ unflagged_arguments.unshift(:delta) }
                 when '-e', '--extreme' then @parameters[:extreme] = true
                 when '-i'
                     @parameters[:index] = nil
