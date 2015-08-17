@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-15 15:41:53
+# @Last Modified time: 2015-08-17 10:07:31
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -11,9 +11,8 @@ require_relative '../graphics/color_legend'
 # Simple data output for the terminal visualization
 class DataOutput
 
-    # reverses the data to print it in the correct occurence
+    # method to visualize the dataset at the index
     def self.print_dataset(data_series, index, meta_data, with_extreme_values)
-
         data_set = data_series.series[index]
         legend = ColorLegend.new(data_series.min_value, data_series.max_value)
         print_output_head(index, meta_data)
@@ -22,14 +21,17 @@ class DataOutput
 
     end
 
+    # method to visualize the difference of two datasets
     def self.print_delta(data_set, meta_data, indices, with_extreme_values)
         legend = ColorLegend.new(data_set.min_value, data_set.max_value)
-        puts "Printing delta for test.\n\n"
+        puts "Printing difference for datasets #{indices[0]} and " \
+             "#{indices[0]}.\n\n"
         print_data(data_set, legend, meta_data, with_extreme_values)
     end
 
     private
 
+    # reverses the data to print it in the correct occurence
     def self.print_data(data_set, legend, meta_data, with_extreme_values)
         extreme_coordinates = {
             :maximum => Array.new(),
