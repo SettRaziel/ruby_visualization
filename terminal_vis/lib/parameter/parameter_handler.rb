@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-15 09:33:48
+# @Last Modified time: 2015-08-17 11:01:26
 
 require_relative 'parameter_repository'
 
@@ -71,7 +71,7 @@ class ParameterHandler
 
     # checks the correct number of parameters for the given key
     def check_number_of_parameters(key, count_parameters)
-        if (repository.parameters[key])
+        if (repository.parameters[key] && !repository.parameters[:help])
             value = repository.parameters[key]
             if (value.size != count_parameters)
                 raise IndexError,

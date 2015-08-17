@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-07 11:21:52
+# @Last Modified time: 2015-08-17 11:05:52
 
 # Output class for help text
 class HelpOutput
@@ -31,6 +31,9 @@ class HelpOutput
         :coord =>   ' -c, --coord    ' + 'arguments:'.red + ' <x> <y>'.yellow +
                     '; interpolates the data for the given coordinate (x,y) ' \
                     'at default dataset index 0, can be combined with -i',
+        :delta =>   ' -d, --delta    ' + 'arguments:'.red + ' <first_index> ' \
+                    '<second_index>'.yellow + '; subtracts the first dataset' \
+                    ' from the second dataset and visualizes the difference',
         :extreme => ' -e, --extreme  marks the extreme values in a dataset ' \
                     'with ++ for a maximum and -- for a minimum, also prints ' \
                     'the coordinates of the extreme values below the legend',
