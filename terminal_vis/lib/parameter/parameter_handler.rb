@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-17 11:01:26
+# @Last Modified time: 2015-08-17 11:17:28
 
 require_relative 'parameter_repository'
 
@@ -30,6 +30,7 @@ class ParameterHandler
         check_number_of_parameters(:delta, 2)
 
         check_occurence_of_a_and_i()
+        check_constraint_for_d()
     end
 
     # checks if the parsed filename is a valid unix or windows file name
@@ -66,6 +67,18 @@ class ParameterHandler
         if (repository.parameters[:all] && repository.parameters[:index])
             raise ArgumentError,
                              ' Error: parameters -a and -i secludes themselves'
+        end
+    end
+
+    # checks contraints: -d excludes -a and -d excludes -i
+    def check_constraint_for_d
+        if (repository.parameters[:all] && repository.parameters[:delta])
+            raise ArgumentError,
+                             ' Error: parameters -d and -a secludes themselves'
+        end
+        if (repository.parameters[:index] && repository.parameters[:delta])
+            raise ArgumentError,
+                             ' Error: parameters -d and -i secludes themselves'
         end
     end
 
