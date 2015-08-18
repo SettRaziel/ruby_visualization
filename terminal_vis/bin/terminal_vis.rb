@@ -1,14 +1,14 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-18 09:44:45
+# @Last Modified time: 2015-08-18 10:01:29
 
 
 require_relative '../lib/data/data_repository'
 require_relative '../lib/output/data_output'
 require_relative '../lib/output/help_output'
 require_relative '../lib/parameter/parameter_handler'
-require_relative '../lib/math/interpolator'
+require_relative '../lib/math/interpolation'
 require_relative '../lib/math/dataset_statistics'
 
 # call to print the help text
@@ -63,7 +63,7 @@ def interpolate_for_coordinate(meta_data)
     x_coordinate = Float(@parameter_handler.repository.parameters[:coord][0])
     y_coordinate = Float(@parameter_handler.repository.parameters[:coord][1])
 
-    value = Interpolator.bilinear_interpolation(meta_data,
+    value = Interpolation.bilinear_interpolation(meta_data,
                 @data_repository.repository[meta_data].series[index],
                 x_coordinate, y_coordinate)
 
@@ -172,6 +172,6 @@ begin
     else
         create_output(meta_data)
     end
-rescue ArgumentError, IndexError => e
+rescue StandardError => e
     print_error(e.message)
 end
