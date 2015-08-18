@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-16 11:13:16
+# @Last Modified time: 2015-08-18 09:44:45
 
 
 require_relative '../lib/data/data_repository'
@@ -9,6 +9,7 @@ require_relative '../lib/output/data_output'
 require_relative '../lib/output/help_output'
 require_relative '../lib/parameter/parameter_handler'
 require_relative '../lib/math/interpolator'
+require_relative '../lib/math/dataset_statistics'
 
 # call to print the help text
 def print_help
@@ -77,6 +78,33 @@ def create_single_output_at_index(meta_data, index)
                           @parameter_handler.repository.parameters[:extreme])
 end
 
+# creates output when usind the option -d
+def create_delta_output(meta_data)
+    first = 0; second = 0
+    begin
+        first = Integer(@parameter_handler.repository.parameters[:delta][0])
+        second = Integer(@parameter_handler.repository.parameters[:delta][1])
+    rescue ArgumentError
+        message = " Error: at least one argument of -d is not a number"
+        print_error(message)
+    end
+
+    first_data = @data_repository.repository[meta_data].series[first]
+    second_data = @data_repository.repository[meta_data].series[second]
+
+    if (first_data == nil)
+        raise IndexError, " Error: argument #{first} from -d is out of bounds"
+    end
+    if (second_data == nil)
+        raise IndexError, " Error: argument #{second} from -d is out of bounds"
+    end
+
+    result = DatasetStatistics.subtract_datasets(first_data, second_data)
+
+    DataOutput.print_delta(result, meta_data, [first, second],
+                           @parameter_handler.repository.parameters[:extreme])
+end
+
 # checks if option -i was used, determines if a valid parameter was entered
 # and returns the index on success
 # default return is 0
@@ -137,7 +165,9 @@ begin
 
     meta_data = create_metadata()
 
-    if (@parameter_handler.repository.parameters[:coord])
+    if (@parameter_handler.repository.parameters[:delta])
+        create_delta_output(meta_data)
+    elsif (@parameter_handler.repository.parameters[:coord])
         interpolate_for_coordinate(meta_data)
     else
         create_output(meta_data)

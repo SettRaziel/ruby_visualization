@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-17 10:07:31
+# @Last Modified time: 2015-08-17 11:27:10
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -25,7 +25,7 @@ class DataOutput
     def self.print_delta(data_set, meta_data, indices, with_extreme_values)
         legend = ColorLegend.new(data_set.min_value, data_set.max_value)
         puts "Printing difference for datasets #{indices[0]} and " \
-             "#{indices[0]}.\n\n"
+             "#{indices[1]}.\n\n"
         print_data(data_set, legend, meta_data, with_extreme_values)
     end
 
