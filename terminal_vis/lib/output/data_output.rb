@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-17 11:27:10
+# @Last Modified time: 2015-08-18 11:07:55
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -74,19 +74,18 @@ class DataOutput
     def self.print_meta_information(meta_data)
         puts "\nDataset: #{meta_data.name}"
 
-        print "\nX-axis with #{meta_data.domain_x.name} from %.1f up to %.1f" %
-                            [meta_data.domain_x.lower, meta_data.domain_x.upper]
-        puts " and steprange %.1f." % meta_data.domain_x.step
-        print "Y-axis with #{meta_data.domain_y.name} from %.1f up to %.1f" %
-                            [meta_data.domain_y.lower, meta_data.domain_y.upper]
-        puts " and steprange %.1f." % meta_data.domain_y.step
+        print_domain_information(meta_data.domain_x, "\nX")
+        print_domain_information(meta_data.domain_y, 'Y')
 
         if (meta_data.domain_z != nil)
-            print "Z-axis with #{meta_data.domain_z.name} from %.1f up to " %
-                             meta_data.domain_z.lower
-            puts "%.1f and steprange %.1f." %
-                            [meta_data.domain_z.upper, meta_data.domain_z.step]
+            print_domain_information(meta_data.domain_z, 'Z')
         end
+    end
+
+    # prints the domain information for the given domain
+    def self.print_domain_information(domain, dim_string)
+        puts "%s-axis with %s from %.1f up to %.1f and steprange %.1f." %
+            [dim_string, domain.name, domain.lower, domain.upper, domain.step]
     end
 
     # creates a headline before printing the data set based on the values
