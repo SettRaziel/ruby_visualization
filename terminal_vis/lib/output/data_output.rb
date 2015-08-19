@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-18 11:07:55
+# @Last Modified time: 2015-08-19 10:48:24
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -14,7 +14,8 @@ class DataOutput
     # method to visualize the dataset at the index
     def self.print_dataset(data_series, index, meta_data, with_extreme_values)
         data_set = data_series.series[index]
-        legend = ColorLegend.new(data_series.min_value, data_series.max_value)
+        legend = ColorLegend::ColorData.
+                    new(data_series.min_value, data_series.max_value)
         print_output_head(index, meta_data)
 
         print_data(data_set, legend, meta_data, with_extreme_values)
@@ -23,7 +24,8 @@ class DataOutput
 
     # method to visualize the difference of two datasets
     def self.print_delta(data_set, meta_data, indices, with_extreme_values)
-        legend = ColorLegend.new(data_set.min_value, data_set.max_value)
+        legend = ColorLegend::ColorDelta.
+                    new(data_set.min_value, data_set.max_value)
         puts "Printing difference for datasets #{indices[0]} and " \
              "#{indices[1]}.\n\n"
         print_data(data_set, legend, meta_data, with_extreme_values)

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-18 10:01:29
+# @Last Modified time: 2015-08-19 10:59:48
 
 
 require_relative '../lib/data/data_repository'
@@ -172,6 +172,6 @@ begin
     else
         create_output(meta_data)
     end
-rescue StandardError => e
+rescue StandardError, NotImplementedError => e
     print_error(e.message)
 end
