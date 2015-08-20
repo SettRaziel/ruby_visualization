@@ -11,11 +11,15 @@ parameters:
 -h, --help     show help text
 -v, --version  prints the current version of the project
 -m             process the file <filename> containing meta data
--a, --all      prints all possible datasets of a dataseries with
-               a pause between the output of every dataset, excludes -i
+-a, --all      argument: <speed>; prints all possible datasets of a dataseries
+               with a pause between the output of every dataset defined by
+               speed: 0 mean manual a value > 0 an animation speed in seconds,
+               excludes -i
 -c, --coord    arguments: <x> <y>; interpolates the data for the given
                coordinate (x,y) at default dataset index 0, can be
                combined with -i
+-d, --delta    arguments: <first_index> <second_index>; subtracts the first
+               dataset from the second dataset and visualizes the difference
 -e, --extreme  marks the extreme values in a dataset with ++ for a maximum
                and -- for a minimum, also prints the coordinates of the
                extreme values below the legend

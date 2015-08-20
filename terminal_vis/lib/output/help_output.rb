@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-20 10:44:09
+# @Last Modified time: 2015-08-20 10:54:59
 
 # Output class for help text
 class HelpOutput
@@ -25,9 +25,10 @@ class HelpOutput
   @parameters = {
     :help =>    ' -h, --help     show help text',
     :version => ' -v, --version  prints the current version of the project',
-    :all =>     ' -a, --all      prints all possible datasets of a ' \
-          ' dataseries with a pause between the output of every ' \
-          'dataset, excludes -i',
+    :all =>     ' -a, --all      ' + 'arguments:'.red + ' <speed>'.yellow +
+          'prints all possible datasets of a dataseries with a pause between' \
+          'the output of every dataset defined by speed: 0 mean manual, ' \
+          'a value > 0 an animation speed in seconds, excludes -i',
     :coord =>   ' -c, --coord    ' + 'arguments:'.red + ' <x> <y>'.yellow +
           '; interpolates the data for the given coordinate (x,y) ' \
           'at default dataset index 0, can be combined with -i',
