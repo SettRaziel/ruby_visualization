@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-20 10:31:41
+# @Last Modified time: 2015-08-21 11:17:24
 
 
 require_relative '../lib/data/data_repository'
@@ -10,138 +10,7 @@ require_relative '../lib/output/help_output'
 require_relative '../lib/parameter/parameter_handler'
 require_relative '../lib/math/interpolation'
 require_relative '../lib/math/dataset_statistics'
-
-# call to print the help text
-def print_help
-  HelpOutput.print_help_for(@parameter_handler.repository.parameters[:help])
-  exit(0)
-end
-
-# call to print version number and author
-def print_version
-  puts 'terminal_visualization version 0.4'
-  puts 'Created by Benjamin Held (June 2015)'
-  exit(0)
-end
-
-# creates the meta data based on the provided parameters
-def create_metadata
-  begin
-    if (@parameter_handler.repository.parameters[:meta])
-      @data_repository.add_data(@parameter_handler.repository.parameters[:file])
-    else
-      @data_repository.add_data_with_default_meta(
-                       @parameter_handler.repository.parameters[:file])
-    end
-  rescue Exception => e
-    print_error(' Error while creating metadata: '.concat(e.message))
-  end
-end
-
-# creates output based on metadata and parameters
-def create_output(meta_data)
-  if (@parameter_handler.repository.parameters[:all])
-    data_series = @data_repository.repository[meta_data]
-    animation_speed = Integer(@parameter_handler.repository.parameters[:all])
-    data_series.series.each_index { |index|
-      create_single_output_at_index(meta_data, index)
-      if (animation_speed > 0)
-        sleep(animation_speed)
-      else
-        print 'press Enter to continue ...'
-        # STDIN to read from console when providing parameters in ARGV
-        STDIN.gets.chomp
-      end
-    }
-  else
-    index = get_and_check_index(meta_data)
-    create_single_output_at_index(meta_data, index)
-  end
-  @data_repository.check_data_completeness(meta_data)
-end
-
-# interpolates the data for the provided coordinate and prints the result
-def interpolate_for_coordinate(meta_data)
-  index = get_and_check_index(meta_data)
-
-  x_coordinate = Float(@parameter_handler.repository.parameters[:coord][0])
-  y_coordinate = Float(@parameter_handler.repository.parameters[:coord][1])
-
-  value = Interpolation.bilinear_interpolation(meta_data,
-              @data_repository.repository[meta_data].series[index],
-              x_coordinate, y_coordinate)
-
-  puts "Interpolated value for coordinate (#{x_coordinate}, " \
-       "#{y_coordinate}) of dataset #{index} with result: #{value.round(3)}."
-end
-
-# creates default output or output with an index using -i
-def create_single_output_at_index(meta_data, index)
-  DataOutput.print_dataset(@data_repository.repository[meta_data], index,
-             meta_data, @parameter_handler.repository.parameters[:extreme])
-end
-
-# creates output when usind the option -d
-def create_delta_output(meta_data)
-  first = 0; second = 0
-  begin
-    first = Integer(@parameter_handler.repository.parameters[:delta][0])
-    second = Integer(@parameter_handler.repository.parameters[:delta][1])
-  rescue ArgumentError
-    print_error(' Error: at least one argument of -d is not a number')
-  end
-
-  first_data = @data_repository.repository[meta_data].series[first]
-  second_data = @data_repository.repository[meta_data].series[second]
-
-  if (first_data == nil)
-    raise IndexError, " Error: argument #{first} from -d is out of bounds"
-  end
-  if (second_data == nil)
-    raise IndexError, " Error: argument #{second} from -d is out of bounds"
-  end
-
-  result = DatasetStatistics.subtract_datasets(first_data, second_data)
-
-  DataOutput.print_delta(result, meta_data, [first, second],
-                         @parameter_handler.repository.parameters[:extreme])
-end
-
-# checks if option -i was used, determines if a valid parameter was entered
-# and returns the index on success
-# default return is 0
-def get_and_check_index(meta_data)
-  index = 0   # default data set if -i not set or only one data set
-  if (@parameter_handler.repository.parameters[:index])
-    begin
-      # make sure that parameter of -i is an integer
-      index = Integer(@parameter_handler.repository.parameters[:index]) - 1
-    rescue ArgumentError
-      message = " Error: argument of -i is not a number:" \
-                "#{@parameter_handler.repository.parameters[:index]}"
-      print_error(message)
-    end
-
-    # check if provided integer index lies in range of dataseries
-    if (index < 0 ||
-      index >= @data_repository.repository[meta_data].series.size)
-      text_index = @parameter_handler.repository.parameters[:index]
-      data_size = @data_repository.repository[meta_data].series.size
-      message = " Error: input #{text_index} for -i is not valid" \
-                " for dataset with length #{data_size}"
-      print_error(message)
-    end
-  end
-
-  return index
-end
-
-# call for standard error output
-def print_error(message)
-  STDERR.puts "#{message}"
-  STDERR.puts 'For help type: ruby <script> --help'
-  exit(0)
-end
+require_relative '../lib/main/main_module'
 
 #-------------------------------------------------------------------------------
 # Terminal Visualization Script
@@ -156,24 +25,27 @@ end
 if (ARGV.length < 1)
   message = 'Invalid number of arguments: usage ruby <script> ' \
   '[parameters] <filename>'
-  print_error(message)
+  TerminalVis.print_error(message)
 end
 
 begin
-  @parameter_handler = ParameterHandler.new(ARGV)
-  @data_repository = DataRepository.new()
-  print_help() if (@parameter_handler.repository.parameters[:help])
-  print_version() if (@parameter_handler.repository.parameters[:version])
+  TerminalVis::initialize_repositories(ARGV)
+  parameter_handler = TerminalVis.parameter_handler
 
-  meta_data = create_metadata()
+  TerminalVis.print_help() if (parameter_handler.repository.parameters[:help])
+  if (parameter_handler.repository.parameters[:version])
+    TerminalVis.print_version()
+  end
 
-  if (@parameter_handler.repository.parameters[:delta])
-    create_delta_output(meta_data)
-  elsif (@parameter_handler.repository.parameters[:coord])
-    interpolate_for_coordinate(meta_data)
+  meta_data = TerminalVis.create_metadata()
+
+  if (parameter_handler.repository.parameters[:delta])
+    TerminalVis::Output.create_delta_output(meta_data)
+  elsif (parameter_handler.repository.parameters[:coord])
+    TerminalVis::Interpolation.interpolate_for_coordinate(meta_data)
   else
-    create_output(meta_data)
+    TerminalVis::Output.create_output(meta_data)
   end
 rescue StandardError, NotImplementedError => e
-    print_error(e.message)
+    TerminalVis.print_error(e.message)
 end
