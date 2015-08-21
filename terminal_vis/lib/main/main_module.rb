@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-21 11:16:35
+# @Last Modified time: 2015-08-21 11:29:02
 
 module TerminalVis
 
@@ -55,23 +55,6 @@ module TerminalVis
     STDERR.puts 'For help type: ruby <script> --help'
     exit(0)
   end
-
-   # creates output based on metadata and parameters
-      def self.create_output(meta_data)
-        if (@parameter_handler.repository.parameters[:all])
-          data_series = @data_repo.repository[meta_data]
-          data_series.series.each_index { |index|
-              create_single_output_at_index(meta_data, index)
-              print 'press Enter to continue ...'
-              # STDIN to read from console when providing parameters in ARGV
-              STDIN.gets.chomp
-          }
-        else
-          index = get_and_check_index(meta_data)
-          create_single_output_at_index(meta_data, index)
-        end
-        @data_repo.check_data_completeness(meta_data)
-      end
 
   # checks if option -i was used, determines if a valid parameter was entered
   # and returns the index on success
