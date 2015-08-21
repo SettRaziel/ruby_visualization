@@ -1,13 +1,14 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-20 10:54:59
+# @Last Modified time: 2015-08-21 11:25:37
 
 # Output class for help text
 class HelpOutput
 
   # method to print the help text for the given parameter
-  # raises ArgumentError when a non existent parameter is provided
+  # @param [Symbol] parameter provided parameter
+  # @raise [ArgumentError] a non existent parameter is provided
   def self.print_help_for(parameter)
     if (@parameters[parameter])
       puts "TerminalVis help:".yellow
@@ -21,14 +22,14 @@ class HelpOutput
 
   private
 
-  # hash which stores available paramaeters and their help text
+  # @return [Hash] hash which stores available paramaeters and their help text
   @parameters = {
     :help =>    ' -h, --help     show help text',
     :version => ' -v, --version  prints the current version of the project',
     :all =>     ' -a, --all      ' + 'arguments:'.red + ' <speed>'.yellow +
-          'prints all possible datasets of a dataseries with a pause between' \
-          'the output of every dataset defined by speed: 0 mean manual, ' \
-          'a value > 0 an animation speed in seconds, excludes -i',
+          '; prints all possible datasets of a dataseries with a pause ' \
+          'between the output of every dataset defined by speed: 0 mean , ' \
+          'manual a value > 0 an animation speed in seconds, excludes -i',
     :coord =>   ' -c, --coord    ' + 'arguments:'.red + ' <x> <y>'.yellow +
           '; interpolates the data for the given coordinate (x,y) ' \
           'at default dataset index 0, can be combined with -i',
