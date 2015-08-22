@@ -1,22 +1,22 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-20 10:41:20
+# @Last Modified time: 2015-08-22 14:10:46
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
 require_relative 'data_series'
 require_relative 'meta_data'
 
-# data repository storing the read data and handling the meta information
-# @repository => Hash of metadata and the corresponding data set or
-# data series
+# This class serves as a data repository storing the read data and handling the
+# meta information
 class DataRepository
+  # @return Hash mapping {MetaData} -> {DataSeries}
   attr_reader :repository
 
   # initialization
-  # filename => filepath, default: nil
-  # key => key for the data series, default: nil
+  # @param [String] filename filepath
+  # @param [MetaData] key key for the data series
   def initialize(filename = nil,key = nil)
     @repository = Hash.new()
     add_data(filename) if (key == nil && filename != nil)
@@ -28,6 +28,7 @@ class DataRepository
   end
 
   # reads the file and creates meta information and data of its content
+  # @param [String] filename filepath
   def add_data(filename)
     @data = read_file(filename)
     meta_data = check_for_metadata()
@@ -39,6 +40,7 @@ class DataRepository
 
   # reads the file and creates data of its content with default meta
   # information
+  # @param [String] filename filepath
   def add_data_with_default_meta(filename)
     @data = read_file(filename)
     data_series = create_dataset()
@@ -61,14 +63,13 @@ class DataRepository
 
   # checks if all data sets in a data_series have the dimension specified
   # in the meta_data information
+  # @param [MetaData] meta_data the meta data which should be checked
   def check_data_completeness(meta_data)
     data_series = @repository[meta_data]
     number_value_x = Integer((meta_data.domain_x.upper - \
           meta_data.domain_x.lower) / meta_data.domain_x.step) + 1
     number_value_y = Integer((meta_data.domain_y.upper - \
           meta_data.domain_y.lower) / meta_data.domain_y.step) + 1
-    number_value_z = Integer((meta_data.domain_z.upper - \
-          meta_data.domain_z.lower) / meta_data.domain_z.step) + 1
 
     data_series.series.each_with_index { |data_set, index|
       number_data_x = data_set.data[0].size
@@ -83,13 +84,7 @@ class DataRepository
       end
     }
 
-    number_data_z = data_series.series.size
-    if (number_value_z != number_data_z)
-      puts "Warning: Size of dataseries does not match with" \
-         " meta data information."
-      puts "  meta_data: #{number_value_z} datasets to data_series: " \
-         "#{number_data_z} datasets"
-    end
+    check_z_dimension(meta_data, data_series)
   end
 
   private
@@ -117,6 +112,7 @@ class DataRepository
   end
 
   # calls the FileReader to get the content of the file
+  # @param [String] filename filepath
   def read_file(filename)
     FileReader.new(filename).data
   end
@@ -131,10 +127,28 @@ class DataRepository
   end
 
   # checks if a given key already exists in the repository
+  # @param [MetaData] key key that should be checked
   def check_for_existenz(key)
     if (@repository[key] != nil)
         puts "Info: A data set with this key already exists." \
            " Overwriting..."
+    end
+  end
+
+  # checks if all data sets in a data_series have the dimension in z specified
+  # in the meta_data information
+  # @param [MetaData] meta_data the meta data which should be checked
+  # @param [DataSeries] data_series the corresponding data series
+  def check_z_dimension(meta_data, data_series)
+    number_value_z = Integer((meta_data.domain_z.upper - \
+          meta_data.domain_z.lower) / meta_data.domain_z.step) + 1
+    number_data_z = data_series.series.size
+
+    if (number_value_z != number_data_z)
+      puts "Warning: Size of dataseries does not match with" \
+         " meta data information."
+      puts "  meta_data: #{number_value_z} datasets to data_series: " \
+         "#{number_data_z} datasets"
     end
   end
 
