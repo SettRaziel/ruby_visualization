@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-23 09:57:05
+# @Last Modified time: 2015-08-23 10:54:34
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -82,7 +82,7 @@ class DataRepository
   end
 
   private
-
+  # @return [Array] the read data from a file
   attr :data
 
   # creates DataSets of the parsed data and stores it into a DataSeries

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-23 10:37:08
+# @Last Modified time: 2015-08-23 10:50:45
 
 module TerminalVis
 
@@ -71,6 +71,18 @@ module TerminalVis
         [x_index, y_index]
       end
 
+      # calculates the coordinates to the given indices
+      # @param [MetaData] meta_data meta_data of the used dataset
+      # @param [Array] indices the two indices [x, y] for the lowest data point
+      #  of the interpolation
+      # @return [Array] coordinates associated to the given indices
+      def self.get_coordinates_to_indices(meta_data, indices)
+        y_coordinate = get_coordinate_to_index(meta_data.domain_y, indices[1])
+        x_coordinate = get_coordinate_to_index(meta_data.domain_x, indices[0])
+
+        [x_coordinate, y_coordinate]
+      end
+
       # @param [MetaData] meta_data meta_data of the used dataset
       # @param [DataSet] data_set dataset where a
       #   coordinate should be interpolated
@@ -137,15 +149,14 @@ module TerminalVis
       # @param [Float] y y-coordinate of the interpolation point
       # @return [DataPoint] corresponding data point
       def self.create_data_point(delta_x, delta_y, meta_data, data_set, x, y)
-        x_index = get_index_to_next_lower_datapoint(meta_data.domain_x, x)
-        y_index = get_index_to_next_lower_datapoint(meta_data.domain_y, y)
+        indices = get_data_indices(meta_data, x, y) # with [x_index, y_index]
 
         y_coordinate = get_coordinate_to_index(meta_data.domain_y, y_index)
         x_coordinate = get_coordinate_to_index(meta_data.domain_x, x_index)
 
         DataPoint.new(x_coordinate + delta_x * meta_data.domain_x.step,
                       y_coordinate + delta_y * meta_data.domain_y.step,
-                      data_set.data[y_index + delta_y][x_index + delta_x])
+                      data_set.data[indices[1] + delta_y][indices[0] + delta_x])
       end
 
       # singleton method to check if the provided coordinate lies within

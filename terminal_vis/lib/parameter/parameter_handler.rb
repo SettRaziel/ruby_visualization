@@ -1,20 +1,21 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-20 10:44:27
+# @Last Modified time: 2015-08-23 11:01:22
 
 require_relative 'parameter_repository'
 
 # class to seperate the storage of the parameter in a repository entity and
-# checking for valid parameter combination as part of the application logic
-# @repository => parameter repository which reads and stores the parameter
-# provided as arguments in script call
-# raises ArgumentError
+# checking for valid parameter combination as part of the application logic.
+# Can raise an {ArgumentError} or {IndexError} when invalid parameter arguments
+# or parameter combinations are provided
 class ParameterHandler
+  # @return [ParameterRepository] repository which reads and stores the
+  # parameter provided as arguments in script call
   attr_reader :repository
 
-  # initialize
-  # argv => Array of input parameters
+  # initialization
+  # @param [Array] argv array of input parameters
   def initialize(argv)
     @repository = ParameterRepository.new(argv)
     validate_parameters()
@@ -34,7 +35,7 @@ class ParameterHandler
   end
 
   # checks if the parsed filename is a valid unix or windows file name
-  # raises ArgumentError if filepath is not valid
+  # @raise [ArgumentError] if filepath is not valid
   def check_for_valid_filepath
     filepath = repository.parameters[:file]
     unixfile_regex= %r{
@@ -62,7 +63,7 @@ class ParameterHandler
 
   # check if both parameters -a, --all and -i are given as parameters, which
   # are disjunct in their functionality
-  # raises ArgumentError if both parameters are set
+  # @raise [ArgumentError] if both parameters are set
   def check_occurence_of_a_and_i
     if (repository.parameters[:all] && repository.parameters[:index])
       raise ArgumentError,
@@ -71,6 +72,7 @@ class ParameterHandler
   end
 
   # checks contraints: -d excludes -a and -d excludes -i
+  # @raise [ArgumentError] if invalid parameter combination occurs
   def check_constraint_for_d
     if (repository.parameters[:all] && repository.parameters[:delta])
       raise ArgumentError,
@@ -83,6 +85,7 @@ class ParameterHandler
   end
 
   # checks the correct number of parameters for the given key
+  # @raise [IndexError] if the number of arguments for the parameter is invalid
   def check_number_of_parameters(key, count_parameters)
     if (repository.parameters[key] && !repository.parameters[:help])
       value = repository.parameters[key]
