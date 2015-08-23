@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-22 14:10:46
+# @Last Modified time: 2015-08-23 09:57:05
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -44,16 +44,12 @@ class DataRepository
   def add_data_with_default_meta(filename)
     @data = read_file(filename)
     data_series = create_dataset()
+    meta_string = ["#{filename}", \
+            "X", 0, data_series.series[0].data[0].size - 1, 1, \
+            "Y", 0, data_series.series[0].data.size - 1, 1]
 
     if (data_series.series.size > 1)
-      meta_string = ["#{filename}", \
-               "X", 0, data_series.series[0].data[0].size - 1, 1, \
-               "Y", 0, data_series.series[0].data.size - 1, 1, \
-               "Z", 1, data_series.series.size, 1]
-    else
-      meta_string = ["#{filename}", \
-              "X", 0, data_series.series[0].data[0].size - 1, 1, \
-              "Y", 0, data_series.series[0].data.size - 1, 1]
+      meta_string.concat( ["Z", 1, data_series.series.size, 1] )
     end
 
     meta_data = MetaData.new(meta_string)
@@ -66,10 +62,8 @@ class DataRepository
   # @param [MetaData] meta_data the meta data which should be checked
   def check_data_completeness(meta_data)
     data_series = @repository[meta_data]
-    number_value_x = Integer((meta_data.domain_x.upper - \
-          meta_data.domain_x.lower) / meta_data.domain_x.step) + 1
-    number_value_y = Integer((meta_data.domain_y.upper - \
-          meta_data.domain_y.lower) / meta_data.domain_y.step) + 1
+    number_value_x = get_dimension_value(meta_data.domain_x)
+    number_value_y = get_dimension_value(meta_data.domain_y)
 
     data_series.series.each_with_index { |data_set, index|
       number_data_x = data_set.data[0].size
@@ -78,7 +72,7 @@ class DataRepository
       if (number_value_x != number_data_x ||
         number_value_y != number_data_y)
         puts "Warning: Size of dataset #{index + 1} does not match " \
-           "with meta data information."
+             "with meta data information."
         puts "  meta_data: #{number_value_x}, #{number_value_y}"
         puts "  data_set: #{number_data_x}, #{number_data_y}"
       end
@@ -133,6 +127,13 @@ class DataRepository
         puts "Info: A data set with this key already exists." \
            " Overwriting..."
     end
+  end
+
+  # determines the number of elements specified by the data domain
+  # @param [DataDomain] data_domain the particular data domain
+  # @return [Integer] the number of elements in this dimension
+  def get_dimension_value(data_domain)
+    Integer((data_domain.upper - data_domain.lower) / data_domain.step) + 1
   end
 
   # checks if all data sets in a data_series have the dimension in z specified
