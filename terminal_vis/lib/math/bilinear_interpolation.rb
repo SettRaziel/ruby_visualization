@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-23 10:50:45
+# @Last Modified time: 2015-08-24 10:43:59
 
 module TerminalVis
 
@@ -151,8 +151,8 @@ module TerminalVis
       def self.create_data_point(delta_x, delta_y, meta_data, data_set, x, y)
         indices = get_data_indices(meta_data, x, y) # with [x_index, y_index]
 
-        y_coordinate = get_coordinate_to_index(meta_data.domain_y, y_index)
-        x_coordinate = get_coordinate_to_index(meta_data.domain_x, x_index)
+        y_coordinate = get_coordinate_to_index(meta_data.domain_y, indices[1])
+        x_coordinate = get_coordinate_to_index(meta_data.domain_x, indices[0])
 
         DataPoint.new(x_coordinate + delta_x * meta_data.domain_x.step,
                       y_coordinate + delta_y * meta_data.domain_y.step,
