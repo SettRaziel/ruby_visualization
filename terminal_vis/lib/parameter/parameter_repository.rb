@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-20 10:27:15
+# @Last Modified time: 2015-08-24 10:20:08
 
 # Parameter repository storing the valid parameter of the script.
 # {#initialize} gets the provided parameters and fills a hash which
@@ -101,8 +101,8 @@ class ParameterRepository
   end
 
   # error message in the case of an invalid argument
-  # arg => invalid parameter string
-  # raises Argument Error if an invalid argument is provided
+  # @param [String] arg invalid parameter string
+  # @raise [ArgumentError] if an invalid argument is provided
   def raise_invalid_parameter(arg)
     raise ArgumentError, " Error: invalid argument: #{arg}"
   end

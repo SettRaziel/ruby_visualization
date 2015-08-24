@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-21 11:29:02
+# @Last Modified time: 2015-08-24 10:25:59
 
 module TerminalVis
 
@@ -50,6 +50,7 @@ module TerminalVis
   end
 
   # call for standard error output
+  # @param [String] message message string with error message
   def self.print_error(message)
     STDERR.puts "#{message}"
     STDERR.puts 'For help type: ruby <script> --help'
@@ -58,7 +59,9 @@ module TerminalVis
 
   # checks if option -i was used, determines if a valid parameter was entered
   # and returns the index on success
-  # default return is 0
+  # @param [MetaData] meta_data the meta_data which should be checked for the
+  #  corresponding index
+  # @return [Integer] the index from the parameter, default return is 0
   def self.get_and_check_index(meta_data)
     index = 0   # default data set if -i not set or only one data set
     if (@parameter_handler.repository.parameters[:index])
@@ -70,7 +73,7 @@ module TerminalVis
         print_error(message)
       end
 
-        # check if provided integer index lies in range of dataseries
+      # check if provided integer index lies in range of dataseries
       if (index < 0 ||
         index >= @data_repo.repository[meta_data].series.size)
         text_index = @parameter_handler.repository.parameters[:index]

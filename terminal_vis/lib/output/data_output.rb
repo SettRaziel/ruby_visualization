@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-22 14:39:44
+# @Last Modified time: 2015-08-24 10:21:27
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -169,6 +169,5 @@ class DataOutput
         puts "  %s %.3f at %s." % [type, value, coordinate]
     end
   end
-
 
 end
