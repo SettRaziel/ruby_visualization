@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-23 11:01:22
+# @Last Modified time: 2015-08-25 14:19:57
 
 require_relative 'parameter_repository'
 
@@ -29,6 +29,7 @@ class ParameterHandler
 
     check_number_of_parameters(:coord, 2)
     check_number_of_parameters(:delta, 2)
+    check_number_of_parameters(:time, 2)
 
     check_occurence_of_a_and_i()
     check_constraint_for_d()
