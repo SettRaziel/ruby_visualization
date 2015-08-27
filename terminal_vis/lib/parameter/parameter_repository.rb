@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-25 14:19:44
+# @Last Modified time: 2015-08-27 10:08:57
 
 # Parameter repository storing the valid parameter of the script.
 # {#initialize} gets the provided parameters and fills a hash which
@@ -25,22 +25,17 @@ class ParameterRepository
         when '-h', '--help'    then check_and_set_helpvalue
         when '-v', '--version' then @parameters[:version] = true
         when '-a', '--all'
-          @parameters[:all] = nil
-          unflagged_arguments.unshift(:all)
+          create_argument_entry(:all, unflagged_arguments)
         when '-c', '--coord'
-          @parameters[:coord] = Array.new()
-          2.times{ unflagged_arguments.unshift(:coord) }
+          create_two_argument_entry(:coord, unflagged_arguments)
         when '-d', '--delta'
-          @parameters[:delta] = Array.new()
-          2.times{ unflagged_arguments.unshift(:delta) }
+          create_two_argument_entry(:delta, unflagged_arguments)
         when '-e', '--extreme' then @parameters[:extreme] = true
         when '-i'
-          @parameters[:index] = nil
-          unflagged_arguments.unshift(:index)
+          create_argument_entry(:index, unflagged_arguments)
         when '-m'              then @parameters[:meta] = true
         when '-t', '--time'
-          @parameters[:time] = Array.new()
-          2.times{ unflagged_arguments.unshift(:time) }
+          create_two_argument_entry(:delta, unflagged_arguments)
         when /-[a-z]|--[a-z]+/ then raise_invalid_parameter(arg)
       else
         check_and_set_argument(unflagged_arguments.shift, arg)
@@ -53,6 +48,22 @@ class ParameterRepository
   end
 
   private
+
+  # creates a new entry for a parameter with one argument
+  # @param [Symbol] the symbol of the argument
+  # @param [Array] the argument array
+  def create_argument_entry(symbol, unflagged_arguments)
+    @parameters[symbol] = nil
+    unflagged_arguments.unshift(symbol)
+  end
+
+  # creates a new entry for a parameter with two arguments
+  # @param [Symbol] the symbol of the argument
+  # @param [Array] the argument array
+  def create_two_argument_entry(symbol, unflagged_arguments)
+    @parameters[symbol] = Array.new()
+    2.times{ unflagged_arguments.unshift(symbol) }
+  end
 
   # check if a parameter holds one or more arguments and adds the argument
   # depending on the check
