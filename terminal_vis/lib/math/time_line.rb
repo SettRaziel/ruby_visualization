@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-24 10:28:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-26 13:10:28
+# @Last Modified time: 2015-08-27 09:49:23
 
 require_relative 'interpolation'
 
@@ -70,8 +70,8 @@ class Timeline
   # @param [Hash] the maximum and minimum values of the collected data
   def self.determine_value_boundaries(extrema)
     delta = (extrema[:maximum] - extrema[:minimum]).abs
-    upper_boundary = extrema[:maximum] + delta / 10.0
-    lower_boundary = extrema[:minimum] - delta / 10.0
+    upper_boundary = extrema[:maximum] + delta / 20.0 # 5 % variance
+    lower_boundary = extrema[:minimum] - delta / 20.0 # 5 % variance
 
     delta = (upper_boundary - lower_boundary).abs / @size
     @value_bondaries = [lower_boundary.round(5)]
