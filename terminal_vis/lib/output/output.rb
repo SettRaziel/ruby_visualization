@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-22 14:55:23
+# @Last Modified time: 2015-08-28 12:03:26
 
 module TerminalVis
 
@@ -72,7 +72,7 @@ module TerminalVis
                                      repository.parameters[:delta][1])
       rescue ArgumentError
         message = " Error: at least one argument of -d is not a number"
-        print_error(message)
+        TerminalVis::print_error(message)
       end
       return data_indices
     end
