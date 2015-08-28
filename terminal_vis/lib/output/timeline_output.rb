@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-25 13:40:23
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-27 09:53:24
+# @Last Modified time: 2015-08-28 12:17:22
 
 require_relative '../graphics/string'
 
@@ -54,7 +54,7 @@ class TimelineOutput
         (max_size - line_string.length).times { line_string.concat(' ')}
       end
       line_string.concat('| ')
-      output << check_for_values(values, line_string)
+      output << check_and_append_values(values, line_string)
     }
 
     data_size = meta_data.domain_z.upper - meta_data.domain_z.lower
@@ -64,7 +64,11 @@ class TimelineOutput
     return output
   end
 
-  def self.check_for_values(values, line_string)
+  # method to finish the creation of a line of timeline output
+  # @param [Array] values values for one line of the output
+  # @param [String] line_string the started string that serves as output for
+  #  one line
+  def self.check_and_append_values(values, line_string)
     values.each { |value|
         if (value == 1)
           line_string.concat('x'.green)
