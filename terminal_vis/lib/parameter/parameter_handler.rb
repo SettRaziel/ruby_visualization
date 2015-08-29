@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-25 14:19:57
+# @Last Modified time: 2015-08-29 10:45:39
 
 require_relative 'parameter_repository'
 
@@ -31,8 +31,9 @@ class ParameterHandler
     check_number_of_parameters(:delta, 2)
     check_number_of_parameters(:time, 2)
 
-    check_occurence_of_a_and_i()
-    check_constraint_for_d()
+    check_constraints_for_a if (repository.parameters[:all])
+    check_constraints_for_c if (repository.parameters[:coord])
+    check_constraints_for_d if (repository.parameters[:delta])
   end
 
   # checks if the parsed filename is a valid unix or windows file name
@@ -62,27 +63,41 @@ class ParameterHandler
     end
   end
 
-  # check if both parameters -a, --all and -i are given as parameters, which
-  # are disjunct in their functionality
-  # @raise [ArgumentError] if both parameters are set
-  def check_occurence_of_a_and_i
-    if (repository.parameters[:all] && repository.parameters[:index])
-      raise ArgumentError,
-               ' Error: parameters -a and -i secludes themselves'
-    end
+  # checks constraints:
+  #   !(-a + -i), !(-i + -a),
+  #   !(-a + -t), !(-t + -a)
+  #   !(-a + -d), !(-d + -a)
+  # @raise [ArgumentError] if invalid parameter combination occurs
+  def check_constraints_for_a
+    create_constrain_error('-a', '-i') if (repository.parameters[:index])
+    create_constrain_error('-a', '-t') if (repository.parameters[:time])
+    create_constrain_error('-a', '-d') if (repository.parameters[:delta])
   end
 
-  # checks contraints: -d excludes -a and -d excludes -i
+  # checks constraints:
+  #   !(-c + -e), !(-e + -c),
+  #   !(-c + -t), !(-t + -c)
   # @raise [ArgumentError] if invalid parameter combination occurs
-  def check_constraint_for_d
-    if (repository.parameters[:all] && repository.parameters[:delta])
-      raise ArgumentError,
-               ' Error: parameters -d and -a secludes themselves'
-    end
-    if (repository.parameters[:index] && repository.parameters[:delta])
-      raise ArgumentError,
-               ' Error: parameters -d and -i secludes themselves'
-    end
+  def check_constraints_for_c
+    create_constrain_error('-c', '-e') if (repository.parameters[:extreme])
+    create_constrain_error('-c', '-t') if (repository.parameters[:time])
+  end
+
+  # checks contraints:
+  #   !(-d + -i), !(-i + -d),
+  #   !(-d + -t), !(-t + -d)
+  # @raise [ArgumentError] if invalid parameter combination occurs
+  def check_constraints_for_d
+    create_constrain_error('-d', '-i') if (repository.parameters[:index])
+    create_constrain_error('-d', '-t') if (repository.parameters[:time])
+  end
+
+  # creates a constraint error if an invalid parameter combination occurs
+  # @param [String] v first parameter
+  # @param [String] i second parameter
+  # @raise [ArgumentError] for an invalid parameter combination
+  def create_constrain_error(v, i)
+    raise ArgumentError, " Error: invalid parameter combination: #{v} and #{i}"
   end
 
   # checks the correct number of parameters for the given key
