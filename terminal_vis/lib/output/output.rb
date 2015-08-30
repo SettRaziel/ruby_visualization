@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-28 12:03:26
+# @Last Modified time: 2015-08-30 09:45:41
 
 module TerminalVis
 
@@ -41,7 +41,7 @@ module TerminalVis
     end
     private_class_method :create_animation
 
-    # creates output when usind the option -d
+    # creates output when usind the parameter -d
     # @param [MetaData] meta_data the meta data of the data series which should
     #  be visualized
     def self.create_delta_output(meta_data)
@@ -59,6 +59,17 @@ module TerminalVis
 
       DataOutput.print_delta(result, meta_data, data_indices,
                  TerminalVis.parameter_handler.repository.parameters[:extreme])
+    end
+
+    # creates a time line for the parameter -t
+    # @param [MetaData] meta_data the meta data of the data series from which
+    # the timeline should be created
+    def self.create_timeline(meta_data)
+      data_series = TerminalVis.data_repo.repository[meta_data]
+      x = Float(TerminalVis.parameter_handler.repository.parameters[:time][0])
+      y = Float(TerminalVis.parameter_handler.repository.parameters[:time][1])
+      timeline = Timeline.create_timeline(meta_data, data_series, x, y)
+      TimelineOutput.print_timeline(timeline, meta_data, x, y)
     end
 
     # gets the indices of the data sets which should be substracted

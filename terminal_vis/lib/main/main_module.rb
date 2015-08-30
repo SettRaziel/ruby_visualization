@@ -1,22 +1,26 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-24 10:25:59
+# @Last Modified time: 2015-08-30 09:44:57
 
 module TerminalVis
 
   require_relative '../data/data_repository'
   require_relative '../output/data_output'
   require_relative '../output/help_output'
+  require_relative '../output/timeline_output'
   require_relative '../parameter/parameter_handler'
   require_relative '../math/interpolation'
   require_relative '../math/dataset_statistics'
+  require_relative '../math/time_line'
 
   # Dummy class to get access to the instance variables
   class << self
     attr_reader :data_repo, :parameter_handler
   end
 
+  # singleton method to initialize the required repositories
+  # @param [Array] arguments the input values from {ARGV}
   def self.initialize_repositories(arguments)
       @parameter_handler = ParameterHandler.new(arguments)
       @data_repo = DataRepository.new()
