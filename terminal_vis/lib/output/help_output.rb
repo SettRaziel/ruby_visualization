@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-21 11:25:37
+# @Last Modified time: 2015-08-31 09:27:47
 
 # Output class for help text
 class HelpOutput
@@ -29,21 +29,28 @@ class HelpOutput
     :all =>     ' -a, --all      ' + 'arguments:'.red + ' <speed>'.yellow +
           '; prints all possible datasets of a dataseries with a pause ' \
           'between the output of every dataset defined by speed: 0 mean , ' \
-          'manual a value > 0 an animation speed in seconds, excludes -i',
+          'manual a value > 0 an animation speed in seconds, excludes -i,' \
+          ' -d and -t',
     :coord =>   ' -c, --coord    ' + 'arguments:'.red + ' <x> <y>'.yellow +
           '; interpolates the data for the given coordinate (x,y) ' \
-          'at default dataset index 0, can be combined with -i',
+          'at default dataset index 0, excludes -e and -t',
     :delta =>   ' -d, --delta    ' + 'arguments:'.red + ' <first_index> ' \
           '<second_index>'.yellow + '; subtracts the first dataset' \
-          ' from the second dataset and visualizes the difference',
+          ' from the second dataset and visualizes the difference, '\
+          'excludes -a, -i and -t',
     :extreme => ' -e, --extreme  marks the extreme values in a dataset ' \
           'with ++ for a maximum and -- for a minimum, also prints ' \
-          'the coordinates of the extreme values below the legend',
+          'the coordinates of the extreme values below the legend, ' \
+          'excludes -c',
     :index =>   ' -i             ' + 'argument:'.red + ' <index>'.yellow +
           '; shows the dataset at index, if index lies within ' \
-          '[1,2, ..., number of datasets], excludes -a, --all',
+          '[1,2, ..., number of datasets], excludes -a, -d and -t',
     :meta =>    ' -m             process the file <filename> containing' \
-          ' meta data'
+          ' meta data',
+    :time =>    ' -t, --time     ' + 'arguments:'.red + ' <x> <y>'.yellow +
+          '; creates a timeline for the given coordinate (x,y), coordinates ' \
+          'not lying on the data point will be interpolated, excludes -a,' \
+          '-c and -i'
   }
 
   # method to print the default help text
@@ -57,6 +64,16 @@ class HelpOutput
     @parameters.each_value { |value|
       puts value
     }
+
+    print_invalid_combinations
+  end
+
+  # method to print the invalid parameter combinations
+  def self.print_invalid_combinations
+    puts "\nInvalid parameter combinations:".red
+    puts "  -a + -d, -a + -i, -a + -t"
+    puts "  -c + -e, -c + -t"
+    puts "  -d + -i, -d + -t"
   end
 
 end
