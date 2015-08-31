@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-21 11:17:24
+# @Last Modified time: 2015-08-28 11:55:26
 
 
 require_relative '../lib/data/data_repository'
@@ -39,7 +39,9 @@ begin
 
   meta_data = TerminalVis.create_metadata()
 
-  if (parameter_handler.repository.parameters[:delta])
+  if (parameter_handler.repository.parameters[:time])
+    TerminalVis::Output.create_timeline(meta_data)
+  elsif (parameter_handler.repository.parameters[:delta])
     TerminalVis::Output.create_delta_output(meta_data)
   elsif (parameter_handler.repository.parameters[:coord])
     TerminalVis::Interpolation.interpolate_for_coordinate(meta_data)
