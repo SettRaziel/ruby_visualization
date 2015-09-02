@@ -7,7 +7,7 @@ You can choose between the following output:
 * Visualization of a dataset from a series of data
 * Visualization of the value differences of two datasets
 * Visualization of a timeline from a point within the data domain
-* Animation of all dataset
+* Animation of all datasets
 * Interpolation of a value of a dataset within the data domain
 
 ## Usage & Help
@@ -45,20 +45,20 @@ parameters:
 ```
 
 ### Examples
-Reading a data series from <filename> with meta data and visualizing the first
+Reading a data series from filename with meta data and visualizing the first
 dataset:
 ```
 ruby terminal_vis.rb -m <filename>
 ```
 
-Reading a data series from <filename> without meta data and visualizing the
+Reading a data series from filename without meta data and visualizing the
 dataset at <index>:
 ```
 ruby terminal_vis.rb -i <index> <filename>
 ```
 
-Reading a data series from <filename> with meta data and creating a timeline
-for the coordinate (<x>,<y>):
+Reading a data series from filename with meta data and creating a timeline
+for the coordinate (x,y):
 ```
 ruby terminal_vis.rb -m -t <x> <y> <filename>
 ```
