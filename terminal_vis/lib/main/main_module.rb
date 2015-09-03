@@ -1,8 +1,11 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-02 09:30:41
+# @Last Modified time: 2015-09-03 10:06:49
 
+# This module holds the main singleton methods that are called form the script.
+# It also stores the data ans parameter repository so it can be called from
+# the other classes and modules if they need data oder parameter informations.
 module TerminalVis
 
   require_relative '../data/data_repository'
