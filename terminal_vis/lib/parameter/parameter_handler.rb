@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-29 10:45:39
+# @Last Modified time: 2015-09-03 09:43:28
 
 require_relative 'parameter_repository'
 
@@ -18,7 +18,8 @@ class ParameterHandler
   # @param [Array] argv array of input parameters
   def initialize(argv)
     @repository = ParameterRepository.new(argv)
-    validate_parameters()
+    validate_parameters
+    check_parameter_constraints
   end
 
   private
@@ -31,6 +32,10 @@ class ParameterHandler
     check_number_of_parameters(:delta, 2)
     check_number_of_parameters(:time, 2)
 
+  end
+
+  # private method to the specified parameter constraints
+  def self.check_parameter_constraints
     check_constraints_for_a if (repository.parameters[:all])
     check_constraints_for_c if (repository.parameters[:coord])
     check_constraints_for_d if (repository.parameters[:delta])
@@ -69,9 +74,9 @@ class ParameterHandler
   #   !(-a + -d), !(-d + -a)
   # @raise [ArgumentError] if invalid parameter combination occurs
   def check_constraints_for_a
-    create_constrain_error('-a', '-i') if (repository.parameters[:index])
-    create_constrain_error('-a', '-t') if (repository.parameters[:time])
-    create_constrain_error('-a', '-d') if (repository.parameters[:delta])
+    check_constrain('-a', '-i', :index)
+    check_constrain('-a', '-t', :time)
+    check_constrain('-a', '-d', :delta)
   end
 
   # checks constraints:
@@ -79,8 +84,8 @@ class ParameterHandler
   #   !(-c + -t), !(-t + -c)
   # @raise [ArgumentError] if invalid parameter combination occurs
   def check_constraints_for_c
-    create_constrain_error('-c', '-e') if (repository.parameters[:extreme])
-    create_constrain_error('-c', '-t') if (repository.parameters[:time])
+    check_constrain('-c', '-e', :extreme)
+    check_constrain('-c', '-t', :time)
   end
 
   # checks contraints:
@@ -88,16 +93,20 @@ class ParameterHandler
   #   !(-d + -t), !(-t + -d)
   # @raise [ArgumentError] if invalid parameter combination occurs
   def check_constraints_for_d
-    create_constrain_error('-d', '-i') if (repository.parameters[:index])
-    create_constrain_error('-d', '-t') if (repository.parameters[:time])
+    check_constrain('-d', '-i', :index)
+    check_constrain('-d', '-t', :time)
   end
 
   # creates a constraint error if an invalid parameter combination occurs
   # @param [String] v first parameter
   # @param [String] i second parameter
+  # @param [Symbol] symbol the literal to checl
   # @raise [ArgumentError] for an invalid parameter combination
-  def create_constrain_error(v, i)
-    raise ArgumentError, " Error: invalid parameter combination: #{v} and #{i}"
+  def check_constrain(v, i, symbol)
+    if (repository.parameters[symbol])
+      raise ArgumentError,
+            " Error: invalid parameter combination: #{v} and #{i}"
+    end
   end
 
   # checks the correct number of parameters for the given key
