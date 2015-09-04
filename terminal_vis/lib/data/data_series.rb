@@ -1,19 +1,22 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-22 15:49:04
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-20 10:41:46
+# @Last Modified time: 2015-08-31 09:52:37
 
 require_relative 'data_set'
 
-# Class to represent a series of multiple data sets
-# @min_value => minimal value of the data, initial = nil
-# @max_value => maximal value of the data, initial = nil
-# @series => array of data sets, initial empty
+# Class to represent a series of multiple data sets with the extreme values
+# of the whole data series
 class DataSeries
-  attr_reader :min_value, :max_value, :series
+  # @return [Float] minimal value of the data, initial = nil
+  attr_reader :min_value
+  # @return [Float] maximal value of the data, initial = nil
+  attr_reader :max_value
+  # @return [Array] Array of data sets, initial empty
+  attr_reader :series
 
   # initialization
-  # min_value and max_value are initialized with nil because no extreme
+  # min_value and max_value are initialized with nil because the extreme
   # values are not necessarily present at this moment
   def initialize
     @series = Array.new()
@@ -24,6 +27,7 @@ class DataSeries
 
   # adds a data set to the array and checks if there are new
   # maximum and minimum values
+  # @param [DataSet] data_set {DataSet} that should be added to the series
   def add_data_set(data_set)
     @series << data_set
 

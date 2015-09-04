@@ -1,26 +1,34 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-20 10:42:31
+# @Last Modified time: 2015-09-03 09:58:33
 
-# MetaData stores meta information about the data set
-# two dimensional data set =>
-# @name => <data_name>,
-# @domain_x => <axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
-# @domain_y => <axis_description_y>,<lower_boundary_y>,<upper_boundary_y>
-# @domain_z => nil
+# MetaData stores meta information about the data series. The meta information
+# can be used for two or three dimensional data series.
+#   two dimensional data serie
+#   <data_name>,
+#   <axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
+#   <axis_description_y>,<lower_boundary_y>,<upper_boundary_y>
 #
-# three dimensional data set =>
-# @name => <data_name>,
-# @domain_x => <axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
-# @domain_y => <axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,
-# @domain_z => <axis_description_z>,<lower_boundary_z>,<upper_boundary_z>
-# raises IndexError when parameter metadata has not the correct size
+#   three dimensional data serie
+#   <data_name>,
+#   <axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
+#   <axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,
+#   <axis_description_z>,<lower_boundary_z>,<upper_boundary_z>
+# @raise [IndexError] when parameter metadata has not the correct size
 class MetaData
-  attr_reader :name, :domain_x, :domain_y, :domain_z
+  # @return [String] the name of the data
+  attr_reader :name
+  # @return [DataDomain] informations of the x-dimension
+  attr_reader :domain_x
+  # @return [DataDomain] informations of the y-dimension
+  attr_reader :domain_y
+  # @return [DataDomain] informations of the y-dimension
+  attr_reader :domain_z
 
   # initialization
-  # raises IndexError when parameter metadata has not the correct size
+  # @param [Array] metadata the array with the meta information
+  # @raise [IndexError] when parameter metadata has not the correct size
   def initialize(metadata)
 
     if !(metadata.length == 13 || metadata.length == 9)
@@ -44,16 +52,23 @@ class MetaData
 end
 
 # DataDomain represents the meta data for one dimension
-# @name => name of the data
-# @lower => lower boundary of the dimension
-# @upper => upper boundary of the dimension
-# @step => step range between two values
-# raises ArgumentError if parsing of attribute values fails
+# @raise [ArgumentError] if parsing of attribute values fails
 class DataDomain
-  attr_reader :name, :lower, :upper, :step
+  # @return [String] name of the data
+  attr_reader :name
+  # @return [Float] lower boundary of the dimension
+  attr_reader :lower
+  # @return [Float] upper boundary of the dimension
+  attr_reader :upper
+  # @return [Float] step range between two values
+  attr_reader :step
 
   # initialization
-  # raises ArgumentError when one of the parameters is not a number
+  # @param [String] name the name of the data
+  # @param [String] lower the lower boundary of the dimension
+  # @param [String] upper the upper boundary of the dimension
+  # @param [String] step the step range between two values
+  # @raise [ArgumentError] when one of the parameters is not a number
   def initialize(name, lower, upper, step)
     @name = name
     begin
