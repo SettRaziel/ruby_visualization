@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-03 09:43:28
+# @Last Modified time: 2015-09-05 08:57:07
 
 require_relative 'parameter_repository'
 
@@ -26,7 +26,7 @@ class ParameterHandler
 
   # private method with calls of the different validations methods
   def validate_parameters
-    check_for_valid_filepath() if (repository.parameters[:file])
+    check_for_valid_filepath if (repository.parameters[:file])
 
     check_number_of_parameters(:coord, 2)
     check_number_of_parameters(:delta, 2)
@@ -35,7 +35,7 @@ class ParameterHandler
   end
 
   # private method to the specified parameter constraints
-  def self.check_parameter_constraints
+  def check_parameter_constraints
     check_constraints_for_a if (repository.parameters[:all])
     check_constraints_for_c if (repository.parameters[:coord])
     check_constraints_for_d if (repository.parameters[:delta])

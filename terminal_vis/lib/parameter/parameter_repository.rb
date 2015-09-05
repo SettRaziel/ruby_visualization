@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-28 12:00:30
+# @Last Modified time: 2015-09-04 10:16:50
 
 # Parameter repository storing the valid parameter of the script.
 # {#initialize} gets the provided parameters and fills a hash which
@@ -50,16 +50,16 @@ class ParameterRepository
   private
 
   # creates a new entry for a parameter with one argument
-  # @param [Symbol] the symbol of the argument
-  # @param [Array] the argument array
+  # @param [Symbol] symbol the symbol of the argument
+  # @param [Array] unflagged_arguments the argument array
   def create_argument_entry(symbol, unflagged_arguments)
     @parameters[symbol] = nil
     unflagged_arguments.unshift(symbol)
   end
 
   # creates a new entry for a parameter with two arguments
-  # @param [Symbol] the symbol of the argument
-  # @param [Array] the argument array
+  # @param [Symbol] symbol the symbol of the argument
+  # @param [Array] unflagged_arguments the argument array
   def create_two_argument_entry(symbol, unflagged_arguments)
     @parameters[symbol] = Array.new()
     2.times{ unflagged_arguments.unshift(symbol) }
@@ -67,7 +67,8 @@ class ParameterRepository
 
   # check if a parameter holds one or more arguments and adds the argument
   # depending on the check
-  # @param [Symbol] unflagged_argument symbol referencing a parameter
+  # @param [Symbol] arg_key symbol referencing a parameter
+  # @param [String] arg argument from the input array
   def check_and_set_argument(arg_key, arg)
     if (arg_key != nil)
       if(@parameters[arg_key] != nil)
