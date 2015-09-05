@@ -1,8 +1,11 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-30 13:34:57
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-20 10:36:36
+# @Last Modified time: 2015-09-04 10:19:14
 
+# This module groups the different color legends that are used to visualize the
+# output. The class {Base} provides the basic methods that are needed. Child
+# classes only need to implement the method {Base#create_output_string_for}.
 module ColorLegend
 
   require_relative '../graphics/string'
@@ -32,7 +35,7 @@ module ColorLegend
 
     # prints color legend with given colors
     def print_color_legend
-      puts "Legend: %.3f; %.3f; delta = %.3f" % [min_value, max_value, delta]
+      puts "Legend: %.3f; %.3f; delta = %.3f" % [@min_value, @max_value, delta]
       @value_legend.each { |value|
         2.times {print create_output_string_for(value, '  ') }
         # print " <= #{value}; "# todo: extended legend output
@@ -51,7 +54,7 @@ module ColorLegend
     private
 
     # creates color legend
-    # {min_value} + i * {delta} => value at index i + 1
+    # {#min_value} + i * {#delta} => value at index i + 1
     def create_color_legend(length)
       @delta = (@max_value.to_f - @min_value.to_f).abs / length
 
