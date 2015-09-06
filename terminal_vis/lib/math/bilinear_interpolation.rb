@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-24 10:43:59
+# @Last Modified time: 2015-09-06 12:56:27
 
 module TerminalVis
 
@@ -26,7 +26,7 @@ module TerminalVis
         indices = get_data_indices(meta_data, x, y) # with [x_index, y_index]
 
         if ( coordinate_on_datapoint(meta_data.domain_x, x) &&
-           coordinate_on_datapoint(meta_data.domain_y, y))
+             coordinate_on_datapoint(meta_data.domain_y, y))
           # return value of datapoint
           return data_set.data[indices[1]][indices[0]]
         end
@@ -139,9 +139,9 @@ module TerminalVis
 
       # creation of the boundary data points for the bilinear interpolation
       # @param [Integer] delta_x delta value in x for the grid with values
-      #  {0, 1}
+      #  0 or 1
       # @param [Integer] delta_y delta value in y for the grid with values
-      #  {0, 1}
+      #  0 or 1
       # @param [MetaData] meta_data meta_data of the used dataset
       # @param [DataSet] data_set dataset where a
       #   coordinate should be interpolated
@@ -170,9 +170,9 @@ module TerminalVis
       end
 
       # singleton method to check if a provided coordinate lies on a data point
-      # of the dataset
+      #  of the dataset
       # @param [DataDomain] data_domain domain of the meta_data corresponding
-      #   to the coordinate
+      #  to the coordinate
       # @param [DataPoint] coordinate component of the coordinate to check
       # @return [Numeric] the modulus of the coordinate and {DataDomain.step}
       def self.coordinate_on_datapoint(data_domain, coordinate)

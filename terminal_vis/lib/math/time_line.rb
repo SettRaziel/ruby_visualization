@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-24 10:28:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-27 09:49:23
+# @Last Modified time: 2015-09-06 12:58:45
 
 require_relative 'interpolation'
 
@@ -50,7 +50,7 @@ class Timeline
   end
 
   # this method determines the extreme values of the collected data d(x,y)[z]
-  # @param [Array] the collected values d(x,y)[z]
+  # @param [Array] values the collected values d(x,y)[z]
   # @return [Hash] the maximum and minimum values of the collected data
   def self.determine_extrema(values)
     extrema = {
@@ -67,7 +67,7 @@ class Timeline
   end
 
   # this method determines the value boundaries based on the resolution {#size}
-  # @param [Hash] the maximum and minimum values of the collected data
+  # @param [Hash] extrema the maximum and minimum values of the collected data
   def self.determine_value_boundaries(extrema)
     delta = (extrema[:maximum] - extrema[:minimum]).abs
     upper_boundary = extrema[:maximum] + delta / 20.0 # 5 % variance
@@ -83,7 +83,7 @@ class Timeline
 
   # this method calculates for every collected value the index of the interval
   # values {#value_boundaries} with the least distance
-  # @param [Array] the collected values d(x,y)[z]
+  # @param [Array] values the collected values d(x,y)[z]
   # @return [Hash] mapping of value => index
   def self.determine_nearest_index(values)
     mapped_values = Hash.new()
@@ -114,7 +114,7 @@ class Timeline
   end
 
   # this method creates the basic output which can be visualized.
-  # @param [Hash] mapping of value => index
+  # @param [Hash] mapped_values mapping of value => index
   # @return [Hash] the occurence of a boundary value in the z dimension as the
   #  result of being the nearest index for a collected value at position z
   def self.create_output(mapped_values)

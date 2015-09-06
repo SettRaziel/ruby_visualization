@@ -1,15 +1,17 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-24 10:22:51
+# @Last Modified time: 2015-09-06 12:56:58
 
 require_relative '../data/meta_data'
 require 'matrix'
 
 module TerminalVis
 
-  # This module provides methods to apply linear oder bilinear interpolation
-  # for given data- and coordinatevalues
+  # This module holds methods and classes to interpolate data values with
+  # different methods. The following interpolation methods are implemented:
+  #   * Linear interpolation
+  #   * Bilinear interpolation
   module Interpolation
 
     # interpolates the data for the provided coordinate and prints the result
