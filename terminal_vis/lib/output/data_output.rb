@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-24 10:21:27
+# @Last Modified time: 2015-09-07 10:34:21
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -15,7 +15,7 @@ class DataOutput
   # @param [DataSeries] data_series the data series which should be visualized
   # @param [Integer] index the index of the desired data set
   # @param [MetaData] meta_data the corresponding meta data
-  # @param [boolean] with_extrem_values boolean which provides the information
+  # @param [boolean] with_extreme_values boolean which provides the information
   #   if the extreme values of the dataset should be visualized as well
   def self.print_dataset(data_series, index, meta_data, with_extreme_values)
     data_set = data_series.series[index]
@@ -32,7 +32,7 @@ class DataOutput
   # @param [MetaData] meta_data the corresponding meta data
   # @param [Array] indices the indices of the two datasets which should be
   #   substracted
-  # @param [boolean] with_extrem_values boolean which provides the information
+  # @param [boolean] with_extreme_values boolean which provides the information
   #   if the extreme values of the dataset should be visualized as well
   def self.print_delta(data_set, meta_data, indices, with_extreme_values)
     @legend = ColorLegend::ColorDelta.
@@ -49,7 +49,7 @@ class DataOutput
   # prints the data and the additional informations
   # @param [DataSet] data_set the dataset which should be visualized
   # @param [MetaData] meta_data the corresponding meta data
-  # @param [boolean] with_extrem_values boolean which provides the information
+  # @param [boolean] with_extreme_values boolean which provides the information
   #   if the extreme values of the dataset should be visualized as well
   def self.print_data(data_set, meta_data, with_extreme_values)
     extreme_coordinates = print_data_and_get_extrema(data_set,
@@ -68,7 +68,7 @@ class DataOutput
 
   # reverses the data to print it in the correct occurence
   # @param [DataSet] data_set the dataset which should be visualized
-  # @param [boolean] with_extrem_values boolean which provides the information
+  # @param [boolean] with_extreme_values boolean which provides the information
   #   if the extreme values of the dataset should be visualized as well
   def self.print_data_and_get_extrema(data_set, with_extreme_values)
     extreme_coordinates = {

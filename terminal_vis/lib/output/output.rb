@@ -1,10 +1,14 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-30 09:45:41
+# @Last Modified time: 2015-09-07 10:34:34
 
 module TerminalVis
 
+  # This module takes care about the output in the terminal and serves several
+  # methods to create the desired output:
+  #   * visual output
+  #   * help output
   module Output
 
     # creates output based on metadata and parameters
@@ -82,7 +86,7 @@ module TerminalVis
         data_indices[1] = Integer(TerminalVis.parameter_handler.
                                      repository.parameters[:delta][1])
       rescue ArgumentError
-        message = " Error: at least one argument of -d is not a number"
+        message = " Error: at least one argument of -d is not a valid number"
         TerminalVis::print_error(message)
       end
       return data_indices
