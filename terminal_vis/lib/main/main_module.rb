@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-03 10:06:49
+# @Last Modified time: 2015-09-08 08:59:37
 
 # This module holds the main singleton methods that are called form the script.
 # It also stores the data ans parameter repository so it can be called from
@@ -51,7 +51,7 @@ module TerminalVis
 
   # call to print version number and author
   def self.print_version
-    puts 'terminal_visualization version 0.5.0'
+    puts 'terminal_visualization version 0.5.1'
     puts 'Created by Benjamin Held (June 2015)'
     exit(0)
   end
