@@ -45,23 +45,28 @@ parameters:
 ```
 
 ### Examples
-Reading a data series from filename with meta data and visualizing the first
+Reading a data series from `<filename>` with meta data and visualizing the first
 dataset:
 ```
 ruby terminal_vis.rb -m <filename>
 ```
 
-Reading a data series from filename without meta data and visualizing the
-dataset at <index>:
+Reading a data series from `<filename>` without meta data and visualizing the
+dataset at `<index>`:
 ```
 ruby terminal_vis.rb -i <index> <filename>
 ```
 
-Reading a data series from filename with meta data and creating a timeline
-for the coordinate (x,y):
+Reading a data series from `<filename>` with meta data and creating a timeline
+for the coordinate `(<x>,<y>)`:
 ```
 ruby terminal_vis.rb -m -t <x> <y> <filename>
 ```
+
+### Documentation
+Documentation is written in yard and can be created by running the shell-script
+`create_yard.sh`. Yard needs to be installed on the system in order to do that.
+Hopefully i find a place to publish the documentation online soon.
 
 ## Meta data format (in single line):
 #### Two dimensional data set:
@@ -92,6 +97,7 @@ Written with Ruby 2.2.2
 * matrix (all)
 * csv (all)
 * Win32/Console/ANSI (Windows)
+* Yard (for Documentation only)
 
 ## License
 see LICENSE
