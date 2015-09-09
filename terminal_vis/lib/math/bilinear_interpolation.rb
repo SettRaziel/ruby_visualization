@@ -1,15 +1,15 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-06 12:56:27
+# @Last Modified time: 2015-09-09 09:34:12
 
 module TerminalVis
 
   module Interpolation
 
-    # math class to interpolate data between a set of points. Raises
-    # {RangeError} when the provided coordinates do not lie within the data
-    # area of the meta data
+    # math class to interpolate data between a set of points
+    # @raise [RangeError] when the provided coordinates do not lie within
+    #   the data area of the meta data
     class BilinearInterpolation
 
       # method for bilinear interpolation
@@ -28,7 +28,7 @@ module TerminalVis
         if ( coordinate_on_datapoint(meta_data.domain_x, x) &&
              coordinate_on_datapoint(meta_data.domain_y, y))
           # return value of datapoint
-          return data_set.data[indices[1]][indices[0]]
+          return data_set.data[indices[:y]][indices[:x]]
         end
 
         if (coordinate_on_datapoint(meta_data.domain_x, x))
@@ -41,8 +41,7 @@ module TerminalVis
           return handle_coordinate_on_y(meta_data, data_set, indices, x, y)
         end
 
-        return apply_bilinear_interpolation(meta_data, data_set, x, y)
-
+        apply_bilinear_interpolation(meta_data, data_set, x, y)
       end
 
       private
@@ -52,6 +51,7 @@ module TerminalVis
       # @param [MetaData] meta_data meta_data of the used dataset
       # @param [Float] x x-coordinate of the provided point
       # @param [Float] y y-coordinate of the provided point
+      # @raise [RangeError] if the data lies outside the meta data boundaries
       def self.check_data_range(meta_data, x, y)
         if ( !coordinate_in_dataset(meta_data.domain_x, x) ||
            !coordinate_in_dataset(meta_data.domain_y, y))
@@ -64,23 +64,24 @@ module TerminalVis
       # @param [MetaData] meta_data meta_data of the used dataset
       # @param [Float] x x-coordinate of the interpolation point
       # @param [Float] y y-coordinate of the interpolation point
+      # @return [Hash] Hash with the two indices
       def self.get_data_indices(meta_data, x, y)
         x_index = get_index_to_next_lower_datapoint(meta_data.domain_x, x)
         y_index = get_index_to_next_lower_datapoint(meta_data.domain_y, y)
 
-        [x_index, y_index]
+        { :x => x_index, :y => y_index }
       end
 
       # calculates the coordinates to the given indices
       # @param [MetaData] meta_data meta_data of the used dataset
       # @param [Array] indices the two indices [x, y] for the lowest data point
       #  of the interpolation
-      # @return [Array] coordinates associated to the given indices
+      # @return [DataPoint] coordinates associated to the given indices
       def self.get_coordinates_to_indices(meta_data, indices)
-        y_coordinate = get_coordinate_to_index(meta_data.domain_y, indices[1])
-        x_coordinate = get_coordinate_to_index(meta_data.domain_x, indices[0])
+        y_coordinate = get_coordinate_to_index(meta_data.domain_y, indices[:y])
+        x_coordinate = get_coordinate_to_index(meta_data.domain_x, indices[:x])
 
-        [x_coordinate, y_coordinate]
+        DataPoint.new(x_coordinate, y_coordinate)
       end
 
       # @param [MetaData] meta_data meta_data of the used dataset
@@ -90,13 +91,15 @@ module TerminalVis
       #  of the interpolation
       # @param [Float] x x-coordinate of the interpolation point
       # @param [Float] y y-coordinate of the interpolation point
+      # @return [Float] linear interpolation of the determined points
       def self.handle_coordinate_on_x(meta_data, data_set, indices, x, y)
         # find the two datapoints with same x and call linear interpolation
-        y_coordinate = get_coordinate_to_index(meta_data.domain_y, indices[1])
-        return linear_interpolation(
-          DataPoint.new(x, y_coordinate, data_set.data[indices[1]][indices[0]]),
+        y_coordinate = get_coordinate_to_index(meta_data.domain_y, indices[:y])
+        linear_interpolation(
+          DataPoint.new(x, y_coordinate,
+                        data_set.data[indices[:y]][indices[:x]]),
           DataPoint.new(x, y_coordinate + meta_data.domain_y.step,
-                        data_set.data[indices[1] + 1][indices[0]]), x, y)
+                        data_set.data[indices[:y] + 1][indices[:x]]), x, y)
       end
 
       # @param [MetaData] meta_data meta_data of the used dataset
@@ -106,13 +109,15 @@ module TerminalVis
       #  of the interpolation
       # @param [Float] x x-coordinate of the interpolation point
       # @param [Float] y y-coordinate of the interpolation point
+      # @return [Float] linear interpolation of the determined points
       def self.handle_coordinate_on_y(meta_data, data_set, indices, x, y)
         # find the two datapoints with same y and call linear interpolation
-        x_coordinate = get_coordinate_to_index(meta_data.domain_x, indices[0])
-        return linear_interpolation(
-          DataPoint.new(x_coordinate, y, data_set.data[indices[1]][indices[0]]),
+        x_coordinate = get_coordinate_to_index(meta_data.domain_x, indices[:x])
+        linear_interpolation(
+          DataPoint.new(x_coordinate, y,
+                        data_set.data[indices[:y]][indices[:x]]),
           DataPoint.new(x_coordinate + meta_data.domain_x.step, y,
-                        data_set.data[indices[1]][indices[0] + 1]), x, y)
+                        data_set.data[indices[:y]][indices[:x] + 1]), x, y)
       end
 
       # singleton method to calculate the bilinear interpolation
@@ -123,18 +128,15 @@ module TerminalVis
       # @param [Float] y y-coordinate of the interpolation point
       # @return [Float] the interpolated data value for (x,y)
       def self.apply_bilinear_interpolation(meta_data, data_set, x, y)
-        #getting boundary data points
-        d_xy = create_data_point(0, 0, meta_data, data_set, x, y)
-        d_x1y = create_data_point(1, 0, meta_data, data_set, x, y)
-        d_xy1 = create_data_point(0, 1, meta_data, data_set, x, y)
-        d_x1y1 = create_data_point(1, 1, meta_data, data_set, x, y)
-        coordinate = DataPoint.new(x, y)
+        boundary = calculate_boundary_datapoints(meta_data, data_set, x, y)
 
         # interpolate
-        r = calculate_interpolation_factor(d_xy, d_x1y, coordinate)
-        s = calculate_interpolation_factor(d_xy, d_xy1, coordinate)
-        (1-r) * (1-s) * d_xy.value + r * (1-s) * d_x1y.value +
-        r * s * d_x1y1.value + (1-r) * s * d_xy1.value
+        r = calculate_interpolation_factor(boundary[:d_xy],
+                                           boundary[:d_x1y], x, y)
+        s = calculate_interpolation_factor(boundary[:d_xy],
+                                           boundary[:d_xy1], x, y)
+
+        calculate_interpolation_result(boundary, r, s)
       end
 
       # creation of the boundary data points for the bilinear interpolation
@@ -151,12 +153,11 @@ module TerminalVis
       def self.create_data_point(delta_x, delta_y, meta_data, data_set, x, y)
         indices = get_data_indices(meta_data, x, y) # with [x_index, y_index]
 
-        y_coordinate = get_coordinate_to_index(meta_data.domain_y, indices[1])
-        x_coordinate = get_coordinate_to_index(meta_data.domain_x, indices[0])
+        point = get_coordinates_to_indices(meta_data, indices)
 
-        DataPoint.new(x_coordinate + delta_x * meta_data.domain_x.step,
-                      y_coordinate + delta_y * meta_data.domain_y.step,
-                      data_set.data[indices[1] + delta_y][indices[0] + delta_x])
+        DataPoint.new(point.x + delta_x * meta_data.domain_x.step,
+                  point.y + delta_y * meta_data.domain_y.step,
+                  data_set.data[indices[:y] + delta_y][indices[:x] + delta_x])
       end
 
       # singleton method to check if the provided coordinate lies within
@@ -198,20 +199,52 @@ module TerminalVis
         data_domain.lower + index * data_domain.step
       end
 
+      # singleton method to calculate the necessary boundary points
+      # @param [MetaData] meta_data meta_data of the used dataset
+      # @param [DataSet] data_set dataset where a coordinate should
+      #   be interpolated
+      # @param [Float] x x-coordinate of the interpolation point
+      # @param [Float] y y-coordinate of the interpolation point
+      # @return [Hash] Hash with the four boundary points of (x,y)
+      def self.calculate_boundary_datapoints(meta_data, data_set, x, y)
+        boundary = Hash.new()
+
+        #getting boundary data points
+        boundary[:d_xy] = create_data_point(0, 0, meta_data, data_set, x, y)
+        boundary[:d_x1y] = create_data_point(1, 0, meta_data, data_set, x, y)
+        boundary[:d_xy1] = create_data_point(0, 1, meta_data, data_set, x, y)
+        boundary[:d_x1y1] = create_data_point(1, 1, meta_data, data_set, x, y)
+
+        return boundary
+      end
+
       # singleton method to calculate interpolation coefficient with
       # accuracy to the fifth digit
       # @param [DataPoint] data_point0 DataPoint with coordinates and value
       #   needed for the interpolation
       # @param [DataPoint] data_point1 DataPoint with coordinates and value
       #   needed for the interpolation
-      # @param [DataPoint] coordinate DataPoint with coordinate where the data
-      #   should be interpolated
-      def self.calculate_interpolation_factor(data_point0, data_point1,
-                                      coordinate)
+      # @param [Float] x x-coordinate of the interpolation point
+      # @param [Float] y y-coordinate of the interpolation point
+      # @return [Float] the calculated interpolation factor
+      def self.calculate_interpolation_factor(data_point0, data_point1, x, y)
+        coordinate = DataPoint.new(x, y)
         ( (coordinate.coordinate - data_point0.coordinate).
           dot(data_point1.coordinate - data_point0.coordinate) /
           (data_point1.coordinate - data_point0.coordinate).magnitude**2).
         round(5)
+      end
+
+      # singleton method to calculate the result of the bilinear interpolation
+      # @param [Hash] boundary the hash with the four boundary points
+      # @param [Float] r the interpolation factor in x
+      # @param [Float] s the interpolation factor in y
+      # @return [Float] the interpolation result
+      def self.calculate_interpolation_result(boundary, r, s)
+        result  = (1-r) * (1-s) * boundary[:d_xy].value
+        result += r * (1-s) * boundary[:d_x1y].value
+        result += r * s * boundary[:d_x1y1].value
+        result += (1-r) * s * boundary[:d_xy1].value
       end
 
     end

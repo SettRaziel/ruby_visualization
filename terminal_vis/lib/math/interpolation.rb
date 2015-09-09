@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-06 12:56:58
+# @Last Modified time: 2015-09-09 09:26:19
 
 require_relative '../data/meta_data'
 require 'matrix'
@@ -58,6 +58,18 @@ module TerminalVis
       def initialize(x=0.0, y=0.0, value=0.0)
         @coordinate = Vector[x,y]
         @value = value
+      end
+
+      # helper method to return the x coordinate
+      # @return [Float] the x coordinate of the {DataPoint}
+      def x
+        @coordinate[0]
+      end
+
+      # helper method to return the y coordinate
+      # @return [Float] the y coordinate of the {DataPoint}
+      def y
+        @coordinate[1]
       end
 
     end
