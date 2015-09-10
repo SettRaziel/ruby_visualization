@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-03 09:58:33
+# @Last Modified time: 2015-09-10 08:26:38
 
 # MetaData stores meta information about the data series. The meta information
 # can be used for two or three dimensional data series.
@@ -78,6 +78,13 @@ class DataDomain
     rescue ArgumentError => e
       raise ArgumentError, "Error in data domain: non number argument."
     end
+  end
+
+  # method to get the number of data values specified by the values of the
+  # domain object
+  # @return [Integer] the number of data values
+  def number_of_values
+    Integer((@upper - @lower) / @step) + 1
   end
 
 end

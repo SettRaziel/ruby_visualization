@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-09 09:34:12
+# @Last Modified time: 2015-09-10 08:40:19
 
 module TerminalVis
 
@@ -195,6 +195,7 @@ module TerminalVis
       #   should be calculated
       # @param [Integer] index index of the data set to calculate the
       #   corresponding coordinate
+      # @return [Float] the coordinate to the given index
       def self.get_coordinate_to_index(data_domain, index)
         data_domain.lower + index * data_domain.step
       end
@@ -241,10 +242,10 @@ module TerminalVis
       # @param [Float] s the interpolation factor in y
       # @return [Float] the interpolation result
       def self.calculate_interpolation_result(boundary, r, s)
-        result  = (1-r) * (1-s) * boundary[:d_xy].value
-        result += r * (1-s) * boundary[:d_x1y].value
-        result += r * s * boundary[:d_x1y1].value
-        result += (1-r) * s * boundary[:d_xy1].value
+        (1-r) * (1-s) * boundary[:d_xy].value +
+        r * (1-s) * boundary[:d_x1y].value +
+        r * s * boundary[:d_x1y1].value +
+        (1-r) * s * boundary[:d_xy1].value
       end
 
     end
