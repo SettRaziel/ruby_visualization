@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-07 10:34:21
+# @Last Modified time: 2015-09-11 11:00:05
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -18,13 +18,12 @@ class DataOutput
   # @param [boolean] with_extreme_values boolean which provides the information
   #   if the extreme values of the dataset should be visualized as well
   def self.print_dataset(data_series, index, meta_data, with_extreme_values)
-    data_set = data_series.series[index]
+    set_attributes(meta_data, data_series.series[index], with_extreme_values)
     @legend = ColorLegend::ColorData.
           new(data_series.min_value, data_series.max_value)
-    print_output_head(index, meta_data)
+    print_output_head(index)
 
-    print_data(data_set, meta_data, with_extreme_values)
-
+    print_data
   end
 
   # method to visualize the difference of two datasets
@@ -35,42 +34,52 @@ class DataOutput
   # @param [boolean] with_extreme_values boolean which provides the information
   #   if the extreme values of the dataset should be visualized as well
   def self.print_delta(data_set, meta_data, indices, with_extreme_values)
+    set_attributes(meta_data, data_set, with_extreme_values)
     @legend = ColorLegend::ColorDelta.
           new(data_set.min_value, data_set.max_value)
     puts "Printing difference for datasets #{indices[0]} and " \
        "#{indices[1]}.\n\n"
-    print_data(data_set, meta_data, with_extreme_values)
+    print_data
   end
 
   private
   # @return [ColorLegend] the color legend for the data
   attr :legend
+  # @return [boolean] if the output should highlight the extreme values
+  attr :with_extreme_values
+  # @return [MetaData] the currently used meta data
+  attr :meta_data
+  # @return [DataSet] the used dataset
+  attr :data_set
+
+  # method to set the attributes
+  # @param [MetaData] the used meta data
+  # @param [DataSet] the used dataset
+  def self.set_attributes(meta_data, data_set, with_extreme_values)
+    @meta_data = meta_data
+    @data_set = data_set
+    @with_extreme_values = with_extreme_values
+  end
 
   # prints the data and the additional informations
-  # @param [DataSet] data_set the dataset which should be visualized
-  # @param [MetaData] meta_data the corresponding meta data
   # @param [boolean] with_extreme_values boolean which provides the information
   #   if the extreme values of the dataset should be visualized as well
-  def self.print_data(data_set, meta_data, with_extreme_values)
-    extreme_coordinates = print_data_and_get_extrema(data_set,
-                                                     with_extreme_values)
+  def self.print_data
+    extreme_coordinates = print_data_and_get_extrema
+    print_x_axis_values
 
     puts ""
     @legend.print_color_legend()
 
-    if (with_extreme_values)
-      print_extreme_information(extreme_coordinates, data_set)
-    end
-    print_meta_information(meta_data)
+    print_extreme_information(extreme_coordinates) if (@with_extreme_values)
+
+    print_meta_information
 
     puts "\n"
   end
 
   # reverses the data to print it in the correct occurence
-  # @param [DataSet] data_set the dataset which should be visualized
-  # @param [boolean] with_extreme_values boolean which provides the information
-  #   if the extreme values of the dataset should be visualized as well
-  def self.print_data_and_get_extrema(data_set, with_extreme_values)
+  def self.print_data_and_get_extrema
     extreme_coordinates = {
       :maximum => Array.new(),
       :minimum => Array.new()
@@ -78,19 +87,13 @@ class DataOutput
 
     # reverse the data to start with the highest y-value as the first
     # output line
-    reversed_data = data_set.data.to_a.reverse.to_h
+    reversed_data = @data_set.data.to_a.reverse.to_h
 
     reversed_data.each_pair { |key, row|
-      print "  "
+      print_line_beginning(@meta_data.domain_y, key)
       row.each_index { |index|
-        if (with_extreme_values)
-          output = create_output_with_extremes(data_set,row[index])
-          if (output != :normal)
-          extreme_coordinates[output] << [index, key]
-          end
-        else
-          print @legend.create_output_string_for(row[index], '  ')
-        end
+        output = determine_output_type_and_print_value(row[index])
+        extreme_coordinates[output] << [index, key] if (output != :normal)
       }
       puts ""
     }
@@ -98,21 +101,47 @@ class DataOutput
     return extreme_coordinates
   end
 
+  # method to print the legend for the x axis
+  def self.print_x_axis_values
+    x_value_lenght = determine_maximal_domainvalue_length(@meta_data.domain_x)
+    extend_x_axis_output(
+             determine_maximal_domainvalue_length(@meta_data.domain_y),
+             "#{@meta_data.domain_x.lower}")
+    output_length = x_value_lenght / 2
+    index = 5
+    while ((output_length + index) <= @meta_data.domain_x.number_of_values)
+      extend_x_axis_output(10 - x_value_lenght,
+            "#{@meta_data.domain_x.lower + index * @meta_data.domain_x.step}")
+      index += 5
+    end
+  end
+
+  # method to print the empty gap between two values of the x axis and the
+  # following value
+  # @param [Integer] the space between two entries
+  # @param [String] the string that should be printed
+  def self.extend_x_axis_output(length, text)
+    length.times { print ' ' }
+    value_lenght = determine_maximal_domainvalue_length(@meta_data.domain_x)
+    print ("%#{value_lenght}s") % text
+  end
+
   # prints the meta information consisting of dataset name and informations
   # of the different dimensions
-  # @param [MetaData] meta_data the corresponding meta data
-  def self.print_meta_information(meta_data)
-    puts "\nDataset: #{meta_data.name}"
+  def self.print_meta_information
+    puts "\nDataset: #{@meta_data.name}"
 
-    print_domain_information(meta_data.domain_x, "\nX")
-    print_domain_information(meta_data.domain_y, 'Y')
+    print_domain_information(@meta_data.domain_x, "\nX")
+    print_domain_information(@meta_data.domain_y, 'Y')
 
-    if (meta_data.domain_z != nil)
-      print_domain_information(meta_data.domain_z, 'Z')
+    if (@meta_data.domain_z != nil)
+      print_domain_information(@meta_data.domain_z, 'Z')
     end
   end
 
   # prints the domain information for the given domain
+  # @param [DataDomain] domain the domain which information should be printed
+  # @param [String] dim_string the string with the domain identifier
   def self.print_domain_information(domain, dim_string)
     puts "%s-axis with %s from %.1f up to %.1f and steprange %.1f." %
       [dim_string, domain.name, domain.lower, domain.upper, domain.step]
@@ -120,43 +149,68 @@ class DataOutput
 
   # creates a headline before printing the data set based on the values
   # of the z dimension
-  def self.print_output_head(index, meta_data)
-    z_delta = index * meta_data.domain_z.step
+  # @param [Integer] index the number of the dataset
+  def self.print_output_head(index)
+    z_delta = index * @meta_data.domain_z.step
     puts "\nPrinting dataset for %.2f" %
-          (meta_data.domain_z.lower + z_delta)
+          (@meta_data.domain_z.lower + z_delta)
     puts "\n"
+  end
+
+  # method to print the legend of the y axis and the start of a line
+  # @param [DataDomain] domain the data domain in y
+  # @param [Integer] key the index of the dataset in y
+  def self.print_line_beginning(domain, key)
+    max_length = determine_maximal_domainvalue_length(domain) + 1
+    if (key % 5 == 0 || key == domain.number_of_values - 1 )
+      output = "#{domain.lower + key * domain.step}"
+      (max_length - output.length).times { output.concat(' ') }
+      print output
+    else
+      max_length.times { print ' ' }
+    end
+  end
+
+  # method to determine the maximal string length of a data domain value
+  # @param [DataDomain] the considered domain
+  # @retrun [Integer] the maximal lenght of a string in this domain
+  def self.determine_maximal_domainvalue_length(domain)
+    lower_length = "#{domain.lower}".length
+    upper_length = "#{domain.upper}".length
+
+    return lower_length if (lower_length >= upper_length)
+    return upper_length
   end
 
   # in case of extreme values this method checks, if the current value
   # is equal one of the two extreme values, if true denote the special
   # markings
-  # @param [DataSet] data_set the dataset which should be visualized
   # @param [Float] value the data value which should be visualized
-  def self.create_output_with_extremes(data_set, value)
-    # create normal output
-    if (value > data_set.min_value && value < data_set.max_value)
-      print @legend.create_output_string_for(value,'  ')
-      return :normal
-    # create output for minimum
-    elsif (value == data_set.min_value)
-      print @legend.create_output_string_for(value,'--').white.bright
-      return :minimum
+  # @return [Symbol] symbol to determine which kind of output was printed
+  def self.determine_output_type_and_print_value(value)
     # create output for maximum
-    else
+    if (value == @data_set.max_value && @with_extreme_values)
       print @legend.create_output_string_for(value,'++').white.bright
       return :maximum
+    # create output for minimum
+    elsif (value == @data_set.min_value && @with_extreme_values)
+      print @legend.create_output_string_for(value,'--').white.bright
+      return :minimum
+    # create normal output
+    else
+      print @legend.create_output_string_for(value,'  ')
+      return :normal
     end
   end
 
   # prints the coordinates and values of the extreme values
   # @param [Hash] extreme_coordinates Hash with positions of extrema
-  # @param [DataSet] data_set the dataset which should be visualized
-  def self.print_extreme_information(extreme_coordinates, data_set)
+  def self.print_extreme_information(extreme_coordinates)
     puts "Dataset extreme values:"
       print_extreme_values_for(extreme_coordinates[:maximum],
-                         "Maximum", data_set.max_value)
+                         "Maximum", @data_set.max_value)
       print_extreme_values_for(extreme_coordinates[:minimum],
-                         "Minimum", data_set.min_value)
+                         "Minimum", @data_set.min_value)
   end
 
   # prints all the coordinates of the given extreme value
