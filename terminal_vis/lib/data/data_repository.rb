@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-10 08:34:07
+# @Last Modified time: 2015-09-11 11:34:14
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -46,7 +46,7 @@ class DataRepository
     data_series = create_dataset()
     meta_string = build_meta_string(data_series, filename)
 
-    meta_data = MetaData.new(meta_string)
+    meta_data = MetaData::MetaData.new(meta_string)
     @repository[meta_data] = data_series
     return meta_data
   end
@@ -100,7 +100,7 @@ class DataRepository
   end
 
   # method to build the meta string that is uses for default meta data
-  # @param [DataSeries] the given data series
+  # @param [DataSeries] data_series the given data series
   # @return [Array] the constructed meta string
   def build_meta_string(data_series, filename)
     meta_string = ["#{filename}", \
@@ -126,7 +126,7 @@ class DataRepository
     meta_string = @data[0]
     @data.delete_at(1)
     @data.delete_at(0)
-    MetaData.new(meta_string)
+    MetaData::MetaData.new(meta_string)
   end
 
   # checks if a given key already exists in the repository
