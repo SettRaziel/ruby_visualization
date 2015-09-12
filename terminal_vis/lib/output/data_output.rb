@@ -1,12 +1,13 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-11 11:00:05
+# @Last Modified time: 2015-09-12 10:52:30
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
 require_relative '../data/data_series'
 require_relative '../graphics/color_legend'
+require_relative 'data_axis'
 
 # Simple data output for the terminal visualization
 class DataOutput
@@ -53,8 +54,10 @@ class DataOutput
   attr :data_set
 
   # method to set the attributes
-  # @param [MetaData] the used meta data
-  # @param [DataSet] the used dataset
+  # @param [MetaData] meta_data the used meta data
+  # @param [DataSet] data_set the used dataset
+  # @param [boolean] with_extreme_values boolean to determine if extreme values
+  #  should be marked
   def self.set_attributes(meta_data, data_set, with_extreme_values)
     @meta_data = meta_data
     @data_set = data_set
@@ -62,11 +65,9 @@ class DataOutput
   end
 
   # prints the data and the additional informations
-  # @param [boolean] with_extreme_values boolean which provides the information
-  #   if the extreme values of the dataset should be visualized as well
   def self.print_data
     extreme_coordinates = print_data_and_get_extrema
-    print_x_axis_values
+    DataAxis.print_x_axis_values(@meta_data)
 
     puts ""
     @legend.print_color_legend()
@@ -79,6 +80,7 @@ class DataOutput
   end
 
   # reverses the data to print it in the correct occurence
+  # @return [Hash] coordinate indices of the extreme values
   def self.print_data_and_get_extrema
     extreme_coordinates = {
       :maximum => Array.new(),
@@ -90,7 +92,7 @@ class DataOutput
     reversed_data = @data_set.data.to_a.reverse.to_h
 
     reversed_data.each_pair { |key, row|
-      print_line_beginning(@meta_data.domain_y, key)
+      DataAxis.print_y_line_beginning(@meta_data.domain_y, key)
       row.each_index { |index|
         output = determine_output_type_and_print_value(row[index])
         extreme_coordinates[output] << [index, key] if (output != :normal)
@@ -99,31 +101,6 @@ class DataOutput
     }
 
     return extreme_coordinates
-  end
-
-  # method to print the legend for the x axis
-  def self.print_x_axis_values
-    x_value_lenght = determine_maximal_domainvalue_length(@meta_data.domain_x)
-    extend_x_axis_output(
-             determine_maximal_domainvalue_length(@meta_data.domain_y),
-             "#{@meta_data.domain_x.lower}")
-    output_length = x_value_lenght / 2
-    index = 5
-    while ((output_length + index) <= @meta_data.domain_x.number_of_values)
-      extend_x_axis_output(10 - x_value_lenght,
-            "#{@meta_data.domain_x.lower + index * @meta_data.domain_x.step}")
-      index += 5
-    end
-  end
-
-  # method to print the empty gap between two values of the x axis and the
-  # following value
-  # @param [Integer] the space between two entries
-  # @param [String] the string that should be printed
-  def self.extend_x_axis_output(length, text)
-    length.times { print ' ' }
-    value_lenght = determine_maximal_domainvalue_length(@meta_data.domain_x)
-    print ("%#{value_lenght}s") % text
   end
 
   # prints the meta information consisting of dataset name and informations
@@ -155,31 +132,6 @@ class DataOutput
     puts "\nPrinting dataset for %.2f" %
           (@meta_data.domain_z.lower + z_delta)
     puts "\n"
-  end
-
-  # method to print the legend of the y axis and the start of a line
-  # @param [DataDomain] domain the data domain in y
-  # @param [Integer] key the index of the dataset in y
-  def self.print_line_beginning(domain, key)
-    max_length = determine_maximal_domainvalue_length(domain) + 1
-    if (key % 5 == 0 || key == domain.number_of_values - 1 )
-      output = "#{domain.lower + key * domain.step}"
-      (max_length - output.length).times { output.concat(' ') }
-      print output
-    else
-      max_length.times { print ' ' }
-    end
-  end
-
-  # method to determine the maximal string length of a data domain value
-  # @param [DataDomain] the considered domain
-  # @retrun [Integer] the maximal lenght of a string in this domain
-  def self.determine_maximal_domainvalue_length(domain)
-    lower_length = "#{domain.lower}".length
-    upper_length = "#{domain.upper}".length
-
-    return lower_length if (lower_length >= upper_length)
-    return upper_length
   end
 
   # in case of extreme values this method checks, if the current value
