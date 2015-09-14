@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-11 11:34:14
+# @Last Modified time: 2015-09-14 17:52:20
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -29,6 +29,7 @@ class DataRepository
 
   # reads the file and creates meta information and data of its content
   # @param [String] filename filepath
+  # @return [MetaData] the meta data object for this data
   def add_data(filename)
     @data = read_file(filename)
     meta_data = check_for_metadata()
@@ -41,6 +42,7 @@ class DataRepository
   # reads the file and creates data of its content with default meta
   # information
   # @param [String] filename filepath
+  # @return [MetaData] the meta data object for this data
   def add_data_with_default_meta(filename)
     @data = read_file(filename)
     data_series = create_dataset()
@@ -80,27 +82,29 @@ class DataRepository
   attr :data
 
   # creates DataSets of the parsed data and stores it into a DataSeries
+  # @return [DataSeries] the data series created by the data input
   def create_dataset
-    data = Array.new()
+    raw_data = Array.new()
     value = DataSeries.new()
 
     # parse multiple data sets (but at least 1)
     @data.each { |line|
       if (line.empty?)
-        value.add_data_set(DataSet.new(data))
-        data = Array.new()
+        value.add_data_set(DataSet.new(raw_data))
+        raw_data = Array.new()
       else
-        data << line
+        raw_data << line
       end
     }
 
     # get the last data set, since the loop ended before putting it there
-    value.add_data_set(DataSet.new(data))
+    value.add_data_set(DataSet.new(raw_data))
     return value
   end
 
   # method to build the meta string that is uses for default meta data
   # @param [DataSeries] data_series the given data series
+  # @param [String] filename the name of the input file
   # @return [Array] the constructed meta string
   def build_meta_string(data_series, filename)
     meta_string = ["#{filename}", \
@@ -116,12 +120,14 @@ class DataRepository
 
   # calls the FileReader to get the content of the file
   # @param [String] filename filepath
+  # @return [Array] the data of the file as strings
   def read_file(filename)
     FileReader.new(filename).data
   end
 
   # checks for meta data in the first line of the raw data and creates
   # meta information from it
+  # @return [MetaData] the meta data for the data series
   def check_for_metadata
     meta_string = @data[0]
     @data.delete_at(1)

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-05 08:57:07
+# @Last Modified time: 2015-09-14 17:29:33
 
 require_relative 'parameter_repository'
 
@@ -110,6 +110,9 @@ class ParameterHandler
   end
 
   # checks the correct number of parameters for the given key
+  # @param [Symbol] key the key of a parameter
+  # @param [Integer] count_parameters the number of arguments for this
+  #  parameter
   # @raise [IndexError] if the number of arguments for the parameter is invalid
   def check_number_of_parameters(key, count_parameters)
     if (repository.parameters[key] && !repository.parameters[:help])

@@ -1,11 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-12 09:52:39
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-12 10:50:39
+# @Last Modified time: 2015-09-14 17:34:22
 
 class DataAxis
 
   # method to print the legend for the x axis
+  # @param [MetaData] meta_data the meta data used for the axis values
   def self.print_x_axis_values(meta_data)
     x_value_lenght = determine_maximal_domainvalue_length(meta_data.domain_x)
     print_x_axis_init(meta_data)

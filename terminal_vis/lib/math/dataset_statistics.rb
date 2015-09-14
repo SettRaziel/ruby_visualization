@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-12 18:05:53
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-06 12:56:17
+# @Last Modified time: 2015-09-14 17:38:20
 
 # singleton class to apply statistic methods to a data series
 class DatasetStatistics
@@ -10,6 +10,7 @@ class DatasetStatistics
   #   result[i][j] = first_data[i][j] - second[i][j]
   # @param [DataSet] first_data data_set representing the minuend
   # @param [DataSet] second_data data_set representing the subtrahend
+  # @return [DataSet] new data set with the substracted values
   def self.subtract_datasets(first_data, second_data)
     result = Array.new()
 

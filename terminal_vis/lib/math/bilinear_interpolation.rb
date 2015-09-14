@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-13 11:01:50
+# @Last Modified time: 2015-09-14 17:41:25
 
 module TerminalVis
 
@@ -34,6 +34,10 @@ module TerminalVis
 
       # singleton method to set the attributes at the beginning of an
       # interpolation
+      # @param [MetaData] meta_data the meta data required for the
+      #  bilinear interpolation
+      # @param [DataSet] data_set the dataset required for the bilinear
+      #  interpolation
       def self.set_attributes(meta_data, data_set)
         @data_set = data_set
         @meta_data = meta_data
@@ -87,9 +91,9 @@ module TerminalVis
 
       # creation of the boundary data points for the bilinear interpolation
       # @param [Integer] delta_x delta value in x for the grid with values
-      #  0 or 1
+      #  in the interval of 0 to 1
       # @param [Integer] delta_y delta value in y for the grid with values
-      #  0 or 1
+      #  in the interval of 0 to 1
       # @param [Float] x x-coordinate of the interpolation point
       # @param [Float] y y-coordinate of the interpolation point
       # @return [DataPoint] corresponding data point
@@ -147,7 +151,8 @@ module TerminalVis
       #   needed for the interpolation
       # @param [Float] x x-coordinate of the interpolation point
       # @param [Float] y y-coordinate of the interpolation point
-      # @return [Float] the calculated interpolation factor
+      # @return [Float] the calculated interpolation factor rounded to the
+      #  fifth digit
       def self.calculate_interpolation_factor(data_point0, data_point1, x, y)
         coordinate = DataPoint.new(x, y)
         ( (coordinate.coordinate - data_point0.coordinate).

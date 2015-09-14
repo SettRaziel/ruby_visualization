@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-30 13:34:57
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-04 10:19:14
+# @Last Modified time: 2015-09-14 17:43:50
 
 # This module groups the different color legends that are used to visualize the
 # output. The class {Base} provides the basic methods that are needed. Child
@@ -44,7 +44,7 @@ module ColorLegend
     end
 
     # @abstract subclasses need to implement this method
-    # @raise [NotImplementedError] if sublass does not have this method
+    # @raise [NotImplementedError] if the subclass does not have this method
     def create_output_string_for(value, out_str)
       fail NotImplementedError, " Error: the subclass #{self.class} " \
         "needs to implement the method: create_output_string_for " \
@@ -55,6 +55,7 @@ module ColorLegend
 
     # creates color legend
     # {#min_value} + i * {#delta} => value at index i + 1
+    # @param [Integer] length the number of colors of the legend
     def create_color_legend(length)
       @delta = (@max_value.to_f - @min_value.to_f).abs / length
 

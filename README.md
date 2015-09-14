@@ -1,4 +1,6 @@
 # Terminal Visualizer
+[![Code Climate](https://codeclimate.com/github/SettRaziel/ruby_visualization/badges/gpa.svg)](https://codeclimate.com/github/SettRaziel/ruby_visualization)
+
 Ruby program to read a series of datasets from a csv-formatted file and
 visualize the data as terminal output. The first line of data will be drawn
 as the bottom line in the visualized output.

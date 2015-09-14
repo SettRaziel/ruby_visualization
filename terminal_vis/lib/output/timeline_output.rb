@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-25 13:40:23
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-08-28 12:17:22
+# @Last Modified time: 2015-09-14 17:32:35
 
 require_relative '../graphics/string'
 
@@ -68,6 +68,7 @@ class TimelineOutput
   # @param [Array] values values for one line of the output
   # @param [String] line_string the started string that serves as output for
   #  one line
+  # @return [String] the extended line string
   def self.check_and_append_values(values, line_string)
     values.each { |value|
         if (value == 1)
@@ -77,7 +78,7 @@ class TimelineOutput
         end
       }
       return line_string
-    end
+  end
 
   # method to create the axis of the abscissa
   # @param [Integer] data_size the number of values in the z dimension
@@ -114,7 +115,6 @@ class TimelineOutput
       start += 10
     end
     str.concat("%-10s" % start.to_s)
-
 
     return str
   end

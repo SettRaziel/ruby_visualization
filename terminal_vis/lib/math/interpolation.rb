@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-09 09:26:19
+# @Last Modified time: 2015-09-14 17:37:18
 
 require_relative '../data/meta_data'
 require 'matrix'
@@ -15,6 +15,8 @@ module TerminalVis
   module Interpolation
 
     # interpolates the data for the provided coordinate and prints the result
+    # param [MetaData] meta_data the meta data for the data series where the
+    #  interpolation should be done
     def self.interpolate_for_coordinate(meta_data)
       index = TerminalVis.get_and_check_index(meta_data)
 

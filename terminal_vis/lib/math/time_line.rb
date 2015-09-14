@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-24 10:28:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-06 12:58:45
+# @Last Modified time: 2015-09-14 17:35:35
 
 require_relative 'interpolation'
 
@@ -16,6 +16,8 @@ class Timeline
   # @param [DataSeries] data_series the data series which should be used
   # @param [Float] x x-coordinate of the regarded point
   # @param [Float] y y-coordinate of the regarded point
+  # @return [Hash] the occurence of a boundary value in the z dimension as the
+  #  result of being the nearest index for a collected value at position z
   def self.create_timeline(meta_data, data_series, x, y)
     values = collect_values(meta_data, data_series, x, y) # time_values
 
