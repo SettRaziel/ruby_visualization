@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-07 10:34:34
+# @Last Modified time: 2015-09-15 16:25:59
 
 module TerminalVis
 
@@ -21,7 +21,7 @@ module TerminalVis
         index = TerminalVis.get_and_check_index(meta_data)
         create_single_output_at_index(meta_data, index)
       end
-      TerminalVis.data_repo.check_data_completeness(meta_data)
+      TerminalVis.data_repo.data_complete?(meta_data)
     end
 
     # creates animated output of the whole data series depending on the

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-14 17:52:20
+# @Last Modified time: 2015-09-15 16:45:53
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -56,7 +56,18 @@ class DataRepository
   # checks if all data sets in a data_series have the dimension specified
   # in the meta_data information
   # @param [MetaData] meta_data the meta data which should be checked
-  def check_data_completeness(meta_data)
+  # @return [boolean] true, if data fulfills the information provded by the
+  #   meta data; false, if one data dimension of the number of datasets fails
+  def data_complete?(meta_data)
+    dataset_dimension_correct?(meta_data) || z_dimension_correct?(meta_data)
+  end
+
+  # checks if the dimension of each dataset is consistent with the information
+  # of the corresponding meta data
+  # @param [MetaData] meta_data the meta data which should be checked
+  # @return [boolean] true, if the dimension of every dataset is consistent
+  #   with the meta information; false, if not
+  def dataset_dimension_correct?(meta_data)
     data_series = @repository[meta_data]
     number_value_x = meta_data.domain_x.number_of_values
     number_value_y = meta_data.domain_y.number_of_values
@@ -67,14 +78,36 @@ class DataRepository
 
       if (number_value_x != number_data_x ||
         number_value_y != number_data_y)
-        puts "Warning: Size of dataset #{index + 1} does not match " \
+        puts " Warning: Size of dataset #{index + 1} does not match " \
              "with meta data information."
-        puts "  meta_data: #{number_value_x}, #{number_value_y}"
-        puts "  data_set: #{number_data_x}, #{number_data_y}"
+        puts "   meta_data: #{number_value_x}, #{number_value_y}"
+        puts "   data_set: #{number_data_x}, #{number_data_y}"
+        return false
       end
     }
 
-    check_z_dimension(meta_data, data_series)
+    return true
+  end
+
+  # checks if all data sets in a data_series have the dimension in z specified
+  # in the meta_data information
+  # @param [MetaData] meta_data the meta data which should be checked
+  # @return [boolean] true, if number of dataset is consistent with the meta
+  #   information; false, if not
+  def z_dimension_correct?(meta_data)
+    data_series = @repository[meta_data]
+    number_value_z = meta_data.domain_z.number_of_values
+    number_data_z = data_series.series.size
+
+    if (number_value_z != number_data_z)
+      puts " Warning: Size of dataseries does not match with" \
+         " meta data information."
+      puts "   meta_data: #{number_value_z} datasets to data_series: " \
+         "#{number_data_z} datasets"
+      return false
+    end
+
+    return true
   end
 
   private
@@ -141,22 +174,6 @@ class DataRepository
     if (@repository[key] != nil)
         puts "Info: A data set with this key already exists." \
            " Overwriting..."
-    end
-  end
-
-  # checks if all data sets in a data_series have the dimension in z specified
-  # in the meta_data information
-  # @param [MetaData] meta_data the meta data which should be checked
-  # @param [DataSeries] data_series the corresponding data series
-  def check_z_dimension(meta_data, data_series)
-    number_value_z = meta_data.domain_z.number_of_values
-    number_data_z = data_series.series.size
-
-    if (number_value_z != number_data_z)
-      puts "Warning: Size of dataseries does not match with" \
-         " meta data information."
-      puts "  meta_data: #{number_value_z} datasets to data_series: " \
-         "#{number_data_z} datasets"
     end
   end
 

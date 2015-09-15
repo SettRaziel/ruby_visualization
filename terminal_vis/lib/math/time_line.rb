@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-24 10:28:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-14 17:35:35
+# @Last Modified time: 2015-09-15 16:54:18
 
 require_relative 'interpolation'
 
@@ -19,6 +19,8 @@ class Timeline
   # @return [Hash] the occurence of a boundary value in the z dimension as the
   #  result of being the nearest index for a collected value at position z
   def self.create_timeline(meta_data, data_series, x, y)
+    check_dataset_dimension(meta_data)
+
     values = collect_values(meta_data, data_series, x, y) # time_values
 
     extrema = determine_extrema(values) # extrema of time values
@@ -33,6 +35,15 @@ class Timeline
   attr :value_bondaries
   # @return [Integer] resolution of the value scale
   @size = 20
+
+  # method to check for correct dataset dimensions
+  # @param [MetaData] meta_data the required meta data
+  # @raise [RangeError] if one of the datasets has an incorrect dimension
+  def self.check_dataset_dimension(meta_data)
+    if (!TerminalVis.data_repo.dataset_dimension_correct?(meta_data))
+      raise RangeError, ' Error: dimension of at least one dataset is incorrect'
+    end
+  end
 
   # this method collects all data values d(x,y) in z
   # @param [MetaData] meta_data the meta information of the regarded data series
