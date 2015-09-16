@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-04 10:16:50
+# @Last Modified time: 2015-09-16 16:10:35
 
 # Parameter repository storing the valid parameter of the script.
 # {#initialize} gets the provided parameters and fills a hash which
@@ -34,6 +34,8 @@ class ParameterRepository
         when '-i'
           create_argument_entry(:index, unflagged_arguments)
         when '-m'              then @parameters[:meta] = true
+        when '-r', '--range'
+          create_two_argument_entry(:range, unflagged_arguments)
         when '-t', '--time'
           create_two_argument_entry(:time, unflagged_arguments)
         when /-[a-z]|--[a-z]+/ then raise_invalid_parameter(arg)
