@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-14 17:29:33
+# @Last Modified time: 2015-09-17 15:30:27
 
 require_relative 'parameter_repository'
 
@@ -31,6 +31,7 @@ class ParameterHandler
     check_number_of_parameters(:coord, 2)
     check_number_of_parameters(:delta, 2)
     check_number_of_parameters(:time, 2)
+    check_number_of_parameters(:range, 2)
 
   end
 
@@ -39,6 +40,7 @@ class ParameterHandler
     check_constraints_for_a if (repository.parameters[:all])
     check_constraints_for_c if (repository.parameters[:coord])
     check_constraints_for_d if (repository.parameters[:delta])
+    check_constraints_for_r if (repository.parameters[:range])
   end
 
   # checks if the parsed filename is a valid unix or windows file name
@@ -70,13 +72,13 @@ class ParameterHandler
 
   # checks constraints:
   #   !(-a + -i), !(-i + -a),
-  #   !(-a + -t), !(-t + -a)
+  #   !(-a + -t), !(-t + -a),
   #   !(-a + -d), !(-d + -a)
   # @raise [ArgumentError] if invalid parameter combination occurs
   def check_constraints_for_a
-    check_constrain('-a', '-i', :index)
-    check_constrain('-a', '-t', :time)
-    check_constrain('-a', '-d', :delta)
+    check_constraint('-a', '-i', :index)
+    check_constraint('-a', '-t', :time)
+    check_constraint('-a', '-d', :delta)
   end
 
   # checks constraints:
@@ -84,8 +86,8 @@ class ParameterHandler
   #   !(-c + -t), !(-t + -c)
   # @raise [ArgumentError] if invalid parameter combination occurs
   def check_constraints_for_c
-    check_constrain('-c', '-e', :extreme)
-    check_constrain('-c', '-t', :time)
+    check_constraint('-c', '-e', :extreme)
+    check_constraint('-c', '-t', :time)
   end
 
   # checks contraints:
@@ -93,8 +95,18 @@ class ParameterHandler
   #   !(-d + -t), !(-t + -d)
   # @raise [ArgumentError] if invalid parameter combination occurs
   def check_constraints_for_d
-    check_constrain('-d', '-i', :index)
-    check_constrain('-d', '-t', :time)
+    check_constraint('-d', '-i', :index)
+    check_constraint('-d', '-t', :time)
+  end
+
+  # checks constraints:
+  #   !(-r + -a), !(-a + -r),
+  #   !(-r + -t), !(-t + -r),
+  #   !(-r + -i), !(-i + -r)
+  def check_constraints_for_r
+    check_constraint('-r', '-a', :all)
+    check_constraint('-r', '-t', :time)
+    check_constraint('-r', '-i', :index)
   end
 
   # creates a constraint error if an invalid parameter combination occurs
@@ -102,7 +114,7 @@ class ParameterHandler
   # @param [String] i second parameter
   # @param [Symbol] symbol the literal to checl
   # @raise [ArgumentError] for an invalid parameter combination
-  def check_constrain(v, i, symbol)
+  def check_constraint(v, i, symbol)
     if (repository.parameters[symbol])
       raise ArgumentError,
             " Error: invalid parameter combination: #{v} and #{i}"
