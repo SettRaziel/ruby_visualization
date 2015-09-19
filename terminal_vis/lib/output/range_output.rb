@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-18 17:43:51
+# @Last Modified time: 2015-09-19 09:32:16
 
 require_relative '../main/main_module'
 
@@ -13,14 +13,10 @@ class RangeOutput
   # @param [ParameterRepository] parameter_repository the used parameter
   #  repository
   def self.print_ranged_data(meta_data, data_series, parameter_repository)
-    first = Integer(TerminalVis.parameter_handler.
-                                repository.parameters[:range][0]) - 1
-    second = Integer(TerminalVis.parameter_handler.
-                                 repository.parameters[:range][1]) - 1
+    indices = get_and_check_indices(parameter_repository, meta_data)
+    first = indices[:lower]
 
-    check_range_parameters(meta_data, first, second)
-
-    while (first <= second)
+    while (first <= indices[:upper])
       DataOutput.print_dataset(data_series, first, meta_data,
                                parameter_repository.parameters[:extreme])
       print 'press Enter to continue ...'
@@ -32,6 +28,24 @@ class RangeOutput
 
   private
 
+  # method to read and check the indices for the range parameter
+  # @param [ParameterRepository] parameter_repository the used parameter
+  #  repository
+  # @param [MetaData] meta_data the metadata of the used data series
+  # @return [Hash] a hash containing the two indices
+  def self.get_and_check_indices(parameter_repository, meta_data)
+    indices = Hash.new()
+
+    indices[:lower] = Integer(TerminalVis.parameter_handler.
+                               repository.parameters[:range][0]) - 1
+    indices[:upper] = Integer(TerminalVis.parameter_handler.
+                               repository.parameters[:range][1]) - 1
+
+    check_range_parameters(meta_data, indices[:lower], indices[:upper])
+
+    return indices
+  end
+
   # method to check if the input parameters are valid
   # @param [MetaData] meta_data the metadata of the used data series
   # @param [Integer] first the lower range value
@@ -40,6 +54,7 @@ class RangeOutput
     size = meta_data.domain_z.number_of_values
 
     first_lesser_second?(first, second)
+    parameter_in_meta_range?(meta_data, first, second)
   end
 
   # method to check if the first parameter is lesser than the second
@@ -67,10 +82,10 @@ class RangeOutput
 
     if (first < 0)
       raise ArgumentError,
-        " Error: First parameter of -r lesser than 0"
+        " Error: First parameter of -r is lesser or equal 0"
     end
 
-    if (second > size)
+    if (second >= size)
       raise ArgumentError,
         " Error: Second parameter of -r greater than size of data series"
     end
