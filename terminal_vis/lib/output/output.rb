@@ -1,9 +1,11 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-15 16:25:59
+# @Last Modified time: 2015-09-20 10:24:17
 
 module TerminalVis
+
+  require_relative 'range_output'
 
   # This module takes care about the output in the terminal and serves several
   # methods to create the desired output:
@@ -45,7 +47,7 @@ module TerminalVis
     end
     private_class_method :create_animation
 
-    # creates output when usind the parameter -d
+    # creates output when using the parameter -d
     # @param [MetaData] meta_data the meta data of the data series which should
     #  be visualized
     def self.create_delta_output(meta_data)
@@ -63,6 +65,16 @@ module TerminalVis
 
       DataOutput.print_delta(result, meta_data, data_indices,
                  TerminalVis.parameter_handler.repository.parameters[:extreme])
+    end
+
+    # creates output when using the parameter -r
+    # @param [MetaData] meta_data the meta data of the data series which should
+    #  be visualized
+    def self.create_range_output(meta_data)
+      data_series = TerminalVis.data_repo.repository[meta_data]
+
+      RangeOutput.print_ranged_data(meta_data, data_series,
+                                    TerminalVis.parameter_handler.repository)
     end
 
     # creates a time line for the parameter -t
