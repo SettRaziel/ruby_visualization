@@ -1,10 +1,11 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-19 09:32:16
+# @Last Modified time: 2015-09-21 13:10:17
 
 require_relative '../main/main_module'
 
+# Output class for printing datasets of a data series within a given range
 class RangeOutput
 
   # singleton method to print the dataset within a given range
@@ -76,7 +77,7 @@ class RangeOutput
   # @param [Integer] first the lower range value
   # @param [Integer] second the upper range value
   # @return [boolean] true, if both parameter are within the meta data range
-  # @raise [ArgumentError] if first < 0 | second > data size
+  # @raise [ArgumentError] if (first < 0 | second > data size)
   def self.parameter_in_meta_range?(meta_data, first, second)
     size = meta_data.domain_z.number_of_values
 
