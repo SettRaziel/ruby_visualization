@@ -6,6 +6,7 @@ visualize the data as terminal output. The first line of data will be drawn
 as the bottom line in the visualized output.
 
 You can choose between the following output:
+
 * Visualization of a dataset from a series of data
 * Visualization of the value differences of two datasets
 * Visualization of a timeline from a point within the data domain
@@ -34,6 +35,8 @@ parameters:
                extreme values below the legend, excludes -c
 -i             argument: <index>; shows the dataset at index, if index lies
                within [1,2, ..., number of datasets], excludes -a, -d and -t
+-r, --range    arguments: <start> <end>; prints all datasets within the range
+               of the provided arguments, excludes -a, -i, -t
 -t, --time     arguments: <x> <y> ; creates a timeline for the given coordinate
                (x,y), coordinates not lying on the data point will be
                interpolated, excludes -a, -c and -i
@@ -42,6 +45,7 @@ parameters:
 ### Invalid parameter combinations
 ```
     -a + -d, -a + -i, -a + -t
+    -r + -a, -r + -t, -r + -i
     -c + -e, -c + -t
     -d + -i, -d + -t
 ```

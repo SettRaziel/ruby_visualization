@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-01 10:44:42
+# @Last Modified time: 2015-09-20 10:21:55
 
 # Output class for help text
 class HelpOutput
@@ -47,6 +47,9 @@ class HelpOutput
           '[1,2, ..., number of datasets], excludes -a, -d and -t',
     :meta =>    ' -m             process the file <filename> containing' \
           ' meta data',
+    :range =>   ' -r, --range    ' + 'arguments:'.red +
+          ' <start> <end>'.yellow + '; prints all datasets within the range ' \
+          'of the provided arguments, excludes -a, -i, -t',
     :time =>    ' -t, --time     ' + 'arguments:'.red + ' <x> <y>'.yellow +
           '; creates a timeline for the given coordinate (x,y), coordinates ' \
           'not lying on the data point will be interpolated, excludes -a,' \
@@ -72,6 +75,7 @@ class HelpOutput
   def self.print_invalid_combinations
     puts "\nInvalid parameter combinations:".red
     puts "  -a + -d, -a + -i, -a + -t"
+    puts "  -r + -a, -r + -t, -r + -i"
     puts "  -c + -e, -c + -t"
     puts "  -d + -i, -d + -t"
   end
