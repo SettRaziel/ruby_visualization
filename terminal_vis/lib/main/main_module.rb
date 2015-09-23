@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-08 08:59:37
+# @Last Modified time: 2015-09-23 08:49:18
 
 # This module holds the main singleton methods that are called form the script.
 # It also stores the data ans parameter repository so it can be called from
@@ -80,19 +80,26 @@ module TerminalVis
         print_error(message)
       end
 
-      # check if provided integer index lies in range of dataseries
-      if (index < 0 ||
-        index >= @data_repo.repository[meta_data].series.size)
-        text_index = @parameter_handler.repository.parameters[:index]
-        data_size = @data_repo.repository[meta_data].series.size
-        message = " Error: input #{text_index} for -i is not valid" \
-                  " for dataset with length #{data_size}"
-        print_error(message)
-      end
+      check_index(index)
     end
 
     return index
   end
+
+  # method to check a given index if it is in the given range
+  # @param [Integer] index the given index from the input
+  def self.check_index(index)
+    # check if provided integer index lies in range of dataseries
+    if (index < 0 ||
+      index >= @data_repo.repository[meta_data].series.size)
+      text_index = @parameter_handler.repository.parameters[:index]
+      data_size = @data_repo.repository[meta_data].series.size
+      message = " Error: input #{text_index} for -i is not valid" \
+                " for dataset with length #{data_size}"
+      print_error(message)
+    end
+  end
+  private_class_method :check_index
 
 end
 
