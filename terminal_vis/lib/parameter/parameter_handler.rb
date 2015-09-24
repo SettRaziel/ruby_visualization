@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-17 15:30:27
+# @Last Modified time: 2015-09-24 08:40:57
 
 require_relative 'parameter_repository'
 
@@ -100,11 +100,9 @@ class ParameterHandler
   end
 
   # checks constraints:
-  #   !(-r + -a), !(-a + -r),
   #   !(-r + -t), !(-t + -r),
   #   !(-r + -i), !(-i + -r)
   def check_constraints_for_r
-    check_constraint('-r', '-a', :all)
     check_constraint('-r', '-t', :time)
     check_constraint('-r', '-i', :index)
   end

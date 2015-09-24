@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-21 13:10:17
+# @Last Modified time: 2015-09-24 08:31:23
 
 require_relative '../main/main_module'
 
@@ -20,9 +20,7 @@ class RangeOutput
     while (first <= indices[:upper])
       DataOutput.print_dataset(data_series, first, meta_data,
                                parameter_repository.parameters[:extreme])
-      print 'press Enter to continue ...'
-            # STDIN to read from console when providing parameters in ARGV
-            STDIN.gets.chomp
+      determine_animation(parameter_repository)
       first += 1
     end
   end
@@ -92,6 +90,25 @@ class RangeOutput
     end
 
     return true
+  end
+
+  # method to determine the art of visualization. Without -all or animation
+  # speed = 0 the progress will be manual, speed > 0 determines speed in seconds
+  # @param [ParameterRepository] parameter_repository the used parameter
+  #  repository
+  def self.determine_animation(parameter_repository)
+    animation_speed = 0
+    if (parameter_repository.parameters[:all])
+      animation_speed = Integer(parameter_repository.parameters[:all])
+    end
+
+    if (animation_speed > 0)
+      sleep(animation_speed)
+    else
+      print 'press Enter to continue ...'
+      # STDIN to read from console when providing parameters in ARGV
+      STDIN.gets.chomp
+    end
   end
 
 end

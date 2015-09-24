@@ -21,7 +21,7 @@ parameters:
 -h, --help     show help text
 -v, --version  prints the current version of the project
 -m             process the file <filename> containing meta data
--a, --all      argument: <speed>; prints all possible datasets of a data series
+-a, --all      argument: <speed>; prints all specified datasets of a data series
                with a pause between the output of every dataset defined by
                speed: 0 mean manual, a value > 0 an animation speed in seconds,
                excludes -i, -d and -t
@@ -36,7 +36,7 @@ parameters:
 -i             argument: <index>; shows the dataset at index, if index lies
                within [1,2, ..., number of datasets], excludes -a, -d and -t
 -r, --range    arguments: <start> <end>; prints all datasets within the range
-               of the provided arguments, excludes -a, -i, -t
+               of the provided arguments, excludes -i, -t
 -t, --time     arguments: <x> <y> ; creates a timeline for the given coordinate
                (x,y), coordinates not lying on the data point will be
                interpolated, excludes -a, -c and -i
@@ -45,7 +45,7 @@ parameters:
 ### Invalid parameter combinations
 ```
     -a + -d, -a + -i, -a + -t
-    -r + -a, -r + -t, -r + -i
+    -r + -t, -r + -i
     -c + -e, -c + -t
     -d + -i, -d + -t
 ```
@@ -67,6 +67,12 @@ Reading a data series from `<filename>` with meta data and creating a timeline
 for the coordinate `(<x>,<y>)`:
 ```
 ruby terminal_vis.rb -m -t <x> <y> <filename>
+```
+
+Reading a data series from `<filename>` with meta data and animating a specific
+interval from the data series:
+```
+ruby terminal_vis -m -r <start> <end> -a <speed> <filename>
 ```
 
 ### Documentation

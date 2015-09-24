@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-20 10:21:55
+# @Last Modified time: 2015-09-24 08:38:42
 
 # Output class for help text
 class HelpOutput
@@ -27,7 +27,7 @@ class HelpOutput
     :help =>    ' -h, --help     show help text',
     :version => ' -v, --version  prints the current version of the project',
     :all =>     ' -a, --all      ' + 'arguments:'.red + ' <speed>'.yellow +
-          '; prints all possible datasets of a dataseries with a pause ' \
+          '; prints all specified datasets of a dataseries with a pause ' \
           'between the output of every dataset defined by speed: 0 mean ' \
           'manual, a value > 0 an animation speed in seconds, excludes -i,' \
           ' -d and -t',
@@ -49,7 +49,7 @@ class HelpOutput
           ' meta data',
     :range =>   ' -r, --range    ' + 'arguments:'.red +
           ' <start> <end>'.yellow + '; prints all datasets within the range ' \
-          'of the provided arguments, excludes -a, -i, -t',
+          'of the provided arguments, excludes -i, -t',
     :time =>    ' -t, --time     ' + 'arguments:'.red + ' <x> <y>'.yellow +
           '; creates a timeline for the given coordinate (x,y), coordinates ' \
           'not lying on the data point will be interpolated, excludes -a,' \
@@ -75,7 +75,7 @@ class HelpOutput
   def self.print_invalid_combinations
     puts "\nInvalid parameter combinations:".red
     puts "  -a + -d, -a + -i, -a + -t"
-    puts "  -r + -a, -r + -t, -r + -i"
+    puts "  -r + -t, -r + -i"
     puts "  -c + -e, -c + -t"
     puts "  -d + -i, -d + -t"
   end
