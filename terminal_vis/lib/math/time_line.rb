@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-24 10:28:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-15 16:54:18
+# @Last Modified time: 2015-09-25 11:01:48
 
 require_relative 'interpolation'
 
@@ -23,9 +23,9 @@ class Timeline
 
     values = collect_values(meta_data, data_series, x, y) # time_values
 
-    extrema = determine_extrema(values) # extrema of time values
+    determine_extrema(values) # extrema of time values
 
-    determine_value_boundaries(extrema) # ordinate values for each line
+    determine_value_boundaries # ordinate values for each line
 
     return create_output(determine_nearest_index(values))
   end
@@ -33,6 +33,8 @@ class Timeline
   private
   # @return [Array] the values for each output line
   attr :value_bondaries
+  # @return [Hash] the extreme values of the timeline
+  attr :extrema
   # @return [Integer] resolution of the value scale
   @size = 20
 
@@ -64,27 +66,23 @@ class Timeline
 
   # this method determines the extreme values of the collected data d(x,y)[z]
   # @param [Array] values the collected values d(x,y)[z]
-  # @return [Hash] the maximum and minimum values of the collected data
   def self.determine_extrema(values)
-    extrema = {
+    @extrema = {
       :maximum => values[0],
       :minimum => values[0]
     }
 
     values.each { |value|
-      extrema[:maximum] = value if (value > extrema[:maximum])
-      extrema[:minimum] = value if (value < extrema[:minimum])
+      @extrema[:maximum] = value if (value > @extrema[:maximum])
+      @extrema[:minimum] = value if (value < @extrema[:minimum])
     }
-
-    return extrema
   end
 
   # this method determines the value boundaries based on the resolution {#size}
-  # @param [Hash] extrema the maximum and minimum values of the collected data
-  def self.determine_value_boundaries(extrema)
-    delta = (extrema[:maximum] - extrema[:minimum]).abs
-    upper_boundary = extrema[:maximum] + delta / 20.0 # 5 % variance
-    lower_boundary = extrema[:minimum] - delta / 20.0 # 5 % variance
+  def self.determine_value_boundaries
+    delta = (@extrema[:maximum] - @extrema[:minimum]).abs
+    upper_boundary = @extrema[:maximum] + delta / 20.0 # 5 % variance
+    lower_boundary = @extrema[:minimum] - delta / 20.0 # 5 % variance
 
     delta = (upper_boundary - lower_boundary).abs / @size
     @value_bondaries = [lower_boundary.round(5)]
@@ -102,7 +100,7 @@ class Timeline
     mapped_values = Hash.new()
 
     values.each { |value|
-      mapped_values[value] = get_nearest_index(value)
+      mapped_values[value] = [get_nearest_index(value), check_extrema(value)]
     }
 
     return mapped_values
@@ -136,16 +134,27 @@ class Timeline
     @value_bondaries.each_index { |index|
       line = Array.new()
       mapped_values.values.each { |value|
-        if (value == index)
-          line << 1
+        if (value[0] == index)
+          line << value[1]
         else
-          line << 0
+          line << [:miss]
         end
       }
       output[@value_bondaries[index]] = line
     }
 
     return output
+  end
+
+  # method to determine if the value is an extreme value and return the value
+  # if it is an extreme value
+  # @param [Float] value the considered value
+  # @return [Array] an array containing Symbol and the value if it is an
+  #  extreme value
+  def self.check_extrema(value)
+    return [:minimum, value] if (value == @extrema[:minimum])
+    return [:maximum, value] if (value == @extrema[:maximum])
+    return [:none]
   end
 
 end

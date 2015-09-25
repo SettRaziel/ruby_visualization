@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-25 13:40:23
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-14 17:32:35
+# @Last Modified time: 2015-09-25 10:59:12
 
 require_relative '../graphics/string'
 
@@ -28,6 +28,10 @@ class TimelineOutput
   end
 
   private
+  @extrema = {
+      :maximum => Array.new(),
+      :minimum => Array.new()
+    }
 
   # simple method for printing an output haeder
   # @param [Float] x x-coordinate of the regarded point
@@ -60,6 +64,7 @@ class TimelineOutput
     data_size = meta_data.domain_z.upper - meta_data.domain_z.lower
     output.unshift(create_axis_string(data_size, max_size))
     output.unshift(create_axis_legend(data_size, max_size, meta_data))
+    output.unshift(create_extreme_output(max_size))
 
     return output
   end
@@ -71,10 +76,10 @@ class TimelineOutput
   # @return [String] the extended line string
   def self.check_and_append_values(values, line_string)
     values.each { |value|
-        if (value == 1)
-          line_string.concat('x'.green)
-        else
+        if (value[0] == :miss)
           line_string.concat(' ')
+        else
+          line_string.concat(check_type_and_print(value))
         end
       }
       return line_string
@@ -117,6 +122,35 @@ class TimelineOutput
     str.concat("%-10s" % start.to_s)
 
     return str
+  end
+
+  # method to create the output of the extreme values
+  # @param [Integer] max_size the number of padding white strings
+  # @return [String] the output string for the extreme values
+  def self.create_extreme_output(max_size)
+    str = String.new()
+    max_size.times {str.concat(' ')}
+    str.concat("Maximum: #{@extrema[:maximum]}\n")
+    max_size.times {str.concat(' ')}
+    str.concat("Minimum: #{@extrema[:minimum]}")
+
+    return str
+  end
+
+  # method to check the type of hit
+  # @param [Array] value an array containing information of the hit and
+  #  the value if it is an extreme value
+  # @return [String] the corresponding output string
+  def self.check_type_and_print(value)
+    if (value[0] == :maximum)
+      @extrema[:maximum] = value[1]
+      return 'x'.red.bright
+    elsif (value[0] == :minimum)
+      @extrema[:minimum] = value[1]
+      return 'x'.cyan.bright
+    end
+
+    'x'.green
   end
 
 end
