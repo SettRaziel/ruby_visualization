@@ -1,11 +1,8 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-23 08:49:18
+# @Last Modified time: 2015-09-26 11:25:44
 
-# This module holds the main singleton methods that are called form the script.
-# It also stores the data ans parameter repository so it can be called from
-# the other classes and modules if they need data oder parameter informations.
 module TerminalVis
 
   require_relative '../data/data_repository'
@@ -16,6 +13,7 @@ module TerminalVis
   require_relative '../math/interpolation'
   require_relative '../math/dataset_statistics'
   require_relative '../math/time_line'
+  require_relative '../output/range_output'
 
   # Dummy class to get access to the instance variables
   class << self
@@ -23,7 +21,7 @@ module TerminalVis
   end
 
   # singleton method to initialize the required repositories
-  # @param [Array] arguments the input values from {ARGV}
+  # @param [Array] arguments the input values from the terminal input ARGV
   def self.initialize_repositories(arguments)
       @parameter_handler = ParameterHandler.new(arguments)
       @data_repo = DataRepository.new()
@@ -80,16 +78,17 @@ module TerminalVis
         print_error(message)
       end
 
-      check_index(index)
+      check_index(meta_data, index)
     end
 
     return index
   end
 
-  # method to check a given index if it is in the given range
+  # method to check if provided integer index lies in range of dataseries
+  # @param [MetaData] meta_data the meta_data which should be checked for the
+  #  corresponding index
   # @param [Integer] index the given index from the input
-  def self.check_index(index)
-    # check if provided integer index lies in range of dataseries
+  def self.check_index(meta_data, index)
     if (index < 0 ||
       index >= @data_repo.repository[meta_data].series.size)
       text_index = @parameter_handler.repository.parameters[:index]
