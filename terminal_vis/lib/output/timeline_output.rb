@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-25 13:40:23
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-25 10:59:12
+# @Last Modified time: 2015-09-27 08:53:13
 
 require_relative '../graphics/string'
 
@@ -61,11 +61,20 @@ class TimelineOutput
       output << check_and_append_values(values, line_string)
     }
 
+    return append_legend_output(output, meta_data, max_size)
+  end
+
+  # method to append the axis and legend information below the timeline
+  # @param [Array] output the String array containing the output
+  # @param [MetaData] meta_data the used meta data
+  # @param [Integer] max_size the number ob padding white spaces
+  # @return [Array] the String array containing the output appended by the
+  #  legend output
+  def self.append_legend_output(output, meta_data, max_size)
     data_size = meta_data.domain_z.upper - meta_data.domain_z.lower
     output.unshift(create_axis_string(data_size, max_size))
     output.unshift(create_axis_legend(data_size, max_size, meta_data))
     output.unshift(create_extreme_output(max_size))
-
     return output
   end
 
