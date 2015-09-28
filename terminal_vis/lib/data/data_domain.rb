@@ -1,8 +1,21 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-11 11:16:06
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-11 11:55:35
+# @Last Modified time: 2015-09-28 09:20:40
 
+# {MetaData::MetaData} stores meta information about the data series. The
+# meta information can be used for two or three dimensional data series. Each
+# {MetaData::DataDomain} stores the information for one dimension
+#   two dimensional data set
+#   <data_name>,
+#   <axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
+#   <axis_description_y>,<lower_boundary_y>,<upper_boundary_y>
+#
+#   three dimensional data series
+#   <data_name>,
+#   <axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
+#   <axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,
+#   <axis_description_z>,<lower_boundary_z>,<upper_boundary_z>
 module MetaData
 
   # DataDomain represents the meta data for one dimension

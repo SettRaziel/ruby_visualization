@@ -1,26 +1,14 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-11 11:31:45
+# @Last Modified time: 2015-09-28 09:19:27
 
-# {MetaData::MetaData} stores meta information about the data series. The
-# meta information can be used for two or three dimensional data series. Each
-# {MetaData::DataDomain} stores the information for one dimension
-#   two dimensional data serie
-#   <data_name>,
-#   <axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
-#   <axis_description_y>,<lower_boundary_y>,<upper_boundary_y>
-#
-#   three dimensional data serie
-#   <data_name>,
-#   <axis_description_x>,<lower_boundary_x>,<upper_boundary_x>,
-#   <axis_description_y>,<lower_boundary_y>,<upper_boundary_y>,
-#   <axis_description_z>,<lower_boundary_z>,<upper_boundary_z>
-# @raise [IndexError] when parameter metadata has not the correct size
 module MetaData
 
   # class to store the meta information of a data series
   # @see {MetaData} meta information format
+  # @raise [IndexError] if the number of provided parameters has not
+  #   the correct size
   class MetaData
     # @return [String] the name of the data
     attr_reader :name
@@ -50,7 +38,8 @@ module MetaData
 
     # method to check the correct number of parameters for the meta data
     # @param [Integer] size the size of the metadata array
-    # @raise [IndexError] when parameter metadata has not the correct size
+    # @raise [IndexError] if the number of provided parameters has not
+    #   the correct size
     def check_element_size(size)
       if !(size == 13 || size == 9)
         raise IndexError, "Error in meta data: incorrect number of" \
