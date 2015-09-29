@@ -1,10 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-14 17:37:18
-
-require_relative '../data/meta_data'
-require 'matrix'
+# @Last Modified time: 2015-09-29 08:56:48
 
 module TerminalVis
 
@@ -13,6 +10,9 @@ module TerminalVis
   #   * Linear interpolation
   #   * Bilinear interpolation
   module Interpolation
+
+    require_relative '../data/meta_data'
+    require 'matrix'
 
     # interpolates the data for the provided coordinate and prints the result
     # param [MetaData] meta_data the meta data for the data series where the

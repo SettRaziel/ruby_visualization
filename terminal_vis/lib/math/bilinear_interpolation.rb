@@ -1,8 +1,11 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-14 17:41:25
+# @Last Modified time: 2015-09-29 08:53:10
 
+# This module holds the main singleton methods that are called from the script.
+# It also stores the data ans parameter repository so it can be called from
+# the other classes and modules if they need data oder parameter informations.
 module TerminalVis
 
   module Interpolation
