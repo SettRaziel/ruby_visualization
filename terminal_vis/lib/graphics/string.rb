@@ -1,10 +1,11 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-30 08:57:40
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-05 08:52:54
+# @Last Modified time: 2015-09-30 17:38:05
 
 # Extension of the class String to modify a String in color and type
 # Note: \e stands for the esc code
+# Note: not all modifications are available for every terminal application
 class String
 
   # change the string to colored bright
@@ -31,10 +32,11 @@ class String
     "\e[4m#{self}\e[0m"
   end
 
-  # changes the style of the string to blink
+  # changes the style of the string to blink (not supported by every terminal
+  # application)
   # @return [String] the formatted string
   def blink
-    "\e[5m#{self}\e[0m"
+    "\e[5m#{self}\e[25m"
   end
 
   # exchanges the color and background of the string
@@ -47,6 +49,18 @@ class String
   # @return [String] the formatted string
   def hide
     "\e[8m#{self}\e[0m"
+  end
+
+  # changes the color of the string to the default foreground color
+  # @return [String] the formatted string
+  def default_foreground
+    "\e[39m#{self}\e[0m"
+  end
+
+  # changes the color of the string to the default background color
+  # @return [String] the formatted string
+  def default_background
+    "\e[49m#{self}\e[0m"
   end
 
   # changes the color of the string to black
@@ -131,6 +145,12 @@ class String
   # @return [String] the formatted string
   def light_gray
     "\e[37m#{self}\e[0m"
+  end
+
+  # changes the color of the string to dark_gray
+  # @return [String] the formatted string
+  def dark_gray
+    "\e[90m#{self}\e[0m"
   end
 
   # changes the color of the string to white
