@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-12 10:52:30
+# @Last Modified time: 2015-10-01 19:17:18
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -142,11 +142,11 @@ class DataOutput
   def self.determine_output_type_and_print_value(value)
     # create output for maximum
     if (value == @data_set.max_value && @with_extreme_values)
-      print @legend.create_output_string_for(value,'++').white.bright
+      print '++'.light_gray.bright.black_bg
       return :maximum
     # create output for minimum
     elsif (value == @data_set.min_value && @with_extreme_values)
-      print @legend.create_output_string_for(value,'--').white.bright
+      print '--'.light_gray.bright.black_bg
       return :minimum
     # create normal output
     else
@@ -172,7 +172,8 @@ class DataOutput
   def self.print_extreme_values_for(coordinates, type, value)
     while (coordinates.size > 0)
         coordinate = coordinates.shift
-        puts "  %s %.3f at %s." % [type, value, coordinate]
+        color = @legend.create_output_string_for(value,'  ')
+        puts "  %s %.3f at %s [%s]." % [type, value, coordinate, color]
     end
   end
 
