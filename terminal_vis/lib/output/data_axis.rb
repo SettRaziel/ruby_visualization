@@ -1,11 +1,13 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-12 09:52:39
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-14 17:34:22
+# @Last Modified time: 2015-10-02 10:30:09
 
+# Output class to create the data axis for the dataset and delta output
+# in the x- and y-dimension
 class DataAxis
 
-  # method to print the legend for the x axis
+  # method to print the legend for the x-axis
   # @param [MetaData] meta_data the meta data used for the axis values
   def self.print_x_axis_values(meta_data)
     x_value_lenght = determine_maximal_domainvalue_length(meta_data.domain_x)
@@ -37,12 +39,12 @@ class DataAxis
     extend_x_axis_output(y_offset, 0, meta_data.domain_x)
   end
 
-  # method to print the empty gap between two values of the x axis and the
+  # method to print the empty gap between two values of the x-axis and the
   # following value
   # @param [Integer] length the space between two entries
   # @param [Integer] index the index of the data coordinate which should be
   #   printed
-  # @param [DataDomain] domain the data domain of the x axis
+  # @param [DataDomain] domain the data domain of the x-axis
   def self.extend_x_axis_output(length, index, domain)
     length.times { print ' ' }
     value_lenght = determine_maximal_domainvalue_length(domain)
@@ -62,7 +64,7 @@ class DataAxis
 
   # method to determine if the coordinate of the current y value should be
   # printed or the corresponding number blanks
-  # @param [DataDomain] domain the data domain of the y axis
+  # @param [DataDomain] domain the data domain of the y-axis
   # @param [Integer] key the index of the current line
   # @return [String] the current y coordinate or an empty string
   def self.determine_y_axis_init(domain, key)
