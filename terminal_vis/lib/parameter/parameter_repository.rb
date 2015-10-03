@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-16 16:10:35
+# @Last Modified time: 2015-10-03 14:21:56
 
 # Parameter repository storing the valid parameter of the script.
 # {#initialize} gets the provided parameters and fills a hash which
@@ -21,35 +21,45 @@ class ParameterRepository
     argv.each { |arg|
       has_read_file?(has_read_file)
 
-      case arg
-        when '-h', '--help'    then check_and_set_helpvalue
-        when '-v', '--version' then @parameters[:version] = true
-        when '-a', '--all'
-          create_argument_entry(:all, unflagged_arguments)
-        when '-c', '--coord'
-          create_two_argument_entry(:coord, unflagged_arguments)
-        when '-d', '--delta'
-          create_two_argument_entry(:delta, unflagged_arguments)
-        when '-e', '--extreme' then @parameters[:extreme] = true
-        when '-i'
-          create_argument_entry(:index, unflagged_arguments)
-        when '-m'              then @parameters[:meta] = true
-        when '-r', '--range'
-          create_two_argument_entry(:range, unflagged_arguments)
-        when '-t', '--time'
-          create_two_argument_entry(:time, unflagged_arguments)
-        when /-[a-z]|--[a-z]+/ then raise_invalid_parameter(arg)
-      else
-        check_and_set_argument(unflagged_arguments.shift, arg)
-      end
+      has_read_file =  process_argument(arg, unflagged_arguments)
 
-      has_read_file = true if (unflagged_arguments.size == 0)
     }
 
   check_parameter_handling(unflagged_arguments.size)
   end
 
   private
+
+  # method to read the given argument and process it depending on its content
+  # @param [String] arg the given argument
+  # @param [Array] unflagged_arguments the argument array
+  # @return [boolean] if the size of the argument array is zero or not
+  process_argument(arg, unflagged_arguments)
+    case arg
+      when '-h', '--help'    then check_and_set_helpvalue
+      when '-v', '--version' then @parameters[:version] = true
+      when '-a', '--all'
+        create_argument_entry(:all, unflagged_arguments)
+      when '-c', '--coord'
+        create_two_argument_entry(:coord, unflagged_arguments)
+      when '-d', '--delta'
+        create_two_argument_entry(:delta, unflagged_arguments)
+      when '-e', '--extreme' then @parameters[:extreme] = true
+      when '-i'
+        create_argument_entry(:index, unflagged_arguments)
+      when '-m'              then @parameters[:meta] = true
+      when '-r', '--range'
+        create_two_argument_entry(:range, unflagged_arguments)
+      when '-t', '--time'
+        create_two_argument_entry(:time, unflagged_arguments)
+      when /-[a-z]|--[a-z]+/ then raise_invalid_parameter(arg)
+    else
+      check_and_set_argument(unflagged_arguments.shift, arg)
+    end
+
+    return (unflagged_arguments.size == 0)
+
+  end
 
   # creates a new entry for a parameter with one argument
   # @param [Symbol] symbol the symbol of the argument
