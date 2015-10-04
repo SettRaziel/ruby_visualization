@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-03 14:21:56
+# @Last Modified time: 2015-10-04 09:12:49
 
 # Parameter repository storing the valid parameter of the script.
 # {#initialize} gets the provided parameters and fills a hash which
@@ -34,7 +34,7 @@ class ParameterRepository
   # @param [String] arg the given argument
   # @param [Array] unflagged_arguments the argument array
   # @return [boolean] if the size of the argument array is zero or not
-  process_argument(arg, unflagged_arguments)
+  def process_argument(arg, unflagged_arguments)
     case arg
       when '-h', '--help'    then check_and_set_helpvalue
       when '-v', '--version' then @parameters[:version] = true
