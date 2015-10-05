@@ -1,11 +1,9 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-20 10:24:17
+# @Last Modified time: 2015-10-05 22:35:54
 
 module TerminalVis
-
-  require_relative 'range_output'
 
   # This module takes care about the output in the terminal and serves several
   # methods to create the desired output:
