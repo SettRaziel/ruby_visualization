@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-30 13:34:57
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-14 17:43:50
+# @Last Modified time: 2015-10-07 06:54:21
 
 # This module groups the different color legends that are used to visualize the
 # output. The class {Base} provides the basic methods that are needed. Child
@@ -9,6 +9,7 @@
 module ColorLegend
 
   require_relative '../graphics/string'
+  require_relative '../main/main_module'
 
   # This class provides basic methods for the other color legends to work
   # with. The children need to define the method
@@ -38,9 +39,24 @@ module ColorLegend
       puts "Legend: %.3f; %.3f; delta = %.3f" % [@min_value, @max_value, delta]
       @value_legend.each { |value|
         2.times {print create_output_string_for(value, '  ') }
-        # print " <= #{value}; "# todo: extended legend output
       }
+
+      if (TerminalVis.parameter_handler.repository.parameters[:legend])
+        print_interval_values
+      end
+
       puts ""
+    end
+
+    # prints the intervall boundaries of the color legend if the parameter
+    # -l is set
+    def print_interval_values
+      @value_legend.each_index { |index|
+        puts if (index % 5 == 0)
+        value = @value_legend[index]
+        print create_output_string_for(value, " <= #{value};").
+              black.exchange_grounds
+      }
     end
 
     # @abstract subclasses need to implement this method
