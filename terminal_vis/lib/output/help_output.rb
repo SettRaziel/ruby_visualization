@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-08 17:32:38
+# @Last Modified time: 2015-10-08 19:10:31
 
 # Output class for help text
 class HelpOutput
@@ -46,7 +46,7 @@ class HelpOutput
           '; shows the dataset at index, if index lies within ' \
           '[1,2, ..., number of datasets], excludes -a, -d and -t',
     :legend => ' -l              prints extended informations for the color' \
-          ' legend'
+          ' legend',
     :meta =>    ' -m             process the file <filename> containing' \
           ' meta data',
     :range =>   ' -r, --range    ' + 'arguments:'.red +
