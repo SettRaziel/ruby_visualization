@@ -35,6 +35,7 @@ parameters:
                extreme values below the legend, excludes -c
 -i             argument: <index>; shows the dataset at index, if index lies
                within [1,2, ..., number of datasets], excludes -a, -d and -t
+-l              prints extended informations for the color legend
 -r, --range    arguments: <start> <end>; prints all datasets within the range
                of the provided arguments, excludes -i, -t
 -t, --time     arguments: <x> <y> ; creates a timeline for the given coordinate
@@ -113,5 +114,13 @@ Written with Ruby 2.2.2
 
 ## License
 see LICENSE
+
+## Roadmap
+* adding a mechanism to allow some configuration parameters to be set and
+  stored within a configuartion file
+* adding a mechanism to scale the output automatically to the dimension of
+  the used terminal
+* adding more features from suggestions
+
 
 created by: Benjamin Held
