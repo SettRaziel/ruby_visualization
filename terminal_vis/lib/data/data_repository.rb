@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-15 16:45:53
+# @Last Modified time: 2015-10-11 15:01:40
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -155,7 +155,7 @@ class DataRepository
   # @param [String] filename filepath
   # @return [Array] the data of the file as strings
   def read_file(filename)
-    FileReader.new(filename).data
+    FileReader.new(filename, ',').data
   end
 
   # checks for meta data in the first line of the raw data and creates
