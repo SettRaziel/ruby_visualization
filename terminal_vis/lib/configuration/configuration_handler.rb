@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-10 19:56:37
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-12 18:40:44
+# @Last Modified time: 2015-10-13 16:20:36
 
 require_relative '../data/file_reader'
 require_relative './configuration_repository'
@@ -20,6 +20,17 @@ class ConfigurationHandler
     else
       check_and_read_options(filename)
     end
+  end
+
+  # method to save the current configuration options
+  def save_options(filename)
+    output = File.new(filename, 'w')
+
+    @options.repository.each_pair { |key, value|
+      output.puts "#{@option_mapping.key(key)};#{value.class};#{value}"
+    }
+
+    output.close
   end
 
   private
@@ -89,7 +100,7 @@ class ConfigurationHandler
   def determine_value(type, value)
     return false if (type == FalseClass)
     return true  if (type == TrueClass)
-    return value.to_i if (type == Integer)
+    return value.to_i if (type == Fixnum)
     return value.to_f if (type == Float)
     value
   end
