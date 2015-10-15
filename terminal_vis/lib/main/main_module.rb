@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-08 17:35:46
+# @Last Modified time: 2015-10-15 19:04:04
 
 module TerminalVis
 
@@ -14,10 +14,17 @@ module TerminalVis
   require_relative '../math/dataset_statistics'
   require_relative '../math/time_line'
   require_relative '../output/range_output'
+  require_relative '../configuration/configuration_handler'
 
   # Dummy class to get access to the instance variables
   class << self
-    attr_reader :data_repo, :parameter_handler
+    # @return [DataRepository] the repository storing the datasets
+    attr_reader :data_repo
+    # @return [ParameterHandler] the handler controlling the parameters
+    attr_reader :parameter_handler
+    # @return [Configuration_Handler] the handler controlling the
+    #   configuration parameter
+    attr_reader :option_handler
   end
 
   # singleton method to initialize the required repositories
@@ -25,6 +32,7 @@ module TerminalVis
   def self.initialize_repositories(arguments)
       @parameter_handler = ParameterHandler.new(arguments)
       @data_repo = DataRepository.new()
+      @option_handler = ConfigurationHandler.new()
   end
 
   # creates the meta data based on the provided parameters
