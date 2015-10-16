@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-05 22:35:54
+# @Last Modified time: 2015-10-16 15:09:11
 
 module TerminalVis
 
@@ -50,16 +50,10 @@ module TerminalVis
     #  be visualized
     def self.create_delta_output(meta_data)
       data_indices = determine_indices_for_delta
+      data = check_and_get_data(data_indices, meta_data)
 
-      first_data = TerminalVis.data_repo.repository[meta_data].
-                               series[data_indices[0]]
-      second_data = TerminalVis.data_repo.repository[meta_data].
-                               series[data_indices[1]]
-
-      check_data(first_data, data_indices[0])
-      check_data(second_data, data_indices[1])
-
-      result = DatasetStatistics.subtract_datasets(first_data, second_data)
+      result = DatasetStatistics.subtract_datasets(data[:first_data],
+                                                   data[:second_data])
 
       DataOutput.print_delta(result, meta_data, data_indices,
                  TerminalVis.parameter_handler.repository.parameters[:extreme])
@@ -113,6 +107,24 @@ module TerminalVis
              TerminalVis.parameter_handler.repository.parameters[:extreme])
     end
     private_class_method :create_single_output_at_index
+
+    # method to check the datasets specified by the data indices and return
+    # the data
+    # @param [Array] the indices of the required datasets
+    # @return [Hash] a hash containing the selected datasets
+    def self.check_and_get_data(data_indices, meta_data)
+      data = Hash.new()
+      data[:first_data] = TerminalVis.data_repo.repository[meta_data].
+                               series[data_indices[0]]
+      data[:second_data] = TerminalVis.data_repo.repository[meta_data].
+                               series[data_indices[1]]
+
+      check_data(data[:first_data], data_indices[0])
+      check_data(data[:second_data], data_indices[1])
+      return data
+    end
+    private_class_method :check_and_get_data
+
 
     # checks if the returned data exists, nil means data access outside the
     # boundaries of the data
