@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-16 15:09:11
+# @Last Modified time: 2015-10-17 15:15:31
 
 module TerminalVis
 
@@ -76,7 +76,8 @@ module TerminalVis
       data_series = TerminalVis.data_repo.repository[meta_data]
       x = Float(TerminalVis.parameter_handler.repository.parameters[:time][0])
       y = Float(TerminalVis.parameter_handler.repository.parameters[:time][1])
-      timeline = Timeline.create_timeline(meta_data, data_series, x, y)
+      y_size = TerminalVis.option_handler.options.repository[:y_time_size]
+      timeline = Timeline.create_timeline(meta_data, data_series, x, y, y_size)
       TimelineOutput.print_timeline(timeline, meta_data, x, y)
     end
 

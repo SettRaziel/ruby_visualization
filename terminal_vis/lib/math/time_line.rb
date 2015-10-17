@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-24 10:28:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-25 11:01:48
+# @Last Modified time: 2015-10-17 15:15:13
 
 require_relative 'interpolation'
 
@@ -16,9 +16,11 @@ class Timeline
   # @param [DataSeries] data_series the data series which should be used
   # @param [Float] x x-coordinate of the regarded point
   # @param [Float] y y-coordinate of the regarded point
+  # @param [Fixnum] y_size the number of data lines in y
   # @return [Hash] the occurence of a boundary value in the z dimension as the
   #  result of being the nearest index for a collected value at position z
-  def self.create_timeline(meta_data, data_series, x, y)
+  def self.create_timeline(meta_data, data_series, x, y, y_size)
+    check_and_set_ysize(y_size)
     check_dataset_dimension(meta_data)
 
     values = collect_values(meta_data, data_series, x, y) # time_values
@@ -36,7 +38,18 @@ class Timeline
   # @return [Hash] the extreme values of the timeline
   attr :extrema
   # @return [Integer] resolution of the value scale
-  @size = 20
+  attr :size
+
+  # method to check and set the number of values for the y-dimension
+  # constraint: at least 5 values in y
+  # @param [Fixnum] y_size number of values in y
+  # @raise [RangeError] if the number of y values is less than 2
+  def self.check_and_set_ysize(y_size)
+    if (y_size < 2)
+      raise RangeError, ' Error : invalid y_value of timeline (min.: 5) '
+    end
+    @size = y_size
+  end
 
   # method to check for correct dataset dimensions
   # @param [MetaData] meta_data the required meta data
