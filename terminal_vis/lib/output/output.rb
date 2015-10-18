@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-17 15:15:31
+# @Last Modified time: 2015-10-18 10:45:02
 
 module TerminalVis
 
@@ -55,8 +55,8 @@ module TerminalVis
       result = DatasetStatistics.subtract_datasets(data[:first_data],
                                                    data[:second_data])
 
-      DataOutput.print_delta(result, meta_data, data_indices,
-                 TerminalVis.parameter_handler.repository.parameters[:extreme])
+      options = get_output_options
+      DataOutput.print_delta(result, meta_data, data_indices,options)
     end
 
     # creates output when using the parameter -r
@@ -65,8 +65,10 @@ module TerminalVis
     def self.create_range_output(meta_data)
       data_series = TerminalVis.data_repo.repository[meta_data]
 
+      options = get_output_options
       RangeOutput.print_ranged_data(meta_data, data_series,
-                                    TerminalVis.parameter_handler.repository)
+                                    TerminalVis.parameter_handler.repository,
+                                    options)
     end
 
     # creates a time line for the parameter -t
@@ -103,11 +105,23 @@ module TerminalVis
     #  be visualized
     # @param [Integer] index the index of the dataset which should be visualized
     def self.create_single_output_at_index(meta_data, index)
+      options = get_output_options
       DataOutput.print_dataset(TerminalVis.data_repo.repository[meta_data],
-             index, meta_data,
-             TerminalVis.parameter_handler.repository.parameters[:extreme])
+             index, meta_data, options)
     end
     private_class_method :create_single_output_at_index
+
+    # method to determine output options for the extreme values and the
+    # extended legend
+    # @return [Hash] the hash with the boolean parameters for the options
+    def self.get_output_options
+      options = Hash.new()
+      options[:extreme_values] = TerminalVis.parameter_handler.repository.
+                                 parameters[:extreme]
+      options[:legend] = TerminalVis.option_handler.options.repository[:legend]
+      return options
+    end
+    private_class_method :get_output_options
 
     # method to check the datasets specified by the data indices and return
     # the data

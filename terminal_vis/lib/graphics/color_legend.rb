@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-30 13:34:57
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-07 06:54:21
+# @Last Modified time: 2015-10-18 10:47:27
 
 # This module groups the different color legends that are used to visualize the
 # output. The class {Base} provides the basic methods that are needed. Child
@@ -9,7 +9,6 @@
 module ColorLegend
 
   require_relative '../graphics/string'
-  require_relative '../main/main_module'
 
   # This class provides basic methods for the other color legends to work
   # with. The children need to define the method
@@ -35,13 +34,15 @@ module ColorLegend
     end
 
     # prints color legend with given colors
-    def print_color_legend
+    # @param [boolean] with_legend boolean which determines if the extended
+    #  legend options should be printed
+    def print_color_legend(with_legend)
       puts "Legend: %.3f; %.3f; delta = %.3f" % [@min_value, @max_value, delta]
       @value_legend.each { |value|
         2.times {print create_output_string_for(value, '  ') }
       }
 
-      if (TerminalVis.parameter_handler.repository.parameters[:legend])
+      if (with_legend)
         print_interval_values
       end
 

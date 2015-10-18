@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-24 08:31:23
+# @Last Modified time: 2015-10-18 10:49:48
 
 require_relative '../main/main_module'
 
@@ -12,14 +12,16 @@ class RangeOutput
   # @param [MetaData] meta_data the metadata of the used data series
   # @param [DataSeries] data_series the used data series
   # @param [ParameterRepository] parameter_repository the used parameter
-  #  repository
-  def self.print_ranged_data(meta_data, data_series, parameter_repository)
+  #   repository
+  # @param [Hash] options hash with the boolean values for extreme values and
+  #   extended legend output
+  def self.print_ranged_data(meta_data, data_series, parameter_repository,
+                             options)
     indices = get_and_check_indices(parameter_repository, meta_data)
     first = indices[:lower]
 
     while (first <= indices[:upper])
-      DataOutput.print_dataset(data_series, first, meta_data,
-                               parameter_repository.parameters[:extreme])
+      DataOutput.print_dataset(data_series, first, meta_data, options)
       determine_animation(parameter_repository)
       first += 1
     end

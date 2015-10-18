@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-01 19:17:18
+# @Last Modified time: 2015-10-18 10:48:20
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -16,15 +16,16 @@ class DataOutput
   # @param [DataSeries] data_series the data series which should be visualized
   # @param [Integer] index the index of the desired data set
   # @param [MetaData] meta_data the corresponding meta data
-  # @param [boolean] with_extreme_values boolean which provides the information
-  #   if the extreme values of the dataset should be visualized as well
-  def self.print_dataset(data_series, index, meta_data, with_extreme_values)
-    set_attributes(meta_data, data_series.series[index], with_extreme_values)
+  # @param [Hash] options hash with the boolean values for extreme values and
+  #   extended legend output
+  def self.print_dataset(data_series, index, meta_data, options)
+    set_attributes(meta_data, data_series.series[index],
+                   options[:extreme_values])
     @legend = ColorLegend::ColorData.
           new(data_series.min_value, data_series.max_value)
     print_output_head(index)
 
-    print_data
+    print_data(options[:legend])
   end
 
   # method to visualize the difference of two datasets
@@ -32,15 +33,15 @@ class DataOutput
   # @param [MetaData] meta_data the corresponding meta data
   # @param [Array] indices the indices of the two datasets which should be
   #   substracted
-  # @param [boolean] with_extreme_values boolean which provides the information
-  #   if the extreme values of the dataset should be visualized as well
-  def self.print_delta(data_set, meta_data, indices, with_extreme_values)
-    set_attributes(meta_data, data_set, with_extreme_values)
+  # @param [Hash] options hash with the boolean values for extreme values and
+  #   extended legend output
+  def self.print_delta(data_set, meta_data, indices, options)
+    set_attributes(meta_data, data_set, options[:extreme_values])
     @legend = ColorLegend::ColorDelta.
           new(data_set.min_value, data_set.max_value)
     puts "Printing difference for datasets #{indices[0]} and " \
        "#{indices[1]}.\n\n"
-    print_data
+    print_data(options[:legend])
   end
 
   private
@@ -65,12 +66,14 @@ class DataOutput
   end
 
   # prints the data and the additional informations
-  def self.print_data
+  # @param [boolean] with_legend boolean which determines if the extended
+  #  legend options should be printed
+  def self.print_data(with_legend)
     extreme_coordinates = print_data_and_get_extrema
     DataAxis.print_x_axis_values(@meta_data)
 
     puts ""
-    @legend.print_color_legend()
+    @legend.print_color_legend(with_legend)
 
     print_extreme_information(extreme_coordinates) if (@with_extreme_values)
 
