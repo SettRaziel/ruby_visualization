@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-18 10:45:02
+# @Last Modified time: 2015-10-18 10:56:17
 
 module TerminalVis
 
@@ -56,7 +56,7 @@ module TerminalVis
                                                    data[:second_data])
 
       options = get_output_options
-      DataOutput.print_delta(result, meta_data, data_indices,options)
+      DataOutput.print_delta(result, meta_data, data_indices, options)
     end
 
     # creates output when using the parameter -r

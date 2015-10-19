@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-06 08:59:51
+# @Last Modified time: 2015-10-19 19:04:59
 
 require_relative 'parameter_repository'
 
@@ -41,7 +41,6 @@ class ParameterHandler
     check_constraints_for_c if (repository.parameters[:coord])
     check_constraints_for_d if (repository.parameters[:delta])
     check_constraints_for_r if (repository.parameters[:range])
-    check_constraints_for_l if (repository.parameters[:legend])
   end
 
   # checks if the parsed filename is a valid unix or windows file name
@@ -98,14 +97,6 @@ class ParameterHandler
   def check_constraints_for_d
     check_constraint('-d', '-i', :index)
     check_constraint('-d', '-t', :time)
-  end
-
-  # checks constraints:
-  #   !(-l + -c), !(-c + -l),
-  #   !(-l + -t), !(-t + -l)
-  def check_constraints_for_l
-    check_constraint('-l', '-c', :coord)
-    check_constraint('-l', '-t', :time)
   end
 
   # checks constraints:

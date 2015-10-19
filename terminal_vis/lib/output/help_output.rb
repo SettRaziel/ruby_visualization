@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-08 19:10:31
+# @Last Modified time: 2015-10-19 19:06:04
 
 # Output class for help text
 class HelpOutput
@@ -33,7 +33,7 @@ class HelpOutput
           ' -d and -t',
     :coord =>   ' -c, --coord    ' + 'arguments:'.red + ' <x> <y>'.yellow +
           '; interpolates the data for the given coordinate (x,y) ' \
-          'at default dataset index 0, excludes -e, -l and -t',
+          'at default dataset index 0, excludes -e and -t',
     :delta =>   ' -d, --delta    ' + 'arguments:'.red + ' <first_index> ' \
           '<second_index>'.yellow + '; subtracts the first dataset' \
           ' from the second dataset and visualizes the difference, '\
@@ -45,8 +45,6 @@ class HelpOutput
     :index =>   ' -i             ' + 'argument:'.red + ' <index>'.yellow +
           '; shows the dataset at index, if index lies within ' \
           '[1,2, ..., number of datasets], excludes -a, -d and -t',
-    :legend => ' -l              prints extended informations for the color' \
-          ' legend',
     :meta =>    ' -m             process the file <filename> containing' \
           ' meta data',
     :range =>   ' -r, --range    ' + 'arguments:'.red +
@@ -55,7 +53,7 @@ class HelpOutput
     :time =>    ' -t, --time     ' + 'arguments:'.red + ' <x> <y>'.yellow +
           '; creates a timeline for the given coordinate (x,y), coordinates ' \
           'not lying on the data point will be interpolated, excludes -a,' \
-          '-c, -i and -l'
+          ' -c, and -i'
   }
 
   # method to print the default help text

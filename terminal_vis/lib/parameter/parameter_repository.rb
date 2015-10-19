@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-06 08:46:01
+# @Last Modified time: 2015-10-19 19:03:51
 
 # Parameter repository storing the valid parameter of the script.
 # {#initialize} gets the provided parameters and fills a hash which
@@ -47,7 +47,6 @@ class ParameterRepository
       when '-e', '--extreme' then @parameters[:extreme] = true
       when '-i'
         create_argument_entry(:index, unflagged_arguments)
-      when '-l'              then @parameters[:legend] = true
       when '-m'              then @parameters[:meta] = true
       when '-r', '--range'
         create_two_argument_entry(:range, unflagged_arguments)
