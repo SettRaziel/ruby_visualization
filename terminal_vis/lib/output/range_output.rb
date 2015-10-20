@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-18 10:49:48
+# @Last Modified time: 2015-10-20 16:59:39
 
 require_relative '../main/main_module'
 
@@ -37,34 +37,31 @@ class RangeOutput
   def self.get_and_check_indices(parameter_repository, meta_data)
     indices = Hash.new()
 
-    indices[:lower] = Integer(TerminalVis.parameter_handler.
-                               repository.parameters[:range][0]) - 1
-    indices[:upper] = Integer(TerminalVis.parameter_handler.
-                               repository.parameters[:range][1]) - 1
+    indices[:lower] = Integer(parameter_repository.parameters[:range][0]) - 1
+    indices[:upper] = Integer(parameter_repository.parameters[:range][1]) - 1
 
-    check_range_parameters(meta_data, indices[:lower], indices[:upper])
+    check_range_parameters(meta_data, indices)
 
     return indices
   end
 
   # method to check if the input parameters are valid
   # @param [MetaData] meta_data the metadata of the used data series
-  # @param [Integer] first the lower range value
-  # @param [Integer] second the upper range value
-  def self.check_range_parameters(meta_data, first, second)
+  # @param [Hash] indices a hash containing the indices :first and :second
+  # @return [boolean] true, if the parameters are in the range of the meta data
+  def self.check_range_parameters(meta_data, indices)
     size = meta_data.domain_z.number_of_values
 
-    first_lesser_second?(first, second)
-    parameter_in_meta_range?(meta_data, first, second)
+    first_lesser_second?(indices)
+    parameter_in_meta_range?(meta_data, indices)
   end
 
   # method to check if the first parameter is lesser than the second
-  # @param [Integer] first the lower range value
-  # @param [Integer] second the upper range value
+  # @param [Hash] indices a hash containing the indices :first and :second
   # @return [boolean] true, if first < second
   # @raise [ArgumentError] if first >= second
-  def self.first_lesser_second?(first, second)
-    if (first >= second)
+  def self.first_lesser_second?(indices)
+    if (indices[:lower] >= indices[:upper])
       raise ArgumentError,
         " Error: First parameter of -r greater than the second"
     end
@@ -74,19 +71,18 @@ class RangeOutput
   # method to check if the parameters are within the range specified by the
   # meta data
   # @param [MetaData] meta_data the metadata of the used data series
-  # @param [Integer] first the lower range value
-  # @param [Integer] second the upper range value
+  # @param [Hash] indices a hash containing the indices :first and :second
   # @return [boolean] true, if both parameter are within the meta data range
   # @raise [ArgumentError] if (first < 0 | second > data size)
-  def self.parameter_in_meta_range?(meta_data, first, second)
+  def self.parameter_in_meta_range?(meta_data, indices)
     size = meta_data.domain_z.number_of_values
 
-    if (first < 0)
+    if (indices[:lower] < 0)
       raise ArgumentError,
         " Error: First parameter of -r is lesser or equal 0"
     end
 
-    if (second >= size)
+    if (indices[:upper] >= size)
       raise ArgumentError,
         " Error: Second parameter of -r greater than size of data series"
     end
