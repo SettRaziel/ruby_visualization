@@ -1,10 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-21 15:11:07
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-21 22:19:17
+# @Last Modified time: 2015-10-22 20:24:03
 
 require_relative '../main/main_module'
 
+# singleton class to deliver a simple terminal menu to provide values for the
+# available configuration parameter
 class ConfigurationMenu
 
   # public entry point for the configuration menu

@@ -1,11 +1,13 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-10 19:56:37
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-13 16:20:36
+# @Last Modified time: 2015-10-22 20:25:00
 
 require_relative '../data/file_reader'
 require_relative './configuration_repository'
 
+# handler class to serve as a component between the configuation repository
+# and other components of the application
 class ConfigurationHandler
   # @return [ConfigurationRepository] repository with the configuration
   #   parameters
