@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-18 10:56:17
+# @Last Modified time: 2015-10-23 17:05:57
 
 module TerminalVis
 
@@ -118,7 +118,8 @@ module TerminalVis
       options = Hash.new()
       options[:extreme_values] = TerminalVis.parameter_handler.repository.
                                  parameters[:extreme]
-      options[:legend] = TerminalVis.option_handler.options.repository[:legend]
+      options[:legend] = TerminalVis.option_handler.options.
+                         repository[:legend_extend]
       return options
     end
     private_class_method :get_output_options
