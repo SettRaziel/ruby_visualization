@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-21 15:11:07
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-22 20:24:03
+# @Last Modified time: 2015-10-24 13:01:49
 
 require_relative '../main/main_module'
 
@@ -12,6 +12,9 @@ class ConfigurationMenu
   # public entry point for the configuration menu
   def self.print_menu
     is_finished = false;
+     # necessary to clear the script parameter, which has already been
+     # processed by the parameter_repository
+    ARGF.argv.clear
 
     while(!is_finished)
       puts "Configuration Menu. Select parameter:"
@@ -32,7 +35,10 @@ class ConfigurationMenu
       when 1
         process_legend_input(get_entry("Input value (0: false, 1:true) : ")
                              .to_i)
-      when 2 then process_ydim_input(get_entry("Input value: ").to_i)
+        return false
+      when 2 then
+        process_ydim_input(get_entry("Input value: ").to_i)
+        return false
       when 3 then return true
     else
       print_error("Error: Input is not valid.")

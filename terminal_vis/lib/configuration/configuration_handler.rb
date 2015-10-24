@@ -1,10 +1,11 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-10 19:56:37
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-22 20:25:00
+# @Last Modified time: 2015-10-24 12:54:35
 
 require_relative '../data/file_reader'
 require_relative './configuration_repository'
+require_relative './configuration_menu'
 
 # handler class to serve as a component between the configuation repository
 # and other components of the application
@@ -15,12 +16,21 @@ class ConfigurationHandler
 
   # initialization
   # @param [String] filename the provided filename for the options
-  def initialize(filename=nil)
+  def initialize()
     initialize_option_mapping
-    if (filename == nil)
-      @options = ConfigurationRepository.new()
-    else
-      check_and_read_options(filename)
+    @options = ConfigurationRepository.new()
+  end
+
+  # method to process the options provided by the script parameters
+  # @param [String] option the given option the creation of configuation
+  #  options
+  def process_parameter(option)
+    if (option =="menu")
+      ConfigurationMenu.print_menu
+    elsif (option.start_with?("file="))
+      check_and_read_options(option.split('=')[1])
+    elsif (!option.eql?("default"))
+      raise ArgumentError, "Option parameter is not valid."
     end
   end
 
