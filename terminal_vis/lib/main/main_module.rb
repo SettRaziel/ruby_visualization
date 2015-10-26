@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-15 19:04:04
+# @Last Modified time: 2015-10-26 16:53:31
 
 module TerminalVis
 
@@ -46,6 +46,14 @@ module TerminalVis
       end
     rescue Exception => e
       print_error(' Error while creating metadata: '.concat(e.message))
+    end
+  end
+
+  # method to adjust the default options if the parameter was provided
+  def self.determine_configuration_options
+    if (@parameter_handler.repository.parameters[:option])
+      @option_handler.process_parameter(@parameter_handler.
+                                        repository.parameters[:option])
     end
   end
 

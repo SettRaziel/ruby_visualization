@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-08 17:34:49
+# @Last Modified time: 2015-10-26 16:54:02
 
 
 require_relative '../lib/data/data_repository'
@@ -31,6 +31,7 @@ end
 begin
   TerminalVis::initialize_repositories(ARGV)
   parameter_handler = TerminalVis.parameter_handler
+  TerminalVis.determine_configuration_options
 
   TerminalVis.print_help() if (parameter_handler.repository.parameters[:help])
   if (parameter_handler.repository.parameters[:version])
