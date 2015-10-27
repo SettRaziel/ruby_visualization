@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-19 19:06:04
+# @Last Modified time: 2015-10-27 17:14:41
 
 # Output class for help text
 class HelpOutput
@@ -47,6 +47,10 @@ class HelpOutput
           '[1,2, ..., number of datasets], excludes -a, -d and -t',
     :meta =>    ' -m             process the file <filename> containing' \
           ' meta data',
+    :option =>  ' -o, --options  ' + 'argument:'.red + ' <option>'.yellow + \
+          '; enables options, the source depends on the argument: '\
+          'file=<filename> loads options from file, menu enables the '\
+          'possibility to input the desired values',
     :range =>   ' -r, --range    ' + 'arguments:'.red +
           ' <start> <end>'.yellow + '; prints all datasets within the range ' \
           'of the provided arguments, excludes -i, -t',
