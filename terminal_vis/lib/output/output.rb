@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-23 17:05:57
+# @Last Modified time: 2015-10-30 18:19:57
 
 module TerminalVis
 
@@ -50,7 +50,7 @@ module TerminalVis
     #  be visualized
     def self.create_delta_output(meta_data)
       data_indices = determine_indices_for_delta
-      data = check_and_get_data(data_indices, meta_data)
+      data = get_data_for_indices(data_indices, meta_data)
 
       result = DatasetStatistics.subtract_datasets(data[:first_data],
                                                    data[:second_data])
@@ -76,12 +76,25 @@ module TerminalVis
     # the timeline should be created
     def self.create_timeline(meta_data)
       data_series = TerminalVis.data_repo.repository[meta_data]
-      x = Float(TerminalVis.parameter_handler.repository.parameters[:time][0])
-      y = Float(TerminalVis.parameter_handler.repository.parameters[:time][1])
-      y_size = TerminalVis.option_handler.options.repository[:y_time_size]
-      timeline = Timeline.create_timeline(meta_data, data_series, x, y, y_size)
-      TimelineOutput.print_timeline(timeline, meta_data, x, y)
+      values = determine_timeline_values
+      timeline = Timeline.create_timeline(meta_data, data_series,
+                 values[:x], values[:y], values[:y_size])
+      TimelineOutput.print_timeline(timeline, meta_data, values[:x], values[:y])
     end
+
+    # method to get the required values to generate timeline output
+    # @return [Hash] a hash with the required values
+    def self.determine_timeline_values
+      values = Hash.new()
+      values[:x] = Float(TerminalVis.parameter_handler.
+                         repository.parameters[:time][0])
+      values[:y] = Float(TerminalVis.parameter_handler.
+                         repository.parameters[:time][1])
+      values[:y_size] = TerminalVis.option_handler.options.
+                         repository[:y_time_size]
+      return values
+    end
+    private_class_method :determine_timeline_values
 
     # gets the indices of the data sets which should be substracted
     # @return [Array] the indices of the two datasets
@@ -128,30 +141,29 @@ module TerminalVis
     # the data
     # @param [Array] the indices of the required datasets
     # @return [Hash] a hash containing the selected datasets
-    def self.check_and_get_data(data_indices, meta_data)
+    def self.get_data_for_indices(data_indices, meta_data)
       data = Hash.new()
-      data[:first_data] = TerminalVis.data_repo.repository[meta_data].
-                               series[data_indices[0]]
-      data[:second_data] = TerminalVis.data_repo.repository[meta_data].
-                               series[data_indices[1]]
-
-      check_data(data[:first_data], data_indices[0])
-      check_data(data[:second_data], data_indices[1])
+      data[:first_data] = get_and_check_data(:first_data,
+                                             data_indices[0], meta_data)
+      data[:second_data] = get_and_check_data(:second_data,
+                                             data_indices[1], meta_data)
       return data
     end
-    private_class_method :check_and_get_data
+    private_class_method :get_data_for_indices
 
 
     # checks if the returned data exists, nil means data access outside the
     # boundaries of the data
     # @param [DataSet] data the determined dataset
     # @param [Integer] index the provided index
-    def self.check_data(data, index)
+    def self.get_and_check_data(symbol, index, meta_data)
+      data = TerminalVis.data_repo.repository[meta_data].series[index]
       if (data == nil)
         raise IndexError, " Error: argument #{index} from -d is out of bounds"
       end
+      return data
     end
-    private_class_method :check_data
+    private_class_method :get_and_check_data
 
   end
 
