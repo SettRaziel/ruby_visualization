@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-29 20:06:52
+# @Last Modified time: 2015-10-31 08:43:44
 
 # Output class for help text
 class HelpOutput
@@ -10,9 +10,9 @@ class HelpOutput
   # @param [Symbol] parameter provided parameter
   # @raise [ArgumentError] a non existent parameter is provided
   def self.print_help_for(parameter)
+    initialize_output if (@parameters == nil)
     if (@parameters[parameter])
-      puts "TerminalVis help:".yellow
-      puts @parameters[parameter]
+      puts "TerminalVis help:".yellow + "\n#{@parameters[parameter]}"
     elsif (parameter)
       print_help
     else
@@ -23,42 +23,59 @@ class HelpOutput
   private
 
   # @return [Hash] hash which stores available parameters and their help text
-  @parameters = {
-    :help =>    ' -h, --help     show help text',
-    :version => ' -v, --version  prints the current version of the project',
-    :all =>     ' -a, --all      ' + 'arguments:'.red + ' <speed>'.yellow +
+  attr_reader :parameters
+
+  def self.initialize_output
+    @parameters = Hash.new()
+    add_single_help_entries
+    add_one_argument_help_entries
+    add_two_argument_help_entries
+  end
+
+  def self.add_single_help_entries
+    add_simple_text(:help, ' -h, --help     show help text')
+    add_simple_text(:version,
+                    ' -v, --version  prints the current version of the project')
+    add_simple_text(:extreme,
+                    ' -e, --extreme  marks the extreme values in a dataset ' \
+                    'with ++ for a maximum and -- for a minimum, also prints ' \
+                    'the coordinates of the extreme values below the legend, ' \
+                    'excludes -c')
+    add_simple_text(:meta, ' -m             process the file <filename> ' \
+                    'containing meta data')
+  end
+
+  def self.add_one_argument_help_entries
+    add_single_argument_text(:all, ' -a, --all      ', ' <speed>',
           '; prints all specified datasets of a dataseries with a pause ' \
           'between the output of every dataset defined by speed: 0 mean ' \
           'manual, a value > 0 an animation speed in seconds, excludes -i,' \
-          ' -d and -t',
-    :coord =>   ' -c, --coord    ' + 'arguments:'.red + ' <x> <y>'.yellow +
-          '; interpolates the data for the given coordinate (x,y) ' \
-          'at default dataset index 0, excludes -e and -t',
-    :delta =>   ' -d, --delta    ' + 'arguments:'.red + ' <first_index> ' \
-          '<second_index>'.yellow + '; subtracts the first dataset' \
-          ' from the second dataset and visualizes the difference, '\
-          'excludes -a, -i and -t',
-    :extreme => ' -e, --extreme  marks the extreme values in a dataset ' \
-          'with ++ for a maximum and -- for a minimum, also prints ' \
-          'the coordinates of the extreme values below the legend, ' \
-          'excludes -c',
-    :index =>   ' -i             ' + 'argument:'.red + ' <index>'.yellow +
+          ' -d and -t')
+    add_single_argument_text(:index, ' -i             ', ' <index>',
           '; shows the dataset at index, if index lies within ' \
-          '[1,2, ..., number of datasets], excludes -a, -d and -t',
-    :meta =>    ' -m             process the file <filename> containing' \
-          ' meta data',
-    :option =>  ' -o, --options  ' + 'argument:'.red + ' <option>'.yellow + \
+          '[1,2, ..., number of datasets], excludes -a, -d and -t')
+    add_single_argument_text(:option, ' -o, --options  ', ' <option>',
           '; enables options, the source depends on the argument: '\
           'file=<filename> loads options from file, menu enables the '\
-          'possibility to input the desired values',
-    :range =>   ' -r, --range    ' + 'arguments:'.red +
-          ' <start> <end>'.yellow + '; prints all datasets within the range ' \
-          'of the provided arguments, excludes -i, -t',
-    :time =>    ' -t, --time     ' + 'arguments:'.red + ' <x> <y>'.yellow +
+          'possibility to input the desired values')
+  end
+
+  def self.add_two_argument_help_entries
+    add_dual_argument_text(:coord, ' -c, --coord    ', ' <x> <y>',
+          '; interpolates the data for the given coordinate (x,y) ' \
+          'at default dataset index 0, excludes -e and -t')
+    add_dual_argument_text(:delta, ' -d, --delta    ',
+          ' <first_index> <second_index>',
+          '; subtracts the first dataset from the second dataset and ' \
+          'visualizes the difference, excludes -a, -i and -t')
+    add_dual_argument_text(:range, ' -r, --range    ', ' <start> <end>',
+          '; prints all datasets within the range of the provided ' \
+          'arguments, excludes -i, -t')
+    add_dual_argument_text(:time, ' -t, --time     ', ' <x> <y>',
           '; creates a timeline for the given coordinate (x,y), coordinates ' \
           'not lying on the data point will be interpolated, excludes -a,' \
-          ' -c, and -i'
-  }
+          ' -c, and -i')
+  end
 
   # method to add a (key, value) pair to the parameter hash
   # @param [Symbol] symbol the key
@@ -74,7 +91,8 @@ class HelpOutput
   # @param [String] parameter the string part containing the required parameter
   # @param [String] text the string part containing the description text
   def self.add_single_argument_text(symbol, argument, parameter, text)
-    add_simple_text(symbol, build_entry(argument, 'argument:', parameter, text))
+    add_simple_text(symbol, build_entry(argument, 'argument:',
+                                        parameter, text))
   end
 
   # method to add a (key, value) pair where the value contains help text
@@ -89,11 +107,11 @@ class HelpOutput
   end
 
   # method to build the entry text when dealing with one ore more parameters
-  # @param [String] argument the string part containing the argument
-  # @param [String] quantity string entry to reflect the number of parameters
   # @param [String] parameter the string part containing the required paramter
+  # @param [String] quantity string entry to reflect the number of parameters
+  # @param [String] argument the string part containing the argument
   # @param [String] text the string part containing the description text
-  def self.build_entry(argument, quantity, parameter, text)
+  def self.build_entry(parameter, quantity, argument, text)
     parameter + quantity.red + argument.yellow + text
   end
 
