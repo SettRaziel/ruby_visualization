@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-30 18:19:57
+# @Last Modified time: 2015-11-01 09:35:54
 
 module TerminalVis
 
@@ -73,7 +73,7 @@ module TerminalVis
 
     # creates a time line for the parameter -t
     # @param [MetaData] meta_data the meta data of the data series from which
-    # the timeline should be created
+    #  the timeline should be created
     def self.create_timeline(meta_data)
       data_series = TerminalVis.data_repo.repository[meta_data]
       values = determine_timeline_values
@@ -139,14 +139,13 @@ module TerminalVis
 
     # method to check the datasets specified by the data indices and return
     # the data
-    # @param [Array] the indices of the required datasets
+    # @param [Array] data_indices the indices of the required datasets
+    # @param [MetaData] meta_data the corresponding meta data
     # @return [Hash] a hash containing the selected datasets
     def self.get_data_for_indices(data_indices, meta_data)
       data = Hash.new()
-      data[:first_data] = get_and_check_data(:first_data,
-                                             data_indices[0], meta_data)
-      data[:second_data] = get_and_check_data(:second_data,
-                                             data_indices[1], meta_data)
+      data[:first_data] = get_and_check_data(data_indices[0], meta_data)
+      data[:second_data] = get_and_check_data(data_indices[1], meta_data)
       return data
     end
     private_class_method :get_data_for_indices
@@ -154,9 +153,12 @@ module TerminalVis
 
     # checks if the returned data exists, nil means data access outside the
     # boundaries of the data
-    # @param [DataSet] data the determined dataset
     # @param [Integer] index the provided index
-    def self.get_and_check_data(symbol, index, meta_data)
+    # @param [MetaData] meta_data the corresponding meta data
+    # @return [DataSet] the dataset for the given index and meta data
+    # @raise [IndexError] if no data was selected which means the index is not
+    #  within the bounds of the provided meta data
+    def self.get_and_check_data(index, meta_data)
       data = TerminalVis.data_repo.repository[meta_data].series[index]
       if (data == nil)
         raise IndexError, " Error: argument #{index} from -d is out of bounds"
