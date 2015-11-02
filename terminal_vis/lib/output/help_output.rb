@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-31 08:43:44
+# @Last Modified time: 2015-11-02 17:07:46
 
 # Output class for help text
 class HelpOutput
@@ -25,6 +25,7 @@ class HelpOutput
   # @return [Hash] hash which stores available parameters and their help text
   attr_reader :parameters
 
+  # method to initialize the hash containing the help entries
   def self.initialize_output
     @parameters = Hash.new()
     add_single_help_entries
@@ -32,6 +33,7 @@ class HelpOutput
     add_two_argument_help_entries
   end
 
+  # method to specify and add the help entries with help text only
   def self.add_single_help_entries
     add_simple_text(:help, ' -h, --help     show help text')
     add_simple_text(:version,
@@ -45,6 +47,7 @@ class HelpOutput
                     'containing meta data')
   end
 
+  # method to specify and add the help entries with help text and one argument
   def self.add_one_argument_help_entries
     add_single_argument_text(:all, ' -a, --all      ', ' <speed>',
           '; prints all specified datasets of a dataseries with a pause ' \
@@ -60,6 +63,7 @@ class HelpOutput
           'possibility to input the desired values')
   end
 
+  # method to specify and add the help entries with help text and two arguments
   def self.add_two_argument_help_entries
     add_dual_argument_text(:coord, ' -c, --coord    ', ' <x> <y>',
           '; interpolates the data for the given coordinate (x,y) ' \
@@ -99,7 +103,8 @@ class HelpOutput
   # with two argument
   # @param [Symbol] symbol the key
   # @param [String] argument the string part containing the argument
-  # @param [String] parameter the string part containing the required parameters
+  # @param [String] parameters the string part containing the
+  #   required parameters
   # @param [String] text the string part containing the description text
   def self.add_dual_argument_text(symbol, argument, parameters, text)
     add_simple_text(symbol, build_entry(argument, 'arguments:',
@@ -111,6 +116,7 @@ class HelpOutput
   # @param [String] quantity string entry to reflect the number of parameters
   # @param [String] argument the string part containing the argument
   # @param [String] text the string part containing the description text
+  # @return [String] the complete string representing the help entry
   def self.build_entry(parameter, quantity, argument, text)
     parameter + quantity.red + argument.yellow + text
   end

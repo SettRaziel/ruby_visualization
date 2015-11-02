@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-30 13:34:57
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-18 10:47:27
+# @Last Modified time: 2015-11-02 17:05:31
 
 # This module groups the different color legends that are used to visualize the
 # output. The class {Base} provides the basic methods that are needed. Child
@@ -65,7 +65,7 @@ module ColorLegend
     def create_output_string_for(value, out_str)
       fail NotImplementedError, " Error: the subclass #{self.class} " \
         "needs to implement the method: create_output_string_for " \
-        "from it base class"
+        "from its base class"
     end
 
     private

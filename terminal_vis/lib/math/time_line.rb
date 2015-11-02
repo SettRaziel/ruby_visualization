@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-24 10:28:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-17 15:15:13
+# @Last Modified time: 2015-11-02 17:05:12
 
 require_relative 'interpolation'
 
@@ -43,10 +43,10 @@ class Timeline
   # method to check and set the number of values for the y-dimension
   # constraint: at least 5 values in y
   # @param [Fixnum] y_size number of values in y
-  # @raise [RangeError] if the number of y values is less than 2
+  # @raise [RangeError] if the number of y values is less than 5
   def self.check_and_set_ysize(y_size)
-    if (y_size < 2)
-      raise RangeError, ' Error : invalid y_value of timeline (min.: 5) '
+    if (y_size < 5)
+      raise RangeError, ' Error : invalid y_value of timeline (min.: 5)'
     end
     @size = y_size
   end

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-10 19:56:37
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-24 12:54:35
+# @Last Modified time: 2015-11-02 09:18:53
 
 require_relative '../data/file_reader'
 require_relative './configuration_repository'
@@ -15,8 +15,7 @@ class ConfigurationHandler
   attr_reader :options
 
   # initialization
-  # @param [String] filename the provided filename for the options
-  def initialize()
+  def initialize
     initialize_option_mapping
     @options = ConfigurationRepository.new()
   end
@@ -35,6 +34,7 @@ class ConfigurationHandler
   end
 
   # method to save the current configuration options
+  # @param [String] filename the provided filename to save the options
   def save_options(filename)
     output = File.new(filename, 'w')
 
