@@ -45,6 +45,14 @@ parameters:
                interpolated, excludes -a, -c and -i
 ```
 
+## Configuration parameter
+Configuration paramters can be specified by the parameter -o. From their they
+can inserted manually or from a file. The current parameters are:
+* Timeline y-Dimension: specifies how much interval steps in y-dimension should
+be used
+* Extended color legend information: specifies if the interval values should
+be displayed
+
 ### Invalid parameter combinations
 ```
     -a + -d, -a + -i, -a + -t
