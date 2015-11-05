@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-02 17:07:46
+# @Last Modified time: 2015-11-05 08:55:46
 
 # Output class for help text
 class HelpOutput
@@ -134,6 +134,7 @@ class HelpOutput
     }
 
     print_invalid_combinations
+    print_configuration_parameter
   end
 
   # method to print the invalid parameter combinations
@@ -143,6 +144,13 @@ class HelpOutput
     puts "  -r + -t, -r + -i"
     puts "  -c + -e, -c + -t"
     puts "  -d + -i, -d + -t"
+  end
+
+  # method to print the available configuration parameter
+  def self.print_configuration_parameter
+    puts "\nAvailable configuration parameter:".red
+    puts "Timeline:".yellow + " number of interval steps in y-dimension"
+    puts "Color legend:".yellow + " extended informations about the intervals"
   end
 
 end
