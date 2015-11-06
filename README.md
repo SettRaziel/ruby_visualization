@@ -86,6 +86,12 @@ interval from the data series:
 ruby terminal_vis -m -r <start> <end> -a <speed> <filename>
 ```
 
+Running the script to visualize a dataset from `<filename>` and entering
+configuration option through the menu:
+```
+ruby terminal_vis -m -i <index> -o menu <filename>
+```
+
 ### Documentation
 Documentation is written in yard and can be created by running the shell-script
 `create_yard.sh`. Yard needs to be installed on the system in order to do that.
@@ -108,10 +114,10 @@ Hopefully i find a place to publish the documentation online soon.
 ```
 
 ## Used version
-Written with Ruby 2.2.2
+Written with Ruby 2.2.2 - 2.2.4
 
 ## Tested
-* Linux: running with Ruby 2.2.2
+* Linux: running on Archlinux with Ruby > 2.2.2
 * Windows: not tested
 * MAC: not tested
 
