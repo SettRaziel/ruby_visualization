@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-05 08:55:46
+# @Last Modified time: 2015-11-07 15:22:52
 
 # Output class for help text
 class HelpOutput
@@ -149,7 +149,7 @@ class HelpOutput
   # method to print the available configuration parameter
   def self.print_configuration_parameter
     puts "\nAvailable configuration parameter:".red
-    puts "Timeline:".yellow + " number of interval steps in y-dimension"
+    puts "Timeline:".yellow + " number of interval steps in y-dimension [5,100]"
     puts "Color legend:".yellow + " extended informations about the intervals"
   end
 

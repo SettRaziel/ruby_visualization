@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-21 15:11:07
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-04 19:54:36
+# @Last Modified time: 2015-11-07 15:24:47
 
 require_relative '../main/main_module'
 
@@ -39,7 +39,8 @@ class ConfigurationMenu
       when 3 then return save_to_file(get_entry("Save destination: "))
       when 4 then return false
     else
-      print_error("Error: Input is not valid.")
+      puts 'Error: Input is not valid.'
+      return true
     end
   end
 
@@ -47,10 +48,13 @@ class ConfigurationMenu
   # @param [Integer] input the provided parameter
   # @return [boolean] true if the parameter was processed correctly
   def self.process_legend_input(input)
-    if (input == 0)
-    TerminalVis::option_handler.options.change_option(:legend_extend, false)
-    elsif (input != 0)
-    TerminalVis::option_handler.options.change_option(:legend_extend, true)
+    case input
+    when 0 then TerminalVis::option_handler.options.
+                             change_option(:legend_extend, false)
+    when 1 then TerminalVis::option_handler.options.
+                             change_option(:legend_extend, true)
+    else
+      puts 'Error: Input is not valid.'
     end
     return true
   end
@@ -59,8 +63,19 @@ class ConfigurationMenu
   # @param [Integer] input the provided parameter
   # @return [boolean] true if the parameter was processed correctly
   def self.process_ydim_input(input)
+    check_dimension_value(input)
     TerminalVis::option_handler.options.change_option(:y_time_size, input)
     return true
+  end
+
+  # checks if the input for the y-dimension lies within acceptable boundaries
+  # @param [Integer] input the provided input
+  # @raise [ArgumentError] if the value lies outside the interval
+  def self.check_dimension_value(input)
+    if (input <= 0 || input > 100)
+      raise ArgumentError,
+            "Error: y_dim value #{input} runs out of bound [1,100]"
+    end
   end
 
   # method to save the currently defined options to a file
