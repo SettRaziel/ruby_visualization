@@ -133,7 +133,7 @@ see LICENSE
 
 ## Roadmap
 * adding a mechanism to allow some configuration parameters to be set and
-  stored within a configuartion file
+  stored within a configuartion file (done with update v0.7.1)
 * adding a mechanism to scale the output automatically to the dimension of
   the used terminal
 * adding more features from suggestions
