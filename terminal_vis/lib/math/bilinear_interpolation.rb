@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-29 08:53:10
+# @Last Modified time: 2015-11-09 18:38:33
 
 # This module holds the main singleton methods that are called from the script.
 # It also stores the data ans parameter repository so it can be called from
@@ -29,7 +29,22 @@ module TerminalVis
         apply_bilinear_interpolation(x, y)
       end
 
+      # method to return the boundary point for a calculated interpolation
+      # @return [Hash] the hash containing the boundary points for the given
+      #   interpolation, if at least one interpolation has been run
+      # @raise [ArgumentError] if the required hash is empty; occurs when
+      #  called without running an interpolation first
+      def self.get_boundary_points
+        if (@boundary == nil)
+          raise ArgumentError,
+                'Error: no boundary values available, run interpolation first'
+        end
+      end
+
       private
+      # @return [Hash] the hash containing the boundary points used for the
+      # required interpolation
+      attr :boundary
       # @return [DataSet] the used data set
       attr :data_set
       # @return [MetaData] the used meta data
@@ -78,18 +93,18 @@ module TerminalVis
       # @param [Float] y y-coordinate of the interpolation point
       # @return [Float] the interpolated data value for (x,y)
       def self.apply_bilinear_interpolation(x, y)
-        boundary = calculate_boundary_datapoints(x, y)
+        calculate_boundary_datapoints(x, y)
 
         # interpolate
-        r = calculate_interpolation_factor(boundary[:d_xy],
-                                           boundary[:d_x1y], x, y)
-        s = calculate_interpolation_factor(boundary[:d_xy],
-                                           boundary[:d_xy1], x, y)
+        r = calculate_interpolation_factor(@boundary[:d_xy],
+                                           @boundary[:d_x1y], x, y)
+        s = calculate_interpolation_factor(@boundary[:d_xy],
+                                           @boundary[:d_xy1], x, y)
 
-        calculate_interpolation_result(1-r, 1-s, boundary[:d_xy].value) +
-        calculate_interpolation_result(r, 1-s, boundary[:d_x1y].value) +
-        calculate_interpolation_result(r, s, boundary[:d_x1y1].value) +
-        calculate_interpolation_result(1-r, s, boundary[:d_xy1].value)
+        calculate_interpolation_result(1-r, 1-s, @boundary[:d_xy].value) +
+        calculate_interpolation_result(r, 1-s, @boundary[:d_x1y].value) +
+        calculate_interpolation_result(r, s, @boundary[:d_x1y1].value) +
+        calculate_interpolation_result(1-r, s, @boundary[:d_xy1].value)
       end
 
       # creation of the boundary data points for the bilinear interpolation
@@ -133,17 +148,14 @@ module TerminalVis
       # singleton method to calculate the necessary boundary points
       # @param [Float] x x-coordinate of the interpolation point
       # @param [Float] y y-coordinate of the interpolation point
-      # @return [Hash] Hash with the four boundary points of (x,y)
       def self.calculate_boundary_datapoints(x, y)
-        boundary = Hash.new()
+        @boundary = Hash.new()
 
         #getting boundary data points
-        boundary[:d_xy] = create_data_point(  0, 0, x, y)
-        boundary[:d_x1y] = create_data_point( 1, 0, x, y)
-        boundary[:d_xy1] = create_data_point( 0, 1, x, y)
-        boundary[:d_x1y1] = create_data_point(1, 1, x, y)
-
-        return boundary
+        @boundary[:d_xy] = create_data_point(  0, 0, x, y)
+        @boundary[:d_x1y] = create_data_point( 1, 0, x, y)
+        @boundary[:d_xy1] = create_data_point( 0, 1, x, y)
+        @boundary[:d_x1y1] = create_data_point(1, 1, x, y)
       end
 
       # singleton method to calculate interpolation coefficient with
