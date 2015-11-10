@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-01 09:35:54
+# @Last Modified time: 2015-11-10 12:29:31
 
 module TerminalVis
 
@@ -57,6 +57,13 @@ module TerminalVis
 
       options = get_output_options
       DataOutput.print_delta(result, meta_data, data_indices, options)
+    end
+
+    # creates output when using the parameter -c
+    # @param [MetaData] meta_data the meta data of the data series where the
+    # interpolation should be applied
+    def self.create_interpolation_output(meta_data)
+      TerminalVis::Interpolation.interpolate_for_coordinate(meta_data)
     end
 
     # creates output when using the parameter -r

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-08 13:00:08
+# @Last Modified time: 2015-11-10 12:28:24
 
 
 require_relative '../lib/data/data_repository'
@@ -47,7 +47,7 @@ begin
   elsif (parameter_handler.repository.parameters[:delta])
     TerminalVis::Output.create_delta_output(meta_data)
   elsif (parameter_handler.repository.parameters[:coord])
-    TerminalVis::Interpolation.interpolate_for_coordinate(meta_data)
+    TerminalVis::Output.create_interpolation_output(meta_data)
   else
     TerminalVis::Output.create_output(meta_data)
   end
