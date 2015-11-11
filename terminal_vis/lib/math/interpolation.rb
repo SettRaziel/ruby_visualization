@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-29 08:56:48
+# @Last Modified time: 2015-11-11 16:17:04
 
 module TerminalVis
 
@@ -15,8 +15,9 @@ module TerminalVis
     require 'matrix'
 
     # interpolates the data for the provided coordinate and prints the result
-    # param [MetaData] meta_data the meta data for the data series where the
+    # @param [MetaData] meta_data the meta data for the data series where the
     #  interpolation should be done
+    # @return [Float] the interpolated value for the given input
     def self.interpolate_for_coordinate(meta_data)
       index = TerminalVis.get_and_check_index(meta_data)
 
@@ -25,13 +26,9 @@ module TerminalVis
       y_coordinate = Float(TerminalVis.parameter_handler.
                                        repository.parameters[:coord][1])
 
-      value = BilinearInterpolation.bilinear_interpolation(meta_data,
+      BilinearInterpolation.bilinear_interpolation(meta_data,
                 TerminalVis.data_repo.repository[meta_data].series[index],
                 x_coordinate, y_coordinate)
-
-      puts "Interpolated value for coordinate (#{x_coordinate}, " \
-           "#{y_coordinate}) of dataset #{index} with result: " \
-           "#{value.round(3)}."
     end
 
     # singleton method for linar interpolation between two points

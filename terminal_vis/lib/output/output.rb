@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-10 12:29:31
+# @Last Modified time: 2015-11-11 16:16:20
 
 module TerminalVis
 
@@ -10,6 +10,8 @@ module TerminalVis
   #   * visual output
   #   * help output
   module Output
+
+    require_relative 'interpolation_output'
 
     # creates output based on metadata and parameters
     # @param [MetaData] meta_data the meta data of the data series which should
@@ -63,7 +65,10 @@ module TerminalVis
     # @param [MetaData] meta_data the meta data of the data series where the
     # interpolation should be applied
     def self.create_interpolation_output(meta_data)
-      TerminalVis::Interpolation.interpolate_for_coordinate(meta_data)
+      value = TerminalVis::Interpolation.interpolate_for_coordinate(meta_data)
+      InterpolationOutput.interpolation_output(value,
+                          TerminalVis.get_and_check_index(meta_data),
+                          TerminalVis.parameter_handler.repository)
     end
 
     # creates output when using the parameter -r
