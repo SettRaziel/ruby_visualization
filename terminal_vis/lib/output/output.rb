@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-11 16:16:20
+# @Last Modified time: 2015-11-13 10:00:38
 
 module TerminalVis
 
@@ -65,10 +65,12 @@ module TerminalVis
     # @param [MetaData] meta_data the meta data of the data series where the
     # interpolation should be applied
     def self.create_interpolation_output(meta_data)
-      value = TerminalVis::Interpolation.interpolate_for_coordinate(meta_data)
-      InterpolationOutput.interpolation_output(value,
-                          TerminalVis.get_and_check_index(meta_data),
-                          TerminalVis.parameter_handler.repository)
+      coordinates = determine_interpolation_values
+      index = TerminalVis.get_and_check_index(meta_data)
+      value = TerminalVis::Interpolation.
+              interpolate_for_coordinate(meta_data, coordinates,
+                                         get_and_check_data(index, meta_data))
+      InterpolationOutput.interpolation_output(value, index, coordinates)
     end
 
     # creates output when using the parameter -r
@@ -107,6 +109,17 @@ module TerminalVis
       return values
     end
     private_class_method :determine_timeline_values
+
+    # method to get the required coordinates to start an interpolation
+    def self.determine_interpolation_values
+      coords = Hash.new()
+      coords[:x] = Float(TerminalVis.parameter_handler.
+                         repository.parameters[:coord][0])
+      coords[:y] = Float(TerminalVis.parameter_handler.
+                         repository.parameters[:coord][1])
+      return coords
+    end
+    private_class_method :determine_interpolation_values
 
     # gets the indices of the data sets which should be substracted
     # @return [Array] the indices of the two datasets
