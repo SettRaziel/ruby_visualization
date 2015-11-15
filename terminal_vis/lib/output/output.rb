@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-13 10:00:38
+# @Last Modified time: 2015-11-15 11:54:24
 
 module TerminalVis
 
@@ -67,10 +67,11 @@ module TerminalVis
     def self.create_interpolation_output(meta_data)
       coordinates = determine_interpolation_values
       index = TerminalVis.get_and_check_index(meta_data)
+      data_set = get_and_check_data(index, meta_data)
       value = TerminalVis::Interpolation.
-              interpolate_for_coordinate(meta_data, coordinates,
-                                         get_and_check_data(index, meta_data))
-      InterpolationOutput.interpolation_output(value, index, coordinates)
+              interpolate_for_coordinate(meta_data, coordinates, data_set)
+      InterpolationOutput.interpolation_output(value, index, coordinates,
+                                               data_set)
     end
 
     # creates output when using the parameter -r
