@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-11 16:01:35
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-15 12:32:52
+# @Last Modified time: 2015-11-16 17:35:40
 
 require_relative '../graphics/color_legend'
 require_relative '../math/interpolation'
@@ -27,8 +27,14 @@ class InterpolationOutput
   end
 
   private
+  # @return [ColorData] the color legend used for the dataset
   attr :color_legend
 
+  # method to print the colored result of the interpolation
+  # @param [Float] value the interpolated value
+  # @param [Hash] boundary_points a hash containing the four used boundary
+  #  points of the interpolation
+  # @param [DataSet] data_set the dataset on which the interpolation was applied
   def self.print_result(value, boundary_points, data_set)
     @color_legend = ColorLegend::ColorData.new(data_set.min_value,
                                               data_set.max_value)
@@ -37,6 +43,9 @@ class InterpolationOutput
     print_boundary_line(boundary_points[:d_xy], boundary_points[:d_x1y])
   end
 
+  # method to print the line for two boundary points
+  # @param [DataPoint] point1 the point with x_min and y = const.
+  # @param [DataPoint] point2 the point with x_max and y = const.
   def self.print_boundary_line(point1, point2)
     print_times_blank(4)
     print "#{create_colored_substrings(point1.value)}"
@@ -44,6 +53,8 @@ class InterpolationOutput
     puts "#{create_colored_substrings(point2.value)}"
   end
 
+  # method to print the line with the interpolation value
+  # @param [Float] value the interpolated value
   def self.print_interpolation_line(value)
     print_times_blank(10)
     print "#{create_colored_substrings(value)}"
@@ -51,10 +62,15 @@ class InterpolationOutput
     puts "(#{value.round(3)})"
   end
 
+  # method to print the required white spaces
+  # @param [Integer] amount the number of required white spaces
   def self.print_times_blank(amount)
     amount.times { print ' '}
   end
 
+  # method the visualize the values for the output
+  # @param [Float] value a data value or an interpolation value
+  # @return [String] the colored string for the given value
   def self.create_colored_substrings(value)
     @color_legend.create_output_string_for(value, '  ')
   end
