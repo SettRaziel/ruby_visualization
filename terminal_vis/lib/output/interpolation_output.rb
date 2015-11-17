@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-11 16:01:35
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-16 17:35:40
+# @Last Modified time: 2015-11-17 13:20:21
 
 require_relative '../graphics/color_legend'
 require_relative '../math/interpolation'
@@ -13,13 +13,14 @@ class InterpolationOutput
   # @param [Float] value the interpolation value
   # @param [Integer] index the indes of the used dataset
   # @param [Hash] coordinates the coordinates for the interpolation
-  # @param [DataSet] data_set the used dataset
-  def self.interpolation_output(value, index, coordinates, data_set)
+  # @param [DataSeries] data_series the data series that contains dataset
+  #   used in the interpolation
+  def self.interpolation_output(value, index, coordinates, data_series)
 
     boundary_points = TerminalVis::Interpolation::BilinearInterpolation.
                       get_boundary_points(coordinates[:x], coordinates[:y])
 
-    print_result(value, boundary_points, data_set)
+    print_result(value, boundary_points, data_series)
 
     puts "\nInterpolated value for coordinate (#{coordinates[:x]}, " \
            "#{coordinates[:y]}) of dataset #{index} with result: " \
@@ -34,11 +35,12 @@ class InterpolationOutput
   # @param [Float] value the interpolated value
   # @param [Hash] boundary_points a hash containing the four used boundary
   #  points of the interpolation
-  # @param [DataSet] data_set the dataset on which the interpolation was applied
-  def self.print_result(value, boundary_points, data_set)
-    @color_legend = ColorLegend::ColorData.new(data_set.min_value,
-                                              data_set.max_value)
-    print_boundary_line(boundary_points[:d_xy], boundary_points[:d_x1y])
+  # @param [DataSeries] data_series the data series that contains dataset
+  #   used in the interpolation
+  def self.print_result(value, boundary_points, data_series)
+    @color_legend = ColorLegend::ColorData.new(data_series.min_value,
+                                              data_series.max_value)
+    print_boundary_line(boundary_points[:d_xy1], boundary_points[:d_x1y1])
     print_interpolation_line(value)
     print_boundary_line(boundary_points[:d_xy], boundary_points[:d_x1y])
   end
