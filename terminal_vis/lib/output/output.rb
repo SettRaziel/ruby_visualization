@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-17 13:18:05
+# @Last Modified time: 2015-11-18 18:16:11
 
 module TerminalVis
 
@@ -79,11 +79,10 @@ module TerminalVis
     #  be visualized
     def self.create_range_output(meta_data)
       data_series = TerminalVis.data_repo.repository[meta_data]
+      parameters = determine_range_parameters
 
       options = get_output_options
-      RangeOutput.print_ranged_data(meta_data, data_series,
-                                    TerminalVis.parameter_handler.repository,
-                                    options)
+      RangeOutput.print_ranged_data(meta_data, data_series, parameters, options)
     end
 
     # creates a time line for the parameter -t
@@ -138,6 +137,21 @@ module TerminalVis
       return data_indices
     end
     private_class_method :determine_indices_for_delta
+
+    # method to determine the required parameters for the paramater -r
+    # @return [Hash] a hash with with required parameters
+    def self.determine_range_parameters
+      parameters = Hash.new()
+      parameters[:lower] = Integer(TerminalVis.parameter_handler.
+                                repository.parameters[:range][0]) - 1
+      parameters[:upper] = Integer(TerminalVis.parameter_handler.
+                                repository.parameters[:range][1]) - 1
+      if (TerminalVis.parameter_handler.repository.parameters[:all])
+      parameters[:all] = TerminalVis.parameter_handler.
+                         repository.parameters[:all]
+      end
+      return parameters
+    end
 
     # creates default output or output with an index using -i
     # @param [MetaData] meta_data the meta data of the data series which should
