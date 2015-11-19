@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-08 13:00:01
+# @Last Modified time: 2015-11-19 16:19:21
 
 module TerminalVis
 
@@ -119,4 +119,5 @@ module TerminalVis
 end
 
 require_relative '../output/output'
+require_relative '../output/parameter_collector'
 require_relative '../math/interpolation'
