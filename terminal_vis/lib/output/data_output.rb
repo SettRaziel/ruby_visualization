@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-18 10:48:20
+# @Last Modified time: 2015-11-21 09:54:05
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -31,7 +31,7 @@ class DataOutput
   # method to visualize the difference of two datasets
   # @param [DataSet] data_set the dataset which should be visualized
   # @param [MetaData] meta_data the corresponding meta data
-  # @param [Array] indices the indices of the two datasets which should be
+  # @param [Hash] indices the indices of the two datasets which should be
   #   substracted
   # @param [Hash] options hash with the boolean values for extreme values and
   #   extended legend output
@@ -39,8 +39,8 @@ class DataOutput
     set_attributes(meta_data, data_set, options[:extreme_values])
     @legend = ColorLegend::ColorDelta.
           new(data_set.min_value, data_set.max_value)
-    puts "Printing difference for datasets #{indices[0]} and " \
-       "#{indices[1]}.\n\n"
+    puts "Printing difference for datasets #{indices[:first]} and " \
+       "#{indices[:second]}.\n\n"
     print_data(options[:legend])
   end
 

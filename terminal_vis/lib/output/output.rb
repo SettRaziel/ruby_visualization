@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-19 16:18:45
+# @Last Modified time: 2015-11-21 09:53:31
 
 module TerminalVis
 
@@ -122,13 +122,13 @@ module TerminalVis
 
     # method to check the datasets specified by the data indices and return
     # the data
-    # @param [Array] data_indices the indices of the required datasets
+    # @param [Hash] data_indices the indices of the required datasets
     # @param [MetaData] meta_data the corresponding meta data
     # @return [Hash] a hash containing the selected datasets
     def self.get_data_for_indices(data_indices, meta_data)
       data = Hash.new()
-      data[:first_data] = get_and_check_data(data_indices[0], meta_data)
-      data[:second_data] = get_and_check_data(data_indices[1], meta_data)
+      data[:first_data] = get_and_check_data(data_indices[:first], meta_data)
+      data[:second_data] = get_and_check_data(data_indices[:second], meta_data)
       return data
     end
     private_class_method :get_data_for_indices

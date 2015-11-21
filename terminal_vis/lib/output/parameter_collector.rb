@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-19 16:16:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-19 16:54:03
+# @Last Modified time: 2015-11-21 09:52:45
 
 module TerminalVis
 
@@ -34,13 +34,13 @@ module TerminalVis
     end
 
     # gets the indices of the data sets which should be substracted
-    # @return [Array] the indices of the two datasets
+    # @return [Hash] the indices of the two datasets
     def self.determine_indices_for_delta
-      data_indices = Array.new(2)
+      data_indices = Hash.new()
       begin
-        data_indices[0] = Integer(TerminalVis.parameter_handler.
+        data_indices[:first] = Integer(TerminalVis.parameter_handler.
                                     repository.parameters[:delta][0])
-        data_indices[1] = Integer(TerminalVis.parameter_handler.
+        data_indices[:second] = Integer(TerminalVis.parameter_handler.
                                      repository.parameters[:delta][1])
       rescue ArgumentError
         message = " Error: at least one argument of -d is not a valid number"
