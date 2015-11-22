@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-19 16:16:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-21 09:52:45
+# @Last Modified time: 2015-11-22 11:59:15
 
 module TerminalVis
 
@@ -57,10 +57,8 @@ module TerminalVis
                                 repository.parameters[:range][0]) - 1
       parameters[:upper] = Integer(TerminalVis.parameter_handler.
                                 repository.parameters[:range][1]) - 1
-      if (TerminalVis.parameter_handler.repository.parameters[:all])
       parameters[:all] = TerminalVis.parameter_handler.
-                         repository.parameters[:all]
-      end
+                                     repository.parameters[:all]
       return parameters
     end
 
