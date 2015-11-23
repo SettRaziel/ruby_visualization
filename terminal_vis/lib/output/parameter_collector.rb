@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-19 16:16:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-22 11:59:15
+# @Last Modified time: 2015-11-23 17:03:38
 
 module TerminalVis
 
@@ -39,9 +39,9 @@ module TerminalVis
       data_indices = Hash.new()
       begin
         data_indices[:first] = Integer(TerminalVis.parameter_handler.
-                                    repository.parameters[:delta][0])
+                                    repository.parameters[:delta][0]) - 1
         data_indices[:second] = Integer(TerminalVis.parameter_handler.
-                                     repository.parameters[:delta][1])
+                                     repository.parameters[:delta][1]) - 1
       rescue ArgumentError
         message = " Error: at least one argument of -d is not a valid number"
         TerminalVis::print_error(message)

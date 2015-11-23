@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-21 09:53:31
+# @Last Modified time: 2015-11-23 17:03:04
 
 module TerminalVis
 
@@ -127,11 +127,21 @@ module TerminalVis
     # @return [Hash] a hash containing the selected datasets
     def self.get_data_for_indices(data_indices, meta_data)
       data = Hash.new()
+      check_data_range(data_indices, meta_data)
       data[:first_data] = get_and_check_data(data_indices[:first], meta_data)
       data[:second_data] = get_and_check_data(data_indices[:second], meta_data)
       return data
     end
     private_class_method :get_data_for_indices
+
+    # checks if the first argument of -d is less than 1
+    # @param [Hash] data_indices the indices of the required datasets
+    # @param [MetaData] meta_data the corresponding meta data
+    def self.check_data_range(data_indices, meta_data)
+      if (data_indices[:first] < 0)
+        raise IndexError, " Error: first index of -d is less than 1"
+      end
+    end
 
     # checks if the returned data exists, nil means data access outside the
     # boundaries of the data
