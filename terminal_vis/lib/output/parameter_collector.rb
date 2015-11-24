@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-19 16:16:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-23 17:03:38
+# @Last Modified time: 2015-11-24 13:52:07
 
 module TerminalVis
 
@@ -36,31 +36,42 @@ module TerminalVis
     # gets the indices of the data sets which should be substracted
     # @return [Hash] the indices of the two datasets
     def self.determine_indices_for_delta
-      data_indices = Hash.new()
-      begin
-        data_indices[:first] = Integer(TerminalVis.parameter_handler.
-                                    repository.parameters[:delta][0]) - 1
-        data_indices[:second] = Integer(TerminalVis.parameter_handler.
-                                     repository.parameters[:delta][1]) - 1
-      rescue ArgumentError
-        message = " Error: at least one argument of -d is not a valid number"
-        TerminalVis::print_error(message)
-      end
+      data_indices = retrieve_integer_parameters(:first, :second, :delta)
+      data_indices[:first] -= 1
+      data_indices[:second] -= 1
       return data_indices
     end
 
     # method to determine the required parameters for the paramater -r
     # @return [Hash] a hash with with required parameters
     def self.determine_range_parameters
-      parameters = Hash.new()
-      parameters[:lower] = Integer(TerminalVis.parameter_handler.
-                                repository.parameters[:range][0]) - 1
-      parameters[:upper] = Integer(TerminalVis.parameter_handler.
-                                repository.parameters[:range][1]) - 1
+      parameters = retrieve_integer_parameters(:lower, :upper, :range)
+      parameters[:lower] -= 1
+      parameters[:upper] -= 1
       parameters[:all] = TerminalVis.parameter_handler.
                                      repository.parameters[:all]
       return parameters
     end
+
+    # method to retrive the parameters for interger values
+    # @param [Symbol] first the first parameter argument
+    # @param [Symbol] second the second parameter argument
+    # @param [Symbol] parameter the requested parameter
+    def self.retrieve_integer_parameters(first, second, parameter)
+      parameters = Hash.new()
+      begin
+        parameters[first] = Integer(TerminalVis.parameter_handler.
+                                    repository.parameters[parameter][0])
+        parameters[second] = Integer(TerminalVis.parameter_handler.
+                                     repository.parameters[parameter][1])
+      rescue ArgumentError
+        message = " Error: at least one argument of #{parameter}" \
+                  " is not a valid Integer"
+        TerminalVis::print_error(message)
+      end
+      return parameters
+    end
+    private_class_method :retrieve_integer_parameters
 
   end
 end
