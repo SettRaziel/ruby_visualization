@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-19 16:16:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-24 13:52:07
+# @Last Modified time: 2015-11-26 19:45:50
 
 module TerminalVis
 
@@ -13,11 +13,7 @@ module TerminalVis
     # method to get the required values to generate timeline output
     # @return [Hash] a hash with the required values
     def self.determine_timeline_values
-      values = Hash.new()
-      values[:x] = Float(TerminalVis.parameter_handler.
-                         repository.parameters[:time][0])
-      values[:y] = Float(TerminalVis.parameter_handler.
-                         repository.parameters[:time][1])
+      values = retrieve_float_parameters(:x, :y, :time)
       values[:y_size] = TerminalVis.option_handler.options.
                          repository[:y_time_size]
       return values
@@ -25,12 +21,7 @@ module TerminalVis
 
     # method to get the required coordinates to start an interpolation
     def self.determine_interpolation_values
-      coords = Hash.new()
-      coords[:x] = Float(TerminalVis.parameter_handler.
-                         repository.parameters[:coord][0])
-      coords[:y] = Float(TerminalVis.parameter_handler.
-                         repository.parameters[:coord][1])
-      return coords
+      retrieve_float_parameters(:x, :y, :coord)
     end
 
     # gets the indices of the data sets which should be substracted
@@ -67,6 +58,26 @@ module TerminalVis
       rescue ArgumentError
         message = " Error: at least one argument of #{parameter}" \
                   " is not a valid Integer"
+        TerminalVis::print_error(message)
+      end
+      return parameters
+    end
+    private_class_method :retrieve_integer_parameters
+
+    # method to retrive the parameters for interger values
+    # @param [Symbol] first the first parameter argument
+    # @param [Symbol] second the second parameter argument
+    # @param [Symbol] parameter the requested parameter
+    def self.retrieve_float_parameters(first, second, parameter)
+      parameters = Hash.new()
+      begin
+        parameters[first] = Float(TerminalVis.parameter_handler.
+                                    repository.parameters[parameter][0])
+        parameters[second] = Float(TerminalVis.parameter_handler.
+                                     repository.parameters[parameter][1])
+      rescue ArgumentError
+        message = " Error: at least one argument of #{parameter}" \
+                  " is not a valid Float"
         TerminalVis::print_error(message)
       end
       return parameters
