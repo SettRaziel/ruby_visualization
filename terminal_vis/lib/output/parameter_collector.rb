@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-19 16:16:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-26 19:45:50
+# @Last Modified time: 2015-11-27 08:30:56
 
 module TerminalVis
 
@@ -49,18 +49,16 @@ module TerminalVis
     # @param [Symbol] second the second parameter argument
     # @param [Symbol] parameter the requested parameter
     def self.retrieve_integer_parameters(first, second, parameter)
-      parameters = Hash.new()
+      integers = Hash.new()
       begin
-        parameters[first] = Integer(TerminalVis.parameter_handler.
+        integers[first] = Integer(TerminalVis.parameter_handler.
                                     repository.parameters[parameter][0])
-        parameters[second] = Integer(TerminalVis.parameter_handler.
+        integers[second] = Integer(TerminalVis.parameter_handler.
                                      repository.parameters[parameter][1])
       rescue ArgumentError
-        message = " Error: at least one argument of #{parameter}" \
-                  " is not a valid Integer"
-        TerminalVis::print_error(message)
+        create_error_message(parameter, "Integer")
       end
-      return parameters
+      return integers
     end
     private_class_method :retrieve_integer_parameters
 
@@ -69,20 +67,28 @@ module TerminalVis
     # @param [Symbol] second the second parameter argument
     # @param [Symbol] parameter the requested parameter
     def self.retrieve_float_parameters(first, second, parameter)
-      parameters = Hash.new()
+      floats = Hash.new()
       begin
-        parameters[first] = Float(TerminalVis.parameter_handler.
+        floats[first] = Float(TerminalVis.parameter_handler.
                                     repository.parameters[parameter][0])
-        parameters[second] = Float(TerminalVis.parameter_handler.
+        floats[second] = Float(TerminalVis.parameter_handler.
                                      repository.parameters[parameter][1])
       rescue ArgumentError
-        message = " Error: at least one argument of #{parameter}" \
-                  " is not a valid Float"
-        TerminalVis::print_error(message)
+        create_error_message(parameter, "Float")
       end
-      return parameters
+      return floats
     end
-    private_class_method :retrieve_integer_parameters
+    private_class_method :retrieve_float_parameters
+
+    # method to create an error message when rescuing an error
+    # @param [Symbol] parameter the requested parameter
+    # @param [String] type a string containing the type for the error message
+    def self.create_error_message(parameter, type)
+      message = " Error: at least one argument of #{parameter}" \
+                " is not a valid #{type}"
+        TerminalVis::print_error(message)
+    end
+    private_class_method :create_error_message
 
   end
 end
