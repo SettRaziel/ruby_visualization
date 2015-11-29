@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-19 16:16:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-28 10:31:20
+# @Last Modified time: 2015-11-29 08:53:14
 
 module TerminalVis
 
@@ -44,17 +44,21 @@ module TerminalVis
       return parameters
     end
 
-    # method to retrive the parameters for interger values
+    # method to retrive the parameters for the given type
     # @param [Symbol] first the first parameter argument
     # @param [Symbol] second the second parameter argument
     # @param [Symbol] parameter the requested parameter
     # @param [String] type the required type
+    # @return [Hash] the hash with the required values
     def self.retrieve_parameters(first, second, parameter, type)
       begin
-        if (type.eql?('Integer'))
-          return retrieve_integer_parameters(first, second, parameter)
-        elsif (type.eql?('Float'))
-          return retrieve_float_parameters(first, second, parameter)
+        case type
+          when 'Integer'
+            return retrieve_integer_parameters(first, second, parameter)
+          when 'Float'
+            return retrieve_float_parameters(first, second, parameter)
+          else
+            TerminalVis::print_error("Error: unknown parameter: #{type}")
         end
       rescue ArgumentError
         create_error_message(parameter, type)
@@ -66,29 +70,32 @@ module TerminalVis
     # @param [Symbol] first the first parameter argument
     # @param [Symbol] second the second parameter argument
     # @param [Symbol] parameter the requested parameter
+    # @return [Hash] the hash with the required values
     def self.retrieve_integer_parameters(first, second, parameter)
-      integers = Hash.new()
-      integers[first] = Integer(TerminalVis.parameter_handler.
-                                  repository.parameters[parameter][0])
-      integers[second] = Integer(TerminalVis.parameter_handler.
-                                  repository.parameters[parameter][1])
-      return integers
+      {first => Integer(read_parameter(parameter, 0)),
+       second => Integer(read_parameter(parameter, 1))}
     end
     private_class_method :retrieve_integer_parameters
 
-    # method to retrive the parameters for interger values
+    # method to retrive the parameters for float values
     # @param [Symbol] first the first parameter argument
     # @param [Symbol] second the second parameter argument
     # @param [Symbol] parameter the requested parameter
+    # @return [Hash] the hash with the required values
     def self.retrieve_float_parameters(first, second, parameter)
-      floats = Hash.new()
-      floats[first] = Float(TerminalVis.parameter_handler.
-                                  repository.parameters[parameter][0])
-      floats[second] = Float(TerminalVis.parameter_handler.
-                                  repository.parameters[parameter][1])
-      return floats
+      {first => Float(read_parameter(parameter, 0)),
+       second => Float(read_parameter(parameter, 1))}
     end
     private_class_method :retrieve_float_parameters
+
+    # method to read the value for a given parameter and index
+    # @param [Symbol] parameter the provided parameter
+    # @param [Integer] index the given index
+    # @return [String] the value stored for the parameter at index
+    def self.read_parameter(parameter, index)
+      TerminalVis.parameter_handler.repository.parameters[parameter][index]
+    end
+    private_class_method :read_parameter
 
     # method to create an error message when rescuing an error
     # @param [Symbol] parameter the requested parameter
@@ -96,7 +103,7 @@ module TerminalVis
     def self.create_error_message(parameter, type)
       message = " Error: at least one argument of #{parameter}" \
                 " is not a valid #{type}"
-        TerminalVis::print_error(message)
+      TerminalVis::print_error(message)
     end
     private_class_method :create_error_message
 
