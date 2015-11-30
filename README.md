@@ -29,7 +29,7 @@ parameters:
                coordinate (x,y) at default dataset index 0, excludes -e and -t
 -d, --delta    arguments: <first_index> <second_index>; subtracts the first
                dataset from the second dataset and visualizes the difference,
-               excludes -a, -i and -t
+               indices as [1,2, ..., # datasets], excludes -a, -i and -t
 -e, --extreme  marks the extreme values in a dataset with ++ for a maximum
                and -- for a minimum, also prints the coordinates of the
                extreme values below the legend, excludes -c
@@ -39,7 +39,8 @@ parameters:
                argument: file=<filename> loads options from file, menu enables
                the possibility to input the desired values
 -r, --range    arguments: <start> <end>; prints all datasets within the range
-               of the provided arguments, excludes -i, -t
+               of the provided arguments, indices as [1,2, ..., # datasets],
+               excludes -i, -t
 -t, --time     arguments: <x> <y> ; creates a timeline for the given coordinate
                (x,y), coordinates not lying on the data point will be
                interpolated, excludes -a, -c and -i

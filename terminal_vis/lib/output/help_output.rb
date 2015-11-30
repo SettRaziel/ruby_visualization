@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-07 15:22:52
+# @Last Modified time: 2015-11-30 18:41:25
 
 # Output class for help text
 class HelpOutput
@@ -71,10 +71,11 @@ class HelpOutput
     add_dual_argument_text(:delta, ' -d, --delta    ',
           ' <first_index> <second_index>',
           '; subtracts the first dataset from the second dataset and ' \
-          'visualizes the difference, excludes -a, -i and -t')
+          'visualizes the difference, indices as [1,2, ..., # ' \
+          'datasets] excludes -a, -i and -t')
     add_dual_argument_text(:range, ' -r, --range    ', ' <start> <end>',
           '; prints all datasets within the range of the provided ' \
-          'arguments, excludes -i, -t')
+          'arguments, indices as [1,2, ..., # datasets], excludes -i, -t')
     add_dual_argument_text(:time, ' -t, --time     ', ' <x> <y>',
           '; creates a timeline for the given coordinate (x,y), coordinates ' \
           'not lying on the data point will be interpolated, excludes -a,' \
