@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-13 11:56:28
+# @Last Modified time: 2015-12-01 18:35:53
 
 module TerminalVis
 
@@ -30,16 +30,14 @@ module TerminalVis
                                                    x_coordinate, y_coordinate)
     end
 
-    # singleton method for linar interpolation between two points
+    # singleton method for linear interpolation between two points
     # @param [DataPoint] data_point0 first datapoint
     # @param [DataPoint] data_point1 second datapoint
     # @param [Float] x x-coordinate of the interpolation point
     # @param [Float] y y-coordinate of the interpolation point
-    def self.linear_interpolation(data_point0, data_point1, x, y)
-      coordinate = DataPoint.new(x, y)
-
-      r = calculate_interpolation_factor(data_point0, data_point1, coordinate)
-      ((1-r)* data_point0.value + r* data_point1.value).round(3)
+    # @return [Float] the interpolated value for the given input
+    def self.linear_interpolation_for_coordinate(data_point0, data_point1, x, y)
+      LinearInterpolation.linear_interpolation(data_point0, data_point1, x, y)
     end
 
     # This class represents of a two dimensional point with a numeric value
@@ -77,3 +75,4 @@ module TerminalVis
 end
 
 require_relative 'bilinear_interpolation'
+require_relative 'linear_interpolation'
