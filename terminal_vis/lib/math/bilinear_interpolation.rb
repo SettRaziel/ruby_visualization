@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-12 09:33:16
+# @Last Modified time: 2015-12-02 07:32:20
 
 # This module holds the main singleton methods that are called from the script.
 # It also stores the data ans parameter repository so it can be called from
@@ -91,10 +91,12 @@ module TerminalVis
         boundary = calculate_boundary_datapoints(x, y)
 
         # interpolate
-        r = calculate_interpolation_factor(boundary[:d_xy],
-                                           boundary[:d_x1y], x, y)
-        s = calculate_interpolation_factor(boundary[:d_xy],
-                                           boundary[:d_xy1], x, y)
+        r = Interpolation::calculate_interpolation_factor(boundary[:d_xy],
+                                                          boundary[:d_x1y],
+                                                          x, y)
+        s = Interpolation::calculate_interpolation_factor(boundary[:d_xy],
+                                                          boundary[:d_xy1],
+                                                          x, y)
 
         calculate_interpolation_result(1-r, 1-s, boundary[:d_xy].value) +
         calculate_interpolation_result(r, 1-s, boundary[:d_x1y].value) +
@@ -154,24 +156,6 @@ module TerminalVis
         boundary[:d_x1y1] = create_data_point(1, 1, x, y)
 
         return boundary
-      end
-
-      # singleton method to calculate interpolation coefficient with
-      # accuracy to the fifth digit
-      # @param [DataPoint] data_point0 DataPoint with coordinates and value
-      #   needed for the interpolation
-      # @param [DataPoint] data_point1 DataPoint with coordinates and value
-      #   needed for the interpolation
-      # @param [Float] x x-coordinate of the interpolation point
-      # @param [Float] y y-coordinate of the interpolation point
-      # @return [Float] the calculated interpolation factor rounded to the
-      #  fifth digit
-      def self.calculate_interpolation_factor(data_point0, data_point1, x, y)
-        coordinate = DataPoint.new(x, y)
-        ( (coordinate.coordinate - data_point0.coordinate).
-          dot(data_point1.coordinate - data_point0.coordinate) /
-          (data_point1.coordinate - data_point0.coordinate).magnitude**2).
-        round(5)
       end
 
       # singleton method to calculate the result of the bilinear interpolation

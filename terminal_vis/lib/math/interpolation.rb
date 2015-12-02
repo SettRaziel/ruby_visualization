@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-01 18:35:53
+# @Last Modified time: 2015-12-02 07:32:38
 
 module TerminalVis
 
@@ -38,6 +38,24 @@ module TerminalVis
     # @return [Float] the interpolated value for the given input
     def self.linear_interpolation_for_coordinate(data_point0, data_point1, x, y)
       LinearInterpolation.linear_interpolation(data_point0, data_point1, x, y)
+    end
+
+    # singleton method to calculate interpolation coefficient with
+    # accuracy to the fifth digit
+    # @param [DataPoint] data_point0 DataPoint with coordinates and value
+    #   needed for the interpolation
+    # @param [DataPoint] data_point1 DataPoint with coordinates and value
+    #   needed for the interpolation
+    # @param [Float] x x-coordinate of the interpolation point
+    # @param [Float] y y-coordinate of the interpolation point
+    # @return [Float] the calculated interpolation factor rounded to the
+    #   fifth digit
+    def self.calculate_interpolation_factor(data_point0, data_point1, x, y)
+      coordinate = DataPoint.new(x, y)
+      ( (coordinate.coordinate - data_point0.coordinate).
+        dot(data_point1.coordinate - data_point0.coordinate) /
+        (data_point1.coordinate - data_point0.coordinate).magnitude**2).
+      round(5)
     end
 
     # This class represents of a two dimensional point with a numeric value
