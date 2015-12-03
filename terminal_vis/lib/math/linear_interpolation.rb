@@ -1,15 +1,13 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-01 16:52:18
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-02 07:32:58
+# @Last Modified time: 2015-12-03 07:34:27
 
 module TerminalVis
 
   module Interpolation
 
     # math class to apply linear interpolation between two points
-    # @raise [RangeError] when the provided coordinates do not lie within
-    #   the data area of the meta data
     class LinearInterpolation
 
       # singleton method for linear interpolation between two points

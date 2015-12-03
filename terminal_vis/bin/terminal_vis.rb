@@ -1,15 +1,11 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-10 12:28:24
+# @Last Modified time: 2015-12-03 07:37:00
 
 
 require_relative '../lib/data/data_repository'
-require_relative '../lib/output/data_output'
-require_relative '../lib/output/help_output'
 require_relative '../lib/parameter/parameter_handler'
-require_relative '../lib/math/interpolation'
-require_relative '../lib/math/dataset_statistics'
 require_relative '../lib/main/main_module'
 
 #-------------------------------------------------------------------------------
