@@ -1,20 +1,14 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-19 16:19:21
+# @Last Modified time: 2015-12-04 08:52:40
 
 module TerminalVis
 
   require_relative '../data/data_repository'
-  require_relative '../output/data_output'
-  require_relative '../output/help_output'
-  require_relative '../output/timeline_output'
   require_relative '../parameter/parameter_handler'
-  require_relative '../math/interpolation'
-  require_relative '../math/dataset_statistics'
-  require_relative '../math/time_line'
-  require_relative '../output/range_output'
   require_relative '../configuration/configuration_handler'
+  require_relative '../output/help_output'
 
   # Dummy class to get access to the instance variables
   class << self

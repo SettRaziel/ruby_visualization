@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-23 17:03:04
+# @Last Modified time: 2015-12-04 08:51:43
 
 module TerminalVis
 
@@ -11,7 +11,12 @@ module TerminalVis
   #   * help output
   module Output
 
+    require_relative 'data_output'
     require_relative 'interpolation_output'
+    require_relative 'range_output'
+    require_relative 'timeline_output'
+    require_relative '../math/time_line'
+    require_relative '../math/dataset_statistics'
 
     # creates output based on metadata and parameters
     # @param [MetaData] meta_data the meta data of the data series which should
