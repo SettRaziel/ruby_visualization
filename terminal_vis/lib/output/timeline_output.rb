@@ -1,9 +1,10 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-25 13:40:23
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-27 08:53:13
+# @Last Modified time: 2015-12-05 09:40:07
 
 require_relative '../graphics/string'
+require_relative '../data/meta_data'
 
 # This class holds methods to print a previously created timelime into the
 # terminal providing simple axis for the z dimension on the abscissa and the

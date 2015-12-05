@@ -1,9 +1,10 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-18 18:17:44
+# @Last Modified time: 2015-12-05 09:39:18
 
-require_relative '../main/main_module'
+require_relative '../data/meta_data'
+require_relative '../data/data_series'
 
 # Output class for printing datasets of a data series within a given range
 class RangeOutput

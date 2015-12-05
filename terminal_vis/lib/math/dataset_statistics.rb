@@ -1,7 +1,9 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-12 18:05:53
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-14 17:38:20
+# @Last Modified time: 2015-12-05 09:36:20
+
+require_relative '../data/data_set'
 
 # singleton class to apply statistic methods to a data series
 class DatasetStatistics

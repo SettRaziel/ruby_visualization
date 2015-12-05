@@ -1,7 +1,9 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-12 09:52:39
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-02 10:30:09
+# @Last Modified time: 2015-12-05 09:37:57
+
+require_relative '../data/meta_data'
 
 # Output class to create the data axis for the dataset and delta output
 # in the x- and y-dimension
