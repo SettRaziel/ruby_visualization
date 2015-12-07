@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-06 16:46:08
+# @Last Modified time: 2015-12-07 17:47:01
 
 module TerminalVis
 
@@ -30,6 +30,7 @@ module TerminalVis
   end
 
   # creates the meta data based on the provided parameters
+  # @return [MetaData] returns the meta data for the dataset
   def self.create_metadata
     begin
       if (@parameter_handler.repository.parameters[:meta])

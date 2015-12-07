@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:41:25
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-09-04 10:20:38
+# @Last Modified time: 2015-12-07 17:28:40
 
 # Class to represent a two dimensional data set
 class DataSet
@@ -9,7 +9,7 @@ class DataSet
   attr_reader :min_value
   # @return [Float] the maximal value of the dataset
   attr_reader :max_value
-  # @return [Float] the data
+  # @return [Hash] the data stored in a Hash Integer => Array
   attr_reader :data
 
   # initialization
