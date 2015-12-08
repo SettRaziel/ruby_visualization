@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-21 09:54:05
+# @Last Modified time: 2015-12-08 13:23:43
 
 require_relative '../graphics/string'
 require_relative '../data/data_set'
@@ -70,7 +70,7 @@ class DataOutput
   #  legend options should be printed
   def self.print_data(with_legend)
     extreme_coordinates = print_data_and_get_extrema
-    DataAxis.print_x_axis_values(@meta_data)
+    DataAxis.print_x_axis_values(@meta_data.domain_x, @meta_data.domain_y)
 
     puts ""
     @legend.print_color_legend(with_legend)

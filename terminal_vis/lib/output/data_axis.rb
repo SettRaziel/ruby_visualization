@@ -1,22 +1,23 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-12 09:52:39
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-05 09:37:57
+# @Last Modified time: 2015-12-08 14:04:08
 
-require_relative '../data/meta_data'
+require_relative '../data/data_domain'
 
 # Output class to create the data axis for the dataset and delta output
 # in the x- and y-dimension
 class DataAxis
 
   # method to print the legend for the x-axis
-  # @param [MetaData] meta_data the meta data used for the axis values
-  def self.print_x_axis_values(meta_data)
-    x_value_lenght = determine_maximal_domainvalue_length(meta_data.domain_x)
-    print_x_axis_init(meta_data)
+  # @param [DataDomain] domain_x the data domain used for the x-axis values
+  # @param [DataDomain] domain_y the data domain used for the y-axis values
+  def self.print_x_axis_values(domain_x, domain_y)
+    x_value_lenght = determine_maximal_domainvalue_length(domain_x)
+    print_x_axis_init(domain_x, domain_y)
     index = 5
-    while ((x_value_lenght / 2 + index) <= meta_data.domain_x.number_of_values)
-      extend_x_axis_output(10 - x_value_lenght, index, meta_data.domain_x)
+    while ((x_value_lenght / 2 + index) <= domain_x.number_of_values)
+      extend_x_axis_output(10 - x_value_lenght, index, domain_x)
       index += 5
     end
   end
@@ -35,10 +36,11 @@ class DataAxis
   private
 
   # singleton method to print the initial string of the x axis description
-  # @param [MetaData] meta_data the required meta data
-  def self.print_x_axis_init(meta_data)
-    y_offset = determine_maximal_domainvalue_length(meta_data.domain_y)
-    extend_x_axis_output(y_offset, 0, meta_data.domain_x)
+  # @param [DataDomain] domain_x the data domain used for the x-axis values
+  # @param [DataDomain] domain_y the data domain used for the y-axis values
+  def self.print_x_axis_init(domain_x, domain_y)
+    y_offset = determine_maximal_domainvalue_length(domain_y)
+    extend_x_axis_output(y_offset, 0, domain_x)
   end
 
   # method to print the empty gap between two values of the x-axis and the
