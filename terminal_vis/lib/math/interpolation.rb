@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-02 07:32:38
+# @Last Modified time: 2015-12-09 19:42:21
 
 module TerminalVis
 
@@ -12,6 +12,7 @@ module TerminalVis
   module Interpolation
 
     require_relative '../data/meta_data'
+    require_relative '../data/data_set'
     require 'matrix'
 
     # interpolates the data for the provided coordinate and prints the result
@@ -94,3 +95,4 @@ end
 
 require_relative 'bilinear_interpolation'
 require_relative 'linear_interpolation'
+require_relative 'region_interpolation'
