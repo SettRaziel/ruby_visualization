@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-19 19:04:59
+# @Last Modified time: 2015-12-11 12:03:02
 
 require_relative 'parameter_repository'
 
@@ -20,6 +20,7 @@ class ParameterHandler
     @repository = ParameterRepository.new(argv)
     validate_parameters
     check_parameter_constraints
+    check_parameter_occurrence
   end
 
   private
@@ -32,7 +33,7 @@ class ParameterHandler
     check_number_of_parameters(:delta, 2)
     check_number_of_parameters(:time, 2)
     check_number_of_parameters(:range, 2)
-
+    check_number_of_parameters(:section, 2)
   end
 
   # private method to the specified parameter constraints
@@ -41,6 +42,11 @@ class ParameterHandler
     check_constraints_for_c if (repository.parameters[:coord])
     check_constraints_for_d if (repository.parameters[:delta])
     check_constraints_for_r if (repository.parameters[:range])
+  end
+
+  # private method to check the occurrence of two parameters
+  def check_parameter_occurrence
+    check_occurrence('s', 'c', :coord)
   end
 
   # checks if the parsed filename is a valid unix or windows file name
@@ -77,8 +83,8 @@ class ParameterHandler
   # @raise [ArgumentError] if invalid parameter combination occurs
   def check_constraints_for_a
     check_constraint('-a', '-i', :index)
-    check_constraint('-a', '-t', :time)
     check_constraint('-a', '-d', :delta)
+    check_constraint('-a', '-t', :time)
   end
 
   # checks constraints:
@@ -131,6 +137,18 @@ class ParameterHandler
         raise IndexError,
           " Error: invalid number of parameters for option: #{key} "
       end
+    end
+  end
+
+  # checks if the second parameter occurs together with the first
+  # @param [String] v first parameter
+  # @param [String] i second parameter
+  # @param [Symbol] symbol the literal to checl
+  # @raise [ArgumentError] if the second parameter is not present
+  def check_occurrence(v, i, symbol)
+    if (!repository.parameters[symbol])
+      raise ArgumentError,
+            " Error: #{v} requires the parameters of #{i}"
     end
   end
 
