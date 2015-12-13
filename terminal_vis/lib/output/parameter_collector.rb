@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-19 16:16:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-29 08:53:14
+# @Last Modified time: 2015-12-13 16:54:49
 
 module TerminalVis
 
@@ -42,6 +42,13 @@ module TerminalVis
       parameters[:all] = TerminalVis.parameter_handler.
                                      repository.parameters[:all]
       return parameters
+    end
+
+    # method to get the required values to create a region that will be
+    # interpolated
+    # @return [Hash] the values to determine the interpolation region
+    def self.determine_region_parameters
+      parameters = retrieve_parameters(:inter, :delta, :section, 'Float')
     end
 
     # method to retrive the parameters for the given type
