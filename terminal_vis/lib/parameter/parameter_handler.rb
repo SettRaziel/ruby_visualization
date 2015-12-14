@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-11 12:03:02
+# @Last Modified time: 2015-12-14 13:11:49
 
 require_relative 'parameter_repository'
 
@@ -46,7 +46,7 @@ class ParameterHandler
 
   # private method to check the occurrence of two parameters
   def check_parameter_occurrence
-    check_occurrence('s', 'c', :coord)
+    check_occurrence('s', 'c', :coord) if (repository.parameters[:section])
   end
 
   # checks if the parsed filename is a valid unix or windows file name
