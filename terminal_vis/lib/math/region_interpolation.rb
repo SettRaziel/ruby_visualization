@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-07 17:22:54
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-12 18:02:56
+# @Last Modified time: 2015-12-14 12:52:22
 
 module TerminalVis
 
@@ -27,7 +27,7 @@ module TerminalVis
         @delta_x = delta_x
         @interval_y = interval_y
         @delta_y = delta_y
-        @data = Hash.new()
+        @data = Array.new()
 
         check_value(@interval_x)
         check_value(@interval_y)
@@ -41,18 +41,18 @@ module TerminalVis
       # @param [MetaData] meta_data the required meta data
       # @param [DataSet] data_set the dataset which values are used for the
       #   interpolation
-      # @return [Hash] the interpolated data
+      # @return [DataSet] the interpolated data
       def interpolate_region(x, y, meta_data, data_set)
       y_run = y - @interval_y
       index = 2 * @interval_y / @delta_y
 
         while (y_run <= (y + @interval_y).round(3))
-          @data[index] = create_values_for_line(x, y_run, meta_data, data_set)
+          @data << create_values_for_line(x, y_run, meta_data, data_set)
           index -= 1
           y_run = (y_run + @delta_y).round(3)
         end
 
-      return @data
+      return DataSet.new(data)
       end
 
       private

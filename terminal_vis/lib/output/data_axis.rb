@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-12 09:52:39
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-08 14:04:08
+# @Last Modified time: 2015-12-15 14:34:42
 
 require_relative '../data/data_domain'
 
@@ -52,7 +52,8 @@ class DataAxis
   def self.extend_x_axis_output(length, index, domain)
     length.times { print ' ' }
     value_lenght = determine_maximal_domainvalue_length(domain)
-    print ("%#{value_lenght}s") % "#{domain.get_coordinate_to_index(index)}"
+    print ("%#{value_lenght}s") % "#{domain.get_coordinate_to_index(index).
+                                            round(3)}"
   end
 
   # method to determine the maximal string length of a data domain value
@@ -72,8 +73,8 @@ class DataAxis
   # @param [Integer] key the index of the current line
   # @return [String] the current y coordinate or an empty string
   def self.determine_y_axis_init(domain, key)
-    if (key % 5 == 0 || key == domain.number_of_values - 1 )
-      return "#{domain.get_coordinate_to_index(key)}"
+    if (key % 5 == 0 || key == domain.number_of_values)
+      return "#{domain.get_coordinate_to_index(key).round(3)}"
     else
       return String.new()
     end
