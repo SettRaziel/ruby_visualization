@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-09 19:42:21
+# @Last Modified time: 2015-12-16 11:54:39
 
 module TerminalVis
 
@@ -39,6 +39,21 @@ module TerminalVis
     # @return [Float] the interpolated value for the given input
     def self.linear_interpolation_for_coordinate(data_point0, data_point1, x, y)
       LinearInterpolation.linear_interpolation(data_point0, data_point1, x, y)
+    end
+
+    # singleton method to interpolate the data values specified for the region
+    # defined by the coordinates and the interval and delta values
+    # @param [MetaData] meta_data the meta data of the considered data set
+    # @param [DataSet] data_set the data_set which values are taken to
+    #   interpolate the region
+    # @param [Hash] coordinates a hash containing the x- and y-coordinate
+    # @param [Hash] values a hash containing all relevant values for the
+    #   region interpolation
+    def self.region_interpolation(meta_data, data_set, coordinates, values)
+      ri = RegionInterpolation.new(values[:inter], values[:delta],
+                                   values[:inter], values[:delta])
+      ri.interpolate_region(coordinates[:x], coordinates[:y],
+                                     meta_data, data_set)
     end
 
     # singleton method to calculate interpolation coefficient with
