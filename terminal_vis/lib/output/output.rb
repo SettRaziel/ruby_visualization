@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-04 08:51:43
+# @Last Modified time: 2015-12-17 14:59:35
 
 module TerminalVis
 
@@ -14,6 +14,7 @@ module TerminalVis
     require_relative 'data_output'
     require_relative 'interpolation_output'
     require_relative 'range_output'
+    require_relative 'region_output'
     require_relative 'timeline_output'
     require_relative '../math/time_line'
     require_relative '../math/dataset_statistics'
@@ -77,6 +78,19 @@ module TerminalVis
                                          get_and_check_data(index, meta_data))
       InterpolationOutput.interpolation_output(value, index, coordinates,
                           TerminalVis.data_repo.repository[meta_data])
+    end
+
+    # creates output when using the parameter -s
+    # @param [MetaData] meta_data the meta data of the data series which should
+    #   be used for the interpolation
+    def self.create_region_interpolation_output(meta_data)
+      coordinates = ParameterCollector::determine_interpolation_values
+      values = ParameterCollector::determine_region_parameters
+      values[:index] = TerminalVis.get_and_check_index(meta_data)
+      output = TerminalVis::Interpolation.region_interpolation(meta_data,
+                            get_and_check_data(values[:index], meta_data),
+                            coordinates, values)
+      RegionOutput.region_output(output, coordinates, values)
     end
 
     # creates output when using the parameter -r
