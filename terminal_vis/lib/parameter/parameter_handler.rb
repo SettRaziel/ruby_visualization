@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-19 16:18:25
+# @Last Modified time: 2015-12-23 09:23:23
 
 require_relative 'parameter_repository'
 
@@ -114,9 +114,9 @@ class ParameterHandler
   end
 
   # creates a constraint error if an invalid parameter combination occurs
-  # @param [String] v first parameter
-  # @param [String] i second parameter
-  # @param [Symbol] symbol the literal to checl
+  # @param [String] v the first parameter
+  # @param [String] i the second parameter
+  # @param [Symbol] symbol the literal to check
   # @raise [ArgumentError] for an invalid parameter combination
   def check_constraint(v, i, symbol)
     if (repository.parameters[symbol])
@@ -141,14 +141,14 @@ class ParameterHandler
   end
 
   # checks if the second parameter occurs together with the first
-  # @param [String] v first parameter
-  # @param [String] i second parameter
-  # @param [Symbol] symbol the literal to checl
+  # @param [String] p the present parameter
+  # @param [String] r the required parameter
+  # @param [Symbol] symbol the literal to check
   # @raise [ArgumentError] if the second parameter is not present
-  def check_occurrence(v, i, symbol)
+  def check_occurrence(p, r, symbol)
     if (!repository.parameters[symbol])
       raise ArgumentError,
-            " Error: #{v} requires the parameters of #{i}"
+            " Error: #{p} requires the parameters of #{r}"
     end
   end
 

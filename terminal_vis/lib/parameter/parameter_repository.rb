@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-11 11:52:16
+# @Last Modified time: 2015-12-23 09:26:52
 
 # Parameter repository storing the valid parameter of the script.
 # {#initialize} gets the provided parameters and fills a hash which
@@ -22,7 +22,6 @@ class ParameterRepository
       has_read_file?(has_read_file)
 
       has_read_file =  process_argument(arg, unflagged_arguments)
-
     }
 
   check_parameter_handling(unflagged_arguments.size)
@@ -83,8 +82,8 @@ class ParameterRepository
 
   # check if a parameter holds one or more arguments and adds the argument
   # depending on the check
-  # @param [Symbol] arg_key symbol referencing a parameter
-  # @param [String] arg argument from the input array
+  # @param [Symbol] arg_key the symbol referencing a parameter
+  # @param [String] arg the argument from the input array
   def check_and_set_argument(arg_key, arg)
     if (arg_key != nil)
       if(@parameters[arg_key] != nil)
@@ -116,8 +115,8 @@ class ParameterRepository
   #  following
   def has_read_file?(read_file)
     if (read_file)
-        raise ArgumentError, "Error: found filepath: #{@parameters[:file]}, " \
-                             "but there are other arguments left."
+        raise ArgumentError, " Error: found filepath: #{@parameters[:file]}," \
+                             " but there are other arguments left."
     end
   end
 
@@ -127,7 +126,7 @@ class ParameterRepository
   # @raise [ArgumentError] if parameter combination not valid
   def check_parameter_handling(size)
     if (size > 0 && !(@parameters[:help] || @parameters[:version]))
-        raise ArgumentError, 'Error: invalid combination of parameters.'
+        raise ArgumentError, ' Error: invalid combination of parameters.'
     end
   end
 

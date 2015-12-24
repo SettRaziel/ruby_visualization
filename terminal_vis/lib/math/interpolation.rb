@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-16 11:54:39
+# @Last Modified time: 2015-12-23 09:19:25
 
 module TerminalVis
 
@@ -9,6 +9,7 @@ module TerminalVis
   # different methods. The following interpolation methods are implemented:
   #   * Linear interpolation
   #   * Bilinear interpolation
+  #   * Region interpolation
   module Interpolation
 
     require_relative '../data/meta_data'
