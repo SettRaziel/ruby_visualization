@@ -41,6 +41,10 @@ parameters:
 -r, --range    arguments: <start> <end>; prints all datasets within the range
                of the provided arguments, indices as [1,2, ..., # datasets],
                excludes -i, -t
+-s, --section  arguments: <interval> <delta>; interpolates data for a given
+               region specified by a coordinate, an interval and stepwidth;
+               result: interpolated values in (x+-interval, y+-interval) with
+               stepwidth delta, excludes -e, -t; requires -c
 -t, --time     arguments: <x> <y> ; creates a timeline for the given coordinate
                (x,y), coordinates not lying on the data point will be
                interpolated, excludes -a, -c and -i
