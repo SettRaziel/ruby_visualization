@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-17 14:59:35
+# @Last Modified time: 2015-12-31 14:34:40
 
 module TerminalVis
 
@@ -64,7 +64,8 @@ module TerminalVis
                                                    data[:second_data])
 
       options = get_output_options
-      DataOutput.print_delta(result, meta_data, data_indices, options)
+      DataOutput::DatasetOutput.print_delta(result, meta_data, data_indices,
+                                            options)
     end
 
     # creates output when using the parameter -c
@@ -87,10 +88,11 @@ module TerminalVis
       coordinates = ParameterCollector::determine_interpolation_values
       values = ParameterCollector::determine_region_parameters
       values[:index] = TerminalVis.get_and_check_index(meta_data)
+      values = values.merge(get_output_options)
       output = TerminalVis::Interpolation.region_interpolation(meta_data,
                             get_and_check_data(values[:index], meta_data),
                             coordinates, values)
-      RegionOutput.region_output(output, coordinates, values)
+      DataOutput::RegionOutput.region_output(output, coordinates, values)
     end
 
     # creates output when using the parameter -r
@@ -121,8 +123,9 @@ module TerminalVis
     # @param [Integer] index the index of the dataset which should be visualized
     def self.create_single_output_at_index(meta_data, index)
       options = get_output_options
-      DataOutput.print_dataset(TerminalVis.data_repo.repository[meta_data],
-             index, meta_data, options)
+      DataOutput::DatasetOutput.print_dataset(
+                  TerminalVis.data_repo.repository[meta_data], index,
+                  meta_data, options)
     end
     private_class_method :create_single_output_at_index
 

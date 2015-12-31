@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-05 09:39:18
+# @Last Modified time: 2015-12-31 14:37:33
 
 require_relative '../data/meta_data'
 require_relative '../data/data_series'
@@ -20,7 +20,8 @@ class RangeOutput
     first = parameters[:lower]
 
     while (first <= parameters[:upper])
-      DataOutput.print_dataset(data_series, first, meta_data, options)
+      DataOutput::DatasetOutput.print_dataset(data_series, first, meta_data,
+                                              options)
       determine_animation(parameters)
       first += 1
     end

@@ -1,77 +1,72 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-13 16:50:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-28 08:56:05
+# @Last Modified time: 2015-12-31 14:51:06
 
-require_relative '../data/data_set'
-require_relative '../data/data_domain'
-require_relative '../graphics/color_legend'
+module DataOutput
 
-# Output class to visualize the interpolation of a region
-class RegionOutput
+  require_relative '../data/data_set'
+  require_relative '../data/data_domain'
+  require_relative '../graphics/color_legend'
 
-  # singleton method to generate the output for the given region
-  # @param [DataSet] data the data that should be visualized
-  # @param [Hash] coordinates a hash containing the x and y coordinate of the
-  #   central point of the region
-  # @param [Hash] values a hash containing all required values to interpolate
-  #   the region
-  def self.region_output(data, coordinates, values)
-    domain_x = create_data_domain("x", coordinates[:x], values[:inter],
-                                                        values[:delta])
-    domain_y = create_data_domain("y", coordinates[:y], values[:inter],
-                                                        values[:delta])
+  # Output class to visualize the interpolation of a region
+  class RegionOutput < Base
 
-    print_output_head(coordinates, values)
-    print_data(data, domain_x, domain_y)
-  end
+    # singleton method to generate the output for the given region
+    # @param [DataSet] data the data that should be visualized
+    # @param [Hash] coordinates a hash containing the x and y coordinate of the
+    #   central point of the region
+    # @param [Hash] values a hash containing all required values to interpolate
+    #   the region
+    def self.region_output(data, coordinates, values)
+      set_attributes(data, values[:extreme_values])
+      @legend = ColorLegend::ColorData.new(data.min_value, data.max_value)
+      @domain_x = create_data_domain("x", coordinates[:x], values[:inter],
+                                                          values[:delta])
+      @domain_y = create_data_domain("y", coordinates[:y], values[:inter],
+                                                          values[:delta])
 
-  private
+      print_output_head(coordinates, values)
+      print_data(values[:lengend], @domain_x, @domain_y)
+    end
 
-  # method to create the special data domains for the x- and y-dimension
-  # @param [String] label the name of the domain
-  # @param [Float] coordinates the coordinate of the region center in the
-  #   required dimension
-  # @param [Float] interval the value to specify the value set in the
-  #   considered dimension
-  # @param [Float] delta the steprange in the considered dimension
-  # @return [DataDomain] the domain object based on the input parameter
-  def self.create_data_domain(label, coordinate, interval, delta)
-    lower = (coordinate - interval).round(3)
-    upper = (coordinate + interval + delta).round(3)
+    private
+    attr :domain_x
+    attr :domain_y
 
-    MetaData::DataDomain.new(label, lower, upper, delta)
-  end
+    # method to create the special data domains for the x- and y-dimension
+    # @param [String] label the name of the domain
+    # @param [Float] coordinates the coordinate of the region center in the
+    #   required dimension
+    # @param [Float] interval the value to specify the value set in the
+    #   considered dimension
+    # @param [Float] delta the steprange in the considered dimension
+    # @return [DataDomain] the domain object based on the input parameter
+    def self.create_data_domain(label, coordinate, interval, delta)
+      lower = (coordinate - interval).round(3)
+      upper = (coordinate + interval + delta).round(3)
 
-  # method to print the data with values and axis
-  # @param [DataSet] data the data that should be visualized
-  # @param [DataDomain] domain_x the data domain describing the x-dimension
-  # @param [DataDomain] domain_y the data domain describing the y-dimension
-  def self.print_data(data, domain_x, domain_y)
-    legend = ColorLegend::ColorData.new(data.min_value, data.max_value)
+      MetaData::DataDomain.new(label, lower, upper, delta)
+    end
 
-    reversed_data = data.data.to_a.reverse.to_h
+    # method to print the output head
+    # @param [Hash] coordinates a hash containing the coordinates of the origin
+    # @param [Hash] values a hash containing the required values
+    def self.print_output_head(coordinates, values)
+      puts "Printing interpolated region around (%.2f, %.2f) for data set %d" %
+            [coordinates[:x], coordinates[:y], values[:index] + 1]
+      puts "\n"
+    end
 
-    reversed_data.each_pair { |key, row|
-      DataAxis.print_y_line_beginning(domain_y, key)
-      row.each_index { |index|
-        print legend.create_output_string_for(row[index],'  ')
-      }
-      puts
-    }
-    DataAxis.print_x_axis_values(domain_x, domain_y)
-    puts
+    # prints the meta information consisting of dataset name and informations
+    # of the different dimensions
+    def self.print_meta_information
+      puts "\nRegional interpolation with domain properties:"
 
-    legend.print_color_legend(false)
-  end
+      print_domain_information(@domain_x, "\nX")
+      print_domain_information(@domain_y, 'Y')
+    end
 
-  # method to print the output head
-  # @param [Hash] coordinates a hash containing the coordinates of the origin
-  # @param [Hash] values a hash containing the required values
-  def self.print_output_head(coordinates, values)
-    puts "Printing interpolated region around (%.2f, %.2f) for data set %d" %
-          [coordinates[:x], coordinates[:y], values[:index] + 1]
-    puts "\n"
   end
 
 end
