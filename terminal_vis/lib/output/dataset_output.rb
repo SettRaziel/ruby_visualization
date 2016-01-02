@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-31 14:02:17
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-31 14:38:55
+# @Last Modified time: 2016-01-02 10:26:14
 
 module DataOutput
 
@@ -18,7 +18,7 @@ module DataOutput
       @meta_data = meta_data
       set_attributes(data_series.series[index], options[:extreme_values])
       @legend = ColorLegend::ColorData.
-            new(data_series.min_value, data_series.max_value)
+                             new(data_series.min_value, data_series.max_value)
       print_output_head(index)
 
       print_data(options[:legend], @meta_data.domain_x, @meta_data.domain_y)
@@ -35,7 +35,7 @@ module DataOutput
       @meta_data = meta_data
       set_attributes(data_set, options[:extreme_values])
       @legend = ColorLegend::ColorDelta.
-            new(data_set.min_value, data_set.max_value)
+                             new(data_set.min_value, data_set.max_value)
       puts "Printing difference for datasets #{indices[:first]} and " \
          "#{indices[:second]}.\n\n"
       print_data(options[:legend], @meta_data.domain_x, @meta_data.domain_y)

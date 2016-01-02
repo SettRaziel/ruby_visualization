@@ -1,13 +1,9 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-13 16:50:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-31 14:51:06
+# @Last Modified time: 2016-01-02 10:14:04
 
 module DataOutput
-
-  require_relative '../data/data_set'
-  require_relative '../data/data_domain'
-  require_relative '../graphics/color_legend'
 
   # Output class to visualize the interpolation of a region
   class RegionOutput < Base
@@ -31,7 +27,9 @@ module DataOutput
     end
 
     private
+    # @return {DataDomain} representing the section in the x-dimension
     attr :domain_x
+    # @return {DataDomain} representing the section in the y-dimension
     attr :domain_y
 
     # method to create the special data domains for the x- and y-dimension

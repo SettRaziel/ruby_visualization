@@ -1,18 +1,24 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-31 14:45:48
+# @Last Modified time: 2016-01-02 10:25:20
 
-require_relative '../graphics/string'
 require_relative '../data/data_set'
 require_relative '../data/data_series'
+require_relative '../data/meta_data'
 require_relative '../graphics/color_legend'
+require_relative '../graphics/string'
 require_relative 'data_axis'
 
 # This module groups the different output formats that are used to visualize the
 # output. The class {Base} provides the basic methods that are needed.
 module DataOutput
 
+  # This class provides basic methods for the other color legends to work
+  # with. The children need to define the method
+  # {#print_meta_information} which will print the desired meta information for
+  # the chosen output. If the child class does not implement this method
+  # {DataOutput::Base} raises a {NotImplementedError}.
   class Base
     private
     # @return [ColorLegend] the color legend for the data
@@ -121,6 +127,14 @@ module DataOutput
     def self.print_domain_information(domain, dim_string)
       puts "%s-axis with %s from %.1f up to %.1f and steprange %.2f." %
         [dim_string, domain.name, domain.lower, domain.upper, domain.step]
+    end
+
+    # @abstract subclasses need to implement this method
+    # @raise [NotImplementedError] if the subclass does not have this method
+    def print_meta_information
+      fail NotImplementedError, " Error: the subclass #{self.class} " \
+        "needs to implement the method: print_meta_information " \
+        "from its base class"
     end
 
   end
