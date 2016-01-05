@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-11 15:01:40
+# @Last Modified time: 2016-01-05 10:04:53
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -100,8 +100,8 @@ class DataRepository
     number_data_z = data_series.series.size
 
     if (number_value_z != number_data_z)
-      puts " Warning: Size of dataseries does not match with" \
-         " meta data information."
+      puts ' Warning: Size of dataseries does not match with' \
+         ' meta data information.'
       puts "   meta_data: #{number_value_z} datasets to data_series: " \
          "#{number_data_z} datasets"
       return false
@@ -141,11 +141,11 @@ class DataRepository
   # @return [Array] the constructed meta string
   def build_meta_string(data_series, filename)
     meta_string = ["#{filename}", \
-                   "X", 0, data_series.series[0].data[0].size - 1, 1, \
-                   "Y", 0, data_series.series[0].data.size - 1, 1]
+                   'X', 0, data_series.series[0].data[0].size - 1, 1, \
+                   'Y', 0, data_series.series[0].data.size - 1, 1]
 
     if (data_series.series.size > 1)
-      meta_string.concat( ["Z", 1, data_series.series.size, 1] )
+      meta_string.concat( ['Z', 1, data_series.series.size, 1] )
     end
 
     return meta_string
@@ -172,8 +172,7 @@ class DataRepository
   # @param [MetaData] key key that should be checked
   def check_for_existenz(key)
     if (@repository[key] != nil)
-        puts "Info: A data set with this key already exists." \
-           " Overwriting..."
+        puts 'Info: A data set with this key already exists. Overwriting...'
     end
   end
 

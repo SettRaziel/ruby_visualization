@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-31 14:34:40
+# @Last Modified time: 2016-01-05 10:13:16
 
 module TerminalVis
 
@@ -161,7 +161,7 @@ module TerminalVis
     # @param [MetaData] meta_data the corresponding meta data
     def self.check_data_range(data_indices, meta_data)
       if (data_indices[:first] < 0)
-        raise IndexError, " Error: first index of -d is less than 1"
+        raise IndexError, ' Error: first index of -d is less than 1'
       end
     end
 
@@ -175,7 +175,7 @@ module TerminalVis
     def self.get_and_check_data(index, meta_data)
       data = TerminalVis.data_repo.repository[meta_data].series[index]
       if (data == nil)
-        raise IndexError, " Error: argument #{index} from -d is out of bounds"
+        raise IndexError, ' Error: argument #{index} from -d is out of bounds'
       end
       return data
     end

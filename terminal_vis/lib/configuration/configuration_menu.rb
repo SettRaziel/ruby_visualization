@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-21 15:11:07
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-07 15:24:47
+# @Last Modified time: 2016-01-05 10:02:52
 
 require_relative '../main/main_module'
 
@@ -17,12 +17,12 @@ class ConfigurationMenu
     ARGF.argv.clear
 
     while(is_running)
-      puts "Configuration Menu. Select parameter:"
-      puts "(1) Extended data legend."
-      puts "(2) Determine y-resolution for timeline."
-      puts "(3) Save parameters to file."
-      puts "(4) Exit."
-      is_running = process_input(get_entry("Input (1-4): ").to_i)
+      puts 'Configuration Menu. Select parameter:'
+      puts '(1) Extended data legend.'
+      puts '(2) Determine y-resolution for timeline.'
+      puts '(3) Save parameters to file.'
+      puts '(4) Exit.'
+      is_running = process_input(get_entry('Input (1-4): ').to_i)
     end
   end
 
@@ -34,9 +34,9 @@ class ConfigurationMenu
   def self.process_input(input)
     case input
       when 1 then return process_legend_input(
-                         get_entry("Input value (0: false, 1:true) : ").to_i)
-      when 2 then return process_ydim_input(get_entry("Input value: ").to_i)
-      when 3 then return save_to_file(get_entry("Save destination: "))
+                         get_entry('Input value (0: false, 1:true) : ').to_i)
+      when 2 then return process_ydim_input(get_entry('Input value: ').to_i)
+      when 3 then return save_to_file(get_entry('Save destination: '))
       when 4 then return false
     else
       puts 'Error: Input is not valid.'

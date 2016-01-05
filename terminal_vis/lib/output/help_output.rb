@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-26 08:58:04
+# @Last Modified time: 2016-01-05 10:16:20
 
 # Output class for help text
 class HelpOutput
@@ -12,7 +12,7 @@ class HelpOutput
   def self.print_help_for(parameter)
     initialize_output if (@parameters == nil)
     if (@parameters[parameter])
-      puts "TerminalVis help:".yellow + "\n#{@parameters[parameter]}"
+      puts 'TerminalVis help:'.yellow + "\n#{@parameters[parameter]}"
     elsif (parameter)
       print_help
     else
@@ -83,7 +83,7 @@ class HelpOutput
           'delta, excludes -e, -t; requires -c')
     add_dual_argument_text(:time, ' -t, --time     ', ' <x> <y>',
           '; creates a timeline for the given coordinate (x,y), coordinates ' \
-          'not lying on the data point will be interpolated, excludes -a,' \
+          'not laying on the data point will be interpolated, excludes -a,' \
           ' -c, and -i')
   end
 
@@ -129,9 +129,9 @@ class HelpOutput
 
   # method to print the default help text
   def self.print_help
-    puts "script usage:".red + " ruby <script> [parameters] <filename>"
-    puts "help usage :".green + "              ruby <script> (-h | --help)"
-    puts "help usage for parameter:".green +
+    puts 'script usage:'.red + " ruby <script> [parameters] <filename>"
+    puts 'help usage :'.green + "              ruby <script> (-h | --help)"
+    puts 'help usage for parameter:'.green +
        " ruby <script> <parameter> (-h | --help)"
     puts "\nTerminalVis help:".yellow
 
@@ -146,17 +146,17 @@ class HelpOutput
   # method to print the invalid parameter combinations
   def self.print_invalid_combinations
     puts "\nInvalid parameter combinations:".red
-    puts "  -a + -d, -a + -i, -a + -t"
-    puts "  -r + -t, -r + -i"
-    puts "  -c + -e, -c + -t"
-    puts "  -d + -i, -d + -t"
+    puts '  -a + -d, -a + -i, -a + -t'
+    puts '  -r + -t, -r + -i'
+    puts '  -c + -e, -c + -t'
+    puts '  -d + -i, -d + -t'
   end
 
   # method to print the available configuration parameter
   def self.print_configuration_parameter
     puts "\nAvailable configuration parameter:".red
-    puts "Timeline:".yellow + " number of interval steps in y-dimension [5,100]"
-    puts "Color legend:".yellow + " extended informations about the intervals"
+    puts 'Timeline:'.yellow + ' number of interval steps in y-dimension [5,100]'
+    puts 'Color legend:'.yellow + ' extended informations about the intervals'
   end
 
 end

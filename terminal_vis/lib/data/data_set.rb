@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:41:25
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-07 17:28:40
+# @Last Modified time: 2016-01-05 10:05:16
 
 # Class to represent a two dimensional data set
 class DataSet
@@ -34,7 +34,7 @@ class DataSet
       }
       find_extreme_values
     rescue Exception => e
-      STDERR.puts "Error in data set: tried to parse non float argument."
+      STDERR.puts 'Error in data set: tried to parse non float argument.'
       exit(0)
     end
   end

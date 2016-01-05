@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-13 16:50:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-02 10:14:04
+# @Last Modified time: 2016-01-05 10:14:13
 
 module DataOutput
 
@@ -17,9 +17,9 @@ module DataOutput
     def self.region_output(data, coordinates, values)
       set_attributes(data, values[:extreme_values])
       @legend = ColorLegend::ColorData.new(data.min_value, data.max_value)
-      @domain_x = create_data_domain("x", coordinates[:x], values[:inter],
+      @domain_x = create_data_domain('X', coordinates[:x], values[:inter],
                                                           values[:delta])
-      @domain_y = create_data_domain("y", coordinates[:y], values[:inter],
+      @domain_y = create_data_domain('Y', coordinates[:y], values[:inter],
                                                           values[:delta])
 
       print_output_head(coordinates, values)

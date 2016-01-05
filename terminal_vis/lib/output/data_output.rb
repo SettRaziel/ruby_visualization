@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-02 10:25:20
+# @Last Modified time: 2016-01-05 10:10:13
 
 require_relative '../data/data_set'
 require_relative '../data/data_series'
@@ -61,11 +61,11 @@ module DataOutput
     # prints the coordinates and values of the extreme values
     # @param [Hash] extreme_coordinates Hash with positions of extrema
     def self.print_extreme_information(extreme_coordinates)
-      puts "Dataset extreme values:"
+      puts 'Dataset extreme values:'
         print_extreme_values_for(extreme_coordinates[:maximum],
-                           "Maximum", @data_set.max_value)
+                           'Maximum', @data_set.max_value)
         print_extreme_values_for(extreme_coordinates[:minimum],
-                           "Minimum", @data_set.min_value)
+                           'Minimum', @data_set.min_value)
     end
 
     # prints all the coordinates of the given extreme value
@@ -87,7 +87,7 @@ module DataOutput
       extreme_coordinates = print_data_and_get_extrema(domain_y)
       DataAxis.print_x_axis_values(domain_x, domain_y)
 
-      puts ""
+      puts
       @legend.print_color_legend(with_legend)
 
       print_extreme_information(extreme_coordinates) if (@with_extreme_values)
@@ -115,7 +115,7 @@ module DataOutput
           output = determine_output_type_and_print_value(row[index])
           extreme_coordinates[output] << [index, key] if (output != :normal)
         }
-        puts ""
+        puts
       }
 
       return extreme_coordinates

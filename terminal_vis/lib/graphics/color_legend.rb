@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-30 13:34:57
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-02 17:05:31
+# @Last Modified time: 2016-01-05 10:08:41
 
 # This module groups the different color legends that are used to visualize the
 # output. The class {Base} provides the basic methods that are needed. Child
@@ -46,7 +46,7 @@ module ColorLegend
         print_interval_values
       end
 
-      puts ""
+      puts
     end
 
     # prints the intervall boundaries of the color legend if the parameter
