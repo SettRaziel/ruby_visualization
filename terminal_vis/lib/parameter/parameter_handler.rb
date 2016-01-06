@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-27 07:24:14
+# @Last Modified time: 2016-01-06 09:10:50
 
 require_relative 'parameter_repository'
 
@@ -94,7 +94,7 @@ class ParameterHandler
   #   !(-c + -t), !(-t + -c)
   # @raise [ArgumentError] if invalid parameter combination occurs
   def check_constraints_for_c
-    check_constraint('-c', '-e', :extreme)
+    check_constraint('-c', '-e', :extreme) if (!repository.parameters[:section])
     check_constraint('-c', '-t', :time)
   end
 

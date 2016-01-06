@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-21 21:10:15
+# @Last Modified time: 2016-01-06 09:13:45
 
 
 require_relative '../lib/data/data_repository'
@@ -38,14 +38,14 @@ begin
 
   if (parameter_handler.repository.parameters[:time])
     TerminalVis::Output.create_timeline(meta_data)
-  elsif (parameter_handler.repository.parameters[:range])
-    TerminalVis::Output.create_range_output(meta_data)
-  elsif (parameter_handler.repository.parameters[:delta])
-    TerminalVis::Output.create_delta_output(meta_data)
   elsif (parameter_handler.repository.parameters[:section])
     TerminalVis::Output.create_region_interpolation_output(meta_data)
   elsif (parameter_handler.repository.parameters[:coord])
     TerminalVis::Output.create_interpolation_output(meta_data)
+  elsif (parameter_handler.repository.parameters[:range])
+    TerminalVis::Output.create_range_output(meta_data)
+  elsif (parameter_handler.repository.parameters[:delta])
+    TerminalVis::Output.create_delta_output(meta_data)
   else
     TerminalVis::Output.create_output(meta_data)
   end

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-05 10:16:20
+# @Last Modified time: 2016-01-06 09:07:14
 
 # Output class for help text
 class HelpOutput
@@ -67,7 +67,7 @@ class HelpOutput
   def self.add_two_argument_help_entries
     add_dual_argument_text(:coord, ' -c, --coord    ', ' <x> <y>',
           '; interpolates the data for the given coordinate (x,y) ' \
-          'at default dataset index 0, excludes -e and -t')
+          'at default dataset index 0, excludes -e, -a, -r and -t')
     add_dual_argument_text(:delta, ' -d, --delta    ',
           ' <first_index> <second_index>',
           '; subtracts the first dataset from the second dataset and ' \
@@ -80,7 +80,7 @@ class HelpOutput
           ' <interval> <delta>', '; interpolates data for a given region, ' \
           'specified by a coordinate, an interval and stepwidth; result: ' \
           'interpolated values in (x+-interval, y+-interval) with stepwidth ' \
-          'delta, excludes -e, -t; requires -c')
+          'delta, excludes -a, -r and -t; requires -c')
     add_dual_argument_text(:time, ' -t, --time     ', ' <x> <y>',
           '; creates a timeline for the given coordinate (x,y), coordinates ' \
           'not laying on the data point will be interpolated, excludes -a,' \
