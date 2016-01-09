@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-13 16:50:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-05 10:14:13
+# @Last Modified time: 2016-01-09 10:11:12
 
 module DataOutput
 
@@ -23,7 +23,7 @@ module DataOutput
                                                           values[:delta])
 
       print_output_head(coordinates, values)
-      print_data(values[:lengend], @domain_x, @domain_y)
+      print_data(values[:legend], @domain_x, @domain_y)
     end
 
     private
