@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-07 17:47:01
+# @Last Modified time: 2016-01-09 10:25:16
 
 module TerminalVis
 
@@ -60,7 +60,7 @@ module TerminalVis
 
   # call to print version number and author
   def self.print_version
-    puts 'terminal_visualization version 0.7.2'
+    puts 'terminal_visualization version 0.8.0'
     puts 'Created by Benjamin Held (June 2015)'
     exit(0)
   end
