@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-05 10:13:16
+# @Last Modified time: 2016-01-12 09:34:31
 
 module TerminalVis
 
@@ -64,7 +64,7 @@ module TerminalVis
                                                    data[:second_data])
 
       options = get_output_options
-      DataOutput::DatasetOutput.print_delta(result, meta_data, data_indices,
+      DataOutput::DeltaOutput.print_delta(result, meta_data, data_indices,
                                             options)
     end
 
