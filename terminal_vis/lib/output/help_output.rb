@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-06 09:07:14
+# @Last Modified time: 2016-01-16 19:05:34
 
 # Output class for help text
 class HelpOutput
@@ -51,15 +51,15 @@ class HelpOutput
   def self.add_one_argument_help_entries
     add_single_argument_text(:all, ' -a, --all      ', ' <speed>',
           '; prints all specified datasets of a dataseries with a pause ' \
-          'between the output of every dataset defined by speed: 0 mean ' \
+          'between the output of every dataset defined by speed: 0 means ' \
           'manual, a value > 0 an animation speed in seconds, excludes -i,' \
           ' -d and -t')
     add_single_argument_text(:index, ' -i             ', ' <index>',
           '; shows the dataset at index, if index lies within ' \
-          '[1,2, ..., number of datasets], excludes -a, -d and -t')
+          '[1,2, ..., # datasets], excludes -a, -d and -t')
     add_single_argument_text(:option, ' -o, --options  ', ' <option>',
           '; enables options, the source depends on the argument: '\
-          'file=<filename> loads options from file, menu enables the '\
+          'file=<filename> loads options from <filename>, menu enables the '\
           'possibility to input the desired values')
   end
 
@@ -67,7 +67,7 @@ class HelpOutput
   def self.add_two_argument_help_entries
     add_dual_argument_text(:coord, ' -c, --coord    ', ' <x> <y>',
           '; interpolates the data for the given coordinate (x,y) ' \
-          'at default dataset index 0, excludes -e, -a, -r and -t')
+          'with default dataset index 0, excludes -e, -a, -r and -t')
     add_dual_argument_text(:delta, ' -d, --delta    ',
           ' <first_index> <second_index>',
           '; subtracts the first dataset from the second dataset and ' \
