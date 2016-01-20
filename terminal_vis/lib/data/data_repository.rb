@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-05 10:04:53
+# @Last Modified time: 2016-01-20 14:44:09
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -19,11 +19,10 @@ class DataRepository
   # @param [MetaData] key key for the data series
   def initialize(filename = nil,key = nil)
     @repository = Hash.new()
-    add_data(filename) if (key == nil && filename != nil)
+    add_data_with_default_meta(filename) if (key == nil && filename != nil)
     if (filename != nil && key != nil)
-      check_for_existenz(key)
-      read_file(filename)
-      @repository[key] = create_dataset()
+      data = read_file(filename)
+      @repository[key] = create_dataseries(data)
     end
   end
 
@@ -31,11 +30,10 @@ class DataRepository
   # @param [String] filename filepath
   # @return [MetaData] the meta data object for this data
   def add_data(filename)
-    @data = read_file(filename)
-    meta_data = check_for_metadata()
+    data = read_file(filename)
+    meta_data = check_for_metadata(data)
     check_for_existenz(meta_data)
-    @repository[meta_data] = create_dataset()
-    @data = nil
+    @repository[meta_data] = create_dataseries(data)
     return meta_data
   end
 
@@ -44,8 +42,8 @@ class DataRepository
   # @param [String] filename filepath
   # @return [MetaData] the meta data object for this data
   def add_data_with_default_meta(filename)
-    @data = read_file(filename)
-    data_series = create_dataset()
+    data = read_file(filename)
+    data_series = create_dataseries(data)
     meta_string = build_meta_string(data_series, filename)
 
     meta_data = MetaData::MetaData.new(meta_string)
@@ -111,17 +109,16 @@ class DataRepository
   end
 
   private
-  # @return [Array] the read data from a file
-  attr :data
 
-  # creates DataSets of the parsed data and stores it into a DataSeries
+  # creates {DataSet}s of the parsed data and stores it into a {DataSeries}
+  # @param [Array] data the read data
   # @return [DataSeries] the data series created by the data input
-  def create_dataset
+  def create_dataseries(data)
     raw_data = Array.new()
     value = DataSeries.new()
 
     # parse multiple data sets (but at least 1)
-    @data.each { |line|
+    data.each { |line|
       if (line.empty?)
         value.add_data_set(DataSet.new(raw_data))
         raw_data = Array.new()
@@ -160,11 +157,12 @@ class DataRepository
 
   # checks for meta data in the first line of the raw data and creates
   # meta information from it
+  # @param [Array] data the read data
   # @return [MetaData] the meta data for the data series
-  def check_for_metadata
-    meta_string = @data[0]
-    @data.delete_at(1)
-    @data.delete_at(0)
+  def check_for_metadata(data)
+    meta_string = data[0]
+    data.delete_at(1)
+    data.delete_at(0)
     MetaData::MetaData.new(meta_string)
   end
 
