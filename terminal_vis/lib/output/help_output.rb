@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-19 13:22:16
+# @Last Modified time: 2016-01-23 19:53:59
 
 require_relative '../graphics/string'
 
@@ -14,7 +14,7 @@ class HelpOutput
   def self.print_help_for(parameter)
     initialize_output if (@parameters == nil)
     if (@parameters[parameter])
-      puts 'TerminalVis help:'.yellow + "\n#{@parameters[parameter]}"
+      puts 'TerminalVis help:'.light_yellow + "\n#{@parameters[parameter]}"
     elsif (parameter)
       print_help
     else
@@ -37,15 +37,16 @@ class HelpOutput
 
   # method to specify and add the help entries with help text only
   def self.add_single_help_entries
-    add_simple_text(:help, ' -h, --help     show help text')
+    add_simple_text(:help, ' -h, --help     ', 'show help text')
     add_simple_text(:version,
-                    ' -v, --version  prints the current version of the project')
+                    ' -v, --version  ',
+                    'prints the current version of the project')
     add_simple_text(:extreme,
-                    ' -e, --extreme  marks the extreme values in a dataset ' \
-                    'with ++ for a maximum and -- for a minimum, also prints ' \
-                    'the coordinates of the extreme values below the legend, ' \
-                    'excludes -c')
-    add_simple_text(:meta, ' -m             process the file <filename> ' \
+                    ' -e, --extreme  ', 'marks the extreme values in a ' \
+                    'dataset with ++ for a maximum and -- for a minimum, ' \
+                    'also prints the coordinates of the extreme values below' \
+                    ' the legend, excludes -c')
+    add_simple_text(:meta, ' -m             ', 'process the file <filename> ' \
                     'containing meta data')
   end
 
@@ -92,8 +93,16 @@ class HelpOutput
   # method to add a (key, value) pair to the parameter hash
   # @param [Symbol] symbol the key
   # @param [String] text the value containing a formatted string
-  def self.add_simple_text(symbol, text)
+  def self.add_text(symbol, text)
     @parameters[symbol] = text
+  end
+
+  # method to add a (key, value) pair where the value contains the help text
+  # @param [Symbol] symbol the key
+  # @param [String] argument the string part containing the argument
+  # @param [String] text the string part containing the description text
+  def self.add_simple_text(symbol, argument, text)
+    add_text(symbol, argument.light_blue.concat(text))
   end
 
   # method to add a (key, value) pair where the value contains help text
@@ -103,7 +112,7 @@ class HelpOutput
   # @param [String] parameter the string part containing the required parameter
   # @param [String] text the string part containing the description text
   def self.add_single_argument_text(symbol, argument, parameter, text)
-    add_simple_text(symbol, build_entry(argument, 'argument:',
+    add_text(symbol, build_entry(argument.light_blue, 'argument:',
                                         parameter, text))
   end
 
@@ -115,7 +124,7 @@ class HelpOutput
   #   required parameters
   # @param [String] text the string part containing the description text
   def self.add_dual_argument_text(symbol, argument, parameters, text)
-    add_simple_text(symbol, build_entry(argument, 'arguments:',
+    add_text(symbol, build_entry(argument.light_blue, 'arguments:',
                                         parameters, text))
   end
 
@@ -135,7 +144,7 @@ class HelpOutput
     puts 'help usage :'.green + "              ruby <script> (-h | --help)"
     puts 'help usage for parameter:'.green +
        " ruby <script> <parameter> (-h | --help)"
-    puts "\nTerminalVis help:".yellow
+    puts "\nTerminalVis help:".light_yellow
 
     @parameters.each_value { |value|
       puts value
@@ -157,8 +166,8 @@ class HelpOutput
   # method to print the available configuration parameter
   def self.print_configuration_parameter
     puts "\nAvailable configuration parameter:".red
-    puts 'Timeline:'.yellow + ' number of interval steps in y-dimension [5,100]'
-    puts 'Color legend:'.yellow + ' extended informations about the intervals'
+    puts 'Timeline:'.blue + ' number of interval steps in y-dimension [5,100]'
+    puts 'Color legend:'.blue + ' extended informations about the intervals'
   end
 
 end
