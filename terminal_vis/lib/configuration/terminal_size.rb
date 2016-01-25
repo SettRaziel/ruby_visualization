@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-01-18 13:03:35
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-22 17:52:23
+# @Last Modified time: 2016-01-25 18:23:00
 
 module TerminalSize
 
@@ -31,8 +31,8 @@ module TerminalSize
       if (ENV['COLUMNS'] =~ /^\d+$/) && (ENV['LINES'] =~ /^\d+$/)
         [ENV['COLUMNS'].to_i, ENV['LINES'].to_i]
       # take informations from tput command
-      elsif ((RUBY_PLATFORM =~ /java/ || (!STDIN.tty? && ENV['TERM']))
-              && command_exists?('tput'))
+      elsif ((RUBY_PLATFORM =~ /java/ || (!STDIN.tty? && ENV['TERM'])) &&
+              command_exists?('tput'))
         [`tput cols`.to_i, `tput lines`.to_i]
       # take informations from stty command
       elsif STDIN.tty? && command_exists?('stty')
