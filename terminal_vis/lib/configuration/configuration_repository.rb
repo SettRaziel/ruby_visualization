@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-09 12:50:02
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-10-13 16:20:15
+# @Last Modified time: 2016-01-29 21:10:32
 
 # Repository storing available configuration parameters. If no parameters are
 # set from the user, the default values for the parameters are used.
@@ -33,6 +33,7 @@ class ConfigurationRepository
     @repository = Hash.new()
     @repository[:legend_extend] = false # interval output for color legend
     @repository[:y_time_size] = 20      # number of intervals in y for timeline
+    @repository[:auto_scale] = false    # scale visualization by terminal size
   end
 
   # method to overwrite the default values with the provided values
