@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-10 19:56:37
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-02 09:18:53
+# @Last Modified time: 2016-02-01 15:32:51
 
 require_relative '../data/file_reader'
 require_relative './configuration_repository'
@@ -55,6 +55,7 @@ class ConfigurationHandler
     @option_mapping = Hash.new()
     @option_mapping["legend_extend"]= :legend_extend
     @option_mapping["y_time_size"]= :y_time_size
+    @option_mapping["auto_scale"] = :auto_scale
   end
 
   # method to check the given filename and read the options when it is a valid
