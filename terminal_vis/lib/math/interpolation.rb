@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-23 09:19:25
+# @Last Modified time: 2016-02-03 18:10:28
 
 module TerminalVis
 
@@ -51,8 +51,8 @@ module TerminalVis
     # @param [Hash] values a hash containing all relevant values for the
     #   region interpolation
     def self.region_interpolation(meta_data, data_set, coordinates, values)
-      ri = RegionInterpolation.new(values[:inter], values[:delta],
-                                   values[:inter], values[:delta])
+      ri = RegionInterpolation.new(values[:inter], values[:delta_x],
+                                   values[:inter], values[:delta_y])
       ri.interpolate_region(coordinates[:x], coordinates[:y],
                                      meta_data, data_set)
     end
