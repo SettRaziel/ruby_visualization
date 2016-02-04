@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-02 07:32:20
+# @Last Modified time: 2016-02-04 15:31:59
 
 # This module holds the main singleton methods that are called from the script.
 # It also stores the data ans parameter repository so it can be called from
@@ -65,7 +65,7 @@ module TerminalVis
         if ( !coordinate_in_dataset(@meta_data.domain_x, x) ||
              !coordinate_in_dataset(@meta_data.domain_y, y))
           raise RangeError, " Error: coordinate (#{x}, #{y}) does not lie" \
-                     " in the data domain provided by meta_data."
+                     " in the data domain provided by meta_data.".red
         end
       end
 

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-01-18 13:03:35
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-25 18:23:00
+# @Last Modified time: 2016-02-04 15:20:50
 
 module TerminalSize
 
@@ -20,7 +20,7 @@ module TerminalSize
         @lines = values[1]
       else
         raise NoMethodError, ' Error: terminal size cannot be retrieved on' \
-                             ' this system'
+                             ' this system'.red
       end
     end
 
@@ -41,7 +41,7 @@ module TerminalSize
         nil
       end
     rescue Exception
-      puts ' Error: could not determine correct terminal size'
+      puts ' Error: could not determine correct terminal size'.red
       nil
     end
 

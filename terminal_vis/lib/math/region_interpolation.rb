@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-07 17:22:54
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-14 12:52:22
+# @Last Modified time: 2016-02-04 15:32:30
 
 module TerminalVis
 
@@ -89,7 +89,8 @@ module TerminalVis
       # @raise [ArgumentError] if one of the required parameter is <= 0
       def check_value(value)
         if (value <= 0)
-          raise ArgumentError, " Error in RegionInterpolation: #{value} <= 0."
+          raise ArgumentError,
+                " Error in RegionInterpolation: #{value} <= 0.".red
         end
       end
 

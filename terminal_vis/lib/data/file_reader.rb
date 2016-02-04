@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-30 21:00:25
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-05 10:05:28
+# @Last Modified time: 2016-02-04 15:26:11
 
 require 'csv'
 
@@ -19,7 +19,7 @@ class FileReader
     begin
       @data = CSV.read(filename, { :col_sep => delimiter })
     rescue Exception => e
-      raise IOError, e.message.concat('.')
+      raise IOError, e.message.concat('.').red
     end
   end
 

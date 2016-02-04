@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-05 10:13:51
+# @Last Modified time: 2016-02-04 15:34:31
 
 require_relative '../data/meta_data'
 require_relative '../data/data_series'
@@ -47,7 +47,7 @@ class RangeOutput
   def self.first_lesser_second?(indices)
     if (indices[:lower] >= indices[:upper])
       raise ArgumentError,
-        ' Error: First parameter of -r greater than the second'
+        ' Error: First parameter of -r greater than the second'.red
     end
     return true
   end
@@ -63,12 +63,12 @@ class RangeOutput
 
     if (indices[:lower] < 0)
       raise ArgumentError,
-        ' Error: First parameter of -r is lesser or equal 0'
+        ' Error: First parameter of -r is lesser or equal 0'.red
     end
 
     if (indices[:upper] >= size)
       raise ArgumentError,
-        ' Error: Second parameter of -r greater than size of data series'
+        ' Error: Second parameter of -r greater than size of data series'.red
     end
 
     return true
@@ -86,7 +86,7 @@ class RangeOutput
     if (animation_speed > 0)
       sleep(animation_speed)
     else
-      print 'press Enter to continue ...'
+      print 'press Enter to continue ...'.green
       # STDIN to read from console when providing parameters in ARGV
       STDIN.gets.chomp
     end

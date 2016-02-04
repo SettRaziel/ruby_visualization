@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-19 16:16:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-03 18:10:51
+# @Last Modified time: 2016-02-04 15:18:09
 
 module TerminalVis
 
@@ -111,7 +111,7 @@ module TerminalVis
     # @param [String] type a string containing the type for the error message
     def self.create_error_message(parameter, type)
       message = " Error: at least one argument of #{parameter}" \
-                " is not a valid #{type}"
+                " is not a valid #{type}".red
       TerminalVis::print_error(message)
     end
     private_class_method :create_error_message

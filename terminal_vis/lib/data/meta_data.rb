@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-20 14:20:26
+# @Last Modified time: 2016-02-04 15:26:33
 
 module MetaData
 
@@ -43,7 +43,7 @@ module MetaData
     def check_element_size(size)
       if !(size == 13 || size == 9)
         raise IndexError, "Error in meta data: incorrect number of" \
-                  " arguments: #{size}."
+                  " arguments: #{size}.".red
       end
     end
 

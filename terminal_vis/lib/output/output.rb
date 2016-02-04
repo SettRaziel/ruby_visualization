@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-12 09:34:31
+# @Last Modified time: 2016-02-04 15:15:57
 
 module TerminalVis
 
@@ -45,7 +45,7 @@ module TerminalVis
           if (animation_speed > 0)
             sleep(animation_speed)
           else
-            print 'press Enter to continue ...'
+            print 'press Enter to continue ...'.green
             # STDIN to read from console when providing parameters in ARGV
             STDIN.gets.chomp
           end
@@ -161,7 +161,7 @@ module TerminalVis
     # @param [MetaData] meta_data the corresponding meta data
     def self.check_data_range(data_indices, meta_data)
       if (data_indices[:first] < 0)
-        raise IndexError, ' Error: first index of -d is less than 1'
+        raise IndexError, ' Error: first index of -d is less than 1'.red
       end
     end
 
@@ -175,7 +175,8 @@ module TerminalVis
     def self.get_and_check_data(index, meta_data)
       data = TerminalVis.data_repo.repository[meta_data].series[index]
       if (data == nil)
-        raise IndexError, ' Error: argument #{index} from -d is out of bounds'
+        raise IndexError,
+              " Error: argument #{index + 1} from -d is out of bounds".red
       end
       return data
     end

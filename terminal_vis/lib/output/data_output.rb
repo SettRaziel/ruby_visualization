@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-12 09:35:00
+# @Last Modified time: 2016-02-04 15:33:27
 
 require_relative '../data/data_set'
 require_relative '../data/data_series'
@@ -134,7 +134,7 @@ module DataOutput
     def print_meta_information
       fail NotImplementedError, " Error: the subclass #{self.class} " \
         "needs to implement the method: print_meta_information " \
-        "from its base class"
+        "from its base class".red
     end
 
   end

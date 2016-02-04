@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-09 10:25:16
+# @Last Modified time: 2016-02-04 15:31:35
 
 module TerminalVis
 
@@ -40,7 +40,7 @@ module TerminalVis
                        @parameter_handler.repository.parameters[:file])
       end
     rescue Exception => e
-      print_error(' Error while creating metadata: '.concat(e.message))
+      print_error(" Error while creating metadata:\n ".concat(e.message))
     end
   end
 
@@ -68,8 +68,8 @@ module TerminalVis
   # call for standard error output
   # @param [String] message message string with error message
   def self.print_error(message)
-    STDERR.puts "#{message}"
-    STDERR.puts 'For help type: ruby <script> --help'
+    STDERR.puts "#{message}".red
+    STDERR.puts 'For help type: ruby <script> --help'.green
     exit(0)
   end
 
@@ -84,8 +84,8 @@ module TerminalVis
       begin   # make sure that parameter of -i is an integer
         index = Integer(@parameter_handler.repository.parameters[:index]) - 1
       rescue ArgumentError
-        message = " Error: argument of -i is not a number:" \
-                  "#{@parameter_handler.repository.parameters[:index]}"
+        message = " Error: argument of -i is not a number: " \
+                  "#{@parameter_handler.repository.parameters[:index]}".red
         print_error(message)
       end
 
@@ -105,7 +105,7 @@ module TerminalVis
       text_index = @parameter_handler.repository.parameters[:index]
       data_size = @data_repo.repository[meta_data].series.size
       message = " Error: input #{text_index} for -i is not valid" \
-                " for dataset with length #{data_size}"
+                " for dataset with length #{data_size}".red
       print_error(message)
     end
   end

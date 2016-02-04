@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-21 15:11:07
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-28 17:25:03
+# @Last Modified time: 2016-02-04 15:20:28
 
 require_relative '../main/main_module'
 
@@ -39,7 +39,7 @@ class ConfigurationMenu
       when 3 then return save_to_file(get_entry('Save destination: '))
       when 4 then return false
     else
-      puts ' Error: Input is not valid.'
+      puts ' Error: Input is not valid.'.red
       return true
     end
   end
@@ -54,7 +54,7 @@ class ConfigurationMenu
     when 1 then TerminalVis::option_handler.options.
                              change_option(:legend_extend, true)
     else
-      puts ' Error: Input is not valid.'
+      puts ' Error: Input is not valid.'.red
     end
     return true
   end
@@ -74,7 +74,7 @@ class ConfigurationMenu
   def self.check_dimension_value(input)
     if (input <= 0 || input > 100)
       raise ArgumentError,
-            " Error: y_dim value #{input} runs out of bound [1,100]"
+            " Error: y_dim value #{input} runs out of bound [1,100]".red
     end
   end
 
