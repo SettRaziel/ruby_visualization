@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-21 15:11:07
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:20:28
+# @Last Modified time: 2016-02-06 11:39:28
 
 require_relative '../main/main_module'
 
@@ -63,8 +63,12 @@ class ConfigurationMenu
   # @param [Integer] input the provided parameter
   # @return [boolean] true if the parameter was processed correctly
   def self.process_ydim_input(input)
-    check_dimension_value(input)
-    TerminalVis::option_handler.options.change_option(:y_time_size, input)
+    begin
+      check_dimension_value(input)
+      TerminalVis::option_handler.options.change_option(:y_time_size, input)
+    rescue ArgumentError => e
+      puts e.message
+    end
     return true
   end
 
@@ -82,8 +86,12 @@ class ConfigurationMenu
   # @param [String] filename the filename of the output file
   # @return [boolean] true if the options were saved correctly
   def self.save_to_file(filename)
-    TerminalVis::option_handler.save_options(filename)
-    puts "Saved options to #{filename}"
+    begin
+      TerminalVis::option_handler.save_options(filename)
+      puts "Saved options to #{filename}".green
+    rescue Exception => e
+      puts ' Error while saving options: '.concat(e.message).red
+    end
     return true
   end
 
@@ -91,7 +99,7 @@ class ConfigurationMenu
   # @param [String] message prompt message
   # @return [String] the provided input
   def self.get_entry(message)
-    print message
+    print message.blue.bright
     gets.chomp
   end
 
