@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-20 14:44:09
+# @Last Modified time: 2016-02-08 17:00:33
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -77,9 +77,9 @@ class DataRepository
       if (number_value_x != number_data_x ||
         number_value_y != number_data_y)
         puts " Warning: Size of dataset #{index + 1} does not match " \
-             "with meta data information."
-        puts "   meta_data: #{number_value_x}, #{number_value_y}"
-        puts "   data_set: #{number_data_x}, #{number_data_y}"
+             "with meta data information.".yellow
+        puts "   meta_data: #{number_value_x}, #{number_value_y}".yellow
+        puts "   data_set: #{number_data_x}, #{number_data_y}".yellow
         return false
       end
     }
@@ -99,9 +99,9 @@ class DataRepository
 
     if (number_value_z != number_data_z)
       puts ' Warning: Size of dataseries does not match with' \
-         ' meta data information.'
+         ' meta data information.'.yellow
       puts "   meta_data: #{number_value_z} datasets to data_series: " \
-         "#{number_data_z} datasets"
+         "#{number_data_z} datasets".yellow
       return false
     end
 

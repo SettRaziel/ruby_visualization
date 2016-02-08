@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:33:27
+# @Last Modified time: 2016-02-08 17:08:09
 
 require_relative '../data/data_set'
 require_relative '../data/data_series'
@@ -63,9 +63,9 @@ module DataOutput
     def self.print_extreme_information(extreme_coordinates)
       puts 'Dataset extreme values:'
         print_extreme_values_for(extreme_coordinates[:maximum],
-                           'Maximum', @data_set.max_value)
+                           'Maximum (++):', @data_set.max_value)
         print_extreme_values_for(extreme_coordinates[:minimum],
-                           'Minimum', @data_set.min_value)
+                           'Minimum (--):', @data_set.min_value)
     end
 
     # prints all the coordinates of the given extreme value
