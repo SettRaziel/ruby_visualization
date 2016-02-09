@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-11 11:16:06
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:21:12
+# @Last Modified time: 2016-02-09 16:23:01
 
 # {MetaData::MetaData} stores meta information about the data series. The
 # meta information can be used for two or three dimensional data series. Each
@@ -63,7 +63,8 @@ module MetaData
       coordinate = lower + index * step
       if (coordinate < lower || coordinate > upper)
         raise RangeError,
-        " Error: #{index} creates a coordinate that lies out of range".red
+        " Error: #{index} creates coordinate #{coordinate} that lies " \
+        "out of range".red
       end
       return coordinate
     end
