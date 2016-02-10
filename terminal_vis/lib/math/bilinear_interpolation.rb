@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:31:59
+# @Last Modified time: 2016-02-10 15:44:04
 
 # This module holds the main singleton methods that are called from the script.
 # It also stores the data ans parameter repository so it can be called from
@@ -88,6 +88,7 @@ module TerminalVis
       # @param [Float] y y-coordinate of the interpolation point
       # @return [Float] the interpolated data value for (x,y)
       def self.apply_bilinear_interpolation(x, y)
+        return boundary_case(x,y) if check_for_upper_boundary(x, y)
         boundary = calculate_boundary_datapoints(x, y)
 
         # interpolate
@@ -114,13 +115,31 @@ module TerminalVis
       # @return [DataPoint] corresponding data point
       def self.create_data_point(delta_x, delta_y, x, y)
         indices = get_data_indices(x, y) # with [x_index, y_index]
-        x_coordinate = @meta_data.domain_x.get_coordinate_to_index(indices[:x])+
-                       delta_x * @meta_data.domain_x.step
-        y_coordinate = @meta_data.domain_y.get_coordinate_to_index(indices[:y])+
-                       delta_y * @meta_data.domain_y.step
-        data = @data_set.data[indices[:y] + delta_y][indices[:x] + delta_x]
+        coordinates = determine_coordinates(indices, delta_x, delta_y)
+        begin
+          data = @data_set.data[indices[:y] + delta_y][indices[:x] + delta_x]
+          DataPoint.new(coordinates[:x], coordinates[:y], data)
+        rescue Exception => e
+          DataPoint.new(coordinates[:x], coordinates[:y], nil)
+        end
+      end
 
-        DataPoint.new(x_coordinate, y_coordinate, data)
+      # singleton method to calculate the required coordinates for the
+      # requested data
+      # @param [Hash] indices the indices corresponding to the coordinates
+      # @param [Integer] delta_x delta value in x for the grid with values
+      #  in the interval of 0 to 1
+      # @param [Integer] delta_y delta value in y for the grid with values
+      #  in the interval of 0 to 1
+      def self.determine_coordinates(indices, delta_x, delta_y)
+        coordinates = Hash.new()
+        coordinates[:x] = (@meta_data.domain_x.
+                          get_coordinate_to_index(indices[:x])+ delta_x *
+                          @meta_data.domain_x.step).round(3)
+        coordinates[:y] = (@meta_data.domain_y.
+                          get_coordinate_to_index(indices[:y])+ delta_y *
+                          @meta_data.domain_y.step).round(3)
+        return coordinates
       end
 
       # singleton method to check if the provided coordinate lies within
@@ -165,6 +184,61 @@ module TerminalVis
       # @return [Float] the result of the product of the variables
       def self.calculate_interpolation_result(r, s, value)
         r * s * value
+      end
+
+      # singleton method to check if the provided coordinates lie on one of the
+      # upper dimension boundaries
+      # @param [Float] x x-coordinate of the interpolation point
+      # @param [Float] y y-coordinate of the interpolation point
+      # @return [Boolean] true: if upper boundary, false: if not
+      def self.check_for_upper_boundary(x, y)
+        return (x == @meta_data.domain_x.upper ||
+                y == @meta_data.domain_y.upper)
+      end
+
+      # singleton method to apply the interpolation on a boundary case
+      # @param [Float] x x-coordinate of the interpolation point
+      # @param [Float] y y-coordinate of the interpolation point
+      # @return [Float] the interpolated value
+      def self.boundary_case(x, y)
+        if (x == @meta_data.domain_x.upper && y == @meta_data.domain_y.upper)
+          return get_upper_boundary(x,y)
+        elsif (x == @meta_data.domain_x.upper)
+          return vertical_linear_interpolation(x, y)
+        end
+
+        return horizontal_linear_interpolation(x, y)
+      end
+
+      # singleton method to serve the case that a boundary point os requested
+      # @param [Float] x x-coordinate of the interpolation point
+      # @param [Float] y y-coordinate of the interpolation point
+      # @return [Float] the interpolated value
+      def self.get_upper_boundary(x,y)
+        indices = get_data_indices(x, y)
+        @data_set.data[indices[:y]][indices[:x]]
+      end
+
+      # singleton method to apply the linear interpolation on a boundary case
+      # in x-dimension
+      # @param [Float] x x-coordinate of the interpolation point
+      # @param [Float] y y-coordinate of the interpolation point
+      # @return [Float] the interpolated value
+      def self.vertical_linear_interpolation(x,y)
+        lower = create_data_point(0, 0, x, y)
+        upper = create_data_point(0, 1, x, y)
+        return LinearInterpolation.linear_interpolation(lower, upper, x, y)
+      end
+
+      # singleton method to apply the linear interpolation on a boundary case
+      # in y-dimension
+      # @param [Float] x x-coordinate of the interpolation point
+      # @param [Float] y y-coordinate of the interpolation point
+      # @return [Float] the interpolated value
+      def self.horizontal_linear_interpolation(x,y)
+        lower = create_data_point(0, 0, x, y)
+        upper = create_data_point(1, 0, x, y)
+        return LinearInterpolation.linear_interpolation(lower, upper, x, y)
       end
 
     end

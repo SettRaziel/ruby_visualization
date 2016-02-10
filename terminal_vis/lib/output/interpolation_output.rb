@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-11 16:01:35
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-11-17 13:20:21
+# @Last Modified time: 2016-02-10 15:30:31
 
 require_relative '../graphics/color_legend'
 require_relative '../math/interpolation'
@@ -74,7 +74,11 @@ class InterpolationOutput
   # @param [Float] value a data value or an interpolation value
   # @return [String] the colored string for the given value
   def self.create_colored_substrings(value)
-    @color_legend.create_output_string_for(value, '  ')
+    if (value != nil)
+      @color_legend.create_output_string_for(value, '  ')
+    else
+      print '  '
+    end
   end
 
 end

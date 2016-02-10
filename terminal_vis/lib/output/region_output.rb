@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-13 16:50:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-03 18:11:12
+# @Last Modified time: 2016-02-09 17:06:34
 
 module DataOutput
 
@@ -42,7 +42,7 @@ module DataOutput
     # @return [DataDomain] the domain object based on the input parameter
     def self.create_data_domain(label, coordinate, interval, delta)
       lower = (coordinate - interval).round(3)
-      upper = (coordinate + interval + delta).round(3)
+      upper = (coordinate + interval).round(3)
 
       MetaData::DataDomain.new(label, lower, upper, delta)
     end
