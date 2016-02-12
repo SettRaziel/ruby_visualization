@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-08 17:08:09
+# @Last Modified time: 2016-02-12 11:35:23
 
 require_relative '../data/data_set'
 require_relative '../data/data_series'
@@ -131,10 +131,10 @@ module DataOutput
 
     # @abstract subclasses need to implement this method
     # @raise [NotImplementedError] if the subclass does not have this method
-    def print_meta_information
-      fail NotImplementedError, " Error: the subclass #{self.class} " \
-        "needs to implement the method: print_meta_information " \
-        "from its base class".red
+    def self.print_meta_information
+      fail NotImplementedError, " Error: the subclass #{self.class} needs " \
+           "to implement the method: print_meta_information " \
+           "from its base class".red
     end
 
   end
