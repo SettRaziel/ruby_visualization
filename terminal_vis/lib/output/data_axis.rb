@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-12 09:52:39
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-15 14:34:42
+# @Last Modified time: 2016-02-13 10:59:20
 
 require_relative '../data/data_domain'
 
@@ -17,7 +17,7 @@ class DataAxis
     print_x_axis_init(domain_x, domain_y)
     index = 5
     while ((x_value_lenght / 2 + index) <= domain_x.number_of_values)
-      extend_x_axis_output(10 - x_value_lenght, index, domain_x)
+      extend_x_axis_output(index, domain_x)
       index += 5
     end
   end
@@ -30,28 +30,32 @@ class DataAxis
 
     output = determine_y_axis_init(domain, key)
     (max_length - output.length).times { output.concat(' ') }
+    @max_y_indentation = output.length if (@max_y_indentation < output.length)
     print output
   end
 
   private
+  # attribute to store the maximal needed indentation for the y scale
+  @max_y_indentation = 0
 
   # singleton method to print the initial string of the x axis description
   # @param [DataDomain] domain_x the data domain used for the x-axis values
   # @param [DataDomain] domain_y the data domain used for the y-axis values
   def self.print_x_axis_init(domain_x, domain_y)
-    y_offset = determine_maximal_domainvalue_length(domain_y)
-    extend_x_axis_output(y_offset, 0, domain_x)
+    (@max_y_indentation).times { print ' '}
+    value_lenght = "#{domain_x.get_coordinate_to_index(0).round(3)}".length
+    print ("%#{value_lenght}s") % "#{domain_x.get_coordinate_to_index(0).
+                                            round(3)}"
   end
 
   # method to print the empty gap between two values of the x-axis and the
   # following value
-  # @param [Integer] length the space between two entries
   # @param [Integer] index the index of the data coordinate which should be
   #   printed
   # @param [DataDomain] domain the data domain of the x-axis
-  def self.extend_x_axis_output(length, index, domain)
-    length.times { print ' ' }
-    value_lenght = determine_maximal_domainvalue_length(domain)
+  def self.extend_x_axis_output(index, domain)
+    value_lenght = "#{domain.get_coordinate_to_index(index).round(3)}".length
+    (10 - value_lenght).times { print ' ' }
     print ("%#{value_lenght}s") % "#{domain.get_coordinate_to_index(index).
                                             round(3)}"
   end
@@ -60,11 +64,10 @@ class DataAxis
   # @param [DataDomain] domain the considered domain
   # @return [Integer] the maximal lenght of a string in this domain
   def self.determine_maximal_domainvalue_length(domain)
-    lower_length = "#{domain.lower}".length
-    upper_length = "#{domain.upper}".length
-
-    return lower_length if (lower_length >= upper_length)
-    return upper_length
+    sizes = [ "#{(domain.lower + domain.step).round(3)}".length,
+              "#{(domain.upper + domain.step).round(3)}".length,
+              "#{domain.lower}".length, "#{domain.upper}".length]
+    return sizes.sort.last
   end
 
   # method to determine if the coordinate of the current y value should be
