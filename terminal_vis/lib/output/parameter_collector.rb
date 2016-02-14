@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-19 16:16:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:18:09
+# @Last Modified time: 2016-02-11 12:44:05
 
 module TerminalVis
 
@@ -49,8 +49,8 @@ module TerminalVis
     # @return [Hash] the values to determine the interpolation region
     def self.determine_region_parameters
       parameters = retrieve_parameters(:inter, :delta, :section, 'Float')
-      { :inter => parameters[:inter], :delta_x => parameters[:delta],
-        :delta_y => parameters[:delta]}
+      { :inter_x => parameters[:inter], :delta_x => parameters[:delta],
+        :inter_y => parameters[:inter], :delta_y => parameters[:delta]}
     end
 
     # method to retrive the parameters for the given type

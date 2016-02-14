@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-13 16:50:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-09 17:06:34
+# @Last Modified time: 2016-02-13 13:30:41
 
 module DataOutput
 
@@ -17,9 +17,9 @@ module DataOutput
     def self.region_output(data, coordinates, values)
       set_attributes(data, values[:extreme_values])
       @legend = ColorLegend::ColorData.new(data.min_value, data.max_value)
-      @domain_x = create_data_domain('X', coordinates[:x], values[:inter],
+      @domain_x = create_data_domain('X', coordinates[:x], values[:inter_x],
                                                           values[:delta_x])
-      @domain_y = create_data_domain('Y', coordinates[:y], values[:inter],
+      @domain_y = create_data_domain('Y', coordinates[:y], values[:inter_y],
                                                           values[:delta_y])
 
       print_output_head(coordinates, values)
@@ -34,7 +34,7 @@ module DataOutput
 
     # method to create the special data domains for the x- and y-dimension
     # @param [String] label the name of the domain
-    # @param [Float] coordinates the coordinate of the region center in the
+    # @param [Float] coordinate the coordinate of the region center in the
     #   required dimension
     # @param [Float] interval the value to specify the value set in the
     #   considered dimension
