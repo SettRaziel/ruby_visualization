@@ -97,6 +97,12 @@ configuration option through the menu:
 ruby terminal_vis -m -i <index> -o menu <filename>
 ```
 
+Running the script to visualize a specific region of a dataset from
+`<filename>`:
+```
+ruby terminal_vis -m -i <index> -c <x> <y> -s <interval> <delta> <filename>
+```
+
 ### Documentation
 Documentation is written in yard and can be created by running the shell-script
 `create_yard.sh`. Yard needs to be installed on the system in order to do that.
