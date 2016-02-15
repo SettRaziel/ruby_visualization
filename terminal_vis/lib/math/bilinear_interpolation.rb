@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-15 14:10:57
+# @Last Modified time: 2016-02-15 14:29:35
 
 # This module holds the main singleton methods that are called from the script.
 # It also stores the data ans parameter repository so it can be called from
@@ -203,11 +203,24 @@ module TerminalVis
       def self.boundary_case(x, y)
         if (x == @meta_data.domain_x.upper && y == @meta_data.domain_y.upper)
           return get_upper_boundary(x,y)
-        elsif (x == @meta_data.domain_x.upper)
-          return vertical_linear_interpolation(x, y)
         end
 
-        return horizontal_linear_interpolation(x, y)
+        return LinearInterpolation.
+               linear_interpolation(create_data_point(0, 0, x, y),
+                      create_upper_data_point(@meta_data.domain_x, x, y), x, y)
+      end
+
+      # method to create the upper data point based on the given boundary
+      # @param [DataDomain] domain the domain in x dimension
+      # @param [Float] x x-coordinate of the interpolation point
+      # @param [Float] y y-coordinate of the interpolation point
+      # @return [DataPoint] the generated data point
+      def self.create_upper_data_point(domain, x, y)
+        if (x == domain.upper)
+          create_data_point(0, 1, x, y) # vertical case
+        else
+          create_data_point(1, 0, x, y) # horizontal case
+        end
       end
 
       # singleton method to serve the case that a boundary point os requested
@@ -217,28 +230,6 @@ module TerminalVis
       def self.get_upper_boundary(x,y)
         indices = get_data_indices(x, y)
         @data_set.data[indices[:y]][indices[:x]]
-      end
-
-      # singleton method to apply the linear interpolation on a boundary case
-      # in x-dimension
-      # @param [Float] x x-coordinate of the interpolation point
-      # @param [Float] y y-coordinate of the interpolation point
-      # @return [Float] the interpolated value
-      def self.vertical_linear_interpolation(x,y)
-        return LinearInterpolation.
-               linear_interpolation(create_data_point(0, 0, x, y),
-                                    create_data_point(0, 1, x, y), x, y)
-      end
-
-      # singleton method to apply the linear interpolation on a boundary case
-      # in y-dimension
-      # @param [Float] x x-coordinate of the interpolation point
-      # @param [Float] y y-coordinate of the interpolation point
-      # @return [Float] the interpolated value
-      def self.horizontal_linear_interpolation(x,y)
-        return LinearInterpolation.
-               linear_interpolation(create_data_point(0, 0, x, y),
-                                    create_data_point(1, 0, x, y), x, y)
       end
 
     end
