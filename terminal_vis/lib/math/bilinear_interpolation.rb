@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-10 15:44:04
+# @Last Modified time: 2016-02-15 14:10:57
 
 # This module holds the main singleton methods that are called from the script.
 # It also stores the data ans parameter repository so it can be called from
@@ -225,9 +225,9 @@ module TerminalVis
       # @param [Float] y y-coordinate of the interpolation point
       # @return [Float] the interpolated value
       def self.vertical_linear_interpolation(x,y)
-        lower = create_data_point(0, 0, x, y)
-        upper = create_data_point(0, 1, x, y)
-        return LinearInterpolation.linear_interpolation(lower, upper, x, y)
+        return LinearInterpolation.
+               linear_interpolation(create_data_point(0, 0, x, y),
+                                    create_data_point(0, 1, x, y), x, y)
       end
 
       # singleton method to apply the linear interpolation on a boundary case
@@ -236,9 +236,9 @@ module TerminalVis
       # @param [Float] y y-coordinate of the interpolation point
       # @return [Float] the interpolated value
       def self.horizontal_linear_interpolation(x,y)
-        lower = create_data_point(0, 0, x, y)
-        upper = create_data_point(1, 0, x, y)
-        return LinearInterpolation.linear_interpolation(lower, upper, x, y)
+        return LinearInterpolation.
+               linear_interpolation(create_data_point(0, 0, x, y),
+                                    create_data_point(1, 0, x, y), x, y)
       end
 
     end
