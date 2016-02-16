@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-07 17:22:54
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:32:30
+# @Last Modified time: 2016-02-16 17:21:40
 
 module TerminalVis
 
@@ -59,12 +59,12 @@ module TerminalVis
       # @return [Float] the half portion of the x-dimension that should be
       #   interpolated
       attr :interval_x
-      # @param [Float] the step size in x between to interpolation points
+      # @return [Float] the step size in x between to interpolation points
       attr :delta_x
       # @return [Float] the half portion of the y-dimension that should be
       #   interpolated
       attr :interval_y
-      # @param [Float] the step size in y between to interpolation points
+      # @return [Float] the step size in y between to interpolation points
       attr :delta_y
 
       # method to create the interpolated values for a given y value
