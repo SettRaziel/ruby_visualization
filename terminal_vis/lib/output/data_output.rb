@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-12 11:35:23
+# @Last Modified time: 2016-02-19 14:16:36
 
 require_relative '../data/data_set'
 require_relative '../data/data_series'
@@ -144,3 +144,4 @@ end
 require_relative 'dataset_output'
 require_relative 'delta_output'
 require_relative 'region_output'
+require_relative 'scaled_output'
