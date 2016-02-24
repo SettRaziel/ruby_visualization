@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:15:57
+# @Last Modified time: 2016-02-24 16:31:24
 
 module TerminalVis
 
@@ -122,10 +122,16 @@ module TerminalVis
     #  be visualized
     # @param [Integer] index the index of the dataset which should be visualized
     def self.create_single_output_at_index(meta_data, index)
+      is_scaled = TerminalVis::option_handler.options.repository[:auto_scale]
       options = get_output_options
-      DataOutput::DatasetOutput.print_dataset(
-                  TerminalVis.data_repo.repository[meta_data], index,
-                  meta_data, options)
+      options[:index] = index
+      data_series = TerminalVis.data_repo.repository[meta_data]
+      if (!is_scaled)
+        DataOutput::DatasetOutput.print_dataset(data_series, meta_data, options)
+      else
+        DataOutput::ScaledOutput.print_dataset(data_series.series[index],
+                                               meta_data, options)
+      end
     end
     private_class_method :create_single_output_at_index
 

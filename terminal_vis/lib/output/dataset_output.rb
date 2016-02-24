@@ -1,26 +1,26 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-31 14:02:17
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-12 09:45:08
+# @Last Modified time: 2016-02-24 16:30:35
 
 module DataOutput
 
-  # Simple data output for the terminal visualization
+  # Simple data output for the terminal visualization and a dataset
   class DatasetOutput < Base
 
     # method to visualize the dataset at the index
     # @param [DataSeries] data_series the data series which should be visualized
-    # @param [Integer] index the index of the desired data set
     # @param [MetaData] meta_data the corresponding meta data
     # @param [Hash] options hash with the boolean values for extreme values and
     #   extended legend output
-    def self.print_dataset(data_series, index, meta_data, options)
+    def self.print_dataset(data_series, meta_data, options)
       @meta_data = meta_data
-      set_attributes(data_series.series[index], options[:extreme_values])
+      set_attributes(data_series.series[options[:index]],
+                     options[:extreme_values])
       @legend = ColorLegend::ColorData.
                              new(data_series.min_value, data_series.max_value)
 
-      print_output_head(index)
+      print_output_head(options[:index])
       print_data(options[:legend], @meta_data.domain_x, @meta_data.domain_y)
     end
 
@@ -32,9 +32,8 @@ module DataOutput
     # of the z dimension
     # @param [Integer] index the number of the dataset
     def self.print_output_head(index)
-      z_delta = index * @meta_data.domain_z.step
       puts "\nPrinting dataset for %.2f" %
-            (@meta_data.domain_z.lower + z_delta)
+            (@meta_data.domain_z.lower + (index * @meta_data.domain_z.step))
       puts "\n"
     end
 
