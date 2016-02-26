@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-21 15:11:07
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-06 11:39:28
+# @Last Modified time: 2016-02-26 21:04:46
 
 require_relative '../main/main_module'
 
@@ -20,8 +20,9 @@ class ConfigurationMenu
       puts 'Configuration Menu. Select parameter:'.light_yellow
       puts '(1) Extended data legend.'
       puts '(2) Determine y-resolution for timeline.'
-      puts '(3) Save parameters to file.'
-      puts '(4) Exit.'
+      puts '(3) Use scaled output.'
+      puts '(4) Save parameters to file.'
+      puts '(5) Exit.'
       is_running = process_input(get_entry('Input (1-4): '.blue.bright).to_i)
     end
   end
@@ -36,8 +37,10 @@ class ConfigurationMenu
       when 1 then return process_legend_input(
                          get_entry('Input value (0: false, 1:true) : ').to_i)
       when 2 then return process_ydim_input(get_entry('Input value: ').to_i)
-      when 3 then return save_to_file(get_entry('Save destination: '))
-      when 4 then return false
+      when 3 then return process_scale_input(
+                         get_entry('Input value (0: false, 1:true) : ').to_i)
+      when 4 then return save_to_file(get_entry('Save destination: '))
+      when 5 then return false
     else
       puts ' Error: Input is not valid.'.red
       return true
@@ -48,15 +51,7 @@ class ConfigurationMenu
   # @param [Integer] input the provided parameter
   # @return [boolean] true if the parameter was processed correctly
   def self.process_legend_input(input)
-    case input
-    when 0 then TerminalVis::option_handler.options.
-                             change_option(:legend_extend, false)
-    when 1 then TerminalVis::option_handler.options.
-                             change_option(:legend_extend, true)
-    else
-      puts ' Error: Input is not valid.'.red
-    end
-    return true
+    process_boolean_input(input, :legend_extend)
   end
 
   # method to process the parameter for the y dimension option
@@ -80,6 +75,22 @@ class ConfigurationMenu
       raise ArgumentError,
             " Error: y_dim value #{input} runs out of bound [1,100]".red
     end
+  end
+
+  def self.process_scale_input(input)
+    process_boolean_input(input, :auto_scale)
+  end
+
+  def self.process_boolean_input(input, symbol)
+    case input
+    when 0 then TerminalVis::option_handler.options.
+                             change_option(symbol, false)
+    when 1 then TerminalVis::option_handler.options.
+                             change_option(symbol, true)
+    else
+      puts ' Error: Input is not valid.'.red
+    end
+    return true
   end
 
   # method to save the currently defined options to a file
