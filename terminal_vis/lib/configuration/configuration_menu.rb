@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-21 15:11:07
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-26 21:04:46
+# @Last Modified time: 2016-02-29 19:33:14
 
 require_relative '../main/main_module'
 
@@ -77,10 +77,17 @@ class ConfigurationMenu
     end
   end
 
+  # method to obtain the input for the scale option
+  # @param [Integer] input the provided input
+  # @return [Boolean] true to mark the successful handling of the input
   def self.process_scale_input(input)
     process_boolean_input(input, :auto_scale)
   end
 
+  # method to precess the input for a boolean parameter
+  # @param [Integer] input the provided input
+  # @param [Symbol] symbol the hash key for the options menu
+  # @return [Boolean] true to mark the successful handling of the input
   def self.process_boolean_input(input, symbol)
     case input
     when 0 then TerminalVis::option_handler.options.
