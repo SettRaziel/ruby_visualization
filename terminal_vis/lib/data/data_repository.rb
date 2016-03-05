@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-08 17:00:33
+# @Last Modified time: 2016-03-05 12:43:22
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -66,25 +66,55 @@ class DataRepository
   # @return [boolean] true, if the dimension of every dataset is consistent
   #   with the meta information; false, if not
   def dataset_dimension_correct?(meta_data)
-    data_series = @repository[meta_data]
-    number_value_x = meta_data.domain_x.number_of_values
-    number_value_y = meta_data.domain_y.number_of_values
+    domain_values = get_domain_values(meta_data)
 
-    data_series.series.each_with_index { |data_set, index|
-      number_data_x = data_set.data[0].size
-      number_data_y = data_set.data.size
+    @repository[meta_data].series.each_with_index { |data_set, index|
+      data_values = get_data_values(data_set)
 
-      if (number_value_x != number_data_x ||
-        number_value_y != number_data_y)
-        puts " Warning: Size of dataset #{index + 1} does not match " \
-             "with meta data information.".yellow
-        puts "   meta_data: #{number_value_x}, #{number_value_y}".yellow
-        puts "   data_set: #{number_data_x}, #{number_data_y}".yellow
+      if (domain_values[:x] != data_values[:x] ||
+          domain_values[:y] != data_values[:y])
+        print_domain_mismatch(index, domain_values, data_values)
         return false
       end
     }
 
     return true
+  end
+
+  # method to retrieve the number of data values in the x and y dimension based
+  # on the meta data information
+  # @param [MetaData] meta_data the meta data whose values should be used
+  # @return [Hash] a hash containing the number of data values in x and y
+  def get_domain_values(meta_data)
+    domain_values = Hash.new()
+    domain_values[:x] = meta_data.domain_x.number_of_values
+    domain_values[:y] = meta_data.domain_y.number_of_values
+    return domain_values
+  end
+
+  # method to retireve the number of data values in the x and y dimension based
+  # on the size of the {DataSet}
+  # @param [DataSet] data_set the dataset that should be checked
+  # @return [Hash] a hash containing the number of data values in x and y
+  def get_data_values(data_set)
+    data_values = Hash.new()
+    data_values[:x] = data_set.data[0].size
+    data_values[:y] = data_set.data.size
+    return data_values
+  end
+
+  # method to print a warning if the dimension of the meta data does not fit
+  # with the dimension of the actual dataset
+  # @param [Integer] index the index of the dataset in the given data series
+  # @param [Hash] domain_values a hash containing the number of data values in
+  #   x and y based on the meta data
+  # @param [Hash] data_values a hash containing the number of data values in
+  #   x and y based on the dataset
+  def print_domain_mismatch(index, domain_values, data_values)
+    puts " Warning: Size of dataset #{index + 1} does not match " \
+         "with meta data information.".yellow
+    puts "   meta_data: #{domain_values[:x]}, #{domain_values[:y]}".yellow
+    puts "   data_set: #{data_values[:x]}, #{data_values[:y]}".yellow
   end
 
   # checks if all data sets in a data_series have the dimension in z specified
