@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-01-18 13:03:35
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-23 19:28:58
+# @Last Modified time: 2016-03-08 14:28:39
 
 # module for classes and methods that determine the actual dimension of the
 # terminal executing the script
@@ -10,7 +10,7 @@ module TerminalSize
   # class to extract the terminal dimension of the the terminal which called
   # the executing script
   class TerminalSize
-    # @retrun [Integer] the number of lines of the used terminal
+    # @return [Integer] the number of lines of the used terminal
     attr_reader :columns
     # @return [Integer] the number of fields per row of the used terminal
     attr_reader :lines

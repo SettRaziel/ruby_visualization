@@ -1,13 +1,13 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-24 10:28:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:32:57
+# @Last Modified time: 2016-03-08 14:37:36
 
 require_relative 'interpolation'
 
 # This class collects all data values of the z dimension of a {DataSeries} for
 # a given pair of coordinates (x,y). For a given resolution {#size} the values
-# are assigned to the nearest value of {#value_boundaries} to be drawn in a
+# are assigned to the nearest value of @value_boundaries to be drawn in a
 # terminal or window.
 class Timeline
 
@@ -107,7 +107,7 @@ class Timeline
   end
 
   # this method calculates for every collected value the index of the interval
-  # values {#value_boundaries} with the least distance
+  # values @value_boundaries with the least distance
   # @param [Array] values the collected values d(x,y)[z]
   # @return [Hash] mapping of value => index
   def self.determine_nearest_index(values)

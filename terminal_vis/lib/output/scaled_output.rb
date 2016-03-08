@@ -1,10 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2016-01-29 10:17:38
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-21 17:08:49
+# @Last Modified time: 2016-03-08 14:26:14
 
 module DataOutput
 
+  # Child class of {DatasetOutput} to visualize a data set within the dimensions
+  # of the calling terminal.
   class ScaledOutput < DatasetOutput
 
     require_relative '../main/main_module'

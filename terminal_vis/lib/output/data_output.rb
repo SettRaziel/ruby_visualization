@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-19 14:16:36
+# @Last Modified time: 2016-03-08 14:33:11
 
 require_relative '../data/data_set'
 require_relative '../data/data_series'
@@ -16,7 +16,7 @@ module DataOutput
 
   # This class provides basic methods for the other color legends to work
   # with. The children need to define the method
-  # {#print_meta_information} which will print the desired meta information for
+  # {DataOutput::Base.print_meta_information} which will print the desired meta information for
   # the chosen output. If the child class does not implement this method
   # {DataOutput::Base} raises a {NotImplementedError}.
   class Base
@@ -30,8 +30,8 @@ module DataOutput
 
     # method to set the attributes
     # @param [DataSet] data_set the used dataset
-    # @param [boolean] with_extreme_values boolean to determine if extreme values
-    #  should be marked
+    # @param [boolean] with_extreme_values boolean to determine if extreme
+    #  values should be marked
     def self.set_attributes(data_set, with_extreme_values)
       @data_set = data_set
       @with_extreme_values = with_extreme_values
