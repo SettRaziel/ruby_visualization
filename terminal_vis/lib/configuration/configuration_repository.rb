@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-09 12:50:02
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:18:48
+# @Last Modified time: 2016-03-13 12:18:47
 
 # Repository storing available configuration parameters. If no parameters are
 # set from the user, the default values for the parameters are used.
@@ -50,7 +50,7 @@ class ConfigurationRepository
   def check_symbol_existance(symbol)
     if (@repository[symbol] == nil)
       raise ArgumentError,
-            'Error (Configuration): the provided option does not exist.'.red
+            ' Error (Configuration): the provided option does not exist.'.red
     end
   end
 

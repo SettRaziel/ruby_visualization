@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-19 16:16:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-11 12:44:05
+# @Last Modified time: 2016-03-13 12:22:42
 
 module TerminalVis
 
@@ -67,7 +67,7 @@ module TerminalVis
           when 'Float'
             return retrieve_float_parameters(first, second, parameter)
           else
-            TerminalVis::print_error("Error: unknown parameter: #{type}")
+            TerminalVis::print_error(" Error: unknown parameter: #{type}")
         end
       rescue ArgumentError
         create_error_message(parameter, type)

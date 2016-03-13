@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-21 15:11:07
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-29 19:33:14
+# @Last Modified time: 2016-03-13 12:17:09
 
 require_relative '../main/main_module'
 
@@ -23,7 +23,7 @@ class ConfigurationMenu
       puts '(3) Use scaled output.'
       puts '(4) Save parameters to file.'
       puts '(5) Exit.'
-      is_running = process_input(get_entry('Input (1-4): '.blue.bright).to_i)
+      is_running = process_input(get_entry('Input (1-5): '.blue.bright).to_i)
     end
   end
 

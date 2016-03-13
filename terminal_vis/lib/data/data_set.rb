@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:41:25
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:30:04
+# @Last Modified time: 2016-03-13 12:19:39
 
 # Class to represent a two dimensional data set
 class DataSet
@@ -35,7 +35,7 @@ class DataSet
       find_extreme_values
     rescue Exception => e
       raise ArgumentError,
-            "Error in data set while parsing data:\n "
+            " Error in data set while parsing data:\n "
             .concat(e.message).red
     end
   end

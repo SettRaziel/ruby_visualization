@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-10 19:56:37
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:19:44
+# @Last Modified time: 2016-03-13 12:16:42
 
 require_relative '../data/file_reader'
 require_relative './configuration_repository'
@@ -24,11 +24,11 @@ class ConfigurationHandler
   # @param [String] option the given option the creation of configuation
   #  options
   def process_parameter(option)
-    if (option =="menu")
+    if (option =='menu')
       ConfigurationMenu.print_menu
-    elsif (option.start_with?("file="))
+    elsif (option.start_with?('file='))
       check_and_read_options(option.split('=')[1])
-    elsif (!option.eql?("default"))
+    elsif (!option.eql?('default'))
       raise ArgumentError, 'Option parameter is not valid.'.red
     end
   end
@@ -53,9 +53,9 @@ class ConfigurationHandler
   # method to initialize the Hash with the mapping String => Symbol
   def initialize_option_mapping
     @option_mapping = Hash.new()
-    @option_mapping["legend_extend"]= :legend_extend
-    @option_mapping["y_time_size"]= :y_time_size
-    @option_mapping["auto_scale"] = :auto_scale
+    @option_mapping['legend_extend']= :legend_extend
+    @option_mapping['y_time_size']= :y_time_size
+    @option_mapping['auto_scale'] = :auto_scale
   end
 
   # method to check the given filename and read the options when it is a valid

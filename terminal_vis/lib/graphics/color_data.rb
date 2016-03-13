@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-19 08:56:50
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:26:52
+# @Last Modified time: 2016-03-13 12:20:10
 
 module ColorLegend
 
@@ -16,7 +16,7 @@ module ColorLegend
     def initialize(min_value, max_value)
       if (max_value <= min_value)
         raise ArgumentError,
-            "Error in ColorLegend: max_value <= min_value\n".red
+            " Error in ColorLegend: max_value <= min_value\n".red
       end
 
       super
