@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:33:58
+# @Last Modified time: 2016-03-14 09:47:00
 
 require_relative '../graphics/string'
 
@@ -168,6 +168,8 @@ class HelpOutput
     puts "\nAvailable configuration parameter:".red
     puts 'Timeline:'.blue + ' number of interval steps in y-dimension [5,100]'
     puts 'Color legend:'.blue + ' extended informations about the intervals'
+    puts 'Scaling:'.blue + ' automatic scaling of the output to the size of ' \
+         'the calling terminal (atm standard dataset output, e.g. -i only)'
   end
 
 end

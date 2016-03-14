@@ -50,14 +50,6 @@ parameters:
                interpolated, excludes -a, -c and -i
 ```
 
-## Configuration parameter
-Configuration paramters can be specified by the parameter -o. From their they
-can inserted manually or from a file. The current parameters are:
-* Timeline y-Dimension: specifies how much interval steps in y-dimension should
-be used; value interval [5, 100]
-* Extended color legend information: specifies if the interval values should
-be displayed
-
 ### Invalid parameter combinations
 ```
     -a + -d, -a + -i, -a + -t
@@ -66,7 +58,24 @@ be displayed
     -d + -i, -d + -t
 ```
 
-### Examples
+## Configuration options
+
+### Configuration parameter
+Configuration paramters can be specified by the parameter -o. From their they
+can inserted manually or from a file. The current parameters are:
+* Timeline y-dimension: specifies how much interval steps in y-dimension should
+be used; value interval [5, 100]
+* Extended color legend information: specifies if the interval values should
+be displayed
+* Output scaling: scales the visualized output to fit in the terminal, that
+started the script
+
+### Default values
+* Timeline y-dimension: 20
+* Extended color legend information: off
+* Output scaling: off
+
+## Examples
 Reading a data series from `<filename>` with meta data and visualizing the first
 dataset:
 ```
@@ -103,7 +112,7 @@ Running the script to visualize a specific region of a dataset from
 ruby terminal_vis -m -i <index> -c <x> <y> -s <interval> <delta> <filename>
 ```
 
-### Documentation
+## Documentation
 Documentation is written in yard and can be created by running the shell-script
 `create_yard.sh`. Yard needs to be installed on the system in order to do that.
 Hopefully i find a place to publish the documentation online soon.
@@ -146,9 +155,10 @@ see LICENSE
 * adding a mechanism to allow some configuration parameters to be set and
   stored within a configuartion file (done with update v0.7.1)
 * adding an option to interpolate for a region of the considered x- and
-  y-dimenstion
+  y-dimenstion (done with update v0.8.0)
 * adding a mechanism to scale the output automatically to the dimension of
-  the used terminal
+  the used terminal (done for standard dataset output in v0.8.2; other
+  parameters following)
 * adding more features from suggestions
 
 
