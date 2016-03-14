@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:34:31
+# @Last Modified time: 2016-03-14 09:59:59
 
 require_relative '../data/meta_data'
 require_relative '../data/data_series'
@@ -17,13 +17,12 @@ class RangeOutput
   #   extended legend output
   def self.print_ranged_data(meta_data, data_series, parameters, options)
     check_range_parameters(meta_data, parameters)
-    first = parameters[:lower]
+    options[:index] = parameters[:lower]
 
-    while (first <= parameters[:upper])
-      DataOutput::DatasetOutput.print_dataset(data_series, first, meta_data,
-                                              options)
+    while (options[:index] <= parameters[:upper])
+      DataOutput::DatasetOutput.print_dataset(data_series, meta_data, options)
       determine_animation(parameters)
-      first += 1
+      options[:index] += 1
     end
   end
 
