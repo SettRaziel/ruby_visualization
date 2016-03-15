@@ -63,6 +63,7 @@ parameters:
 ### Configuration parameter
 Configuration paramters can be specified by the parameter -o. From their they
 can inserted manually or from a file. The current parameters are:
+
 * Timeline y-dimension: specifies how much interval steps in y-dimension should
 be used; value interval [5, 100]
 * Extended color legend information: specifies if the interval values should
