@@ -1,14 +1,14 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-08 14:33:11
+# @Last Modified time: 2016-03-21 14:42:58
 
-require_relative '../data/data_set'
-require_relative '../data/data_series'
-require_relative '../data/meta_data'
-require_relative '../graphics/color_legend'
-require_relative '../graphics/string'
-require_relative 'data_axis'
+require_relative '../../data/data_set'
+require_relative '../../data/data_series'
+require_relative '../../data/meta_data'
+require_relative '../../graphics/color_legend'
+require_relative '../../graphics/string'
+require_relative '../data_axis'
 
 # This module groups the different output formats that are used to visualize the
 # output. The class {Base} provides the basic methods that are needed.

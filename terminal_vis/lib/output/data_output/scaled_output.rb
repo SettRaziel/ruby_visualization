@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-01-29 10:17:38
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-12 12:02:36
+# @Last Modified time: 2016-03-21 14:43:36
 
 module DataOutput
 
@@ -9,9 +9,8 @@ module DataOutput
   # of the calling terminal.
   class ScaledOutput < DatasetOutput
 
-    require_relative '../main/main_module'
-    require_relative '../scaling/terminal_size'
-    require_relative '../scaling/dataset_scaling'
+    require_relative '../../scaling/terminal_size'
+    require_relative '../../scaling/dataset_scaling'
 
     # method to print a given dataset scaled by the terminal size
     # @param [DataSet] data_set the data set which should be visualized
