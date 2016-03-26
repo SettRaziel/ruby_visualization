@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-22 15:35:17
+# @Last Modified time: 2016-03-26 14:24:34
 
 module TerminalVis
 
@@ -63,8 +63,13 @@ module TerminalVis
                                                    data[:second_data])
 
       options = get_output_options
-      DataOutput::DeltaOutput.print_delta(result, meta_data, data_indices,
-                                            options)
+      if (!TerminalVis::option_handler.options.repository[:auto_scale])
+        DataOutput::DeltaOutput.
+          print_delta(result, meta_data, data_indices, options)
+      else
+        DataOutput::ScaledDeltaOutput.
+          print_delta(result, meta_data, data_indices, options)
+      end
     end
 
     # creates output when using the parameter -c
@@ -121,12 +126,12 @@ module TerminalVis
     #  be visualized
     # @param [Integer] index the index of the dataset which should be visualized
     def self.create_single_output_at_index(meta_data, index)
-      is_scaled = TerminalVis::option_handler.options.repository[:auto_scale]
       options = get_output_options
       options[:index] = index
       data_series = TerminalVis.data_repo.repository[meta_data]
-      if (!is_scaled)
-        DataOutput::DatasetOutput.print_dataset(data_series, meta_data, options)
+      if (!TerminalVis::option_handler.options.repository[:auto_scale])
+        DataOutput::DatasetOutput.
+          print_dataset(data_series, meta_data, options)
       else
         DataOutput::ScaledDatasetOutput.
           print_dataset(data_series.series[index], meta_data, options)
