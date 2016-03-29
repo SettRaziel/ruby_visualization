@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-03-10 11:45:32
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-12 12:12:59
+# @Last Modified time: 2016-03-29 15:18:34
 
 require_relative '../data/meta_data'
 require_relative 'terminal_size'
@@ -12,18 +12,30 @@ require_relative 'terminal_size'
 class DatasetScaling
   # @return [MetaData] the {MetaData} of the scaled {DataSet}
   attr_reader :scaled_meta
+  # @return [DataSet] the scaled {DataSet}
+  attr_reader :scaled_data_set
 
   # initialization
   # @param [MetaData] meta_data the {MetaData} of the {DataSet} that should
   #    be scaled
-  def initialize(meta_data)
+  # @param [DataSet] data_set the data set which should be visualized
+  def initialize(meta_data, data_set)
     @meta_data = meta_data
     ts = TerminalSize::TerminalSize.new()
     @lines = ts.lines - 14
     @columns = ts.columns - 10
     check_value_boundaries
     calculate_new_resolution_meta
+    @scaled_data_set = calculate_scaled_dataset(data_set)
   end
+
+  private
+  # @return [MetaData] the original {MetaData} of the {DataSet}
+  attr :meta_data
+  # @return [Integer] the number of lines of the used terminal
+  attr :lines
+  # @return [Integer] the number of fields per row of the used terminal
+  attr :columns
 
   # method to create the scaled dataset by interpolating new data values
   # @param [DataSet] data_set the data set which should be visualized
@@ -35,14 +47,6 @@ class DatasetScaling
     TerminalVis::Interpolation.region_interpolation(@meta_data, data_set,
                                                     coordinates, values)
   end
-
-  private
-  # @return [MetaData] the original {MetaData} of the {DataSet}
-  attr :meta_data
-  # @return [Integer] the number of lines of the used terminal
-  attr :lines
-  # @return [Integer] the number of fields per row of the used terminal
-  attr :columns
 
   # method to create the meta data object for the scaled dataset
   def calculate_new_resolution_meta

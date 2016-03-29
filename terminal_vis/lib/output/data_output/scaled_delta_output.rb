@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-03-22 14:15:01
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-23 12:31:34
+# @Last Modified time: 2016-03-29 15:17:36
 
 module DataOutput
 
@@ -33,13 +33,11 @@ module DataOutput
     # @param [Hash] options hash with the relevant parameter values
     def self.prepare_attributes(data_set, meta_data, options)
       # create meta data and data set for the scaled output
-      sc = DatasetScaling.new(meta_data)
+      sc = DatasetScaling.new(meta_data, data_set)
       @meta_data = sc.scaled_meta
-      scaled_data_set = sc.calculate_scaled_dataset(data_set)
-
-      @legend = ColorLegend::ColorDelta.new(scaled_data_set.min_value,
-                                            scaled_data_set.max_value)
-      set_attributes(scaled_data_set, options[:extreme_values])
+      @legend = ColorLegend::ColorDelta.new(sc.scaled_data_set.min_value,
+                                            sc.scaled_data_set.max_value)
+      set_attributes(sc.scaled_data_set, options[:extreme_values])
     end
 
     # creates a headline before printing the data set with the requested
