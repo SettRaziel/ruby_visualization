@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-26 14:24:34
+# @Last Modified time: 2016-04-03 13:10:55
 
 module TerminalVis
 
@@ -63,7 +63,7 @@ module TerminalVis
                                                    data[:second_data])
 
       options = get_output_options
-      if (!TerminalVis::option_handler.options.repository[:auto_scale])
+      if (!options[:auto_scale])
         DataOutput::DeltaOutput.
           print_delta(result, meta_data, data_indices, options)
       else
@@ -129,7 +129,7 @@ module TerminalVis
       options = get_output_options
       options[:index] = index
       data_series = TerminalVis.data_repo.repository[meta_data]
-      if (!TerminalVis::option_handler.options.repository[:auto_scale])
+      if (!options[:auto_scale])
         DataOutput::DatasetOutput.
           print_dataset(data_series, meta_data, options)
       else
@@ -143,12 +143,12 @@ module TerminalVis
     # extended legend
     # @return [Hash] the hash with the boolean parameters for the options
     def self.get_output_options
-      options = Hash.new()
-      options[:extreme_values] = TerminalVis.parameter_handler.repository.
-                                 parameters[:extreme]
-      options[:legend] = TerminalVis.option_handler.options.
-                         repository[:legend_extend]
-      return options
+      { :extreme_values =>
+        TerminalVis.parameter_handler.repository.parameters[:extreme],
+        :legend =>
+        TerminalVis.option_handler.options.repository[:legend_extend],
+        :auto_scale =>
+        TerminalVis::option_handler.options.repository[:auto_scale] }
     end
     private_class_method :get_output_options
 
