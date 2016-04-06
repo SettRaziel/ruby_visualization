@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-14 09:59:59
+# @Last Modified time: 2016-04-06 10:27:57
 
 require_relative '../data/meta_data'
 require_relative '../data/data_series'
@@ -20,7 +20,7 @@ class RangeOutput
     options[:index] = parameters[:lower]
 
     while (options[:index] <= parameters[:upper])
-      DataOutput::DatasetOutput.print_dataset(data_series, meta_data, options)
+      determine_output_resolution(data_series, meta_data, options)
       determine_animation(parameters)
       options[:index] += 1
     end
@@ -46,7 +46,7 @@ class RangeOutput
   def self.first_lesser_second?(indices)
     if (indices[:lower] >= indices[:upper])
       raise ArgumentError,
-        ' Error: First parameter of -r greater than the second'.red
+        ' Error: First parameter of -r is equal or greater than the second'.red
     end
     return true
   end
@@ -71,6 +71,20 @@ class RangeOutput
     end
 
     return true
+  end
+
+  # method to determine which type of output should be used
+  # @param [DataSeries] data_series the used data series
+  # @param [MetaData] meta_data the metadata of the used data series
+  # @param [Hash] options hash with the boolean values for extreme values and
+  def self.determine_output_resolution(data_series, meta_data, options)
+    if (!options[:auto_scale])
+      DataOutput::DatasetOutput.print_dataset(data_series, meta_data, options)
+    else
+      index = options[:index]
+      DataOutput::ScaledDatasetOutput.
+                  print_dataset(data_series.series[index], meta_data, options)
+    end
   end
 
   # method to determine the art of visualization. Without -all or animation
