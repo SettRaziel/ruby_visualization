@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-06 10:27:57
+# @Last Modified time: 2016-04-08 15:19:26
 
 require_relative '../data/meta_data'
 require_relative '../data/data_series'
@@ -79,7 +79,7 @@ class RangeOutput
   # @param [Hash] options hash with the boolean values for extreme values and
   def self.determine_output_resolution(data_series, meta_data, options)
     if (!options[:auto_scale])
-      DataOutput::DatasetOutput.print_dataset(data_series, meta_data, options)
+      DataOutput::SingleOutput.print_dataset(data_series, meta_data, options)
     else
       index = options[:index]
       DataOutput::ScaledDatasetOutput.

@@ -1,12 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-31 14:02:17
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-24 16:30:35
+# @Last Modified time: 2016-04-08 15:17:53
 
 module DataOutput
 
   # Simple data output for the terminal visualization and a dataset
-  class DatasetOutput < Base
+  class SingleOutput < Base
 
     # method to visualize the dataset at the index
     # @param [DataSeries] data_series the data series which should be visualized

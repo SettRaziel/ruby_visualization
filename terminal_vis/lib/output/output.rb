@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-03 13:10:55
+# @Last Modified time: 2016-04-08 15:19:11
 
 module TerminalVis
 
@@ -130,7 +130,7 @@ module TerminalVis
       options[:index] = index
       data_series = TerminalVis.data_repo.repository[meta_data]
       if (!options[:auto_scale])
-        DataOutput::DatasetOutput.
+        DataOutput::SingleOutput.
           print_dataset(data_series, meta_data, options)
       else
         DataOutput::ScaledDatasetOutput.
