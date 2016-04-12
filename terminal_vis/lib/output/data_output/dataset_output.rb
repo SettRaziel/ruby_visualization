@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-04-10 14:48:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-10 15:10:15
+# @Last Modified time: 2016-04-12 16:01:56
 
 module DataOutput
 
@@ -24,7 +24,7 @@ module DataOutput
     end
 
     # abstract method to print additional information before the x and y
-    # domain information
+    # domain informations
     # @abstract subclasses need to implement this method
     # @raise [NotImplementedError] if the subclass does not have this method
     def self.print_meta_head
@@ -33,8 +33,8 @@ module DataOutput
            "from its base class".red
     end
 
-    # method to print additional information before the x and y
-    # domain information
+    # method to print additional information after the x and y
+    # domain informations
     def self.print_meta_tail
       # do nothing
     end

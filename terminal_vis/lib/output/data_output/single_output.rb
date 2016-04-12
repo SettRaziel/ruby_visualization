@@ -1,12 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-31 14:02:17
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-08 15:17:53
+# @Last Modified time: 2016-04-12 16:02:07
 
 module DataOutput
 
   # Simple data output for the terminal visualization and a dataset
-  class SingleOutput < Base
+  class SingleOutput < DatasetOutput
 
     # method to visualize the dataset at the index
     # @param [DataSeries] data_series the data series which should be visualized
@@ -25,8 +25,6 @@ module DataOutput
     end
 
     private
-    # @return [MetaData] the meta data for this output
-    attr :meta_data
 
     # creates a headline before printing the data set based on the values
     # of the z dimension
@@ -37,14 +35,15 @@ module DataOutput
       puts "\n"
     end
 
-    # prints the meta information consisting of dataset name and informations
-    # of the different dimensions
-    def self.print_meta_information
-      puts "\nDataset: #{@meta_data.name}"
+    # method to print additional information before the x and y
+    # domain informations
+    def self.print_meta_head
+        puts "\nDataset: #{@meta_data.name}"
+    end
 
-      print_domain_information(@meta_data.domain_x, "\nX")
-      print_domain_information(@meta_data.domain_y, 'Y')
-
+    # method to print additional information after the x and y
+    # domain informations
+    def self.print_meta_tail
       if (@meta_data.domain_z != nil)
         print_domain_information(@meta_data.domain_z, 'Z')
       end

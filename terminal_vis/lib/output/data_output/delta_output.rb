@@ -1,13 +1,13 @@
 # @Author: Benjamin Held
 # @Date:   2016-01-12 09:30:35
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-12 09:45:19
+# @Last Modified time: 2016-04-12 16:01:59
 
 module DataOutput
 
   # Data output for the difference of two data sets for the terminal
   # visualization
-  class DeltaOutput < Base
+  class DeltaOutput < DatasetOutput
 
     # method to visualize the difference of two datasets
     # @param [DataSet] data_set the dataset which should be visualized
@@ -27,8 +27,6 @@ module DataOutput
     end
 
     private
-    # @return [MetaData] the meta data for this output
-    attr :meta_data
 
     # creates a headline before printing the data set with the requested
     # indices
@@ -39,13 +37,10 @@ module DataOutput
          "#{indices[:second]}.\n\n"
     end
 
-    # prints the meta information consisting of dataset name and informations
-    # of the different dimensions
-    def self.print_meta_information
+    # method to print additional information before the x and y
+    # domain informations
+    def self.print_meta_head
       puts "\nDataset: Difference of #{@meta_data.name} between two datasets"
-
-      print_domain_information(@meta_data.domain_x, "\nX")
-      print_domain_information(@meta_data.domain_y, 'Y')
     end
 
   end

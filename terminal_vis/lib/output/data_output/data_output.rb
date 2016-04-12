@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-08 15:18:20
+# @Last Modified time: 2016-04-12 16:02:36
 
 require_relative '../../data/data_set'
 require_relative '../../data/data_series'
@@ -129,6 +129,7 @@ module DataOutput
         [dim_string, domain.name, domain.lower, domain.upper, domain.step]
     end
 
+    # abstract method to print the used meta information
     # @abstract subclasses need to implement this method
     # @raise [NotImplementedError] if the subclass does not have this method
     def self.print_meta_information
@@ -141,8 +142,9 @@ module DataOutput
 
 end
 
-require_relative 'single_output'
+require_relative 'dataset_output'
 require_relative 'delta_output'
+require_relative 'single_output'
 require_relative 'region_output'
 require_relative 'scaled_dataset_output'
 require_relative 'scaled_delta_output'
