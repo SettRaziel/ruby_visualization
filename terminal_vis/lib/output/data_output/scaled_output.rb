@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-04-14 16:46:51
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-14 17:01:18
+# @Last Modified time: 2016-04-14 17:08:39
 
 module DataOutput
 
@@ -11,18 +11,6 @@ module DataOutput
 
     require_relative '../../scaling/terminal_size'
     require_relative '../../scaling/dataset_scaling'
-
-    # method to print a given dataset scaled by the terminal size
-    # @param [DataSet] data_set the data set which should be visualized
-    # @param [MetaData] meta_data the corresponding meta data
-    # @param [Hash] options hash with the relevant parameter values
-    def self.print_dataset(data_set, meta_data, options)
-      # read terminal size from options hash
-      prepare_attributes(data_set, meta_data, options)
-      print_output_head(options[:index], meta_data)
-      # call print_data of the the parent class
-      print_data(options[:legend], @meta_data.domain_x, @meta_data.domain_y)
-    end
 
     private
     # @return [DataSet] the scaled dataset

@@ -1,16 +1,13 @@
 # @Author: Benjamin Held
 # @Date:   2016-03-22 14:15:01
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-29 15:17:36
+# @Last Modified time: 2016-04-14 17:02:02
 
 module DataOutput
 
   # Child class of {DeltaOutput} to visualize a data set within the dimensions
   # of the calling terminal.
-  class ScaledDeltaOutput < DeltaOutput
-
-    require_relative '../../scaling/terminal_size'
-    require_relative '../../scaling/dataset_scaling'
+  class ScaledDeltaOutput < ScaledOutput
 
     # method to visualize the difference of two datasets
     # @param [DataSet] data_set the dataset which should be visualized
@@ -21,24 +18,13 @@ module DataOutput
     #   extended legend output
     def self.print_delta(data_set, meta_data, indices, options)
       prepare_attributes(data_set, meta_data, options)
+      @legend = ColorLegend::ColorDelta.new(@scaled_dataset.min_value,
+                                            @scaled_dataset.max_value)
       print_output_head(indices)
       print_data(options[:legend], @meta_data.domain_x, @meta_data.domain_y)
     end
 
     private
-
-    # method to set the required attributes und create the scaled dataset
-    # @param [DataSet] data_set the data set which should be visualized
-    # @param [MetaData] meta_data the corresponding meta data
-    # @param [Hash] options hash with the relevant parameter values
-    def self.prepare_attributes(data_set, meta_data, options)
-      # create meta data and data set for the scaled output
-      sc = DatasetScaling.new(meta_data, data_set)
-      @meta_data = sc.scaled_meta
-      @legend = ColorLegend::ColorDelta.new(sc.scaled_data_set.min_value,
-                                            sc.scaled_data_set.max_value)
-      set_attributes(sc.scaled_data_set, options[:extreme_values])
-    end
 
     # creates a headline before printing the data set with the requested
     # indices
@@ -47,6 +33,13 @@ module DataOutput
     def self.print_output_head(indices)
           puts "Printing autoscaled difference for datasets " \
                "#{indices[:first]} and #{indices[:second]}.\n\n"
+    end
+
+    # method to print additional information before the x and y
+    # domain informations
+    def self.print_meta_head
+      puts "\nScaled Dataset: Difference of #{@meta_data.name} between " \
+           "the two datasets"
     end
 
   end
