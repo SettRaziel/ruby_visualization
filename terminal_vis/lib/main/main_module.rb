@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-14 11:08:23
+# @Last Modified time: 2016-04-16 13:25:16
 
 module TerminalVis
 
@@ -60,7 +60,7 @@ module TerminalVis
 
   # call to print version number and author
   def self.print_version
-    puts 'terminal_visualization version 0.8.2'
+    puts 'terminal_visualization version 0.8.3'
     puts 'Created by Benjamin Held (June 2015)'
     exit(0)
   end
@@ -100,8 +100,7 @@ module TerminalVis
   #  corresponding index
   # @param [Integer] index the given index from the input
   def self.check_index(meta_data, index)
-    if (index < 0 ||
-      index >= @data_repo.repository[meta_data].series.size)
+    if (index < 0 || index >= @data_repo.repository[meta_data].series.size)
       text_index = @parameter_handler.repository.parameters[:index]
       data_size = @data_repo.repository[meta_data].series.size
       message = " Error: input #{text_index} for -i is not valid" \
