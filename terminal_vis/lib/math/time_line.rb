@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-24 10:28:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-08 14:37:36
+# @Last Modified time: 2016-04-26 18:23:09
 
 require_relative 'interpolation'
 
@@ -38,7 +38,7 @@ class Timeline
   # @return [Hash] the extreme values of the timeline
   attr :extrema
   # @return [Integer] resolution of the value scale
-  attr :size
+  attr :lines
 
   # method to check and set the number of values for the y-dimension
   # constraint: at least 5 values in y
@@ -48,7 +48,7 @@ class Timeline
     if (y_size < 5)
       raise RangeError, ' Error : invalid y_value of timeline (min.: 5)'.red
     end
-    @size = y_size
+    @lines = y_size
   end
 
   # method to check for correct dataset dimensions
@@ -98,7 +98,7 @@ class Timeline
     upper_boundary = @extrema[:maximum] + delta / 20.0 # 5 % variance
     lower_boundary = @extrema[:minimum] - delta / 20.0 # 5 % variance
 
-    delta = (upper_boundary - lower_boundary).abs / @size
+    delta = (upper_boundary - lower_boundary).abs / @lines
     @value_bondaries = [lower_boundary.round(5)]
     while (lower_boundary.round(5) < upper_boundary.round(5))
       lower_boundary += delta
@@ -143,7 +143,7 @@ class Timeline
   # @return [Hash] the occurence of a boundary value in the z dimension as the
   #  result of being the nearest index for a collected value at position z
   def self.create_output(mapped_values)
-    output = Hash.new(@size)
+    output = Hash.new(@lines)
 
     @value_bondaries.each_index { |index|
       line = Array.new()
@@ -168,7 +168,7 @@ class Timeline
   def self.check_extrema(value)
     return [:minimum, value] if (value == @extrema[:minimum])
     return [:maximum, value] if (value == @extrema[:maximum])
-    return [:none]
+    return [:hit]
   end
 
 end
