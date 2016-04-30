@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-24 18:19:21
+# @Last Modified time: 2016-04-30 17:21:47
 
 module TerminalVis
 
@@ -116,9 +116,9 @@ module TerminalVis
     def self.create_timeline(meta_data)
       data_series = TerminalVis.data_repo.repository[meta_data]
       values = ParameterCollector::determine_timeline_values
-      timeline = Timeline.create_timeline(meta_data, data_series,
-                 values[:x], values[:y], values[:y_size])
-      TimelineOutput.print_timeline(timeline, meta_data, values[:x], values[:y])
+      timeline = Timeline.new(meta_data, data_series, values)
+      TimelineOutput.print_timeline(timeline.mapped_values, meta_data,
+                                    values[:x], values[:y])
     end
 
     # creates default output or output with an index using -i

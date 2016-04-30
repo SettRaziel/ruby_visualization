@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-24 10:28:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-26 18:23:09
+# @Last Modified time: 2016-04-30 17:23:44
 
 require_relative 'interpolation'
 
@@ -10,26 +10,26 @@ require_relative 'interpolation'
 # are assigned to the nearest value of @value_boundaries to be drawn in a
 # terminal or window.
 class Timeline
-
-  # public singleton method to start the creation of a timeline
-  # @param [MetaData] meta_data the meta information of the regarded data series
-  # @param [DataSeries] data_series the data series which should be used
-  # @param [Float] x x-coordinate of the regarded point
-  # @param [Float] y y-coordinate of the regarded point
-  # @param [Fixnum] y_size the number of data lines in y
   # @return [Hash] the occurence of a boundary value in the z dimension as the
   #  result of being the nearest index for a collected value at position z
-  def self.create_timeline(meta_data, data_series, x, y, y_size)
-    check_and_set_ysize(y_size)
+  attr_reader :mapped_values
+
+  # initialization
+  # @param [MetaData] meta_data the meta information of the regarded data series
+  # @param [DataSeries] data_series the data series which should be used
+  # @param [Hash] parameters a hash containing the required parameter
+  def initialize(meta_data, data_series, parameters)
+    check_and_set_ysize(parameters[:y_size])
     check_dataset_dimension(meta_data)
 
-    values = collect_values(meta_data, data_series, x, y) # time_values
+    values = collect_values(meta_data, data_series,
+                            parameters[:x], parameters[:y])
 
     determine_extrema(values) # extrema of time values
 
     determine_value_boundaries # ordinate values for each line
 
-    return create_output(determine_nearest_index(values))
+    create_output(determine_nearest_index(values))
   end
 
   private
@@ -44,7 +44,7 @@ class Timeline
   # constraint: at least 5 values in y
   # @param [Fixnum] y_size number of values in y
   # @raise [RangeError] if the number of y values is less than 5
-  def self.check_and_set_ysize(y_size)
+  def check_and_set_ysize(y_size)
     if (y_size < 5)
       raise RangeError, ' Error : invalid y_value of timeline (min.: 5)'.red
     end
@@ -54,7 +54,7 @@ class Timeline
   # method to check for correct dataset dimensions
   # @param [MetaData] meta_data the required meta data
   # @raise [RangeError] if one of the datasets has an incorrect dimension
-  def self.check_dataset_dimension(meta_data)
+  def check_dataset_dimension(meta_data)
     if (!TerminalVis.data_repo.dataset_dimension_correct?(meta_data))
       raise RangeError,
             ' Error: dimension of at least one dataset is incorrect'.red
@@ -67,7 +67,7 @@ class Timeline
   # @param [Float] x x-coordinate of the regarded point
   # @param [Float] y y-coordinate of the regarded point
   # @return [Array] the collected values d(x,y)[z]
-  def self.collect_values(meta_data, data_series, x, y)
+  def collect_values(meta_data, data_series, x, y)
     values = Array.new()
 
     data_series.series.each { |data_set|
@@ -80,7 +80,7 @@ class Timeline
 
   # this method determines the extreme values of the collected data d(x,y)[z]
   # @param [Array] values the collected values d(x,y)[z]
-  def self.determine_extrema(values)
+  def determine_extrema(values)
     @extrema = {
       :maximum => values[0],
       :minimum => values[0]
@@ -92,8 +92,9 @@ class Timeline
     }
   end
 
-  # this method determines the value boundaries based on the resolution {#size}
-  def self.determine_value_boundaries
+  # this method determines the value boundaries based on the vertical number
+  # of lines
+  def determine_value_boundaries
     delta = (@extrema[:maximum] - @extrema[:minimum]).abs
     upper_boundary = @extrema[:maximum] + delta / 20.0 # 5 % variance
     lower_boundary = @extrema[:minimum] - delta / 20.0 # 5 % variance
@@ -110,7 +111,7 @@ class Timeline
   # values @value_boundaries with the least distance
   # @param [Array] values the collected values d(x,y)[z]
   # @return [Hash] mapping of value => index
-  def self.determine_nearest_index(values)
+  def determine_nearest_index(values)
     mapped_values = Hash.new()
 
     values.each { |value|
@@ -123,7 +124,7 @@ class Timeline
   # helper methode to calculate the nearest index for the collected data values
   # @param [Float] value data value
   # @return [Integer] the nearest index
-  def self.get_nearest_index(value)
+  def get_nearest_index(value)
     delta = value
     nearest_index = 0
 
@@ -140,9 +141,7 @@ class Timeline
 
   # this method creates the basic output which can be visualized.
   # @param [Hash] mapped_values mapping of value => index
-  # @return [Hash] the occurence of a boundary value in the z dimension as the
-  #  result of being the nearest index for a collected value at position z
-  def self.create_output(mapped_values)
+  def create_output(mapped_values)
     output = Hash.new(@lines)
 
     @value_bondaries.each_index { |index|
@@ -157,7 +156,7 @@ class Timeline
       output[@value_bondaries[index]] = line
     }
 
-    return output
+    @mapped_values = output
   end
 
   # method to determine if the value is an extreme value and return the value
@@ -165,7 +164,7 @@ class Timeline
   # @param [Float] value the considered value
   # @return [Array] an array containing Symbol and the value if it is an
   #  extreme value
-  def self.check_extrema(value)
+  def check_extrema(value)
     return [:minimum, value] if (value == @extrema[:minimum])
     return [:maximum, value] if (value == @extrema[:maximum])
     return [:hit]
