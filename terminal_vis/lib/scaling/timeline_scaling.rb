@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-04-26 15:23:25
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-05-01 12:52:27
+# @Last Modified time: 2016-05-03 17:00:03
 
 require_relative '../math/time_line'
 require_relative '../math/statistic'
@@ -76,17 +76,27 @@ class TimelineScaling < Timeline
     index_new = delta_x
 
     while (index_new.round < values.length)
-      if (index_new.round - index_old > 1)
-        scaled_values << calculate_mean_value(index_old, index_new, values)
-      else
-        scaled_values << values[index_old]
-      end
+      scaled_values << add_data_entry(index_old, index_new, values)
       index_old = Integer(index_new.round)
       index_new += delta_x
     end
     scaled_values << values[index_old]
 
     return scaled_values
+  end
+
+  # method to determine which value needs to be added at the actual index
+  # @param [Integer] index_old the lower index representing the last unused
+  #    value
+  # @param [Float] index_new the current value based on the calculated delta
+  # @param [Array] values the collected values d(x,y)[z]
+  # @return [Float] the determined value that should be added
+  def add_data_entry(index_old, index_new, values)
+    if (index_new.round - index_old > 1)
+        return calculate_mean_value(index_old, index_new, values)
+    else
+        return values[index_old]
+    end
   end
 
   # method to calculate the mean value for the values between the indices
