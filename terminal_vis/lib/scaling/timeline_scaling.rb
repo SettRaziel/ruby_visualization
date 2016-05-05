@@ -1,12 +1,17 @@
 # @Author: Benjamin Held
 # @Date:   2016-04-26 15:23:25
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-05-03 17:00:03
+# @Last Modified time: 2016-05-05 10:40:27
 
 require_relative '../math/time_line'
 require_relative '../math/statistic'
 require_relative 'terminal_size'
 
+# This class collects all data values of the z dimension of a {DataSeries} for
+# a given pair of coordinates (x,y) in the same way its parent class {Timeline}
+# does. It uses the dimension of the calling terminal to determine the number of
+# values. If the datasize exceeds the number of columns the dataset will be
+# scaled.
 class TimelineScaling < Timeline
   # @return [MetaData] the scaled meta data based on the terminal size
   attr_reader :scaled_meta
@@ -117,7 +122,6 @@ class TimelineScaling < Timeline
 
   # method to adjust the meta data and replace the z-dimension
   # @param [MetaData] meta_data the meta information of the regarded data series
-  # @param [MetaData] the scaled meta data
   def scale_meta_data(meta_data)
     delta_z = ((meta_data.domain_z.number_of_values) /
                Float(@columns)).round(5)
@@ -132,7 +136,8 @@ class TimelineScaling < Timeline
   end
 
   # method to add the required parameter to the meta data string
-  # @param [DataDomain] data_domain the required {DataDomain}
+  # @param [MetaData::DataDomain] data_domain the required
+  #    {MetaData::DataDomain}
   # @param [Float] new_step the new delta between two data values for the given
   #    data dimension
   # @return [Array] an array containing the string values for the given domain
