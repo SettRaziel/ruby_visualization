@@ -1,12 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-24 10:28:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-30 17:23:44
+# @Last Modified time: 2016-05-06 13:37:09
 
 require_relative 'interpolation'
 
 # This class collects all data values of the z dimension of a {DataSeries} for
-# a given pair of coordinates (x,y). For a given resolution {#size} the values
+# a given pair of coordinates (x,y). For a given resolution size the values
 # are assigned to the nearest value of @value_boundaries to be drawn in a
 # terminal or window.
 class Timeline

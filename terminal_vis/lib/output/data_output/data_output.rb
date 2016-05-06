@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-14 16:57:15
+# @Last Modified time: 2016-05-06 13:39:52
 
 require_relative '../../data/data_set'
 require_relative '../../data/data_series'
@@ -18,7 +18,7 @@ module DataOutput
   # with. The children need to define the method
   # {DataOutput::Base.print_meta_information} which will print the desired meta information for
   # the chosen output. If the child class does not implement this method
-  # {DataOutput::Base} raises a {NotImplementedError}.
+  # {DataOutput::Base} raises a NotImplementedError.
   class Base
     private
     # @return [ColorLegend] the color legend for the data

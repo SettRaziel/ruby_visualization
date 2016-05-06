@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-03-10 11:45:32
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-29 15:18:34
+# @Last Modified time: 2016-05-06 13:36:17
 
 require_relative '../data/meta_data'
 require_relative 'terminal_size'
@@ -81,7 +81,8 @@ class DatasetScaling
   end
 
   # method to add the required parameter to the meta data string
-  # @param [DataDomain] data_domain the required {DataDomain}
+  # @param [MetaData::DataDomain] data_domain the required
+  #    {MetaData::DataDomain}
   # @param [Float] new_step the new delta between two data values for the given
   #    data dimension
   # @return [Array] an array containing the string values for the given domain
@@ -111,7 +112,8 @@ class DatasetScaling
   end
 
   # method to calculate the half distance of a data domain
-  # @param [DataDomain] data_domain the required {DataDomain}
+  # @param [MetaData::DataDomain] data_domain the required
+  #    {MetaData::DataDomain}
   # @return [Float] the middle distance of the given data domain
   def calculated_dimension_delta(data_domain)
     ((data_domain.upper - data_domain.lower) / 2).round(3)

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-30 13:34:57
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:27:22
+# @Last Modified time: 2016-05-06 13:39:12
 
 # This module groups the different color legends that are used to visualize the
 # output. The class {Base} provides the basic methods that are needed. Child
@@ -14,7 +14,7 @@ module ColorLegend
   # with. The children need to define the method
   # {#create_output_string_for} which should return the
   # desired output string. If the child class does not implement this method
-  # {ColorLegend::Base} raises a {NotImplementedError}.
+  # {ColorLegend::Base} raises a NotImplementedError.
   class Base
     # @return [Array[Float]] Array with interval values
     attr_reader :value_legend

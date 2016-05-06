@@ -1,13 +1,13 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-01-06 09:10:50
+# @Last Modified time: 2016-05-06 13:39:30
 
 require_relative 'parameter_repository'
 
 # class to seperate the storage of the parameter in a repository entity and
 # checking for valid parameter combination as part of the application logic.
-# Can raise an {ArgumentError} or {IndexError} when invalid parameter arguments
+# Can raise an ArgumentError or IndexError when invalid parameter arguments
 # or parameter combinations are provided
 class ParameterHandler
   # @return [ParameterRepository] repository which reads and stores the
