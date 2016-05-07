@@ -1,10 +1,10 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-25 13:40:23
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-24 18:18:53
+# @Last Modified time: 2016-05-07 15:13:14
 
-require_relative '../../graphics/string'
-require_relative '../../data/meta_data'
+require_relative '../graphics/string'
+require_relative '../data/meta_data'
 
 # This class holds methods to print a previously created timelime into the
 # terminal providing simple axis for the z dimension on the abscissa and the
@@ -72,7 +72,7 @@ class TimelineOutput
   # @return [Array] the String array containing the output appended by the
   #  legend output
   def self.append_legend_output(output, meta_data, max_size)
-    data_size = meta_data.domain_z.upper - meta_data.domain_z.lower
+    data_size = meta_data.domain_z.number_of_values
     output.unshift(create_axis_string(data_size, max_size))
     output.unshift(create_axis_legend(data_size, max_size, meta_data))
     output.unshift(create_extreme_output(max_size))
@@ -105,10 +105,12 @@ class TimelineOutput
     str.concat('--|')
     position = 1
 
-    while (position < data_size)
+    while (data_size - position >= 10)
       str.concat('---------|')
       position += 10
     end
+    (data_size - position).times {str.concat('-')}
+    str.concat('|')
 
     return str
   end
@@ -122,14 +124,17 @@ class TimelineOutput
     str = String.new()
     max_size.times {str.concat(' ')}
     position = 1
-    start = meta_data.domain_z.lower
+    start = Integer(meta_data.domain_z.lower)
 
-    while (position < data_size)
+    while (data_size - position >= 10)
       str.concat("%-10s" % start.to_s)
       position += 10
-      start += 10
+      start += Integer((10 * meta_data.domain_z.step).round(1))
     end
-    str.concat("%-10s" % start.to_s)
+    str.concat("%-#{data_size - position}s" % start.to_s)
+    if (data_size - position > 5)
+      str.concat(Integer(meta_data.domain_z.upper).to_s)
+    end
 
     return str
   end
@@ -140,9 +145,9 @@ class TimelineOutput
   def self.create_extreme_output(max_size)
     str = String.new()
     max_size.times {str.concat(' ')}
-    str.concat("Maximum: #{@extrema[:maximum]}\n")
+    str.concat("Maximum: #{@extrema[:maximum].round(3)}\n")
     max_size.times {str.concat(' ')}
-    str.concat("Minimum: #{@extrema[:minimum]}")
+    str.concat("Minimum: #{@extrema[:minimum].round(3)}")
 
     return str
   end
