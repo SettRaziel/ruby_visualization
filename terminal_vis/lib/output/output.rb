@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-05-07 15:12:46
+# @Last Modified time: 2016-05-09 13:02:12
 
 module TerminalVis
 
@@ -16,6 +16,7 @@ module TerminalVis
     require_relative 'range_output'
     require_relative 'timeline_output'
     require_relative '../math/time_line'
+    require_relative '../scaling/timeline_scaling'
     require_relative '../math/dataset_statistics'
 
     # creates output based on metadata and parameters
@@ -116,7 +117,13 @@ module TerminalVis
     def self.create_timeline(meta_data)
       data_series = TerminalVis.data_repo.repository[meta_data]
       values = ParameterCollector::determine_timeline_values
-      timeline = Timeline.new(meta_data, data_series, values)
+      options = get_output_options
+      if (!options[:auto_scale])
+        timeline = Timeline.new(meta_data, data_series, values)
+      else
+        timeline = TimelineScaling.new(meta_data, data_series, values)
+        meta_data = timeline.scaled_meta
+      end
       TimelineOutput.print_timeline(timeline.mapped_values, meta_data,
                                     values[:x], values[:y])
     end
