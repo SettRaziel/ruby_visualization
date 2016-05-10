@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-25 13:40:23
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-05-07 15:13:14
+# @Last Modified time: 2016-05-10 16:05:16
 
 require_relative '../graphics/string'
 require_relative '../data/meta_data'
@@ -131,11 +131,20 @@ class TimelineOutput
       position += 10
       start += Integer((10 * meta_data.domain_z.step).round(1))
     end
-    str.concat("%-#{data_size - position}s" % start.to_s)
-    if (data_size - position > 5)
+    str.concat(finish_axis_legend(data_size - position, start, meta_data))
+    return str
+  end
+
+  # method to finish the axis legend string
+  # @param [Integer] puffer the number of rest characters
+  # @param [Integer] start the current number of the axis
+  # @param [MetaData] meta_data the meta information of the regarded data series
+  # @return [String] the ending of the axis legend
+  def self.finish_axis_legend(puffer, start, meta_data)
+    str = ("%-#{puffer}s" % start.to_s)
+    if (puffer > 5)
       str.concat(Integer(meta_data.domain_z.upper).to_s)
     end
-
     return str
   end
 
