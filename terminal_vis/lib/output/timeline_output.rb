@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-25 13:40:23
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-05-10 16:05:16
+# @Last Modified time: 2016-05-11 13:31:03
 
 require_relative '../graphics/string'
 require_relative '../data/meta_data'
@@ -15,12 +15,11 @@ class TimelineOutput
   # @param [Hash] mapped_values the output hash from {Timeline} mapping boundary
   #  values to z values
   # @param [MetaData] meta_data the meta information of the regarded data series
-  # @param [Float] x x-coordinate of the regarded point
-  # @param [Float] y y-coordinate of the regarded point
-  def self.print_timeline(mapped_values, meta_data, x, y)
+  # @param [Hash] values the mapping of the required start values
+  def self.print_timeline(mapped_values, meta_data, values)
     output = create_output_array(mapped_values, meta_data)
 
-    print_output_head(x,y)
+    print_output_head(values[:x],values[:y])
 
     output.reverse.each { |value|
       puts value

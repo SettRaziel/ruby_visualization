@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-05-09 13:02:12
+# @Last Modified time: 2016-05-11 13:29:12
 
 module TerminalVis
 
@@ -124,8 +124,7 @@ module TerminalVis
         timeline = TimelineScaling.new(meta_data, data_series, values)
         meta_data = timeline.scaled_meta
       end
-      TimelineOutput.print_timeline(timeline.mapped_values, meta_data,
-                                    values[:x], values[:y])
+      TimelineOutput.print_timeline(timeline.mapped_values, meta_data, values)
     end
 
     # creates default output or output with an index using -i
