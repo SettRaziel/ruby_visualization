@@ -159,7 +159,7 @@ see LICENSE
   y-dimenstion (done with update v0.8.0)
 * adding a mechanism to scale the output automatically to the dimension of
   the used terminal (done for standard dataset output in v0.8.2, delta output
-  and animation in v0.8.3; timeline will follow)
+  and animation in v0.8.3; timeline in v0.9.0)
 * adding more features from suggestions
 
 
