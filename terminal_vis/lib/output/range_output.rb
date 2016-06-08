@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-08 15:19:26
+# @Last Modified time: 2016-06-08 12:53:33
 
 require_relative '../data/meta_data'
 require_relative '../data/data_series'
@@ -81,9 +81,8 @@ class RangeOutput
     if (!options[:auto_scale])
       DataOutput::SingleOutput.print_dataset(data_series, meta_data, options)
     else
-      index = options[:index]
       DataOutput::ScaledDatasetOutput.
-                  print_dataset(data_series.series[index], meta_data, options)
+                  print_dataset(data_series, meta_data, options)
     end
   end
 

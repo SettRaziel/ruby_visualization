@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-01-29 10:17:38
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-14 17:01:04
+# @Last Modified time: 2016-06-08 12:39:04
 
 module DataOutput
 
@@ -10,13 +10,14 @@ module DataOutput
   class ScaledDatasetOutput < ScaledOutput
 
     # method to print a given dataset scaled by the terminal size
-    # @param [DataSet] data_set the data set which should be visualized
+    # @param [DataSeries] data_series the data series from which the dataset
+    #    at the provided index should be visualized
     # @param [MetaData] meta_data the corresponding meta data
     # @param [Hash] options hash with the relevant parameter values
-    def self.print_dataset(data_set, meta_data, options)
-      prepare_attributes(data_set, meta_data, options)
-      @legend = ColorLegend::ColorData.new(@scaled_dataset.min_value,
-                                           @scaled_dataset.max_value)
+    def self.print_dataset(data_series, meta_data, options)
+      prepare_attributes(data_series.series[options[:index]], meta_data, options)
+      @legend = ColorLegend::ColorData.new(data_series.min_value,
+                                           data_series.max_value)
       print_output_head(options[:index], meta_data)
       print_data(options[:legend], @meta_data.domain_x, @meta_data.domain_y)
     end

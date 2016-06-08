@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-05-11 13:29:12
+# @Last Modified time: 2016-06-08 12:37:03
 
 module TerminalVis
 
@@ -140,7 +140,7 @@ module TerminalVis
           print_dataset(data_series, meta_data, options)
       else
         DataOutput::ScaledDatasetOutput.
-          print_dataset(data_series.series[index], meta_data, options)
+          print_dataset(data_series, meta_data, options)
       end
     end
     private_class_method :create_single_output_at_index
