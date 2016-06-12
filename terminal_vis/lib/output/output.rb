@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-08 12:37:03
+# @Last Modified time: 2016-06-12 16:30:44
 
 module TerminalVis
 
@@ -97,7 +97,8 @@ module TerminalVis
       output = TerminalVis::Interpolation.region_interpolation(meta_data,
                             get_and_check_data(values[:index], meta_data),
                             coordinates, values)
-      DataOutput::RegionOutput.region_output(output, coordinates, values)
+      DataOutput::RegionOutput.region_output(output, coordinates,
+                  TerminalVis.data_repo.repository[meta_data], values)
     end
 
     # creates output when using the parameter -r

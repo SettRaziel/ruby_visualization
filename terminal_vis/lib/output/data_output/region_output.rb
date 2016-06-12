@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-13 16:50:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-13 13:30:41
+# @Last Modified time: 2016-06-12 16:33:30
 
 module DataOutput
 
@@ -12,11 +12,14 @@ module DataOutput
     # @param [DataSet] data the data that should be visualized
     # @param [Hash] coordinates a hash containing the x and y coordinate of the
     #   central point of the region
+    # @param [DataSeries] data_series the considered data series which is
+    #   required for the extreme values
     # @param [Hash] values a hash containing all required values to interpolate
     #   the region
-    def self.region_output(data, coordinates, values)
+    def self.region_output(data, coordinates, data_series, values)
       set_attributes(data, values[:extreme_values])
-      @legend = ColorLegend::ColorData.new(data.min_value, data.max_value)
+      @legend = ColorLegend::ColorData.new(data_series.min_value,
+                                           data_series.max_value)
       @domain_x = create_data_domain('X', coordinates[:x], values[:inter_x],
                                                           values[:delta_x])
       @domain_y = create_data_domain('Y', coordinates[:y], values[:inter_y],
