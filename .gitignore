@@ -1,4 +1,4 @@
 #Gitignore
 dev/
-terminal_vis/.yardoc/
-terminal_vis/doc/
+.yardoc/
+doc/
