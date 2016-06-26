@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-22 19:24:55
+# @Last Modified time: 2016-06-26 18:11:49
 
 module TerminalVis
 
@@ -29,7 +29,7 @@ module TerminalVis
       @option_handler = ConfigurationHandler.new()
   end
 
-  # creates the meta data based on the provided parameters
+  # creates the {MetaData::MetaData} based on the provided parameters
   # @return [MetaData] returns the meta data for the dataset
   def self.create_metadata
     begin
@@ -75,7 +75,7 @@ module TerminalVis
 
   # checks if option -i was used, determines if a valid parameter was entered
   # and returns the index on success
-  # @param [MetaData] meta_data the meta_data which should be checked for the
+  # @param [MetaData] meta_data the meta data which should be checked for the
   #  corresponding index
   # @return [Integer] the index from the parameter, default return is 0
   def self.get_and_check_index(meta_data)
@@ -96,7 +96,7 @@ module TerminalVis
   end
 
   # method to check if provided integer index lies in range of dataseries
-  # @param [MetaData] meta_data the meta_data which should be checked for the
+  # @param [MetaData] meta_data the meta data which should be checked for the
   #  corresponding index
   # @param [Integer] index the given index from the input
   def self.check_index(meta_data, index)

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-04-26 15:23:25
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-05-05 10:40:27
+# @Last Modified time: 2016-06-26 18:22:31
 
 require_relative '../math/time_line'
 require_relative '../math/statistic'
@@ -120,7 +120,7 @@ class TimelineScaling < Timeline
     Statistic.mean_value(means)
   end
 
-  # method to adjust the meta data and replace the z-dimension
+  # method to adjust the {MetaData::MetaData} and replace the z-dimension
   # @param [MetaData] meta_data the meta information of the regarded data series
   def scale_meta_data(meta_data)
     delta_z = ((meta_data.domain_z.number_of_values) /
@@ -135,7 +135,7 @@ class TimelineScaling < Timeline
     @scaled_meta = MetaData::MetaData.new(meta_string)
   end
 
-  # method to add the required parameter to the meta data string
+  # method to add the required parameter to the {MetaData::MetaData} string
   # @param [MetaData::DataDomain] data_domain the required
   #    {MetaData::DataDomain}
   # @param [Float] new_step the new delta between two data values for the given

@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-05 12:43:22
+# @Last Modified time: 2016-06-26 18:09:06
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -11,7 +11,7 @@ require_relative 'meta_data'
 # This class serves as a data repository storing the read data and handling the
 # meta information
 class DataRepository
-  # @return Hash mapping {MetaData} -> {DataSeries}
+  # @return Hash mapping {MetaData::MetaData} -> {DataSeries}
   attr_reader :repository
 
   # initialization
@@ -52,7 +52,7 @@ class DataRepository
   end
 
   # checks if all data sets in a data_series have the dimension specified
-  # in the meta_data information
+  # in the {MetaData::MetaData} information
   # @param [MetaData] meta_data the meta data which should be checked
   # @return [boolean] true, if data fulfills the information provded by the
   #   meta data; false, if one data dimension of the number of datasets fails
@@ -61,7 +61,7 @@ class DataRepository
   end
 
   # checks if the dimension of each dataset is consistent with the information
-  # of the corresponding meta data
+  # of the corresponding {MetaData::MetaData}
   # @param [MetaData] meta_data the meta data which should be checked
   # @return [boolean] true, if the dimension of every dataset is consistent
   #   with the meta information; false, if not
@@ -82,7 +82,7 @@ class DataRepository
   end
 
   # method to retrieve the number of data values in the x and y dimension based
-  # on the meta data information
+  # on the {MetaData::MetaData} information
   # @param [MetaData] meta_data the meta data whose values should be used
   # @return [Hash] a hash containing the number of data values in x and y
   def get_domain_values(meta_data)
@@ -118,7 +118,7 @@ class DataRepository
   end
 
   # checks if all data sets in a data_series have the dimension in z specified
-  # in the meta_data information
+  # in the {MetaData::MetaData} information
   # @param [MetaData] meta_data the meta data which should be checked
   # @return [boolean] true, if number of dataset is consistent with the meta
   #   information; false, if not
@@ -162,7 +162,8 @@ class DataRepository
     return value
   end
 
-  # method to build the meta string that is uses for default meta data
+  # method to build the meta string that is uses for default
+  #   {MetaData::MetaData}
   # @param [DataSeries] data_series the given data series
   # @param [String] filename the name of the input file
   # @return [Array] the constructed meta string

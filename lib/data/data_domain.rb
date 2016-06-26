@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-11 11:16:06
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-13 12:18:58
+# @Last Modified time: 2016-06-26 18:10:32
 
 # {MetaData::MetaData} stores meta information about the data series. The
 # meta information can be used for two or three dimensional data series. Each
@@ -18,7 +18,7 @@
 #   <axis_description_z>,<lower_boundary_z>,<upper_boundary_z>
 module MetaData
 
-  # DataDomain represents the meta data for one dimension
+  # {MetaData::DataDomain} represents the meta data for one dimension
   # @raise [ArgumentError] if parsing of attribute values fails
   class DataDomain
     # @return [String] name of the data

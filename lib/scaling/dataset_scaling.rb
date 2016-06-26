@@ -1,12 +1,13 @@
 # @Author: Benjamin Held
 # @Date:   2016-03-10 11:45:32
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-05-06 13:36:17
+# @Last Modified time: 2016-06-26 18:24:05
 
 require_relative '../data/meta_data'
 require_relative 'terminal_size'
 
-# Helper class to generate a scaled {DataSet} from a {MetaData} => {DataSet}
+# Helper class to generate a scaled {DataSet} from a {MetaData::MetaData}
+# => {DataSet}
 # pair with the scaling based on the size of the terminal where the script is
 # started.
 class DatasetScaling
@@ -16,8 +17,8 @@ class DatasetScaling
   attr_reader :scaled_data_set
 
   # initialization
-  # @param [MetaData] meta_data the {MetaData} of the {DataSet} that should
-  #    be scaled
+  # @param [MetaData] meta_data the {MetaData::MetaData} of the {DataSet} that
+  #   should be scaled
   # @param [DataSet] data_set the data set which should be visualized
   def initialize(meta_data, data_set)
     @meta_data = meta_data
@@ -30,7 +31,7 @@ class DatasetScaling
   end
 
   private
-  # @return [MetaData] the original {MetaData} of the {DataSet}
+  # @return [MetaData] the original {MetaData::MetaData} of the {DataSet}
   attr :meta_data
   # @return [Integer] the number of lines of the used terminal
   attr :lines
@@ -80,7 +81,7 @@ class DatasetScaling
     meta_string.concat(add_domain_information(@meta_data.domain_y, delta_y))
   end
 
-  # method to add the required parameter to the meta data string
+  # method to add the required parameter to the {MetaData::MetaData} string
   # @param [MetaData::DataDomain] data_domain the required
   #    {MetaData::DataDomain}
   # @param [Float] new_step the new delta between two data values for the given

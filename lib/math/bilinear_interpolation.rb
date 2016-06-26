@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-15 14:29:35
+# @Last Modified time: 2016-06-26 18:14:19
 
 # This module holds the main singleton methods that are called from the script.
 # It also stores the data ans parameter repository so it can be called from
@@ -12,11 +12,11 @@ module TerminalVis
 
     # math class to interpolate data between a set of points
     # @raise [RangeError] when the provided coordinates do not lie within
-    #   the data area of the meta data
+    #   the data area of the {MetaData::MetaData}
     class BilinearInterpolation
 
       # method for bilinear interpolation
-      # @param [MetaData] meta_data meta_data of the used dataset
+      # @param [MetaData] meta_data meta data of the used dataset
       # @param [DataSet] data_set dataset where a
       #   coordinate should be interpolated
       # @param [Float] x x-coordinate of the interpolation point
@@ -153,8 +153,8 @@ module TerminalVis
       end
 
       # singleton method to get the index to the next down rounded datapoint
-      # @param [DataDomain] data_domain domain of the meta_data corresponding
-      #   to the coordinate
+      # @param [DataDomain] data_domain domain of the {MetaData::MetaData}
+      #   corresponding to the coordinate
       # @param [DataPoint] coordinate component of the coordinate to check
       # @return [Numeric] the index of the next coordinate value (rounded down)
       def self.get_index_to_next_lower_datapoint(data_domain, coordinate)
