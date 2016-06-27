@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-13 16:50:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-12 16:33:30
+# @Last Modified time: 2016-06-27 19:08:37
 
 module DataOutput
 
@@ -30,12 +30,13 @@ module DataOutput
     end
 
     private
-    # @return {DataDomain} representing the section in the x-dimension
+    # @return [DataDomain] representing the section in the x-dimension
     attr :domain_x
-    # @return {DataDomain} representing the section in the y-dimension
+    # @return [DataDomain] representing the section in the y-dimension
     attr :domain_y
 
-    # method to create the special data domains for the x- and y-dimension
+    # method to create the special {MetaData::DataDomain}s for the x- and
+    # y-dimension
     # @param [String] label the name of the domain
     # @param [Float] coordinate the coordinate of the region center in the
     #   required dimension

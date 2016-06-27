@@ -1,12 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-13 12:19:57
+# @Last Modified time: 2016-06-27 19:05:05
 
 module MetaData
 
   # class to store the meta information of a data series
-  # @see {MetaData} meta information format
+  # @see {MetaData::MetaData} meta information format
   # @raise [IndexError] if the number of provided parameters has not
   #   the correct size
   class MetaData

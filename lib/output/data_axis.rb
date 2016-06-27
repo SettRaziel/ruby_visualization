@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-12 09:52:39
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-13 10:59:20
+# @Last Modified time: 2016-06-27 19:06:50
 
 require_relative '../data/data_domain'
 
@@ -60,7 +60,8 @@ class DataAxis
                                             round(3)}"
   end
 
-  # method to determine the maximal string length of a data domain value
+  # method to determine the maximal string length of a {MetaData::DataDomain}
+  # value
   # @param [DataDomain] domain the considered domain
   # @return [Integer] the maximal lenght of a string in this domain
   def self.determine_maximal_domainvalue_length(domain)

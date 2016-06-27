@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-12 16:30:44
+# @Last Modified time: 2016-06-27 19:03:59
 
 module TerminalVis
 
@@ -19,7 +19,7 @@ module TerminalVis
     require_relative '../scaling/timeline_scaling'
     require_relative '../math/dataset_statistics'
 
-    # creates output based on metadata and parameters
+    # creates output based on {MetaData::MetaData} and parameters
     # @param [MetaData] meta_data the meta data of the data series which should
     #  be visualized
     def self.create_output(meta_data)

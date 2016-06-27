@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-08 12:53:33
+# @Last Modified time: 2016-06-27 19:03:05
 
 require_relative '../data/meta_data'
 require_relative '../data/data_series'
@@ -52,7 +52,7 @@ class RangeOutput
   end
 
   # method to check if the parameters are within the range specified by the
-  # meta data
+  # {MetaData::MetaData}
   # @param [MetaData] meta_data the metadata of the used data series
   # @param [Hash] indices a hash containing the indices :first and :second
   # @return [boolean] true, if both parameter are within the meta data range
