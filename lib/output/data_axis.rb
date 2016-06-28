@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-12 09:52:39
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-27 19:06:50
+# @Last Modified time: 2016-06-28 14:42:04
 
 require_relative '../data/data_domain'
 
@@ -14,6 +14,7 @@ class DataAxis
   # @param [DataDomain] domain_y the data domain used for the y-axis values
   def self.print_x_axis_values(domain_x, domain_y)
     x_value_lenght = determine_maximal_domainvalue_length(domain_x)
+    print_x_axis_markings(domain_x)
     print_x_axis_init(domain_x, domain_y)
     index = 5
     while ((x_value_lenght / 2 + index) <= domain_x.number_of_values)
@@ -37,6 +38,21 @@ class DataAxis
   private
   # attribute to store the maximal needed indentation for the y scale
   @max_y_indentation = 0
+
+  # method to print axis markings to see which visualized point belongs to the
+  # coordinate of the axis values
+  # @param [DataDomain] domain_x the data domain used for the x-axis values
+  def self.print_x_axis_markings(domain_x)
+    (@max_y_indentation).times { print ' '}
+    index = 0
+    print '\\/'
+    while (index < domain_x.number_of_values / 5)
+      8.times { print '-'}
+      print '\\/'
+      index += 1
+    end
+    puts
+  end
 
   # singleton method to print the initial string of the x axis description
   # @param [DataDomain] domain_x the data domain used for the x-axis values
