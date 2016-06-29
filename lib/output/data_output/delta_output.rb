@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-01-12 09:30:35
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-12 16:01:59
+# @Last Modified time: 2016-06-29 18:06:42
 
 module DataOutput
 
@@ -33,8 +33,10 @@ module DataOutput
     # @param [Hash] indices the indices of the two datasets which should be
     #   substracted
     def self.print_output_head(indices)
-          puts "Printing difference for datasets #{indices[:first]} and " \
-         "#{indices[:second]}.\n\n"
+      first_year = @meta_data.domain_z.lower + indices[:first]
+      second_year = @meta_data.domain_z.lower + indices[:second]
+      puts "Printing difference for the datasets of #{first_year} and "\
+           "#{second_year}.\n\n"
     end
 
     # method to print additional information before the x and y
