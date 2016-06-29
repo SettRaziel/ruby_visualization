@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-26 18:14:19
+# @Last Modified time: 2016-06-29 17:48:43
 
 # This module holds the main singleton methods that are called from the script.
 # It also stores the data ans parameter repository so it can be called from
@@ -144,7 +144,7 @@ module TerminalVis
 
       # singleton method to check if the provided coordinate lies within
       # the given domain of the dataset
-      # @param [DataDomain] data_domain domain of the meta_data
+      # @param [DataDomain] data_domain domain of the {MetaData::MetaData}
       #   corresponding to the coordinate
       # @param [DataPoint] coordinate component of the coordinate to check
       # @return [Boolean] true, if in dataset, false: if not

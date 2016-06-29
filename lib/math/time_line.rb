@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-24 10:28:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-26 18:27:31
+# @Last Modified time: 2016-06-29 17:49:47
 
 require_relative 'interpolation'
 
@@ -110,7 +110,7 @@ class Timeline
   # this method calculates for every collected value the index of the interval
   # values @value_boundaries with the least distance
   # @param [Array] values the collected values d(x,y)[z]
-  # @return [Hash] mapping of value => index
+  # @return [Hash] mapping of (value => index)
   def determine_nearest_index(values)
     mapped_values = Hash.new()
 
@@ -140,7 +140,7 @@ class Timeline
   end
 
   # this method creates the basic output which can be visualized.
-  # @param [Hash] mapped_values mapping of value => index
+  # @param [Hash] mapped_values mapping of (value => index)
   def create_output(mapped_values)
     output = Hash.new(@lines)
 

@@ -1,15 +1,14 @@
 # @Author: Benjamin Held
 # @Date:   2016-03-10 11:45:32
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-26 18:24:05
+# @Last Modified time: 2016-06-29 17:54:01
 
 require_relative '../data/meta_data'
 require_relative 'terminal_size'
 
-# Helper class to generate a scaled {DataSet} from a {MetaData::MetaData}
-# => {DataSet}
-# pair with the scaling based on the size of the terminal where the script is
-# started.
+# Helper class to generate a scaled {DataSet} from a ({MetaData::MetaData},
+# {DataSet}) pair with the scaling based on the size of the terminal where the
+# script is started.
 class DatasetScaling
   # @return [MetaData] the {MetaData} of the scaled {DataSet}
   attr_reader :scaled_meta

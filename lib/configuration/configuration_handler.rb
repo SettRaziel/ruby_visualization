@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-10 19:56:37
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-13 12:16:42
+# @Last Modified time: 2016-06-29 17:45:38
 
 require_relative '../data/file_reader'
 require_relative './configuration_repository'
@@ -46,11 +46,11 @@ class ConfigurationHandler
   end
 
   private
-  # @return [Hash] mapping of String => Symbol for reading options from
+  # @return [Hash] mapping of (String => Symbol) for reading options from
   #   a file
   attr :option_mapping
 
-  # method to initialize the Hash with the mapping String => Symbol
+  # method to initialize the Hash with the mapping (String => Symbol)
   def initialize_option_mapping
     @option_mapping = Hash.new()
     @option_mapping['legend_extend']= :legend_extend
