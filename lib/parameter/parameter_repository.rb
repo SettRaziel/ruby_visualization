@@ -1,11 +1,11 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-12 10:45:36
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-23 09:26:52
+# @Last Modified time: 2016-07-09 08:26:15
 
-# Parameter repository storing the valid parameter of the script.
+# Parameter repository to store the valid parameters of the script.
 # {#initialize} gets the provided parameters and fills a hash which
-# grants access on the provided parameters and their arguments
+# grants access to the provided parameters and arguments.
 class ParameterRepository
   # @return [Hash] Hash of valid parameters and their values
   attr_reader :parameters
