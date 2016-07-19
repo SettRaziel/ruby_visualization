@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-10 19:56:37
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-29 17:45:38
+# @Last Modified time: 2016-07-19 16:45:57
 
 require_relative '../data/file_reader'
 require_relative './configuration_repository'
@@ -29,7 +29,8 @@ class ConfigurationHandler
     elsif (option.start_with?('file='))
       check_and_read_options(option.split('=')[1])
     elsif (!option.eql?('default'))
-      raise ArgumentError, 'Option parameter is not valid.'.red
+      raise ArgumentError,
+            "Error [ConfigurationHandler]: Option parameter is not valid.".red
     end
   end
 
@@ -90,7 +91,8 @@ class ConfigurationHandler
     }x
 
     if (!(filepath =~ unixfile_regex || filepath =~ windowsfile_regex))
-      raise ArgumentError, " Error: invalid filepath: #{filepath}".red
+      raise ArgumentError,
+            " Error [ConfigurationHandler]: invalid filepath: #{filepath}".red
     end
   end
 
