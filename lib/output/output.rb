@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-27 19:03:59
+# @Last Modified time: 2016-07-29 18:11:21
 
 module TerminalVis
 
@@ -175,8 +175,7 @@ module TerminalVis
 
     # checks if the first argument of -d is less than 1
     # @param [Hash] data_indices the indices of the required datasets
-    # @param [MetaData] meta_data the corresponding meta data
-    def self.check_data_range(data_indices, meta_data)
+    def self.check_data_range(data_indices)
       if (data_indices[:first] < 0)
         raise IndexError, ' Error: first index of -d is less than 1'.red
       end
