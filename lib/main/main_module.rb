@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-29 19:08:32
+# @Last Modified time: 2016-08-10 23:13:59
 
 module TerminalVis
 
@@ -39,7 +39,7 @@ module TerminalVis
         @data_repo.add_data_with_default_meta(
                        @parameter_handler.repository.parameters[:file])
       end
-    rescue Exception => e
+    rescue StandardError => e
       print_error(" Error while creating metadata:\n ".concat(e.message))
     end
   end
