@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-11 11:16:06
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-26 18:10:32
+# @Last Modified time: 2016-08-11 20:15:22
 
 # {MetaData::MetaData} stores meta information about the data series. The
 # meta information can be used for two or three dimensional data series. Each
@@ -42,8 +42,9 @@ module MetaData
         @lower = Float(lower)
         @upper = Float(upper)
         @step = Float(step)
-      rescue ArgumentError => e
-        raise ArgumentError, ' Error in data domain: non number argument.'.red
+      rescue ArgumentError
+        raise ArgumentError,
+              ' Error in data domain: received non number argument.'.red
       end
     end
 
