@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-21 15:11:07
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-13 12:17:09
+# @Last Modified time: 2016-08-19 16:59:30
 
 require_relative '../main/main_module'
 
@@ -12,8 +12,8 @@ class ConfigurationMenu
   # public entry point for the configuration menu
   def self.print_menu
     is_running = true
-     # necessary to clear the script parameter, which has already been
-     # processed by the parameter_repository
+    # necessary to clear the script parameter, which has already been
+    # processed by the parameter_repository
     ARGF.argv.clear
 
     while(is_running)
