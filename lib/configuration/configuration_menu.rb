@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-21 15:11:07
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-08-19 16:59:30
+# @Last Modified time: 2016-08-23 20:27:26
 
 require_relative '../main/main_module'
 
@@ -107,7 +107,7 @@ class ConfigurationMenu
     begin
       TerminalVis::option_handler.save_options(filename)
       puts "Saved options to #{filename}".green
-    rescue Exception => e
+    rescue StandardError => e
       puts ' Error while saving options: '.concat(e.message).red
     end
     return true
