@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-07-29 18:11:21
+# @Last Modified time: 2016-09-02 14:59:40
 
 module TerminalVis
 
@@ -166,7 +166,7 @@ module TerminalVis
     # @return [Hash] a hash containing the selected datasets
     def self.get_data_for_indices(data_indices, meta_data)
       data = Hash.new()
-      check_data_range(data_indices, meta_data)
+      check_data_range(data_indices)
       data[:first_data] = get_and_check_data(data_indices[:first], meta_data)
       data[:second_data] = get_and_check_data(data_indices[:second], meta_data)
       return data
