@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-25 13:40:23
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-05-11 13:31:03
+# @Last Modified time: 2016-09-08 19:03:02
 
 require_relative '../graphics/string'
 require_relative '../data/meta_data'
@@ -17,6 +17,10 @@ class TimelineOutput
   # @param [MetaData] meta_data the meta information of the regarded data series
   # @param [Hash] values the mapping of the required start values
   def self.print_timeline(mapped_values, meta_data, values)
+    @extrema = {
+      :maximum => Array.new(),
+      :minimum => Array.new()
+    }
     output = create_output_array(mapped_values, meta_data)
 
     print_output_head(values[:x],values[:y])
@@ -27,12 +31,9 @@ class TimelineOutput
 
   end
 
-  private
-  @extrema = {
-      :maximum => Array.new(),
-      :minimum => Array.new()
-    }
+  attr_reader :extrema
 
+  private_class_method
   # simple method for printing an output haeder
   # @param [Float] x x-coordinate of the regarded point
   # @param [Float] y y-coordinate of the regarded point
@@ -41,6 +42,7 @@ class TimelineOutput
     puts "\n"
   end
 
+  private_class_method
   # method to create the output array, consisting of a string for each line
   # holding ordinate values and markings for the values and two additional lines
   # for the abscissa
@@ -64,6 +66,7 @@ class TimelineOutput
     return append_legend_output(output, meta_data, max_size)
   end
 
+  private_class_method
   # method to append the axis and legend information below the timeline
   # @param [Array] output the String array containing the output
   # @param [MetaData] meta_data the used meta data
@@ -78,6 +81,7 @@ class TimelineOutput
     return output
   end
 
+  private_class_method
   # method to finish the creation of a line of timeline output
   # @param [Array] values values for one line of the output
   # @param [String] line_string the started string that serves as output for
@@ -90,10 +94,11 @@ class TimelineOutput
         else
           line_string.concat(check_type_and_print(value))
         end
-      }
-      return line_string
+    }
+    return line_string
   end
 
+  private_class_method
   # method to create the axis of the abscissa
   # @param [Integer] data_size the number of values in the z dimension
   # @param [Integer] max_size length of the greates number on the ordinate
@@ -114,6 +119,7 @@ class TimelineOutput
     return str
   end
 
+  private_class_method
   # method to create value informations for the abscissa
   # @param [Integer] data_size the number of values in the z dimension
   # @param [Integer] max_size length of the greates number on the ordinate
@@ -134,6 +140,7 @@ class TimelineOutput
     return str
   end
 
+  private_class_method
   # method to finish the axis legend string
   # @param [Integer] puffer the number of rest characters
   # @param [Integer] start the current number of the axis
@@ -147,6 +154,7 @@ class TimelineOutput
     return str
   end
 
+  private_class_method
   # method to create the output of the extreme values
   # @param [Integer] max_size the number of padding white strings
   # @return [String] the output string for the extreme values
@@ -160,6 +168,7 @@ class TimelineOutput
     return str
   end
 
+  private_class_method
   # method to check the type of hit
   # @param [Array] value an array containing information of the hit and
   #  the value if it is an extreme value
