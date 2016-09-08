@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-27 19:03:05
+# @Last Modified time: 2016-09-08 19:08:13
 
 require_relative '../data/meta_data'
 require_relative '../data/data_series'
@@ -26,19 +26,18 @@ class RangeOutput
     end
   end
 
-  private
-
+  private_class_method
   # method to check if the input parameters are valid
   # @param [MetaData] meta_data the metadata of the used data series
   # @param [Hash] indices a hash containing the indices :first and :second
   # @return [boolean] true, if the parameters are in the range of the meta data
   def self.check_range_parameters(meta_data, indices)
-    size = meta_data.domain_z.number_of_values
     first_lesser_second?(indices)
 
     parameter_in_meta_range?(meta_data, indices)
   end
 
+  private_class_method
   # method to check if the first parameter is lesser than the second
   # @param [Hash] indices a hash containing the indices :first and :second
   # @return [boolean] true, if first < second
@@ -51,6 +50,7 @@ class RangeOutput
     return true
   end
 
+  private_class_method
   # method to check if the parameters are within the range specified by the
   # {MetaData::MetaData}
   # @param [MetaData] meta_data the metadata of the used data series
@@ -73,6 +73,7 @@ class RangeOutput
     return true
   end
 
+  private_class_method
   # method to determine which type of output should be used
   # @param [DataSeries] data_series the used data series
   # @param [MetaData] meta_data the metadata of the used data series
@@ -86,6 +87,7 @@ class RangeOutput
     end
   end
 
+  private_class_method
   # method to determine the art of visualization. Without -all or animation
   # speed = 0 the progress will be manual, speed > 0 determines speed in seconds
   # @param [Hash] parameters the required parameters parameter
