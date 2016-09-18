@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-29 17:48:43
+# @Last Modified time: 2016-09-18 17:50:19
 
 # This module holds the main singleton methods that are called from the script.
 # It also stores the data ans parameter repository so it can be called from
@@ -119,7 +119,7 @@ module TerminalVis
         begin
           data = @data_set.data[indices[:y] + delta_y][indices[:x] + delta_x]
           DataPoint.new(coordinates[:x], coordinates[:y], data)
-        rescue Exception => e
+        rescue StandardError
           DataPoint.new(coordinates[:x], coordinates[:y], nil)
         end
       end
