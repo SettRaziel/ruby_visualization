@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-10 19:56:37
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-07-19 16:45:57
+# @Last Modified time: 2016-09-29 19:48:35
 
 require_relative '../data/file_reader'
 require_relative './configuration_repository'
@@ -25,7 +25,7 @@ class ConfigurationHandler
   #  options
   def process_parameter(option)
     if (option =='menu')
-      ConfigurationMenu.print_menu
+      ConfigurationMenu.new.print_menu
     elsif (option.start_with?('file='))
       check_and_read_options(option.split('=')[1])
     elsif (!option.eql?('default'))

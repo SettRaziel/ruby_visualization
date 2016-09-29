@@ -1,16 +1,16 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-21 15:11:07
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-08-23 20:27:26
+# @Last Modified time: 2016-09-29 19:49:54
 
 require_relative '../main/main_module'
 
-# singleton class to deliver a simple terminal menu to provide values for the
+# helper class to deliver a simple terminal menu to provide values for the
 # available configuration parameter
 class ConfigurationMenu
 
   # public entry point for the configuration menu
-  def self.print_menu
+  def print_menu
     is_running = true
     # necessary to clear the script parameter, which has already been
     # processed by the parameter_repository
@@ -32,7 +32,7 @@ class ConfigurationMenu
   # method to check the input and proceed depending on its value
   # @param [Integer] input the provided input
   # @return [boolean] as an indicator if the configuration is finished
-  def self.process_input(input)
+  def process_input(input)
     case input
       when 1 then return process_legend_input(
                          get_entry('Input value (0: false, 1:true) : ').to_i)
@@ -50,14 +50,14 @@ class ConfigurationMenu
   # method to process the parameter for the extended legend option
   # @param [Integer] input the provided parameter
   # @return [boolean] true if the parameter was processed correctly
-  def self.process_legend_input(input)
+  def process_legend_input(input)
     process_boolean_input(input, :legend_extend)
   end
 
   # method to process the parameter for the y dimension option
   # @param [Integer] input the provided parameter
   # @return [boolean] true if the parameter was processed correctly
-  def self.process_ydim_input(input)
+  def process_ydim_input(input)
     begin
       check_dimension_value(input)
       TerminalVis::option_handler.options.change_option(:y_time_size, input)
@@ -70,7 +70,7 @@ class ConfigurationMenu
   # checks if the input for the y-dimension lies within acceptable boundaries
   # @param [Integer] input the provided input
   # @raise [ArgumentError] if the value lies outside the interval
-  def self.check_dimension_value(input)
+  def check_dimension_value(input)
     if (input <= 0 || input > 100)
       raise ArgumentError,
             " Error: y_dim value #{input} runs out of bound [1,100]".red
@@ -80,7 +80,7 @@ class ConfigurationMenu
   # method to obtain the input for the scale option
   # @param [Integer] input the provided input
   # @return [Boolean] true to mark the successful handling of the input
-  def self.process_scale_input(input)
+  def process_scale_input(input)
     process_boolean_input(input, :auto_scale)
   end
 
@@ -88,7 +88,7 @@ class ConfigurationMenu
   # @param [Integer] input the provided input
   # @param [Symbol] symbol the hash key for the options menu
   # @return [Boolean] true to mark the successful handling of the input
-  def self.process_boolean_input(input, symbol)
+  def process_boolean_input(input, symbol)
     case input
     when 0 then TerminalVis::option_handler.options.
                              change_option(symbol, false)
@@ -103,7 +103,7 @@ class ConfigurationMenu
   # method to save the currently defined options to a file
   # @param [String] filename the filename of the output file
   # @return [boolean] true if the options were saved correctly
-  def self.save_to_file(filename)
+  def save_to_file(filename)
     begin
       TerminalVis::option_handler.save_options(filename)
       puts "Saved options to #{filename}".green
@@ -116,7 +116,7 @@ class ConfigurationMenu
   # method to print a message and read the following input
   # @param [String] message prompt message
   # @return [String] the provided input
-  def self.get_entry(message)
+  def get_entry(message)
     print message.blue.bright
     gets.chomp
   end
