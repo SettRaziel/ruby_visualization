@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-30 21:00:25
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-04 15:26:11
+# @Last Modified time: 2016-10-15 16:52:33
 
 require 'csv'
 
@@ -18,7 +18,7 @@ class FileReader
   def initialize(filename, delimiter)
     begin
       @data = CSV.read(filename, { :col_sep => delimiter })
-    rescue Exception => e
+    rescue StandardError => e
       raise IOError, e.message.concat('.').red
     end
   end
