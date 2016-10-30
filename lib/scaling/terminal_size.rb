@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-01-18 13:03:35
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-10-08 09:01:17
+# @Last Modified time: 2016-10-30 10:23:41
 
 # module for classes and methods that determine the actual dimension of the
 # terminal executing the script
@@ -50,7 +50,7 @@ module TerminalSize
       else
         nil
       end
-    rescue Exception
+    rescue StandardError
       puts ' Error: could not determine correct terminal size'.red
       nil
     end
