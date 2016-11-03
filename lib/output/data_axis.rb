@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-12 09:52:39
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-28 14:42:04
+# @Last Modified time: 2016-11-03 20:50:02
 
 require_relative '../data/data_domain'
 
@@ -15,7 +15,7 @@ class DataAxis
   def self.print_x_axis_values(domain_x, domain_y)
     x_value_lenght = determine_maximal_domainvalue_length(domain_x)
     print_x_axis_markings(domain_x)
-    print_x_axis_init(domain_x, domain_y)
+    print_x_axis_init(domain_x)
     index = 5
     while ((x_value_lenght / 2 + index) <= domain_x.number_of_values)
       extend_x_axis_output(index, domain_x)
@@ -56,8 +56,7 @@ class DataAxis
 
   # singleton method to print the initial string of the x axis description
   # @param [DataDomain] domain_x the data domain used for the x-axis values
-  # @param [DataDomain] domain_y the data domain used for the y-axis values
-  def self.print_x_axis_init(domain_x, domain_y)
+  def self.print_x_axis_init(domain_x)
     (@max_y_indentation).times { print ' '}
     value_lenght = "#{domain_x.get_coordinate_to_index(0).round(3)}".length
     print ("%#{value_lenght}s") % "#{domain_x.get_coordinate_to_index(0).
