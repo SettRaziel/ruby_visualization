@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-27 19:07:26
+# @Last Modified time: 2016-11-12 18:49:18
 
 require_relative '../../data/data_set'
 require_relative '../../data/data_series'
@@ -20,6 +20,7 @@ module DataOutput
   # information for the chosen output. If the child class does not implement
   # this method {DataOutput::Base} raises a NotImplementedError.
   class Base
+
     private
     # @return [ColorLegend] the color legend for the data
     attr :legend
@@ -32,7 +33,7 @@ module DataOutput
     # @param [DataSet] data_set the used dataset
     # @param [boolean] with_extreme_values boolean to determine if extreme
     #  values should be marked
-    def self.set_attributes(data_set, with_extreme_values)
+    def set_attributes(data_set, with_extreme_values)
       @data_set = data_set
       @with_extreme_values = with_extreme_values
     end
@@ -42,7 +43,7 @@ module DataOutput
     # markings
     # @param [Float] value the data value which should be visualized
     # @return [Symbol] symbol to determine which kind of output was printed
-    def self.determine_output_type_and_print_value(value)
+    def determine_output_type_and_print_value(value)
       # create output for maximum
       if (value == @data_set.max_value && @with_extreme_values)
         print '++'.light_gray.bright.black_bg
@@ -60,7 +61,7 @@ module DataOutput
 
     # prints the coordinates and values of the extreme values
     # @param [Hash] extreme_coordinates Hash with positions of extrema
-    def self.print_extreme_information(extreme_coordinates)
+    def print_extreme_information(extreme_coordinates)
       puts 'Dataset extreme values:'
         print_extreme_values_for(extreme_coordinates[:maximum],
                            'Maximum (++):', @data_set.max_value)
@@ -72,7 +73,7 @@ module DataOutput
     # @param [Array] coordinates coordinates of the eytreme values
     # @param [String] type name of the extreme value
     # @param [Float] value the extreme value
-    def self.print_extreme_values_for(coordinates, type, value)
+    def print_extreme_values_for(coordinates, type, value)
       while (coordinates.size > 0)
           coordinate = coordinates.shift
           color = @legend.create_output_string_for(value,'  ')
@@ -83,7 +84,7 @@ module DataOutput
     # prints the data and the additional informations
     # @param [boolean] with_legend boolean which determines if the extended
     #  legend options should be printed
-    def self.print_data(with_legend, domain_x, domain_y)
+    def print_data(with_legend, domain_x, domain_y)
       extreme_coordinates = print_data_and_get_extrema(domain_y)
       DataAxis.print_x_axis_values(domain_x, domain_y)
 
@@ -99,7 +100,7 @@ module DataOutput
 
     # reverses the data to print it in the correct occurence
     # @return [Hash] coordinate indices of the extreme values
-    def self.print_data_and_get_extrema(domain_y)
+    def print_data_and_get_extrema(domain_y)
       extreme_coordinates = {
         :maximum => Array.new(),
         :minimum => Array.new()
@@ -118,13 +119,13 @@ module DataOutput
         puts
       }
 
-      return extreme_coordinates
+      extreme_coordinates
     end
 
     # prints the domain information for the given domain
     # @param [DataDomain] domain the domain which information should be printed
     # @param [String] dim_string the string with the domain identifier
-    def self.print_domain_information(domain, dim_string)
+    def print_domain_information(domain, dim_string)
       puts "%s-axis with %s from %.1f up to %.1f and steprange %.2f." %
         [dim_string, domain.name, domain.lower, domain.upper, domain.step]
     end
@@ -132,7 +133,7 @@ module DataOutput
     # abstract method to print the used meta information
     # @abstract subclasses need to implement this method
     # @raise [NotImplementedError] if the subclass does not have this method
-    def self.print_meta_information
+    def print_meta_information
       fail NotImplementedError, " Error: the subclass #{self.class} needs " \
            "to implement the method: print_meta_information " \
            "from its base class".red
