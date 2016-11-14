@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-11-12 18:49:18
+# @Last Modified time: 2016-11-14 19:58:33
 
 require_relative '../../data/data_set'
 require_relative '../../data/data_series'
@@ -63,10 +63,11 @@ module DataOutput
     # @param [Hash] extreme_coordinates Hash with positions of extrema
     def print_extreme_information(extreme_coordinates)
       puts 'Dataset extreme values:'
-        print_extreme_values_for(extreme_coordinates[:maximum],
-                           'Maximum (++):', @data_set.max_value)
-        print_extreme_values_for(extreme_coordinates[:minimum],
-                           'Minimum (--):', @data_set.min_value)
+      print_extreme_values_for(extreme_coordinates[:maximum],
+                               'Maximum (++):', @data_set.max_value)
+      print_extreme_values_for(extreme_coordinates[:minimum],
+                               'Minimum (--):', @data_set.min_value)
+      nil
     end
 
     # prints all the coordinates of the given extreme value
@@ -79,6 +80,7 @@ module DataOutput
           color = @legend.create_output_string_for(value,'  ')
           puts "  %s %.3f at %s [%s]." % [type, value, coordinate, color]
       end
+      nil
     end
 
     # prints the data and the additional informations
@@ -96,6 +98,7 @@ module DataOutput
       print_meta_information
 
       puts "\n"
+      nil
     end
 
     # reverses the data to print it in the correct occurence
@@ -128,6 +131,7 @@ module DataOutput
     def print_domain_information(domain, dim_string)
       puts "%s-axis with %s from %.1f up to %.1f and steprange %.2f." %
         [dim_string, domain.name, domain.lower, domain.upper, domain.step]
+      nil
     end
 
     # abstract method to print the used meta information
