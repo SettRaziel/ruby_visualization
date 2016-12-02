@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-13 16:50:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-27 19:08:37
+# @Last Modified time: 2016-12-02 20:46:55
 
 module DataOutput
 
@@ -16,7 +16,7 @@ module DataOutput
     #   required for the extreme values
     # @param [Hash] values a hash containing all required values to interpolate
     #   the region
-    def self.region_output(data, coordinates, data_series, values)
+    def initialize(data, coordinates, data_series, values)
       set_attributes(data, values[:extreme_values])
       @legend = ColorLegend::ColorData.new(data_series.min_value,
                                            data_series.max_value)
@@ -44,7 +44,7 @@ module DataOutput
     #   considered dimension
     # @param [Float] delta the steprange in the considered dimension
     # @return [DataDomain] the domain object based on the input parameter
-    def self.create_data_domain(label, coordinate, interval, delta)
+    def create_data_domain(label, coordinate, interval, delta)
       lower = (coordinate - interval).round(3)
       upper = (coordinate + interval).round(3)
 
@@ -54,7 +54,7 @@ module DataOutput
     # method to print the output head
     # @param [Hash] coordinates a hash containing the coordinates of the origin
     # @param [Hash] values a hash containing the required values
-    def self.print_output_head(coordinates, values)
+    def print_output_head(coordinates, values)
       puts "Printing interpolated region around (%.2f, %.2f) for data set %d" %
             [coordinates[:x], coordinates[:y], values[:index] + 1]
       puts "\n"
@@ -62,7 +62,7 @@ module DataOutput
 
     # prints the meta information consisting of dataset name and informations
     # of the different dimensions
-    def self.print_meta_information
+    def print_meta_information
       puts "\nRegional interpolation with domain properties:"
 
       print_domain_information(@domain_x, "\nX")
