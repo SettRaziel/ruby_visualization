@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-03-22 14:15:01
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-14 17:02:02
+# @Last Modified time: 2016-12-09 20:19:45
 
 module DataOutput
 
@@ -16,7 +16,7 @@ module DataOutput
     #   substracted
     # @param [Hash] options hash with the boolean values for extreme values and
     #   extended legend output
-    def self.print_delta(data_set, meta_data, indices, options)
+    def initialize(data_set, meta_data, indices, options)
       prepare_attributes(data_set, meta_data, options)
       @legend = ColorLegend::ColorDelta.new(@scaled_dataset.min_value,
                                             @scaled_dataset.max_value)
@@ -30,14 +30,14 @@ module DataOutput
     # indices
     # @param [Hash] indices the indices of the two datasets which should be
     #   substracted
-    def self.print_output_head(indices)
+    def print_output_head(indices)
           puts "Printing autoscaled difference for datasets " \
                "#{indices[:first]} and #{indices[:second]}.\n\n"
     end
 
     # method to print additional information before the x and y
     # domain informations
-    def self.print_meta_head
+    def print_meta_head
       puts "\nScaled Dataset: Difference of #{@meta_data.name} between " \
            "the two datasets"
     end
