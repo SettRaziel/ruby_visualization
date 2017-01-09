@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-31 14:02:17
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-04-12 16:02:07
+# @Last Modified time: 2017-01-09 19:27:39
 
 module DataOutput
 
@@ -13,7 +13,7 @@ module DataOutput
     # @param [MetaData] meta_data the corresponding meta data
     # @param [Hash] options hash with the boolean values for extreme values and
     #   extended legend output
-    def self.print_dataset(data_series, meta_data, options)
+    def initialize(data_series, meta_data, options)
       @meta_data = meta_data
       set_attributes(data_series.series[options[:index]],
                      options[:extreme_values])
@@ -29,7 +29,7 @@ module DataOutput
     # creates a headline before printing the data set based on the values
     # of the z dimension
     # @param [Integer] index the number of the dataset
-    def self.print_output_head(index)
+    def print_output_head(index)
       puts "\nPrinting dataset for %.2f" %
             (@meta_data.domain_z.lower + (index * @meta_data.domain_z.step))
       puts "\n"
@@ -37,13 +37,13 @@ module DataOutput
 
     # method to print additional information before the x and y
     # domain informations
-    def self.print_meta_head
+    def print_meta_head
         puts "\nDataset: #{@meta_data.name}"
     end
 
     # method to print additional information after the x and y
     # domain informations
-    def self.print_meta_tail
+    def print_meta_tail
       if (@meta_data.domain_z != nil)
         print_domain_information(@meta_data.domain_z, 'Z')
       end
