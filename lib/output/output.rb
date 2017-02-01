@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-09-02 14:59:40
+# @Last Modified time: 2017-02-01 21:07:44
 
 module TerminalVis
 
@@ -65,11 +65,10 @@ module TerminalVis
 
       options = get_output_options
       if (!options[:auto_scale])
-        DataOutput::DeltaOutput.
-          print_delta(result, meta_data, data_indices, options)
+        DataOutput::DeltaOutput.new(result, meta_data, data_indices, options)
       else
-        DataOutput::ScaledDeltaOutput.
-          print_delta(result, meta_data, data_indices, options)
+        DataOutput::ScaledDeltaOutput.new(result, meta_data, data_indices,
+                                          options)
       end
     end
 
@@ -97,7 +96,7 @@ module TerminalVis
       output = TerminalVis::Interpolation.region_interpolation(meta_data,
                             get_and_check_data(values[:index], meta_data),
                             coordinates, values)
-      DataOutput::RegionOutput.region_output(output, coordinates,
+      DataOutput::RegionOutput.new(output, coordinates,
                   TerminalVis.data_repo.repository[meta_data], values)
     end
 
@@ -109,7 +108,7 @@ module TerminalVis
       parameters = ParameterCollector::determine_range_parameters
 
       options = get_output_options
-      RangeOutput.print_ranged_data(meta_data, data_series, parameters, options)
+      RangeOutput.new(meta_data, data_series, parameters, options)
     end
 
     # creates a time line for the parameter -t
@@ -125,7 +124,7 @@ module TerminalVis
         timeline = TimelineScaling.new(meta_data, data_series, values)
         meta_data = timeline.scaled_meta
       end
-      TimelineOutput.print_timeline(timeline.mapped_values, meta_data, values)
+      TimelineOutput.new(timeline.mapped_values, meta_data, values)
     end
 
     # creates default output or output with an index using -i
@@ -137,11 +136,9 @@ module TerminalVis
       options[:index] = index
       data_series = TerminalVis.data_repo.repository[meta_data]
       if (!options[:auto_scale])
-        DataOutput::SingleOutput.
-          print_dataset(data_series, meta_data, options)
+        DataOutput::SingleOutput.new(data_series, meta_data, options)
       else
-        DataOutput::ScaledDatasetOutput.
-          print_dataset(data_series, meta_data, options)
+        DataOutput::ScaledDatasetOutput.new(data_series, meta_data, options)
       end
     end
     private_class_method :create_single_output_at_index
