@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-25 13:40:23
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-09-08 19:03:02
+# @Last Modified time: 2017-02-19 20:24:36
 
 require_relative '../graphics/string'
 require_relative '../data/meta_data'
@@ -16,7 +16,7 @@ class TimelineOutput
   #  values to z values
   # @param [MetaData] meta_data the meta information of the regarded data series
   # @param [Hash] values the mapping of the required start values
-  def self.print_timeline(mapped_values, meta_data, values)
+  def initialize(mapped_values, meta_data, values)
     @extrema = {
       :maximum => Array.new(),
       :minimum => Array.new()
@@ -33,16 +33,16 @@ class TimelineOutput
 
   attr_reader :extrema
 
-  private_class_method
+  private
+
   # simple method for printing an output haeder
   # @param [Float] x x-coordinate of the regarded point
   # @param [Float] y y-coordinate of the regarded point
-  def self.print_output_head(x,y)
+  def print_output_head(x,y)
     puts "\nPrinting timeline for Coordinate (%.2f, %.2f)" % [x, y]
     puts "\n"
   end
 
-  private_class_method
   # method to create the output array, consisting of a string for each line
   # holding ordinate values and markings for the values and two additional lines
   # for the abscissa
@@ -50,7 +50,7 @@ class TimelineOutput
   #  values to z values
   # @param [MetaData] meta_data the meta information of the regarded data series
   # @return [Array] array with the strings for each line
-  def self.create_output_array(mapped_values, meta_data)
+  def create_output_array(mapped_values, meta_data)
     output = Array.new()
     max_size = ("%.2f" % mapped_values.keys.last).length
 
@@ -66,14 +66,13 @@ class TimelineOutput
     return append_legend_output(output, meta_data, max_size)
   end
 
-  private_class_method
   # method to append the axis and legend information below the timeline
   # @param [Array] output the String array containing the output
   # @param [MetaData] meta_data the used meta data
   # @param [Integer] max_size the number ob padding white spaces
   # @return [Array] the String array containing the output appended by the
   #  legend output
-  def self.append_legend_output(output, meta_data, max_size)
+  def append_legend_output(output, meta_data, max_size)
     data_size = meta_data.domain_z.number_of_values
     output.unshift(create_axis_string(data_size, max_size))
     output.unshift(create_axis_legend(data_size, max_size, meta_data))
@@ -81,13 +80,12 @@ class TimelineOutput
     return output
   end
 
-  private_class_method
   # method to finish the creation of a line of timeline output
   # @param [Array] values values for one line of the output
   # @param [String] line_string the started string that serves as output for
   #  one line
   # @return [String] the extended line string
-  def self.check_and_append_values(values, line_string)
+  def check_and_append_values(values, line_string)
     values.each { |value|
         if (value[0] == :miss)
           line_string.concat(' ')
@@ -98,12 +96,11 @@ class TimelineOutput
     return line_string
   end
 
-  private_class_method
   # method to create the axis of the abscissa
   # @param [Integer] data_size the number of values in the z dimension
   # @param [Integer] max_size length of the greates number on the ordinate
   # @return [String] the output string for the abscissa
-  def self.create_axis_string(data_size, max_size)
+  def create_axis_string(data_size, max_size)
     str = String.new()
     max_size.times {str.concat(' ')}
     str.concat('--|')
@@ -119,13 +116,12 @@ class TimelineOutput
     return str
   end
 
-  private_class_method
   # method to create value informations for the abscissa
   # @param [Integer] data_size the number of values in the z dimension
   # @param [Integer] max_size length of the greates number on the ordinate
   # @param [MetaData] meta_data the meta information of the regarded data series
   # @return [String] the value informations for the abscissa
-  def self.create_axis_legend(data_size, max_size, meta_data)
+  def create_axis_legend(data_size, max_size, meta_data)
     str = String.new()
     max_size.times {str.concat(' ')}
     position = 1
@@ -140,13 +136,12 @@ class TimelineOutput
     return str
   end
 
-  private_class_method
   # method to finish the axis legend string
   # @param [Integer] puffer the number of rest characters
   # @param [Integer] start the current number of the axis
   # @param [MetaData] meta_data the meta information of the regarded data series
   # @return [String] the ending of the axis legend
-  def self.finish_axis_legend(puffer, start, meta_data)
+  def finish_axis_legend(puffer, start, meta_data)
     str = ("%-#{puffer}s" % start.to_s)
     if (puffer > 5)
       str.concat(Integer(meta_data.domain_z.upper).to_s)
@@ -154,11 +149,10 @@ class TimelineOutput
     return str
   end
 
-  private_class_method
   # method to create the output of the extreme values
   # @param [Integer] max_size the number of padding white strings
   # @return [String] the output string for the extreme values
-  def self.create_extreme_output(max_size)
+  def create_extreme_output(max_size)
     str = String.new()
     max_size.times {str.concat(' ')}
     str.concat("Maximum: #{@extrema[:maximum].round(3)}\n")
@@ -168,12 +162,11 @@ class TimelineOutput
     return str
   end
 
-  private_class_method
   # method to check the type of hit
   # @param [Array] value an array containing information of the hit and
   #  the value if it is an extreme value
   # @return [String] the corresponding output string
-  def self.check_type_and_print(value)
+  def check_type_and_print(value)
     if (value[0] == :maximum)
       @extrema[:maximum] = value[1]
       return 'x'.red.bright
