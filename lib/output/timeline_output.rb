@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-25 13:40:23
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-02-19 20:24:36
+# @Last Modified time: 2017-02-20 22:43:45
 
 require_relative '../graphics/string'
 require_relative '../data/meta_data'
@@ -11,7 +11,7 @@ require_relative '../data/meta_data'
 # data values on the ordinate.
 class TimelineOutput
 
-  # public singleton method to create the output for the terminal
+  # initialization
   # @param [Hash] mapped_values the output hash from {Timeline} mapping boundary
   #  values to z values
   # @param [MetaData] meta_data the meta information of the regarded data series
@@ -28,7 +28,6 @@ class TimelineOutput
     output.reverse.each { |value|
       puts value
     }
-
   end
 
   attr_reader :extrema
@@ -41,6 +40,7 @@ class TimelineOutput
   def print_output_head(x,y)
     puts "\nPrinting timeline for Coordinate (%.2f, %.2f)" % [x, y]
     puts "\n"
+    nil
   end
 
   # method to create the output array, consisting of a string for each line
@@ -63,7 +63,7 @@ class TimelineOutput
       output << check_and_append_values(values, line_string)
     }
 
-    return append_legend_output(output, meta_data, max_size)
+    append_legend_output(output, meta_data, max_size)
   end
 
   # method to append the axis and legend information below the timeline
@@ -77,7 +77,6 @@ class TimelineOutput
     output.unshift(create_axis_string(data_size, max_size))
     output.unshift(create_axis_legend(data_size, max_size, meta_data))
     output.unshift(create_extreme_output(max_size))
-    return output
   end
 
   # method to finish the creation of a line of timeline output
@@ -112,8 +111,6 @@ class TimelineOutput
     end
     (data_size - position).times {str.concat('-')}
     str.concat('|')
-
-    return str
   end
 
   # method to create value informations for the abscissa
@@ -133,7 +130,6 @@ class TimelineOutput
       start += Integer((10 * meta_data.domain_z.step).round(1))
     end
     str.concat(finish_axis_legend(data_size - position, start, meta_data))
-    return str
   end
 
   # method to finish the axis legend string
@@ -146,7 +142,7 @@ class TimelineOutput
     if (puffer > 5)
       str.concat(Integer(meta_data.domain_z.upper).to_s)
     end
-    return str
+    str
   end
 
   # method to create the output of the extreme values
@@ -158,8 +154,6 @@ class TimelineOutput
     str.concat("Maximum: #{@extrema[:maximum].round(3)}\n")
     max_size.times {str.concat(' ')}
     str.concat("Minimum: #{@extrema[:minimum].round(3)}")
-
-    return str
   end
 
   # method to check the type of hit
