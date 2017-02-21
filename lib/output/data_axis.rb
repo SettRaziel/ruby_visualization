@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-12 09:52:39
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-11-03 20:50:02
+# @Last Modified time: 2017-02-21 20:21:17
 
 require_relative '../data/data_domain'
 
@@ -58,9 +58,8 @@ class DataAxis
   # @param [DataDomain] domain_x the data domain used for the x-axis values
   def self.print_x_axis_init(domain_x)
     (@max_y_indentation).times { print ' '}
-    value_lenght = "#{domain_x.get_coordinate_to_index(0).round(3)}".length
-    print ("%#{value_lenght}s") % "#{domain_x.get_coordinate_to_index(0).
-                                            round(3)}"
+    value = "#{domain_x.get_coordinate_to_index(0).round(3)}"
+    print "%#{value.length}s" % "#{value}"
   end
 
   # method to print the empty gap between two values of the x-axis and the
@@ -69,10 +68,9 @@ class DataAxis
   #   printed
   # @param [DataDomain] domain the data domain of the x-axis
   def self.extend_x_axis_output(index, domain)
-    value_lenght = "#{domain.get_coordinate_to_index(index).round(3)}".length
-    (10 - value_lenght).times { print ' ' }
-    print ("%#{value_lenght}s") % "#{domain.get_coordinate_to_index(index).
-                                            round(3)}"
+    value = "#{domain.get_coordinate_to_index(index).round(3)}"
+    (10 - value.length).times { print ' ' }
+    print "%#{value.length}s" % "#{value}"
   end
 
   # method to determine the maximal string length of a {MetaData::DataDomain}
