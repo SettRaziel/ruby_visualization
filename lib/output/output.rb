@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-02-01 21:07:44
+# @Last Modified time: 2017-02-22 20:20:39
 
 module TerminalVis
 
@@ -81,7 +81,7 @@ module TerminalVis
       value = TerminalVis::Interpolation.
               interpolate_for_coordinate(meta_data, coordinates,
                                          get_and_check_data(index, meta_data))
-      InterpolationOutput.interpolation_output(value, index, coordinates,
+      InterpolationOutput.new(value, index, coordinates,
                           TerminalVis.data_repo.repository[meta_data])
     end
 
