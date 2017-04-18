@@ -1,12 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-08-10 23:13:59
+# @Last Modified time: 2017-04-18 18:02:53
 
 module TerminalVis
 
   require_relative '../data/data_repository'
-  require_relative '../parameter/parameter_handler'
+  require_relative '../parameter/parameter'
   require_relative '../configuration/configuration_handler'
   require_relative '../output/help_output'
 
@@ -14,7 +14,8 @@ module TerminalVis
   class << self
     # @return [DataRepository] the repository storing the datasets
     attr_reader :data_repo
-    # @return [ParameterHandler] the handler controlling the parameters
+    # @return [Parameter::ParameterHandler] the handler controlling
+    #   the parameters
     attr_reader :parameter_handler
     # @return [Configuration_Handler] the handler controlling the
     #   configuration parameter
@@ -24,7 +25,7 @@ module TerminalVis
   # singleton method to initialize the required repositories
   # @param [Array] arguments the input values from the terminal input ARGV
   def self.initialize_repositories(arguments)
-      @parameter_handler = ParameterHandler.new(arguments)
+      @parameter_handler = Parameter::ParameterHandler.new(arguments)
       @data_repo = DataRepository.new()
       @option_handler = ConfigurationHandler.new()
   end
