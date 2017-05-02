@@ -118,7 +118,7 @@ ruby terminal_vis -m -i <index> -c <x> <y> -s <interval> <delta> <filename>
 ## Documentation
 Documentation is written in yard and can be created by running the shell-script
 `create_yard.sh`. Yard needs to be installed on the system in order to do that.
-The documentation can also be found online [here](https://bheld.eu/doc/terminal_doc/frames.html).
+The documentation can also be found online [here](https://bheld.eu/doc/terminal_doc/index.html).
 
 ## Meta data format (in single line):
 #### Two dimensional data set:
@@ -162,7 +162,7 @@ see LICENSE
 * adding a mechanism to scale the output automatically to the dimension of
   the used terminal (done for standard dataset output in v0.8.2, delta output
   and animation in v0.8.3; timeline in v0.9.0)
+* statistics for a single or multiple data set(s)
 * adding more features from suggestions
-
 
 created by: Benjamin Held
