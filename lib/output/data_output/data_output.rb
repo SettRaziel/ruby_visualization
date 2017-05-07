@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-11-14 19:58:33
+# @Last Modified time: 2017-05-07 19:58:28
 
 require_relative '../../data/data_set'
 require_relative '../../data/data_series'
@@ -87,8 +87,9 @@ module DataOutput
     # @param [boolean] with_legend boolean which determines if the extended
     #  legend options should be printed
     def print_data(with_legend, domain_x, domain_y)
-      extreme_coordinates = print_data_and_get_extrema(domain_y)
-      DataAxis.print_x_axis_values(domain_x, domain_y)
+      data_axis = DataAxis.new()
+      extreme_coordinates = print_data_and_get_extrema(domain_y, data_axis)
+      data_axis.print_x_axis_values(domain_x, domain_y)
 
       puts
       @legend.print_color_legend(with_legend)
@@ -103,7 +104,7 @@ module DataOutput
 
     # reverses the data to print it in the correct occurence
     # @return [Hash] coordinate indices of the extreme values
-    def print_data_and_get_extrema(domain_y)
+    def print_data_and_get_extrema(domain_y, data_axis)
       extreme_coordinates = {
         :maximum => Array.new(),
         :minimum => Array.new()
@@ -114,7 +115,7 @@ module DataOutput
       reversed_data = @data_set.data.to_a.reverse.to_h
 
       reversed_data.each_pair { |key, row|
-        DataAxis.print_y_line_beginning(domain_y, key)
+        data_axis.print_y_line_beginning(domain_y, key)
         row.each_index { |index|
           output = determine_output_type_and_print_value(row[index])
           extreme_coordinates[output] << [index, key] if (output != :normal)
