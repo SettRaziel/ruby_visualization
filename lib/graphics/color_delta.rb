@@ -1,14 +1,14 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-19 09:09:20
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-13 12:20:29
+# @Last Modified time: 2017-05-09 16:25:22
 
 module ColorLegend
 
   # Class to color the output field according to color in {#value_legend}
   # attributes (see {ColorLegend::Base}). This class should be used when
   # visualizing the difference between two datasets.
-  class ColorDelta < Base
+  class ColorDelta < BaseLegend
 
     # initialization with constraint: max_value > min_value
     # @param [Float] min_value the minimum value
