@@ -1,16 +1,13 @@
 # @Author: Benjamin Held
 # @Date:   2016-04-14 16:46:51
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-01-05 21:39:31
+# @Last Modified time: 2017-05-21 10:07:33
 
 module DataOutput
 
   # Child class of {DatasetOutput} to visualize a data set within the dimensions
   # of the calling terminal.
   class ScaledOutput < DatasetOutput
-
-    require_relative '../../scaling/terminal_size'
-    require_relative '../../scaling/dataset_scaling'
 
     private
     # @return [DataSet] the scaled dataset

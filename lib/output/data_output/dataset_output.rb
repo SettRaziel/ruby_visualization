@@ -1,12 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2016-04-10 14:48:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-11-14 19:57:31
+# @Last Modified time: 2017-05-21 08:47:52
 
 module DataOutput
 
   # Parent class for data output and delta output
-  class DatasetOutput < Base
+  class DatasetOutput < BaseOutput
 
     private
     # @return [MetaData] the meta data for this output

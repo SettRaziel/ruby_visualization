@@ -1,12 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-13 16:50:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-12-02 20:46:55
+# @Last Modified time: 2017-05-21 08:48:13
 
 module DataOutput
 
   # Output class to visualize the interpolation of a region
-  class RegionOutput < Base
+  class RegionOutput < BaseOutput
 
     # singleton method to generate the output for the given region
     # @param [DataSet] data the data that should be visualized
