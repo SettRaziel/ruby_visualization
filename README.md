@@ -100,19 +100,19 @@ ruby terminal_vis.rb -m -t <x> <y> <filename>
 Reading a data series from `<filename>` with meta data and animating a specific
 interval from the data series:
 ```
-ruby terminal_vis -m -r <start> <end> -a <speed> <filename>
+ruby terminal_vis.rb -m -r <start> <end> -a <speed> <filename>
 ```
 
 Running the script to visualize a dataset from `<filename>` and entering
 configuration option through the menu:
 ```
-ruby terminal_vis -m -i <index> -o menu <filename>
+ruby terminal_vis.rb -m -i <index> -o menu <filename>
 ```
 
 Running the script to visualize a specific region of a dataset from
 `<filename>`:
 ```
-ruby terminal_vis -m -i <index> -c <x> <y> -s <interval> <delta> <filename>
+ruby terminal_vis.rb -m -i <index> -c <x> <y> -s <interval> <delta> <filename>
 ```
 
 ## Documentation
