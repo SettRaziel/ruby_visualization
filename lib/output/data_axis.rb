@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-12 09:52:39
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-05-07 20:00:15
+# @Last Modified time: 2017-06-02 22:36:20
 
 require_relative '../data/data_domain'
 
@@ -16,8 +16,7 @@ class DataAxis
 
   # method to print the legend for the x-axis
   # @param [DataDomain] domain_x the data domain used for the x-axis values
-  # @param [DataDomain] domain_y the data domain used for the y-axis values
-  def print_x_axis_values(domain_x, domain_y)
+  def print_x_axis_values(domain_x)
     x_value_lenght = determine_maximal_domainvalue_length(domain_x)
     print_x_axis_markings(domain_x)
     print_x_axis_init(domain_x)
