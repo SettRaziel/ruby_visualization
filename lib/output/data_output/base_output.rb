@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2017-05-10 17:13:11
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-05-14 21:41:06
+# @Last Modified time: 2017-06-29 17:58:15
 
 module DataOutput
 
@@ -80,7 +80,7 @@ module DataOutput
     def print_data(with_legend, domain_x, domain_y)
       data_axis = DataAxis.new()
       extreme_coordinates = print_data_and_get_extrema(domain_y, data_axis)
-      data_axis.print_x_axis_values(domain_x, domain_y)
+      data_axis.print_x_axis_values(domain_x)
 
       puts
       @legend.print_color_legend(with_legend)
