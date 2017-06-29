@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-04-14 16:46:51
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-05-21 10:07:33
+# @Last Modified time: 2017-06-29 22:36:20
 
 module DataOutput
 
@@ -11,7 +11,7 @@ module DataOutput
 
     private
     # @return [DataSet] the scaled dataset
-    @scaled_dataset
+    attr :scaled_dataset
 
     # method to set the required attributes und create the scaled dataset
     # @param [DataSet] data_set the data set which should be visualized
