@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-04-18 18:02:29
+# @Last Modified time: 2017-06-30 18:00:31
 
 
 require_relative '../lib/data/data_repository'
@@ -9,7 +9,7 @@ require_relative '../lib/main/main_module'
 
 #-------------------------------------------------------------------------------
 # Terminal Visualization Script
-# Version 0.9.1
+# Version 0.9.2
 # created by Benjamin Held, June 2015
 begin
   require 'Win32/Console/ANSI' if RUBY_PLATFORM =~ /win32/

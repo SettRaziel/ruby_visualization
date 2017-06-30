@@ -13,7 +13,7 @@ You can choose between the following output:
 * Animation of all datasets
 * Interpolation of a value of a dataset within the data domain
 
-Current version: v0.9.1
+Current version: v0.9.2
 
 ## Usage & Help
 ```
