@@ -137,10 +137,10 @@ The documentation can also be found online [here](https://bheld.eu/doc/terminal_
 ```
 
 ## Used version
-Written with Ruby 2.2.2 - 2.2.4
+Written with Ruby 2.2.2 - 2.4.1
 
 ## Tested
-* Linux: running on Archlinux with Ruby > 2.2.2
+* Linux: running on ArchLinux with Ruby > 2.2.2
 * Windows: not tested
 * MAC: not tested
 
