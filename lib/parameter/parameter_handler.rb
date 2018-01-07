@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-04-18 18:05:02
+# @Last Modified time: 2018-01-07 16:35:57
 
 module Parameter
 
@@ -27,7 +27,7 @@ module Parameter
 
     # private method with calls of the different validations methods
     def validate_parameters
-      check_for_valid_filepath if (repository.parameters[:file])
+      check_for_valid_filepath if (@repository.parameters[:file])
 
       check_number_of_parameters(:coord, 2)
       check_number_of_parameters(:delta, 2)
@@ -38,15 +38,15 @@ module Parameter
 
     # private method to the specified parameter constraints
     def check_parameter_constraints
-      check_constraints_for_a if (repository.parameters[:all])
-      check_constraints_for_c if (repository.parameters[:coord])
-      check_constraints_for_d if (repository.parameters[:delta])
-      check_constraints_for_r if (repository.parameters[:range])
+      check_constraints_for_a if (@repository.parameters[:all])
+      check_constraints_for_c if (@repository.parameters[:coord])
+      check_constraints_for_d if (@repository.parameters[:delta])
+      check_constraints_for_r if (@repository.parameters[:range])
     end
 
     # private method to check the occurrence of two parameters
     def check_parameter_occurrence
-      if (repository.parameters[:section] && !repository.parameters[:help])
+      if (@repository.parameters[:section] && !@repository.parameters[:help])
         check_occurrence('-s', '-c', :coord)
       end
     end
@@ -54,7 +54,7 @@ module Parameter
     # checks if the parsed filename is a valid unix or windows file name
     # @raise [ArgumentError] if filepath is not valid
     def check_for_valid_filepath
-      filepath = repository.parameters[:file]
+      filepath = @repository.parameters[:file]
       unixfile_regex= %r{
         \A                       # start of string
         ((\.\/)|(\.\.\/)+|(\/))? # relativ path or upwards or absolute
@@ -94,7 +94,7 @@ module Parameter
     #   !(-c + -t), !(-t + -c)
     # @raise [ArgumentError] if invalid parameter combination occurs
     def check_constraints_for_c
-      check_constraint('-c', '-e', :extreme) if (!repository.parameters[:section])
+      check_constraint('-c', '-e', :extreme) if (!@repository.parameters[:section])
       check_constraint('-c', '-t', :time)
     end
 
@@ -121,7 +121,7 @@ module Parameter
     # @param [Symbol] symbol the literal to check
     # @raise [ArgumentError] for an invalid parameter combination
     def check_constraint(v, i, symbol)
-      if (repository.parameters[symbol])
+      if (@repository.parameters[symbol])
         raise ArgumentError,
               " Error: invalid parameter combination: #{v} and #{i}"
       end
@@ -133,8 +133,8 @@ module Parameter
     #  parameter
     # @raise [IndexError] if the number of arguments for the parameter is invalid
     def check_number_of_parameters(key, count_parameters)
-      if (repository.parameters[key] && !repository.parameters[:help])
-        value = repository.parameters[key]
+      if (@repository.parameters[key] && !@repository.parameters[:help])
+        value = @repository.parameters[key]
         if (value.size != count_parameters)
           raise IndexError,
             " Error: invalid number of parameters for option: #{key} "
@@ -148,7 +148,7 @@ module Parameter
     # @param [Symbol] symbol the literal to check
     # @raise [ArgumentError] if the second parameter is not present
     def check_occurrence(p, r, symbol)
-      if (!repository.parameters[symbol])
+      if (!@repository.parameters[symbol])
         raise ArgumentError,
               " Error: #{p} requires the parameters of #{r}"
       end
