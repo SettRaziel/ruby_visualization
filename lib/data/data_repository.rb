@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-29 17:46:52
+# @Last Modified time: 2018-01-27 16:08:04
 
 require_relative '../data/file_reader'
 require_relative 'data_set'
@@ -11,7 +11,7 @@ require_relative 'meta_data'
 # This class serves as a data repository storing the read data and handling the
 # meta information
 class DataRepository
-  # @return Hash mapping ({MetaData::MetaData} => {DataSeries})
+  # @return [Hash] mapping ({MetaData::MetaData} => {DataSeries})
   attr_reader :repository
 
   # initialization
