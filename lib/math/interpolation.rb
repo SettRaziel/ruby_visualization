@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-14 13:17:02
+# @Last Modified time: 2018-02-01 13:21:53
 
 module TerminalVis
 
@@ -13,7 +13,7 @@ module TerminalVis
   module Interpolation
 
     require_relative '../data/meta_data'
-    require_relative '../data/data_set'
+    require_relative '../data/data_input'
     require 'matrix'
 
     # interpolates the data for the provided coordinate and prints the result

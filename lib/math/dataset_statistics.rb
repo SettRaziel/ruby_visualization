@@ -1,9 +1,9 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-12 18:05:53
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-05 09:36:20
+# @Last Modified time: 2018-02-01 13:20:47
 
-require_relative '../data/data_set'
+require_relative '../data/data_input'
 
 # singleton class to apply statistic methods to a data series
 class DatasetStatistics
@@ -28,7 +28,7 @@ class DatasetStatistics
     }
 
     # create new data set and return it
-    DataSet.new(result)
+    DataInput::DataSet.new(result)
   end
 
 end

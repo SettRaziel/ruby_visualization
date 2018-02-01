@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-07 17:22:54
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-02-16 17:21:40
+# @Last Modified time: 2018-02-01 13:22:00
 
 module TerminalVis
 
@@ -52,7 +52,7 @@ module TerminalVis
           y_run = (y_run + @delta_y).round(3)
         end
 
-      return DataSet.new(data)
+      return DataInput::DataSet.new(data)
       end
 
       private

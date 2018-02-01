@@ -1,9 +1,9 @@
 # @Author: Benjamin Held
 # @Date:   2015-10-10 19:56:37
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-09-29 19:48:35
+# @Last Modified time: 2018-02-01 13:19:04
 
-require_relative '../data/file_reader'
+require_relative '../data/data_input'
 require_relative './configuration_repository'
 require_relative './configuration_menu'
 
@@ -100,7 +100,7 @@ class ConfigurationHandler
   # @param [String] filename the path of the file
   def read_options(filename)
     settings = Hash.new()
-    FileReader.new(filename, ';').data.each { |line|
+    DataInput::FileReader.new(filename, ';').data.each { |line|
       type = Object.const_get(line[1])
       settings[@option_mapping[line[0]]] = determine_value(type, line[2])
     }
