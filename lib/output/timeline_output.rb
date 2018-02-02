@@ -1,9 +1,9 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-25 13:40:23
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-02-20 22:43:45
+# @Last Modified time: 2018-02-02 15:38:19
 
-require_relative '../graphics/string'
+require_relative '../string/string'
 require_relative '../data/meta_data'
 
 # This class holds methods to print a previously created timelime into the

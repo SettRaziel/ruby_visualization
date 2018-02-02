@@ -1,9 +1,9 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-14 09:47:00
+# @Last Modified time: 2018-02-02 15:38:26
 
-require_relative '../graphics/string'
+require_relative '../string/string'
 
 # Output class for help text
 class HelpOutput

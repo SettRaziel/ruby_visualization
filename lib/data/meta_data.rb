@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-27 19:05:05
+# @Last Modified time: 2018-02-02 15:37:58
 
 module MetaData
 
@@ -62,5 +62,7 @@ module MetaData
   end
 
 end
+
+require_relative '../string/string'
 
 require_relative 'data_domain'

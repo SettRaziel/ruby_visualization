@@ -1,14 +1,17 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-06-30 18:01:24
+# @Last Modified time: 2018-02-02 15:39:23
 
 module TerminalVis
 
-  require_relative '../data/data_repository'
+  require_relative '../data/data_input'
   require_relative '../parameter/parameter'
   require_relative '../configuration/configuration_handler'
   require_relative '../output/help_output'
+  require_relative '../output/output'
+  require_relative '../output/parameter_collector'
+  require_relative '../math/interpolation'
 
   # Dummy class to get access to the instance variables
   class << self
@@ -26,7 +29,7 @@ module TerminalVis
   # @param [Array] arguments the input values from the terminal input ARGV
   def self.initialize_repositories(arguments)
       @parameter_handler = Parameter::ParameterHandler.new(arguments)
-      @data_repo = DataRepository.new()
+      @data_repo = DataInput::DataRepository.new()
       @option_handler = ConfigurationHandler.new()
   end
 
@@ -112,7 +115,3 @@ module TerminalVis
   private_class_method :check_index
 
 end
-
-require_relative '../output/output'
-require_relative '../output/parameter_collector'
-require_relative '../math/interpolation'
