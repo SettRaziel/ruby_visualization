@@ -165,4 +165,4 @@ see LICENSE
 * statistics for a single or multiple data set(s)
 * adding more features from suggestions
 
-created by: Benjamin Held
+created by: Benjamin Held. 2015
