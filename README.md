@@ -163,6 +163,15 @@ see LICENSE
   the used terminal (done for standard dataset output in v0.8.2, delta output
   and animation in v0.8.3; timeline in v0.9.0)
 * statistics for a single or multiple data set(s)
+* refactoring of error messages
 * adding more features from suggestions
+
+## Contributing
+* Fork it
+* Create your feature branch (git checkout -b my-new-feature)
+* Commit your changes (git commit -am 'add some feature')
+* Push to the branch (git push origin my-new-feature)
+* Create an issue describing your work
+* Create a new pull request
 
 created by: Benjamin Held. 2015
