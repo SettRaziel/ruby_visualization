@@ -163,7 +163,7 @@ see LICENSE
   the used terminal (done for standard dataset output in v0.8.2, delta output
   and animation in v0.8.3; timeline in v0.9.0)
 * statistics for a single or multiple data set(s)
-* refactoring of error messages
+* refactoring of error messages [Issue](https://github.com/SettRaziel/ruby_visualization/issues/1)
 * adding more features from suggestions
 
 ## Contributing
