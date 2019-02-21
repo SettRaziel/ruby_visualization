@@ -162,8 +162,8 @@ see LICENSE
 * adding a mechanism to scale the output automatically to the dimension of
   the used terminal (done for standard dataset output in v0.8.2, delta output
   and animation in v0.8.3; timeline in v0.9.0)
-* statistics for a single or multiple data set(s)
-* refactoring of error messages; see: [(Issue)](https://github.com/SettRaziel/ruby_visualization/issues/1)
+* statistics for a single or multiple data set(s); see:[(Issue)](https://github.com/SettRaziel/ruby_visualization/issues/2) and see:[(Issue)](https://github.com/SettRaziel/ruby_visualization/issues/3)
+* refactoring of error messages; see:[(Issue)](https://github.com/SettRaziel/ruby_visualization/issues/1)
 * adding more features from suggestions
 
 ## Contributing
