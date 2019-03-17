@@ -149,7 +149,7 @@ Written with Ruby 2.2.2 - 2.4.1
 * matrix (all)
 * csv (all)
 * Win32/Console/ANSI (Windows)
-* Yard (for Documentation only)
+* yard (for Documentation only)
 
 ## License
 see LICENSE
@@ -174,4 +174,4 @@ see LICENSE
 * Create an issue describing your work
 * Create a new pull request
 
-created by: Benjamin Held. 2015
+created by: Benjamin Held, May 2015
