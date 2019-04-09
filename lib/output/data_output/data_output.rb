@@ -1,12 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 15:08:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2018-02-02 15:40:11
+# @Last Modified time: 2019-04-09 20:09:59
 
 require_relative '../../data/data_input'
 require_relative '../../data/meta_data'
 require_relative '../../graphics/color_legend'
-require_relative '../../string/string'
+require_relative '../../ruby_utils/string/string'
 require_relative '../../scaling/terminal_size'
 require_relative '../../scaling/dataset_scaling'
 require_relative '../data_axis'

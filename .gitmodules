@@ -1,0 +1,3 @@
+[submodule "lib/ruby_utils"]
+	path = lib/ruby_utils
+	url = git@github.com:SettRaziel/ruby_utils.git

@@ -1,9 +1,9 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-25 13:40:23
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2018-02-02 15:38:19
+# @Last Modified time: 2019-04-09 20:10:42
 
-require_relative '../string/string'
+require_relative '../ruby_utils/string/string'
 require_relative '../data/meta_data'
 
 # This class holds methods to print a previously created timelime into the

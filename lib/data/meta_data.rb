@@ -1,7 +1,10 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2018-02-02 15:37:58
+# @Last Modified time: 2019-04-09 20:17:52
+
+require_relative '../ruby_utils/string/string'
+require_relative 'data_domain'
 
 module MetaData
 
@@ -62,7 +65,3 @@ module MetaData
   end
 
 end
-
-require_relative '../string/string'
-
-require_relative 'data_domain'
