@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2019-05-04 12:37:40
+# @Last Modified time: 2020-01-13 17:43:29
 
 require_relative '../ruby_utils/help/help_output'
 
@@ -17,7 +17,7 @@ class HelpOutput < BasicHelpOutput
                     'dataset with ++ for a maximum and -- for a minimum, ' \
                     'also prints the coordinates of the extreme values below' \
                     ' the legend, excludes -c')
-    add_simple_text(:meta, ' -m             ', 'process the file <filename> ' \
+    add_simple_text(:meta, ' -m, --meta     ', 'process the file <filename> ' \
                     'containing meta data')
   end
 
@@ -28,7 +28,7 @@ class HelpOutput < BasicHelpOutput
           'between the output of every dataset defined by speed: 0 means ' \
           'manual, a value > 0 an animation speed in seconds, excludes -i,' \
           ' -d and -t')
-    add_single_argument_text(:index, ' -i             ', ' <index>',
+    add_single_argument_text(:index, ' -i, --index    ', ' <index>',
           '; shows the dataset at index, if index lies within ' \
           '[1,2, ..., # datasets], excludes -a, -d and -t')
     add_single_argument_text(:option, ' -o, --options  ', ' <option>',

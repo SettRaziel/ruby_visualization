@@ -22,7 +22,7 @@ help usage : ruby terminal_vis.rb [parameter]  (-h | --help)
 parameters:
 -h, --help     show help text
 -v, --version  prints the current version of the project
--m             process the file <filename> containing meta data
+-m, --meta     process the file <filename> containing meta data
 -a, --all      argument: <speed>; prints all specified datasets of a data series
                with a pause between the output of every dataset defined by
                speed: 0 mean manual, a value > 0 an animation speed in seconds,
@@ -35,7 +35,7 @@ parameters:
 -e, --extreme  marks the extreme values in a dataset with ++ for a maximum
                and -- for a minimum, also prints the coordinates of the
                extreme values below the legend, excludes -c
--i             argument: <index>; shows the dataset at index, if index lies
+-i, --index    argument: <index>; shows the dataset at index, if index lies
                within [1,2, ..., number of datasets], excludes -a, -d and -t
 -o, --options  argument: <option>; enables options, the source depends on the
                argument: file=<filename> loads options from file, menu enables
