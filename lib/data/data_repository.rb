@@ -1,19 +1,19 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2018-02-01 13:18:23
+# @Last Modified time: 2020-01-16 19:51:07
 
 module DataInput
 
   # This class serves as a data repository storing the read data and handling the
   # meta information
   class DataRepository
-    # @return [Hash] mapping ({MetaData::MetaData} => {DataSeries})
+    # @return [Hash] mapping ({MetaData::VisMetaData} => {DataSeries})
     attr_reader :repository
 
     # initialization
     # @param [String] filename filepath
-    # @param [MetaData] key key for the data series
+    # @param [VisMetaData] key key for the data series
     def initialize(filename = nil,key = nil)
       @repository = Hash.new()
       add_data_with_default_meta(filename) if (key == nil && filename != nil)
@@ -25,7 +25,7 @@ module DataInput
 
     # reads the file and creates meta information and data of its content
     # @param [String] filename filepath
-    # @return [MetaData] the meta data object for this data
+    # @return [VisMetaData] the meta data object for this data
     def add_data(filename)
       data = read_file(filename)
       meta_data = check_for_metadata(data)
@@ -37,19 +37,19 @@ module DataInput
     # reads the file and creates data of its content with default meta
     # information
     # @param [String] filename filepath
-    # @return [MetaData] the meta data object for this data
+    # @return [VisMetaData] the meta data object for this data
     def add_data_with_default_meta(filename)
       data = read_file(filename)
       data_series = create_dataseries(data)
       meta_string = build_meta_string(data_series, filename)
 
-      meta_data = MetaData::MetaData.new(meta_string)
+      meta_data = MetaData::VisMetaData.new(meta_string)
       @repository[meta_data] = data_series
       return meta_data
     end
 
     # checks if all data sets in a data_series have the dimension specified
-    # in the {MetaData::MetaData} information
+    # in the {MetaData::VisMetaData} information
     # @param [MetaData] meta_data the meta data which should be checked
     # @return [boolean] true, if data fulfills the information provded by the
     #   meta data; false, if one data dimension of the number of datasets fails
@@ -58,8 +58,8 @@ module DataInput
     end
 
     # checks if the dimension of each dataset is consistent with the information
-    # of the corresponding {MetaData::MetaData}
-    # @param [MetaData] meta_data the meta data which should be checked
+    # of the corresponding {MetaData::VisMetaData}
+    # @param [VisMetaData] meta_data the meta data which should be checked
     # @return [boolean] true, if the dimension of every dataset is consistent
     #   with the meta information; false, if not
     def dataset_dimension_correct?(meta_data)
@@ -79,8 +79,8 @@ module DataInput
     end
 
     # method to retrieve the number of data values in the x and y dimension based
-    # on the {MetaData::MetaData} information
-    # @param [MetaData] meta_data the meta data whose values should be used
+    # on the {MetaData::VisMetaData} information
+    # @param [VisMetaData] meta_data the meta data whose values should be used
     # @return [Hash] a hash containing the number of data values in x and y
     def get_domain_values(meta_data)
       domain_values = Hash.new()
@@ -115,8 +115,8 @@ module DataInput
     end
 
     # checks if all data sets in a data_series have the dimension in z specified
-    # in the {MetaData::MetaData} information
-    # @param [MetaData] meta_data the meta data which should be checked
+    # in the {MetaData::VisMetaData} information
+    # @param [VisMetaData] meta_data the meta data which should be checked
     # @return [boolean] true, if number of dataset is consistent with the meta
     #   information; false, if not
     def z_dimension_correct?(meta_data)
@@ -160,7 +160,7 @@ module DataInput
     end
 
     # method to build the meta string that is uses for default
-    #   {MetaData::MetaData}
+    #   {MetaData::VisMetaData}
     # @param [DataSeries] data_series the given data series
     # @param [String] filename the name of the input file
     # @return [Array] the constructed meta string
@@ -188,16 +188,16 @@ module DataInput
     # checks for meta data in the first line of the raw data and creates
     # meta information from it
     # @param [Array] data the read data
-    # @return [MetaData] the meta data for the data series
+    # @return [VisMetaData] the meta data for the data series
     def check_for_metadata(data)
       meta_string = data[0]
       data.delete_at(1)
       data.delete_at(0)
-      MetaData::MetaData.new(meta_string)
+      MetaData::VisMetaData.new(meta_string)
     end
 
     # checks if a given key already exists in the repository
-    # @param [MetaData] key key that should be checked
+    # @param [VisMetaData] key key that should be checked
     def check_for_existenz(key)
       if (@repository[key] != nil)
           puts 'Info: A data set with this key already exists. Overwriting...'

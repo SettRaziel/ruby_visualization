@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-31 14:02:17
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-01-09 19:27:39
+# @Last Modified time: 2020-01-16 19:29:01
 
 module DataOutput
 
@@ -10,7 +10,7 @@ module DataOutput
 
     # method to visualize the dataset at the index
     # @param [DataSeries] data_series the data series which should be visualized
-    # @param [MetaData] meta_data the corresponding meta data
+    # @param [VisMetaData] meta_data the corresponding meta data
     # @param [Hash] options hash with the boolean values for extreme values and
     #   extended legend output
     def initialize(data_series, meta_data, options)

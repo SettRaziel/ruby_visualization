@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-09-18 17:05:41
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-01-29 09:12:54
+# @Last Modified time: 2020-01-16 19:30:26
 
 require_relative '../data/meta_data'
 require_relative '../data/data_series'
@@ -10,7 +10,7 @@ require_relative '../data/data_series'
 class RangeOutput
 
   # singleton method to print the dataset within a given range
-  # @param [MetaData] meta_data the metadata of the used data series
+  # @param [VisMetaData] meta_data the metadata of the used data series
   # @param [DataSeries] data_series the used data series
   # @param [Hash] parameters the required parameter
   # @param [Hash] options hash with the boolean values for extreme values and
@@ -29,7 +29,7 @@ class RangeOutput
   private
 
   # method to check if the input parameters are valid
-  # @param [MetaData] meta_data the metadata of the used data series
+  # @param [VisMetaData] meta_data the metadata of the used data series
   # @param [Hash] indices a hash containing the indices :first and :second
   # @return [boolean] true, if the parameters are in the range of the meta data
   def check_range_parameters(meta_data, indices)
@@ -51,8 +51,8 @@ class RangeOutput
   end
 
   # method to check if the parameters are within the range specified by the
-  # {MetaData::MetaData}
-  # @param [MetaData] meta_data the metadata of the used data series
+  # {MetaData::VisMetaData}
+  # @param [VisMetaData] meta_data the metadata of the used data series
   # @param [Hash] indices a hash containing the indices :first and :second
   # @return [boolean] true, if both parameter are within the meta data range
   # @raise [ArgumentError] if (first < 0 | second > data size)
@@ -74,7 +74,7 @@ class RangeOutput
 
   # method to determine which type of output should be used
   # @param [DataSeries] data_series the used data series
-  # @param [MetaData] meta_data the metadata of the used data series
+  # @param [VisMetaData] meta_data the metadata of the used data series
   # @param [Hash] options hash with the boolean values for extreme values and
   def determine_output_resolution(data_series, meta_data, options)
     if (!options[:auto_scale])

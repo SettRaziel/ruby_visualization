@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-01-29 10:17:38
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-12-03 20:28:50
+# @Last Modified time: 2020-01-16 19:28:18
 
 module DataOutput
 
@@ -12,7 +12,7 @@ module DataOutput
     # method to print a given dataset scaled by the terminal size
     # @param [DataSeries] data_series the data series from which the dataset
     #    at the provided index should be visualized
-    # @param [MetaData] meta_data the corresponding meta data
+    # @param [VisMetaData] meta_data the corresponding meta data
     # @param [Hash] options hash with the relevant parameter values
     def initialize(data_series, meta_data, options)
       prepare_attributes(data_series.series[options[:index]], meta_data, options)

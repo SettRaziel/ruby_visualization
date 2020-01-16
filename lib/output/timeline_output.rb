@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-25 13:40:23
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2019-04-09 20:10:42
+# @Last Modified time: 2020-01-16 19:30:44
 
 require_relative '../ruby_utils/string/string'
 require_relative '../data/meta_data'
@@ -14,7 +14,7 @@ class TimelineOutput
   # initialization
   # @param [Hash] mapped_values the output hash from {Timeline} mapping boundary
   #  values to z values
-  # @param [MetaData] meta_data the meta information of the regarded data series
+  # @param [VisMetaData] meta_data the meta information of the regarded data series
   # @param [Hash] values the mapping of the required start values
   def initialize(mapped_values, meta_data, values)
     @extrema = {
@@ -48,7 +48,7 @@ class TimelineOutput
   # for the abscissa
   # @param [Hash] mapped_values the output hash from {Timeline} mapping boundary
   #  values to z values
-  # @param [MetaData] meta_data the meta information of the regarded data series
+  # @param [VisMetaData] meta_data the meta information of the regarded data series
   # @return [Array] array with the strings for each line
   def create_output_array(mapped_values, meta_data)
     output = Array.new()
@@ -68,7 +68,7 @@ class TimelineOutput
 
   # method to append the axis and legend information below the timeline
   # @param [Array] output the String array containing the output
-  # @param [MetaData] meta_data the used meta data
+  # @param [VisMetaData] meta_data the used meta data
   # @param [Integer] max_size the number ob padding white spaces
   # @return [Array] the String array containing the output appended by the
   #  legend output
@@ -116,7 +116,7 @@ class TimelineOutput
   # method to create value informations for the abscissa
   # @param [Integer] data_size the number of values in the z dimension
   # @param [Integer] max_size length of the greates number on the ordinate
-  # @param [MetaData] meta_data the meta information of the regarded data series
+  # @param [VisMetaData] meta_data the meta information of the regarded data series
   # @return [String] the value informations for the abscissa
   def create_axis_legend(data_size, max_size, meta_data)
     str = String.new()
@@ -135,7 +135,7 @@ class TimelineOutput
   # method to finish the axis legend string
   # @param [Integer] puffer the number of rest characters
   # @param [Integer] start the current number of the axis
-  # @param [MetaData] meta_data the meta information of the regarded data series
+  # @param [VisMetaData] meta_data the meta information of the regarded data series
   # @return [String] the ending of the axis legend
   def finish_axis_legend(puffer, start, meta_data)
     str = ("%-#{puffer}s" % start.to_s)

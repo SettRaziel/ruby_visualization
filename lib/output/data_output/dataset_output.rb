@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-04-10 14:48:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-05-21 08:47:52
+# @Last Modified time: 2020-01-16 19:27:25
 
 module DataOutput
 
@@ -9,7 +9,7 @@ module DataOutput
   class DatasetOutput < BaseOutput
 
     private
-    # @return [MetaData] the meta data for this output
+    # @return [VisMetaData] the meta data for this output
     attr :meta_data
 
     # prints the meta information consisting of dataset name and informations

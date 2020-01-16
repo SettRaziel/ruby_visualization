@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-24 10:28:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-29 17:49:47
+# @Last Modified time: 2020-01-16 19:26:53
 
 require_relative 'interpolation'
 
@@ -15,7 +15,7 @@ class Timeline
   attr_reader :mapped_values
 
   # initialization
-  # @param [MetaData] meta_data the meta information of the regarded data series
+  # @param [VisMetaData] meta_data the meta information of the regarded data series
   # @param [DataSeries] data_series the data series which should be used
   # @param [Hash] parameters a hash containing the required parameter
   def initialize(meta_data, data_series, parameters)
@@ -52,7 +52,7 @@ class Timeline
   end
 
   # method to check for correct dataset dimensions
-  # @param [MetaData] meta_data the required meta data
+  # @param [VisMetaData] meta_data the required meta data
   # @raise [RangeError] if one of the datasets has an incorrect dimension
   def check_dataset_dimension(meta_data)
     if (!TerminalVis.data_repo.dataset_dimension_correct?(meta_data))
@@ -62,7 +62,7 @@ class Timeline
   end
 
   # this method collects all data values d(x,y) in z
-  # @param [MetaData] meta_data the meta information of the regarded data series
+  # @param [VisMetaData] meta_data the meta information of the regarded data series
   # @param [DataSeries] data_series the data series which should be used
   # @param [Float] x x-coordinate of the regarded point
   # @param [Float] y y-coordinate of the regarded point

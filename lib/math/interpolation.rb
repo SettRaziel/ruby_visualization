@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-04 11:44:12
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2018-02-01 13:21:53
+# @Last Modified time: 2020-01-16 19:26:08
 
 module TerminalVis
 
@@ -17,7 +17,7 @@ module TerminalVis
     require 'matrix'
 
     # interpolates the data for the provided coordinate and prints the result
-    # @param [MetaData] meta_data the meta data for the data series where the
+    # @param [VisMetaData] meta_data the meta data for the data series where the
     #  interpolation should be done
     # @param [Hash] coordinates the coordinates for the interpolation
     # @param [DataSet] data_set the dataset where the interpolation shall be
@@ -44,7 +44,7 @@ module TerminalVis
 
     # singleton method to interpolate the data values specified for the region
     # defined by the coordinates and the interval and delta values
-    # @param [MetaData] meta_data the meta data of the considered data set
+    # @param [VisMetaData] meta_data the meta data of the considered data set
     # @param [DataSet] data_set the data_set which values are taken to
     #   interpolate the region
     # @param [Hash] coordinates a hash containing the x- and y-coordinate

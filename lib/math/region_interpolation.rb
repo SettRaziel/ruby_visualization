@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-12-07 17:22:54
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2018-02-01 13:22:00
+# @Last Modified time: 2020-01-16 19:26:32
 
 module TerminalVis
 
@@ -38,7 +38,7 @@ module TerminalVis
       # method to start the interpolation for the given centroid (x,y)
       # @param [Float] x the x-coordinate of the centroid
       # @param [Float] y the y-coordinate of the centroid
-      # @param [MetaData] meta_data the required meta data
+      # @param [VisMetaData] meta_data the required meta data
       # @param [DataSet] data_set the dataset which values are used for the
       #   interpolation
       # @return [DataSet] the interpolated data
@@ -70,7 +70,7 @@ module TerminalVis
       # method to create the interpolated values for a given y value
       # @param [Float] x the x-coordinate of the starting point
       # @param [Float] y_run the y-coordinate of the actual row
-      # @param [MetaData] meta_data the required meta data
+      # @param [VisMetaData] meta_data the required meta data
       # @param [DataSet] data_set the dataset which values are used for the
       #   interpolation
       def create_values_for_line(x, y_run, meta_data, data_set)
