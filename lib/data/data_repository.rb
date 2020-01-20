@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:51:07
+# @Last Modified time: 2020-01-20 19:54:55
 
 module DataInput
 
@@ -78,6 +78,8 @@ module DataInput
       return true
     end
 
+    private
+
     # method to retrieve the number of data values in the x and y dimension based
     # on the {MetaData::VisMetaData} information
     # @param [VisMetaData] meta_data the meta data whose values should be used
@@ -134,8 +136,6 @@ module DataInput
 
       return true
     end
-
-    private
 
     # creates {DataSet}s of the parsed data and stores it into a {DataSeries}
     # @param [Array] data the read data
