@@ -1,12 +1,12 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-13 17:43:29
+# @Last Modified time: 2020-03-08 17:25:54
 
-require_relative '../ruby_utils/help/help_output'
+require 'ruby_utils/help_output'
 
 # Output class for help text
-class HelpOutput < BasicHelpOutput
+class HelpOutput < RubyUtils::BasicHelpOutput
 
   private
 

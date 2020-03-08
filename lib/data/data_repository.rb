@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:28:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-20 19:54:55
+# @Last Modified time: 2020-03-08 17:38:13
 
 module DataInput
 
@@ -182,7 +182,7 @@ module DataInput
     # @param [String] filename filepath
     # @return [Array] the data of the file as strings
     def read_file(filename)
-      FileReader.new(filename, ',').data
+      RubyUtils::FileReader.new(filename, ',').data
     end
 
     # checks for meta data in the first line of the raw data and creates

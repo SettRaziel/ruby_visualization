@@ -1,10 +1,10 @@
 # @Author: Benjamin Held
 # @Date:   2016-04-26 15:23:25
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:47:23
+# @Last Modified time: 2020-03-08 17:19:33
 
+require 'ruby_utils/statistic'
 require_relative '../math/time_line'
-require_relative '../math/statistic'
 require_relative 'terminal_size'
 
 # This class collects all data values of the z dimension of a {DataSeries} for

@@ -1,10 +1,10 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:56:51
+# @Last Modified time: 2020-03-08 17:24:43
 
-require_relative '../ruby_utils/string/string'
-require_relative '../ruby_utils/data/meta_data'
+require 'ruby_utils/string'
+require 'ruby_utils/meta_data'
 require_relative 'data_domain'
 
 module MetaData
@@ -13,7 +13,7 @@ module MetaData
   # @see {MetaData::MetaData} meta information format
   # @raise [IndexError] if the number of provided parameters has not
   #   the correct size
-  class VisMetaData < MetaData
+  class VisMetaData < RubyUtils::MetaData
     # @return [String] the name of the data
     attr_reader :name
     # @return [DataDomain] informations of the x-dimension
