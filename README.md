@@ -146,7 +146,8 @@ Written with Ruby 2.2.2 - 2.4.1
 
 ## Requirements
 * Ruby with a version > 2.2
-* matrix (all)
+* [ruby_utils](https://github.com/SettRaziel/ruby_utils)
+* matrix (core, all)
 * csv (all)
 * Win32/Console/ANSI (Windows)
 * yard (for Documentation only)
