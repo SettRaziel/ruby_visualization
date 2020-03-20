@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-05-31 14:25:27
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2018-02-01 13:18:04
+# @Last Modified time: 2020-03-20 22:08:02
 
 
 require_relative '../lib/data/data_input'
@@ -28,25 +28,26 @@ begin
   parameter_handler = TerminalVis.parameter_handler
   TerminalVis.determine_configuration_options
 
-  TerminalVis.print_help() if (parameter_handler.repository.parameters[:help])
-  if (parameter_handler.repository.parameters[:version])
+  if (parameter_handler.repository.parameters[:help])
+  TerminalVis.print_help() 
+  elsif (parameter_handler.repository.parameters[:version])
     TerminalVis.print_version()
-  end
-
-  meta_data = TerminalVis.create_metadata()
-
-  if (parameter_handler.repository.parameters[:time])
-    TerminalVis::Output.create_timeline(meta_data)
-  elsif (parameter_handler.repository.parameters[:section])
-    TerminalVis::Output.create_region_interpolation_output(meta_data)
-  elsif (parameter_handler.repository.parameters[:coord])
-    TerminalVis::Output.create_interpolation_output(meta_data)
-  elsif (parameter_handler.repository.parameters[:range])
-    TerminalVis::Output.create_range_output(meta_data)
-  elsif (parameter_handler.repository.parameters[:delta])
-    TerminalVis::Output.create_delta_output(meta_data)
   else
-    TerminalVis::Output.create_output(meta_data)
+    meta_data = TerminalVis.create_metadata()
+
+    if (parameter_handler.repository.parameters[:time])
+      TerminalVis::Output.create_timeline(meta_data)
+    elsif (parameter_handler.repository.parameters[:section])
+      TerminalVis::Output.create_region_interpolation_output(meta_data)
+    elsif (parameter_handler.repository.parameters[:coord])
+      TerminalVis::Output.create_interpolation_output(meta_data)
+    elsif (parameter_handler.repository.parameters[:range])
+      TerminalVis::Output.create_range_output(meta_data)
+    elsif (parameter_handler.repository.parameters[:delta])
+      TerminalVis::Output.create_delta_output(meta_data)
+    else
+      TerminalVis::Output.create_output(meta_data)
+    end
   end
 rescue StandardError, NotImplementedError => e
     TerminalVis.print_error(e.message)

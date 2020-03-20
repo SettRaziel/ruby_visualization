@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:24:34
+# @Last Modified time: 2020-03-20 22:07:19
 
 module TerminalVis
 
@@ -59,14 +59,12 @@ module TerminalVis
   # call to print the help text
   def self.print_help
     HelpOutput.print_help_for(@parameter_handler.repository.parameters[:help])
-    exit(0)
   end
 
   # call to print version number and author
   def self.print_version
     puts 'terminal_visualization version 0.9.2'.yellow
     puts 'Created by Benjamin Held (June 2015)'.yellow
-    exit(0)
   end
 
   # call for standard error output
@@ -74,7 +72,6 @@ module TerminalVis
   def self.print_error(message)
     puts "#{message}".red
     puts 'For help type: ruby <script> --help'.green
-    exit(0)
   end
 
   # checks if option -i was used, determines if a valid parameter was entered
