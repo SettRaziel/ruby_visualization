@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2019-04-19 17:15:26
+# @Last Modified time: 2020-03-08 17:25:10
 
 module Parameter
 
@@ -9,7 +9,7 @@ module Parameter
   # checking for valid parameter combination as part of the application logic.
   # Can raise an ArgumentError or IndexError when invalid parameter arguments
   # or parameter combinations are provided
-  class ParameterHandler < BaseParameterHandler
+  class ParameterHandler < RubyUtils::Parameter::BaseParameterHandler
 
     # method to initialize the correct repository that should be used 
     # in this handler

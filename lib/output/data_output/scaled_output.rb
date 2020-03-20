@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-04-14 16:46:51
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-06-29 22:36:20
+# @Last Modified time: 2020-01-16 19:28:48
 
 module DataOutput
 
@@ -15,7 +15,7 @@ module DataOutput
 
     # method to set the required attributes und create the scaled dataset
     # @param [DataSet] data_set the data set which should be visualized
-    # @param [MetaData] meta_data the corresponding meta data
+    # @param [VisMetaData] meta_data the corresponding meta data
     # @param [Hash] options hash with the relevant parameter values
     def prepare_attributes(data_set, meta_data, options)
       # create meta data and data set for the scaled output

@@ -1,10 +1,10 @@
 # @Author: Benjamin Held
 # @Date:   2016-04-26 15:23:25
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-26 18:22:31
+# @Last Modified time: 2020-03-08 17:19:33
 
+require 'ruby_utils/statistic'
 require_relative '../math/time_line'
-require_relative '../math/statistic'
 require_relative 'terminal_size'
 
 # This class collects all data values of the z dimension of a {DataSeries} for
@@ -13,11 +13,11 @@ require_relative 'terminal_size'
 # values. If the datasize exceeds the number of columns the dataset will be
 # scaled.
 class TimelineScaling < Timeline
-  # @return [MetaData] the scaled meta data based on the terminal size
+  # @return [VisMetaData] the scaled meta data based on the terminal size
   attr_reader :scaled_meta
 
   # initialization
-  # @param [MetaData] meta_data the meta information of the regarded data series
+  # @param [VisMetaData] meta_data the meta information of the regarded data series
   # @param [DataSeries] data_series the data series which should be used
   # @param [Hash] parameters a hash containing the required parameter
   def initialize(meta_data, data_series, parameters)
@@ -56,7 +56,7 @@ class TimelineScaling < Timeline
 
   # method to scale the calculated values if required
   # @param [Array] values the collected values d(x,y)[z]
-  # @param [MetaData] meta_data the meta information of the regarded data series
+  # @param [VisMetaData] meta_data the meta information of the regarded data series
   # @return [Array] the scaled values d(x,y)[z]
   def scale_values(values, meta_data)
     if (values.length > @columns)
@@ -71,7 +71,7 @@ class TimelineScaling < Timeline
   # method to generate a mapping where all available values are mapped on the
   # number of columns specified by the terminal size
   # @param [Array] values the collected values d(x,y)[z]
-  # @param [MetaData] meta_data the meta information of the regarded data series
+  # @param [VisMetaData] meta_data the meta information of the regarded data series
   # @return [Array] the scaled values d(x,y)[z]
   def scale_with_mean_values(values, meta_data)
     scaled_values = Array.new()
@@ -120,8 +120,8 @@ class TimelineScaling < Timeline
     Statistic.mean_value(means)
   end
 
-  # method to adjust the {MetaData::MetaData} and replace the z-dimension
-  # @param [MetaData] meta_data the meta information of the regarded data series
+  # method to adjust the {MetaData::VisMetaData} and replace the z-dimension
+  # @param [VisMetaData] meta_data the meta information of the regarded data series
   def scale_meta_data(meta_data)
     delta_z = ((meta_data.domain_z.number_of_values) /
                Float(@columns)).round(5)
@@ -132,10 +132,10 @@ class TimelineScaling < Timeline
                                               meta_data.domain_y.step))
     meta_string.concat(add_domain_information(meta_data.domain_z, delta_z))
     # return the new meta data object
-    @scaled_meta = MetaData::MetaData.new(meta_string)
+    @scaled_meta = MetaData::VisMetaData.new(meta_string)
   end
 
-  # method to add the required parameter to the {MetaData::MetaData} string
+  # method to add the required parameter to the {MetaData::VisMetaData} string
   # @param [MetaData::DataDomain] data_domain the required
   #    {MetaData::DataDomain}
   # @param [Float] new_step the new delta between two data values for the given

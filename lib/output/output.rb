@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-02-22 20:20:39
+# @Last Modified time: 2020-01-16 19:29:37
 
 module TerminalVis
 
@@ -19,8 +19,8 @@ module TerminalVis
     require_relative '../scaling/timeline_scaling'
     require_relative '../math/dataset_statistics'
 
-    # creates output based on {MetaData::MetaData} and parameters
-    # @param [MetaData] meta_data the meta data of the data series which should
+    # creates output based on {MetaData::VisMetaData} and parameters
+    # @param [VisMetaData] meta_data the meta data of the data series which should
     #  be visualized
     def self.create_output(meta_data)
       if (TerminalVis.parameter_handler.repository.parameters[:all])
@@ -34,7 +34,7 @@ module TerminalVis
 
     # creates animated output of the whole data series depending on the
     # animation parameter
-    # @param [MetaData] meta_data the meta data of the data series which should
+    # @param [VisMetaData] meta_data the meta data of the data series which should
     #  be visualized
     def self.create_animation(meta_data)
       data_series = TerminalVis.data_repo.repository[meta_data]
@@ -54,7 +54,7 @@ module TerminalVis
     private_class_method :create_animation
 
     # creates output when using the parameter -d
-    # @param [MetaData] meta_data the meta data of the data series which should
+    # @param [VisMetaData] meta_data the meta data of the data series which should
     #  be visualized
     def self.create_delta_output(meta_data)
       data_indices = ParameterCollector::determine_indices_for_delta
@@ -73,7 +73,7 @@ module TerminalVis
     end
 
     # creates output when using the parameter -c
-    # @param [MetaData] meta_data the meta data of the data series where the
+    # @param [VisMetaData] meta_data the meta data of the data series where the
     # interpolation should be applied
     def self.create_interpolation_output(meta_data)
       coordinates = ParameterCollector::determine_interpolation_values
@@ -86,7 +86,7 @@ module TerminalVis
     end
 
     # creates output when using the parameter -s
-    # @param [MetaData] meta_data the meta data of the data series which should
+    # @param [VisMetaData] meta_data the meta data of the data series which should
     #   be used for the interpolation
     def self.create_region_interpolation_output(meta_data)
       coordinates = ParameterCollector::determine_interpolation_values
@@ -101,7 +101,7 @@ module TerminalVis
     end
 
     # creates output when using the parameter -r
-    # @param [MetaData] meta_data the meta data of the data series which should
+    # @param [VisMetaData] meta_data the meta data of the data series which should
     #  be visualized
     def self.create_range_output(meta_data)
       data_series = TerminalVis.data_repo.repository[meta_data]
@@ -112,7 +112,7 @@ module TerminalVis
     end
 
     # creates a time line for the parameter -t
-    # @param [MetaData] meta_data the meta data of the data series from which
+    # @param [VisMetaData] meta_data the meta data of the data series from which
     #  the timeline should be created
     def self.create_timeline(meta_data)
       data_series = TerminalVis.data_repo.repository[meta_data]
@@ -128,7 +128,7 @@ module TerminalVis
     end
 
     # creates default output or output with an index using -i
-    # @param [MetaData] meta_data the meta data of the data series which should
+    # @param [VisMetaData] meta_data the meta data of the data series which should
     #  be visualized
     # @param [Integer] index the index of the dataset which should be visualized
     def self.create_single_output_at_index(meta_data, index)
@@ -159,7 +159,7 @@ module TerminalVis
     # method to check the datasets specified by the data indices and return
     # the data
     # @param [Hash] data_indices the indices of the required datasets
-    # @param [MetaData] meta_data the corresponding meta data
+    # @param [VisMetaData] meta_data the corresponding meta data
     # @return [Hash] a hash containing the selected datasets
     def self.get_data_for_indices(data_indices, meta_data)
       data = Hash.new()
@@ -181,7 +181,7 @@ module TerminalVis
     # checks if the returned data exists, nil means data access outside the
     # boundaries of the data
     # @param [Integer] index the provided index
-    # @param [MetaData] meta_data the corresponding meta data
+    # @param [VisMetaData] meta_data the corresponding meta data
     # @return [DataSet] the dataset for the given index and meta data
     # @raise [IndexError] if no data was selected which means the index is not
     #  within the bounds of the provided meta data

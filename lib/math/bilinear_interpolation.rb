@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-23 10:07:26
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-09-18 17:50:19
+# @Last Modified time: 2020-01-16 19:25:43
 
 # This module holds the main singleton methods that are called from the script.
 # It also stores the data ans parameter repository so it can be called from
@@ -12,11 +12,11 @@ module TerminalVis
 
     # math class to interpolate data between a set of points
     # @raise [RangeError] when the provided coordinates do not lie within
-    #   the data area of the {MetaData::MetaData}
+    #   the data area of the {MetaData::VisMetaData}
     class BilinearInterpolation
 
       # method for bilinear interpolation
-      # @param [MetaData] meta_data meta data of the used dataset
+      # @param [VisMetaData] meta_data meta data of the used dataset
       # @param [DataSet] data_set dataset where a
       #   coordinate should be interpolated
       # @param [Float] x x-coordinate of the interpolation point
@@ -42,12 +42,12 @@ module TerminalVis
       private
       # @return [DataSet] the used data set
       attr :data_set
-      # @return [MetaData] the used meta data
+      # @return [VisMetaData] the used meta data
       attr :meta_data
 
       # singleton method to set the attributes at the beginning of an
       # interpolation
-      # @param [MetaData] meta_data the meta data required for the
+      # @param [VisMetaData] meta_data the meta data required for the
       #  bilinear interpolation
       # @param [DataSet] data_set the dataset required for the bilinear
       #  interpolation
@@ -144,7 +144,7 @@ module TerminalVis
 
       # singleton method to check if the provided coordinate lies within
       # the given domain of the dataset
-      # @param [DataDomain] data_domain domain of the {MetaData::MetaData}
+      # @param [DataDomain] data_domain domain of the {MetaData::VisMetaData}
       #   corresponding to the coordinate
       # @param [DataPoint] coordinate component of the coordinate to check
       # @return [Boolean] true, if in dataset, false: if not
@@ -153,7 +153,7 @@ module TerminalVis
       end
 
       # singleton method to get the index to the next down rounded datapoint
-      # @param [DataDomain] data_domain domain of the {MetaData::MetaData}
+      # @param [DataDomain] data_domain domain of the {MetaData::VisMetaData}
       #   corresponding to the coordinate
       # @param [DataPoint] coordinate component of the coordinate to check
       # @return [Numeric] the index of the next coordinate value (rounded down)

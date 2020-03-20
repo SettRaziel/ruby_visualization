@@ -1,22 +1,22 @@
 # @Author: Benjamin Held
 # @Date:   2016-03-10 11:45:32
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-06-29 17:54:01
+# @Last Modified time: 2020-01-16 19:32:37
 
 require_relative '../data/meta_data'
 require_relative 'terminal_size'
 
-# Helper class to generate a scaled {DataSet} from a ({MetaData::MetaData},
+# Helper class to generate a scaled {DataSet} from a ({MetaData::VisMetaData},
 # {DataSet}) pair with the scaling based on the size of the terminal where the
 # script is started.
 class DatasetScaling
-  # @return [MetaData] the {MetaData} of the scaled {DataSet}
+  # @return [VisMetaData] the {VisMetaData} of the scaled {DataSet}
   attr_reader :scaled_meta
   # @return [DataSet] the scaled {DataSet}
   attr_reader :scaled_data_set
 
   # initialization
-  # @param [MetaData] meta_data the {MetaData::MetaData} of the {DataSet} that
+  # @param [VisMetaData] meta_data the {MetaData::VisMetaData} of the {DataSet} that
   #   should be scaled
   # @param [DataSet] data_set the data set which should be visualized
   def initialize(meta_data, data_set)
@@ -30,7 +30,7 @@ class DatasetScaling
   end
 
   private
-  # @return [MetaData] the original {MetaData::MetaData} of the {DataSet}
+  # @return [VisMetaData] the original {MetaData::VisMetaData} of the {DataSet}
   attr :meta_data
   # @return [Integer] the number of lines of the used terminal
   attr :lines
@@ -56,7 +56,7 @@ class DatasetScaling
     meta_string.concat(add_domain_information(@meta_data.domain_z,
                                               @meta_data.domain_z.step))
     # return the new meta data object
-    @scaled_meta = MetaData::MetaData.new(meta_string)
+    @scaled_meta = MetaData::VisMetaData.new(meta_string)
   end
 
   # method to check if the dimensions of the terminal are big enough to
@@ -80,7 +80,7 @@ class DatasetScaling
     meta_string.concat(add_domain_information(@meta_data.domain_y, delta_y))
   end
 
-  # method to add the required parameter to the {MetaData::MetaData} string
+  # method to add the required parameter to the {MetaData::VisMetaData} string
   # @param [MetaData::DataDomain] data_domain the required
   #    {MetaData::DataDomain}
   # @param [Float] new_step the new delta between two data values for the given

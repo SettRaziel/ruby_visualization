@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2016-01-12 09:30:35
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-11-24 20:51:03
+# @Last Modified time: 2020-01-16 19:27:52
 
 module DataOutput
 
@@ -11,7 +11,7 @@ module DataOutput
 
     # method to visualize the difference of two datasets
     # @param [DataSet] data_set the dataset which should be visualized
-    # @param [MetaData] meta_data the corresponding meta data
+    # @param [VisMetaData] meta_data the corresponding meta data
     # @param [Hash] indices the indices of the two datasets which should be
     #   substracted
     # @param [Hash] options hash with the boolean values for extreme values and

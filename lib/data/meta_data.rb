@@ -1,9 +1,10 @@
 # @Author: Benjamin Held
 # @Date:   2015-06-09 12:49:43
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2019-04-09 20:17:52
+# @Last Modified time: 2020-03-08 17:24:43
 
-require_relative '../ruby_utils/string/string'
+require 'ruby_utils/string'
+require 'ruby_utils/meta_data'
 require_relative 'data_domain'
 
 module MetaData
@@ -12,7 +13,7 @@ module MetaData
   # @see {MetaData::MetaData} meta information format
   # @raise [IndexError] if the number of provided parameters has not
   #   the correct size
-  class MetaData
+  class VisMetaData < RubyUtils::MetaData
     # @return [String] the name of the data
     attr_reader :name
     # @return [DataDomain] informations of the x-dimension
@@ -22,22 +23,23 @@ module MetaData
     # @return [DataDomain] informations of the y-dimension
     attr_reader :domain_z
 
-    # initialization
-    # @param [Array] metadata the array with the meta information
-    def initialize(metadata)
-
-      check_element_size(metadata.length)
-
-      @name = metadata[0]
-      @domain_x = DataDomain.new(metadata[1], metadata[2], \
-                     metadata[3], metadata[4])
-      @domain_y = DataDomain.new(metadata[5], metadata[6], \
-                     metadata[7], metadata[8])
-
-      check_and_create_third_domain(metadata)
-    end
-
     private
+
+    # method which parses the required meta information from the 
+    # head line
+    # @param [Object] header_line the head line of a data set holding the 
+    # relevant meta information
+    def parse_header(header_line)
+      check_element_size(header_line.length)
+
+      @name = header_line[0]
+      @domain_x = DataDomain.new(header_line[1], header_line[2], \
+                     header_line[3], header_line[4])
+      @domain_y = DataDomain.new(header_line[5], header_line[6], \
+                     header_line[7], header_line[8])
+
+      check_and_create_third_domain(header_line)
+    end
 
     # method to check the correct number of parameters for the meta data
     # @param [Integer] size the size of the metadata array
