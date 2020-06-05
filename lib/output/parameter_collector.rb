@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-11-19 16:16:15
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-03-13 12:22:42
+# @Last Modified time: 2020-06-05 17:18:59
 
 module TerminalVis
 
@@ -59,7 +59,7 @@ module TerminalVis
     # @param [Symbol] parameter the requested parameter
     # @param [String] type the required type
     # @return [Hash] the hash with the required values
-    def self.retrieve_parameters(first, second, parameter, type)
+    private_class_method def self.retrieve_parameters(first, second, parameter, type)
       begin
         case type
           when 'Integer'
@@ -73,48 +73,43 @@ module TerminalVis
         create_error_message(parameter, type)
       end
     end
-    private_class_method :retrieve_parameters
 
     # method to retrive the parameters for interger values
     # @param [Symbol] first the first parameter argument
     # @param [Symbol] second the second parameter argument
     # @param [Symbol] parameter the requested parameter
     # @return [Hash] the hash with the required values
-    def self.retrieve_integer_parameters(first, second, parameter)
+    private_class_method def self.retrieve_integer_parameters(first, second, parameter)
       {first => Integer(read_parameter(parameter, 0)),
        second => Integer(read_parameter(parameter, 1))}
     end
-    private_class_method :retrieve_integer_parameters
 
     # method to retrive the parameters for float values
     # @param [Symbol] first the first parameter argument
     # @param [Symbol] second the second parameter argument
     # @param [Symbol] parameter the requested parameter
     # @return [Hash] the hash with the required values
-    def self.retrieve_float_parameters(first, second, parameter)
+    private_class_method def self.retrieve_float_parameters(first, second, parameter)
       {first => Float(read_parameter(parameter, 0)),
        second => Float(read_parameter(parameter, 1))}
     end
-    private_class_method :retrieve_float_parameters
 
     # method to read the value for a given parameter and index
     # @param [Symbol] parameter the provided parameter
     # @param [Integer] index the given index
     # @return [String] the value stored for the parameter at index
-    def self.read_parameter(parameter, index)
+    private_class_method def self.read_parameter(parameter, index)
       TerminalVis.parameter_handler.repository.parameters[parameter][index]
     end
-    private_class_method :read_parameter
 
     # method to create an error message when rescuing an error
     # @param [Symbol] parameter the requested parameter
     # @param [String] type a string containing the type for the error message
-    def self.create_error_message(parameter, type)
+    private_class_method def self.create_error_message(parameter, type)
       message = " Error: at least one argument of #{parameter}" \
                 " is not a valid #{type}".red
       TerminalVis::print_error(message)
     end
-    private_class_method :create_error_message
 
   end
 end

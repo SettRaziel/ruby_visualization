@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-20 08:40:28
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-03-20 22:07:19
+# @Last Modified time: 2020-06-05 17:16:59
 
 module TerminalVis
 
@@ -100,7 +100,7 @@ module TerminalVis
   # @param [VisMetaData] meta_data the meta data which should be checked for the
   #  corresponding index
   # @param [Integer] index the given index from the input
-  def self.check_index(meta_data, index)
+  private_class_method def self.check_index(meta_data, index)
     if (index < 0 || index >= @data_repo.repository[meta_data].series.size)
       text_index = @parameter_handler.repository.parameters[:index]
       data_size = @data_repo.repository[meta_data].series.size
@@ -109,6 +109,5 @@ module TerminalVis
       print_error(message)
     end
   end
-  private_class_method :check_index
 
 end

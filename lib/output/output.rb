@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-08-21 09:43:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:29:37
+# @Last Modified time: 2020-06-05 17:19:47
 
 module TerminalVis
 
@@ -36,7 +36,7 @@ module TerminalVis
     # animation parameter
     # @param [VisMetaData] meta_data the meta data of the data series which should
     #  be visualized
-    def self.create_animation(meta_data)
+    private_class_method def self.create_animation(meta_data)
       data_series = TerminalVis.data_repo.repository[meta_data]
       animation_speed = Integer(TerminalVis.parameter_handler.
                                             repository.parameters[:all])
@@ -51,7 +51,6 @@ module TerminalVis
           end
       }
     end
-    private_class_method :create_animation
 
     # creates output when using the parameter -d
     # @param [VisMetaData] meta_data the meta data of the data series which should
@@ -131,7 +130,7 @@ module TerminalVis
     # @param [VisMetaData] meta_data the meta data of the data series which should
     #  be visualized
     # @param [Integer] index the index of the dataset which should be visualized
-    def self.create_single_output_at_index(meta_data, index)
+    private_class_method def self.create_single_output_at_index(meta_data, index)
       options = get_output_options
       options[:index] = index
       data_series = TerminalVis.data_repo.repository[meta_data]
@@ -141,12 +140,11 @@ module TerminalVis
         DataOutput::ScaledDatasetOutput.new(data_series, meta_data, options)
       end
     end
-    private_class_method :create_single_output_at_index
 
     # method to determine output options for the extreme values and the
     # extended legend
     # @return [Hash] the hash with the boolean parameters for the options
-    def self.get_output_options
+    private_class_method def self.get_output_options
       { :extreme_values =>
         TerminalVis.parameter_handler.repository.parameters[:extreme],
         :legend =>
@@ -154,21 +152,19 @@ module TerminalVis
         :auto_scale =>
         TerminalVis::option_handler.options.repository[:auto_scale] }
     end
-    private_class_method :get_output_options
 
     # method to check the datasets specified by the data indices and return
     # the data
     # @param [Hash] data_indices the indices of the required datasets
     # @param [VisMetaData] meta_data the corresponding meta data
     # @return [Hash] a hash containing the selected datasets
-    def self.get_data_for_indices(data_indices, meta_data)
+    private_class_method def self.get_data_for_indices(data_indices, meta_data)
       data = Hash.new()
       check_data_range(data_indices)
       data[:first_data] = get_and_check_data(data_indices[:first], meta_data)
       data[:second_data] = get_and_check_data(data_indices[:second], meta_data)
       return data
     end
-    private_class_method :get_data_for_indices
 
     # checks if the first argument of -d is less than 1
     # @param [Hash] data_indices the indices of the required datasets
@@ -185,7 +181,7 @@ module TerminalVis
     # @return [DataSet] the dataset for the given index and meta data
     # @raise [IndexError] if no data was selected which means the index is not
     #  within the bounds of the provided meta data
-    def self.get_and_check_data(index, meta_data)
+    private_class_method def self.get_and_check_data(index, meta_data)
       data = TerminalVis.data_repo.repository[meta_data].series[index]
       if (data == nil)
         raise IndexError,
@@ -193,7 +189,6 @@ module TerminalVis
       end
       return data
     end
-    private_class_method :get_and_check_data
 
   end
 
