@@ -1,14 +1,14 @@
 GIT
   remote: https://github.com/SettRaziel/ruby_utils
-  revision: 377afb33cd8d82e6fcbb22fe5f81bf4111939836
+  revision: f1f841671435cc4d3b0d906de8384a4da0fdebb5
   specs:
     ruby_utils (0.0.1)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    csv (3.1.7)
-    yard (0.9.25)
+    csv (3.1.9)
+    yard (0.9.26)
 
 PLATFORMS
   ruby
