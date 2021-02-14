@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-20 11:23:58
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-03-08 17:25:10
+# @Last Modified time: 2021-02-14 22:00:53
 
 module Parameter
 
@@ -37,6 +37,9 @@ module Parameter
       check_constraints_for_c if (@repository.parameters[:coord])
       check_constraints_for_d if (@repository.parameters[:delta])
       check_constraints_for_r if (@repository.parameters[:range])
+    
+      # check mandatory file parameter
+      check_mandatory_parameter(:file)
     end
 
     # private method to check the occurrence of two parameters
