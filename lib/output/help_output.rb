@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-03-08 17:25:54
+# @Last Modified time: 2021-02-14 21:33:21
 
 require 'ruby_utils/help_output'
 
@@ -63,7 +63,7 @@ class HelpOutput < RubyUtils::BasicHelpOutput
 
   # method to print the default help text
   def self.print_help_head
-    puts 'script usage:'.red + " ruby <script> [parameters] <filename>"
+    puts 'script usage:'.red + " ruby <script> [parameters] (-f | --file) <filename>"
     puts 'help usage :'.green + "              ruby <script> (-h | --help)"
     puts 'help usage for parameter:'.green +
        " ruby <script> <parameter> (-h | --help)"
