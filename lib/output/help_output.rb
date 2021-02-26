@@ -1,7 +1,7 @@
 # @Author: Benjamin Held
 # @Date:   2015-07-25 12:17:16
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2021-02-14 21:33:21
+# @Last Modified time: 2021-02-26 20:31:14
 
 require 'ruby_utils/help_output'
 
@@ -31,7 +31,7 @@ class HelpOutput < RubyUtils::BasicHelpOutput
     add_single_argument_text(:index, ' -i, --index    ', ' <index>',
           '; shows the dataset at index, if index lies within ' \
           '[1,2, ..., # datasets], excludes -a, -d and -t')
-    add_single_argument_text(:option, ' -o, --options  ', ' <option>',
+    add_single_argument_text(:option, ' -o, --option   ', ' <option>',
           '; enables options, the source depends on the argument: '\
           'file=<filename> loads options from <filename>, menu enables the '\
           'possibility to input the desired values')
