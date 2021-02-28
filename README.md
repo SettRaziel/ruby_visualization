@@ -1,5 +1,7 @@
 # Terminal Visualizer
+[![Build Status](https://travis-ci.org/SettRaziel/ruby_visualization.svg?branch=development)](https://travis-ci.org/SettRaziel/ruby_visualization)
 [![Code Climate](https://codeclimate.com/github/SettRaziel/ruby_visualization/badges/gpa.svg)](https://codeclimate.com/github/SettRaziel/ruby_visualization)
+[![Coverage Status](https://coveralls.io/repos/github/SettRaziel/ruby_visualization/badge.svg?branch=development)](https://coveralls.io/github/SettRaziel/ruby_visualization?branch=development)
 
 Ruby program to read a series of datasets from a csv-formatted file and
 visualize the data as terminal output. The first line of data will be drawn
