@@ -21,6 +21,7 @@ begin
 rescue LoadError; end
 
 require "rspec"
+require_relative "../lib/main/main_module"
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
