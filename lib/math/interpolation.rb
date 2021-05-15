@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-08-04 11:44:12
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:26:08
-
 module TerminalVis
 
   # This module holds methods and classes to interpolate data values with

@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-08-19 08:56:50
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-05-09 16:25:27
-
 module ColorLegend
 
   # Class to color output field according to color in {#value_legend}

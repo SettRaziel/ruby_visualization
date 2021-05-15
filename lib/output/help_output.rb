@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-07-25 12:17:16
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2021-02-26 20:31:14
-
 require 'ruby_utils/help_output'
 
 # Output class for help text

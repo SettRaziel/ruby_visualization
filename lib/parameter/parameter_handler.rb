@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-07-20 11:23:58
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2021-02-27 20:57:45
-
 module TerminalVis
 
   module Parameter

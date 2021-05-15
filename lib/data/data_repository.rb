@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-05-31 14:28:43
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-03-08 17:38:13
-
 module DataInput
 
   # This class serves as a data repository storing the read data and handling the

@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-08-20 08:40:28
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-06-05 17:16:59
-
 module TerminalVis
 
   require_relative '../data/data_input'

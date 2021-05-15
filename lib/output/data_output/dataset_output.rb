@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2016-04-10 14:48:15
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:27:25
-
 module DataOutput
 
   # Parent class for data output and delta output

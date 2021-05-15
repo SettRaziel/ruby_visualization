@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-10-10 19:56:37
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2018-02-01 13:19:04
-
 require_relative '../data/data_input'
 require_relative './configuration_repository'
 require_relative './configuration_menu'

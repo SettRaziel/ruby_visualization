@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-09-12 09:52:39
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-06-02 22:36:20
-
 require_relative '../data/data_domain'
 
 # Output class to create the data axis for the dataset and delta output

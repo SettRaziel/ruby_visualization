@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-10-21 15:11:07
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-09-29 19:49:54
-
 require_relative '../main/main_module'
 
 # helper class to deliver a simple terminal menu to provide values for the

@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-11-19 16:16:15
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-06-05 17:18:59
-
 module TerminalVis
 
   # This module holds methods who are collecting the required parameters for

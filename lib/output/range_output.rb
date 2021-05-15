@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-09-18 17:05:41
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:30:26
-
 require_relative '../data/meta_data'
 require_relative '../data/data_series'
 

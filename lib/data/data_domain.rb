@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-09-11 11:16:06
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2021-02-28 21:52:20
-
 module TerminalVis
 
   # {MetaData::MetaData} stores meta information about the data series. The

@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2016-01-29 10:17:38
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:28:18
-
 module DataOutput
 
   # Child class of {DatasetOutput} to visualize a data set within the dimensions

@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-11-11 16:01:35
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-02-22 20:24:41
-
 require_relative '../graphics/color_legend'
 require_relative '../math/interpolation'
 

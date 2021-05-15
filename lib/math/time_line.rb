@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-08-24 10:28:58
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:26:53
-
 require_relative 'interpolation'
 
 # This class collects all data values of the z dimension of a {DataSeries} for

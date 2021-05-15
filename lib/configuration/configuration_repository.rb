@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-10-09 12:50:02
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-07-19 16:49:20
-
 # Repository storing available configuration parameters. If no parameters are
 # set from the user, the default values for the parameters are used.
 class ConfigurationRepository

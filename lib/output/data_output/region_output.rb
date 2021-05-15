@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-12-13 16:50:41
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-05-21 08:48:13
-
 module DataOutput
 
   # Output class to visualize the interpolation of a region

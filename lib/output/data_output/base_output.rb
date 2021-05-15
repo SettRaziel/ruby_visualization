@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2017-05-10 17:13:11
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-06-29 17:58:15
-
 module DataOutput
 
   # This class provides basic methods for the other color legends to work

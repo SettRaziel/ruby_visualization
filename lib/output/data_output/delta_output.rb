@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2016-01-12 09:30:35
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:27:52
-
 module DataOutput
 
   # Data output for the difference of two data sets for the terminal

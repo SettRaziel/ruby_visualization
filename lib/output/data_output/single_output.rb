@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-12-31 14:02:17
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:29:01
-
 module DataOutput
 
   # Simple data output for the terminal visualization and a dataset

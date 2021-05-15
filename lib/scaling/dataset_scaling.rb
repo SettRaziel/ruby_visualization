@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2016-03-10 11:45:32
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:32:37
-
 require_relative '../data/meta_data'
 require_relative 'terminal_size'
 

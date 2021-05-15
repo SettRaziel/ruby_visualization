@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-06-09 12:49:43
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2021-02-28 21:16:40
-
 require 'ruby_utils/string'
 require 'ruby_utils/meta_data'
 require_relative 'data_domain'

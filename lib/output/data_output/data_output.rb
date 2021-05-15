@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-05-31 15:08:28
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-03-08 17:21:21
-
 require 'ruby_utils/string'
 require_relative '../../data/data_input'
 require_relative '../../data/meta_data'

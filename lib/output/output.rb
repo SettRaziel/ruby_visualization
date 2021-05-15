@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-08-21 09:43:16
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-06-05 17:19:47
-
 module TerminalVis
 
   # This module takes care about the output in the terminal and serves several

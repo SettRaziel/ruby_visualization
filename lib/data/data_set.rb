@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-05-31 14:41:25
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2018-02-01 13:18:45
-
 module DataInput
 
   # Class to represent a two dimensional data set

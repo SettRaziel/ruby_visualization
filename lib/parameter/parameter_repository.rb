@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-06-12 10:45:36
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2021-02-26 19:10:18
-
 module TerminalVis
 
   # Parent module which holdes the classes dealing with reading and validating
