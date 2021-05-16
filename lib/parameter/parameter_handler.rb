@@ -45,7 +45,7 @@ module TerminalVis
       # private method to check the occurrence of two parameters
       def check_parameter_occurrence
         if (@repository.parameters[:section])
-          check_occurrence('-s', '-c', :coord)
+          check_occurrence(:section, :coord)
         end
       end
 

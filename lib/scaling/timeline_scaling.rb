@@ -127,7 +127,7 @@ class TimelineScaling < Timeline
                                               meta_data.domain_y.step))
     meta_string.concat(add_domain_information(meta_data.domain_z, delta_z))
     # return the new meta data object
-    @scaled_meta = MetaData::VisMetaData.new(meta_string)
+    @scaled_meta = TerminalVis::MetaData::VisMetaData.new(meta_string)
   end
 
   # method to add the required parameter to the {MetaData::VisMetaData} string

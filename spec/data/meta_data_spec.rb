@@ -1,9 +1,3 @@
-#!/usr/bin/ruby
-# @Author: Benjamin Held
-# @Date:   2021-02-28 21:15:20
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2021-02-28 22:10:33
-
 require "spec_helper"
 require_relative "../../lib/data/meta_data"
 

@@ -1,9 +1,3 @@
-#!/usr/bin/ruby
-# @Author: Benjamin Held
-# @Date:   2021-02-27 17:19:08
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2021-02-27 20:58:02
-
 require "spec_helper"
 require_relative "../../lib/parameter/parameter"
 
@@ -136,6 +130,28 @@ describe TerminalVis::Parameter::ParameterHandler do
         expect {
           TerminalVis::Parameter::ParameterHandler.new(arguments)
         }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
+  describe ".new" do
+    context "given the all flag" do
+      it "create the repository and fail the parameter contrains due to missing coordinates" do
+        arguments = ["-m", "-i", "1", "-s", "1", "0.1", "-f", "./test_small_meta"]
+        expect {
+          TerminalVis::Parameter::ParameterHandler.new(arguments)
+        }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
+  describe ".new" do
+    context "given the all flag" do
+      it "create the repository and pass the parameter contrains" do
+        arguments = ["-m", "-i", "1", "-c", "2", "2", "-s", "1", "0.1", "-f", "./test_small_meta"]
+        parameter_handler = TerminalVis::Parameter::ParameterHandler.new(arguments)
+        expect(parameter_handler.repository.parameters[:coord]).to eq(["2","2"])
+        expect(parameter_handler.repository.parameters[:section]).to eq(["1","0.1"])
       end
     end
   end

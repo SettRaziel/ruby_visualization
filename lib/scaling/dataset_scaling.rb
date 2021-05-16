@@ -51,7 +51,7 @@ class DatasetScaling
     meta_string.concat(add_domain_information(@meta_data.domain_z,
                                               @meta_data.domain_z.step))
     # return the new meta data object
-    @scaled_meta = MetaData::VisMetaData.new(meta_string)
+    @scaled_meta = TerminalVis::MetaData::VisMetaData.new(meta_string)
   end
 
   # method to check if the dimensions of the terminal are big enough to

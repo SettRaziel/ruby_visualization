@@ -38,7 +38,7 @@ module DataInput
       data_series = create_dataseries(data)
       meta_string = build_meta_string(data_series, filename)
 
-      meta_data = MetaData::VisMetaData.new(meta_string)
+      meta_data = TerminalVis::MetaData::VisMetaData.new(meta_string)
       @repository[meta_data] = data_series
       return meta_data
     end
@@ -188,7 +188,7 @@ module DataInput
       meta_string = data[0]
       data.delete_at(1)
       data.delete_at(0)
-      MetaData::VisMetaData.new(meta_string)
+      TerminalVis::MetaData::VisMetaData.new(meta_string)
     end
 
     # checks if a given key already exists in the repository

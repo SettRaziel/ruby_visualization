@@ -43,7 +43,7 @@ module DataOutput
       lower = (coordinate - interval).round(3)
       upper = (coordinate + interval).round(3)
 
-      MetaData::DataDomain.new(label, lower, upper, delta)
+      TerminalVis::MetaData::DataDomain.new(label, lower, upper, delta)
     end
 
     # method to print the output head
