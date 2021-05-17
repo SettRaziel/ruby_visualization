@@ -13,7 +13,6 @@ module TerminalVis
 
       # method to read further argument and process it depending on its content
       # @param [String] arg the given argument
-      # @param [Array] unflagged_arguments the argument array
       def process_argument(arg)
         case arg
           when *@mapping[:all] then create_argument_entry(:all)

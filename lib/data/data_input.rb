@@ -1,3 +1,4 @@
+# module representing the basic data classes that are used in the project
 module DataInput
 
   require 'ruby_utils/string'
