@@ -3,10 +3,10 @@
 # @Last Modified by:   Benjamin Held
 # @Last Modified time: 2021-02-14 21:33:21
 
-require 'ruby_utils/help_output'
+require 'ruby_utils/base_help_output'
 
 # Output class for help text
-class HelpOutput < RubyUtils::BasicHelpOutput
+class HelpOutput < RubyUtils::BaseHelpOutput
 
   private
 
