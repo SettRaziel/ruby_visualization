@@ -7,7 +7,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    csv (3.2.0)
+    csv (3.2.1)
     yard (0.9.26)
 
 PLATFORMS
