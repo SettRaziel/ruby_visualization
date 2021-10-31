@@ -2,3 +2,7 @@
 dev/
 .yardoc/
 doc/
+
+# exclude gem informations
+*.gem
+Gemfile.lock
