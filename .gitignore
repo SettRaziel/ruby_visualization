@@ -5,3 +5,7 @@ doc/
 
 # ignore coverage directory
 coverage/
+
+# exclude gem informations
+*.gem
+Gemfile.lock
