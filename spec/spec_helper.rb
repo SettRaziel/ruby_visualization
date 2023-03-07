@@ -14,10 +14,10 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-
 begin
-  require "coveralls"
-  Coveralls.wear!
+  require "simplecov"
+  #SimpleCov.minimum_coverage_by_file(90)
+  SimpleCov.start
 rescue LoadError; end
 
 require "rspec"
