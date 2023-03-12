@@ -23,6 +23,8 @@ rescue LoadError; end
 require "rspec"
 require_relative "../lib/main/main_module"
 
+DATA_ROOT = Pathname.new(__dir__).join("files/").expand_path
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
