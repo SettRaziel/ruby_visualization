@@ -62,4 +62,19 @@ describe TerminalVis::Output do
     end
   end
 
+  describe "#create_timeline" do
+    context "given input parameters and a file with meta data" do
+      it "read the data and create to correct visual output for the timeline with meta data" do
+        TerminalVis::initialize_repositories(["-m", "-t", "1", "1", "--file", "./spec/files/test_small_meta"])
+        TerminalVis.determine_configuration_options
+        meta_data = TerminalVis.create_metadata()
+        input = File.read(File.join(DATA_ROOT,"create_timeline"))
+        expect { 
+          TerminalVis::Output.create_timeline(meta_data)
+        }.to output(input).to_stdout
+                    
+      end
+    end
+  end
+
 end
