@@ -32,7 +32,7 @@ describe TerminalVis::Output do
     end
   end
 
-    describe "#create_output" do
+  describe "#create_output" do
     context "given input parameters and a file with meta data" do
       it "read the data and create to correct visual output for the second dataset with meta data" do
         TerminalVis::initialize_repositories(["-m", "-i", "1", "--file", "./spec/files/test_small_meta"])
