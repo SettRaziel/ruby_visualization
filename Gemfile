@@ -14,4 +14,5 @@ group :test do
   gem "rspec"
   gem "rake"
   gem "rack-test"
+  gem "bundler-audit"
 end
