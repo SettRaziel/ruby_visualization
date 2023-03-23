@@ -1,5 +1,5 @@
-require_relative '../data/meta_data'
-require_relative '../data/data_series'
+require_relative "../data/meta_data"
+require_relative "../data/data_series"
 
 # Output class for printing datasets of a data series within a given range
 class RangeOutput
@@ -40,7 +40,7 @@ class RangeOutput
   def first_lesser_second?(indices)
     if (indices[:lower] >= indices[:upper])
       raise ArgumentError,
-        ' Error: First parameter of -r is equal or greater than the second'.red
+        " Error: First parameter of -r is equal or greater than the second".red
     end
     return true
   end
@@ -56,12 +56,12 @@ class RangeOutput
 
     if (indices[:lower] < 0)
       raise ArgumentError,
-        ' Error: First parameter of -r is lesser or equal 0'.red
+        " Error: First parameter of -r is lesser or equal 0".red
     end
 
     if (indices[:upper] >= size)
       raise ArgumentError,
-        ' Error: Second parameter of -r greater than size of data series'.red
+        " Error: Second parameter of -r greater than size of data series".red
     end
 
     return true
@@ -91,7 +91,7 @@ class RangeOutput
     if (animation_speed > 0)
       sleep(animation_speed)
     else
-      print 'press Enter to continue ...'.green
+      print "press Enter to continue ...".green
       # STDIN to read from console when providing parameters in ARGV
       STDIN.gets.chomp
     end

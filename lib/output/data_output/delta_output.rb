@@ -31,7 +31,7 @@ module DataOutput
     def print_output_head(indices)
       first_year = @meta_data.domain_z.lower + indices[:first]
       second_year = @meta_data.domain_z.lower + indices[:second]
-      puts "Printing difference for the datasets of #{first_year} and "\
+      puts "Printing difference for the datasets of #{first_year} and " \
            "#{second_year}.\n\n"
       nil
     end

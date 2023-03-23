@@ -1,5 +1,5 @@
-require 'ruby_utils/string'
-require_relative '../data/meta_data'
+require "ruby_utils/string"
+require_relative "../data/meta_data"
 
 # This class holds methods to print a previously created timelime into the
 # terminal providing simple axis for the z dimension on the abscissa and the
@@ -52,9 +52,9 @@ class TimelineOutput
     mapped_values.each_pair { |key, values|
       line_string = "%.2f" % (key)
       if (line_string.length <= max_size)
-        (max_size - line_string.length).times { line_string.concat(' ')}
+        (max_size - line_string.length).times { line_string.concat(" ")}
       end
-      line_string.concat('| ')
+      line_string.concat("| ")
       output << check_and_append_values(values, line_string)
     }
 
@@ -82,7 +82,7 @@ class TimelineOutput
   def check_and_append_values(values, line_string)
     values.each { |value|
         if (value[0] == :miss)
-          line_string.concat(' ')
+          line_string.concat(" ")
         else
           line_string.concat(check_type_and_print(value))
         end
@@ -96,16 +96,16 @@ class TimelineOutput
   # @return [String] the output string for the abscissa
   def create_axis_string(data_size, max_size)
     str = String.new()
-    max_size.times {str.concat(' ')}
-    str.concat('--|')
+    max_size.times {str.concat(" ")}
+    str.concat("--|")
     position = 1
 
     while (data_size - position >= 10)
-      str.concat('---------|')
+      str.concat("---------|")
       position += 10
     end
-    (data_size - position).times {str.concat('-')}
-    str.concat('|')
+    (data_size - position).times {str.concat("-")}
+    str.concat("|")
   end
 
   # method to create value informations for the abscissa
@@ -115,7 +115,7 @@ class TimelineOutput
   # @return [String] the value informations for the abscissa
   def create_axis_legend(data_size, max_size, meta_data)
     str = String.new()
-    max_size.times {str.concat(' ')}
+    max_size.times {str.concat(" ")}
     position = 1
     start = Integer(meta_data.domain_z.lower)
 
@@ -145,9 +145,9 @@ class TimelineOutput
   # @return [String] the output string for the extreme values
   def create_extreme_output(max_size)
     str = String.new()
-    max_size.times {str.concat(' ')}
+    max_size.times {str.concat(" ")}
     str.concat("Maximum: #{@extrema[:maximum].round(3)}\n")
-    max_size.times {str.concat(' ')}
+    max_size.times {str.concat(" ")}
     str.concat("Minimum: #{@extrema[:minimum].round(3)}")
   end
 
@@ -158,13 +158,13 @@ class TimelineOutput
   def check_type_and_print(value)
     if (value[0] == :maximum)
       @extrema[:maximum] = value[1]
-      return 'x'.red.bright
+      return "x".red.bright
     elsif (value[0] == :minimum)
       @extrema[:minimum] = value[1]
-      return 'x'.cyan.bright
+      return "x".cyan.bright
     end
 
-    'x'.green
+    "x".green
   end
 
 end

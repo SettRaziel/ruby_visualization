@@ -15,9 +15,9 @@ module DataOutput
       set_attributes(data, values[:extreme_values])
       @legend = ColorLegend::ColorData.new(data_series.min_value,
                                            data_series.max_value)
-      @domain_x = create_data_domain('X', coordinates[:x], values[:inter_x],
+      @domain_x = create_data_domain("X", coordinates[:x], values[:inter_x],
                                                           values[:delta_x])
-      @domain_y = create_data_domain('Y', coordinates[:y], values[:inter_y],
+      @domain_y = create_data_domain("Y", coordinates[:y], values[:inter_y],
                                                           values[:delta_y])
 
       print_output_head(coordinates, values)
@@ -61,7 +61,7 @@ module DataOutput
       puts "\nRegional interpolation with domain properties:"
 
       print_domain_information(@domain_x, "\nX")
-      print_domain_information(@domain_y, 'Y')
+      print_domain_information(@domain_y, "Y")
     end
 
   end

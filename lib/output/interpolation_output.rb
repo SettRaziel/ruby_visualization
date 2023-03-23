@@ -1,5 +1,5 @@
-require_relative '../graphics/color_legend'
-require_relative '../math/interpolation'
+require_relative "../graphics/color_legend"
+require_relative "../math/interpolation"
 
 # Output class to vizualize results issued within the scope of interpolation
 class InterpolationOutput
@@ -64,7 +64,7 @@ class InterpolationOutput
   # method to print the required white spaces
   # @param [Integer] amount the number of required white spaces
   def print_times_blank(amount)
-    amount.times { print ' '}
+    amount.times { print " "}
     nil
   end
 
@@ -73,9 +73,9 @@ class InterpolationOutput
   # @return [String] the colored string for the given value
   def create_colored_substrings(value)
     if (value != nil)
-      @color_legend.create_output_string_for(value, '  ')
+      @color_legend.create_output_string_for(value, "  ")
     else
-      print '  '
+      print "  "
     end
   end
 

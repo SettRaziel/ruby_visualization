@@ -6,13 +6,13 @@ module TerminalVis
   #   * help output
   module Output
 
-    require_relative './data_output/data_output'
-    require_relative 'interpolation_output'
-    require_relative 'range_output'
-    require_relative 'timeline_output'
-    require_relative '../math/time_line'
-    require_relative '../scaling/timeline_scaling'
-    require_relative '../math/dataset_statistics'
+    require_relative "./data_output/data_output"
+    require_relative "interpolation_output"
+    require_relative "range_output"
+    require_relative "timeline_output"
+    require_relative "../math/time_line"
+    require_relative "../scaling/timeline_scaling"
+    require_relative "../math/dataset_statistics"
 
     # creates output based on {MetaData::VisMetaData} and parameters
     # @param [VisMetaData] meta_data the meta data of the data series which should
@@ -40,7 +40,7 @@ module TerminalVis
           if (animation_speed > 0)
             sleep(animation_speed)
           else
-            print 'press Enter to continue ...'.green
+            print "press Enter to continue ...".green
             # STDIN to read from console when providing parameters in ARGV
             STDIN.gets.chomp
           end
@@ -165,7 +165,7 @@ module TerminalVis
     # @param [Hash] data_indices the indices of the required datasets
     def self.check_data_range(data_indices)
       if (data_indices[:first] < 0)
-        raise IndexError, ' Error: first index of -d is less than 1'.red
+        raise IndexError, " Error: first index of -d is less than 1".red
       end
     end
 

@@ -32,15 +32,15 @@ module DataOutput
     def determine_output_type_and_print_value(value)
       # create output for maximum
       if (value == @data_set.max_value && @with_extreme_values)
-        print '++'.light_gray.bright.black_bg
+        print "++".light_gray.bright.black_bg
         return :maximum
       # create output for minimum
       elsif (value == @data_set.min_value && @with_extreme_values)
-        print '--'.light_gray.bright.black_bg
+        print "--".light_gray.bright.black_bg
         return :minimum
       # create normal output
       else
-        print @legend.create_output_string_for(value,'  ')
+        print @legend.create_output_string_for(value,"  ")
         return :normal
       end
     end
@@ -48,11 +48,11 @@ module DataOutput
     # prints the coordinates and values of the extreme values
     # @param [Hash] extreme_coordinates Hash with positions of extrema
     def print_extreme_information(extreme_coordinates)
-      puts 'Dataset extreme values:'
+      puts "Dataset extreme values:"
       print_extreme_values_for(extreme_coordinates[:maximum],
-                               'Maximum (++):', @data_set.max_value)
+                               "Maximum (++):", @data_set.max_value)
       print_extreme_values_for(extreme_coordinates[:minimum],
-                               'Minimum (--):', @data_set.min_value)
+                               "Minimum (--):", @data_set.min_value)
       nil
     end
 
@@ -63,7 +63,7 @@ module DataOutput
     def print_extreme_values_for(coordinates, type, value)
       while (coordinates.size > 0)
           coordinate = coordinates.shift
-          color = @legend.create_output_string_for(value,'  ')
+          color = @legend.create_output_string_for(value,"  ")
           puts "  %s %.3f at %s [%s]." % [type, value, coordinate, color]
       end
       nil

@@ -13,7 +13,7 @@ module DataOutput
       print_meta_head
 
       print_domain_information(@meta_data.domain_x, "\nX")
-      print_domain_information(@meta_data.domain_y, 'Y')
+      print_domain_information(@meta_data.domain_y, "Y")
 
       print_meta_tail
       nil

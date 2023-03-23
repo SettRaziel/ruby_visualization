@@ -40,7 +40,7 @@ module DataOutput
     # domain informations
     def print_meta_tail
       if (@meta_data.domain_z != nil)
-        print_domain_information(@meta_data.domain_z, 'Z')
+        print_domain_information(@meta_data.domain_z, "Z")
       end
     end
 

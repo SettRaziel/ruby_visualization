@@ -1,4 +1,4 @@
-require_relative '../data/data_domain'
+require_relative "../data/data_domain"
 
 # Output class to create the data axis for the dataset and delta output
 # in the x- and y-dimension
@@ -29,7 +29,7 @@ class DataAxis
     max_length = determine_maximal_domainvalue_length(domain) + 1
 
     output = determine_y_axis_init(domain, key)
-    (max_length - output.length).times { output.concat(' ') }
+    (max_length - output.length).times { output.concat(" ") }
     @max_y_indentation = output.length if (@max_y_indentation < output.length)
     print output
   end
@@ -42,12 +42,12 @@ class DataAxis
   # coordinate of the axis values
   # @param [DataDomain] domain_x the data domain used for the x-axis values
   def print_x_axis_markings(domain_x)
-    (@max_y_indentation).times { print ' '}
+    (@max_y_indentation).times { print " "}
     index = 0
-    print '\\/'
+    print "\\/"
     while (index < domain_x.number_of_values / 5)
-      8.times { print '-'}
-      print '\\/'
+      8.times { print "-"}
+      print "\\/"
       index += 1
     end
     puts
@@ -56,7 +56,7 @@ class DataAxis
   # singleton method to print the initial string of the x axis description
   # @param [DataDomain] domain_x the data domain used for the x-axis values
   def print_x_axis_init(domain_x)
-    (@max_y_indentation).times { print ' '}
+    (@max_y_indentation).times { print " "}
     value = "#{domain_x.get_coordinate_to_index(0).round(3)}"
     print "%#{value.length}s" % "#{value}"
   end
@@ -68,7 +68,7 @@ class DataAxis
   # @param [DataDomain] domain the data domain of the x-axis
   def extend_x_axis_output(index, domain)
     value = "#{domain.get_coordinate_to_index(index).round(3)}"
-    (10 - value.length).times { print ' ' }
+    (10 - value.length).times { print " " }
     print "%#{value.length}s" % "#{value}"
   end
 
