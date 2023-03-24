@@ -45,7 +45,7 @@ class ConfigurationRepository
   def check_symbol_existance(symbol)
     if (@repository[symbol] == nil)
       raise ArgumentError,
-            ' Error [Configuration]: the provided option does not exist.'.red
+            " Error [Configuration]: the provided option does not exist.".red
     end
   end
 
@@ -74,8 +74,8 @@ class ConfigurationRepository
   # @raise [TypeError] if the class of the now value does not fit the class
   #   of the old one
   def raise_type_error
-      raise TypeError, ' Error [Configuration]: the type of a new value does '\
-                       'not fit the original type.'.red
+      raise TypeError, " Error [Configuration]: the type of a new value does "\
+                       "not fit the original type.".red
   end
 
 end

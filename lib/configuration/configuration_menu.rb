@@ -1,4 +1,4 @@
-require_relative '../main/main_module'
+require_relative "../main/main_module"
 
 # helper class to deliver a simple terminal menu to provide values for the
 # available configuration parameter
@@ -12,13 +12,13 @@ class ConfigurationMenu
     ARGF.argv.clear
 
     while(is_running)
-      puts 'Configuration Menu. Select parameter:'.light_yellow
-      puts '(1) Extended data legend.'
-      puts '(2) Determine y-resolution for timeline.'
-      puts '(3) Use scaled output.'
-      puts '(4) Save parameters to file.'
-      puts '(5) Exit.'
-      is_running = process_input(get_entry('Input (1-5): '.blue.bright).to_i)
+      puts "Configuration Menu. Select parameter:".light_yellow
+      puts "(1) Extended data legend."
+      puts "(2) Determine y-resolution for timeline."
+      puts "(3) Use scaled output."
+      puts "(4) Save parameters to file."
+      puts "(5) Exit."
+      is_running = process_input(get_entry("Input (1-5): ".blue.bright).to_i)
     end
   end
 
@@ -30,14 +30,14 @@ class ConfigurationMenu
   def process_input(input)
     case input
       when 1 then return process_legend_input(
-                         get_entry('Input value (0: false, 1:true) : ').to_i)
-      when 2 then return process_ydim_input(get_entry('Input value: ').to_i)
+                         get_entry("Input value (0: false, 1:true) : ").to_i)
+      when 2 then return process_ydim_input(get_entry("Input value: ").to_i)
       when 3 then return process_scale_input(
-                         get_entry('Input value (0: false, 1:true) : ').to_i)
-      when 4 then return save_to_file(get_entry('Save destination: '))
+                         get_entry("Input value (0: false, 1:true) : ").to_i)
+      when 4 then return save_to_file(get_entry("Save destination: "))
       when 5 then return false
     else
-      puts ' Error: Input is not valid.'.red
+      puts " Error: Input is not valid.".red
       return true
     end
   end
@@ -90,7 +90,7 @@ class ConfigurationMenu
     when 1 then TerminalVis::option_handler.options.
                              change_option(symbol, true)
     else
-      puts ' Error: Input is not valid.'.red
+      puts " Error: Input is not valid.".red
     end
     return true
   end
@@ -103,7 +103,7 @@ class ConfigurationMenu
       TerminalVis::option_handler.save_options(filename)
       puts "Saved options to #{filename}".green
     rescue StandardError => e
-      puts ' Error while saving options: '.concat(e.message).red
+      puts " Error while saving options: ".concat(e.message).red
     end
     return true
   end
