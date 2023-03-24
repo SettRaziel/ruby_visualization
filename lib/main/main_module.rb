@@ -1,12 +1,12 @@
 module TerminalVis
 
-  require_relative '../data/data_input'
-  require_relative '../parameter/parameter'
-  require_relative '../configuration/configuration_handler'
-  require_relative '../output/help_output'
-  require_relative '../output/output'
-  require_relative '../output/parameter_collector'
-  require_relative '../math/interpolation'
+  require_relative "../data/data_input"
+  require_relative "../parameter/parameter"
+  require_relative "../configuration/configuration_handler"
+  require_relative "../output/help_output"
+  require_relative "../output/output"
+  require_relative "../output/parameter_collector"
+  require_relative "../math/interpolation"
 
   # Dummy class to get access to the instance variables
   class << self
@@ -58,15 +58,15 @@ module TerminalVis
 
   # call to print version number and author
   def self.print_version
-    puts 'terminal_visualization version 0.9.2'.yellow
-    puts 'Created by Benjamin Held (June 2015)'.yellow
+    puts "terminal_visualization version 0.9.2".yellow
+    puts "Created by Benjamin Held (June 2015)".yellow
   end
 
   # call for standard error output
   # @param [String] message message string with error message
   def self.print_error(message)
     puts "#{message}".red
-    puts 'For help type: ruby <script> --help'.green
+    puts "For help type: ruby <script> --help".green
   end
 
   # checks if option -i was used, determines if a valid parameter was entered
