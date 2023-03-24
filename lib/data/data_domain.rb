@@ -41,7 +41,7 @@ module TerminalVis
           @step = Float(step)
         rescue ArgumentError
           raise ArgumentError,
-                ' Error in data domain: received non number argument.'.red
+                " Error in data domain: received non number argument.".red
         end
       end
 

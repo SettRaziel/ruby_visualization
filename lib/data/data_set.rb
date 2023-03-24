@@ -32,8 +32,7 @@ module DataInput
         find_extreme_values
       rescue StandardError => e
         raise ArgumentError,
-              " Error in data set while parsing data:\n "
-              .concat(e.message).red
+              " Error in data set while parsing data:\n".concat(e.message).red
       end
     end
 

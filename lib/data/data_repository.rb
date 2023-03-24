@@ -122,8 +122,8 @@ module DataInput
       number_data_z = data_series.series.size
 
       if (number_value_z != number_data_z)
-        puts ' Warning: Size of dataseries does not match with' \
-           ' meta data information.'.yellow
+        puts " Warning: Size of dataseries does not match with" \
+           " meta data information.".yellow
         puts "   meta_data: #{number_value_z} datasets to data_series: " \
            "#{number_data_z} datasets".yellow
         return false
@@ -161,13 +161,13 @@ module DataInput
     # @return [Array] the constructed meta string
     def build_meta_string(data_series, filename)
       meta_string = ["#{filename}", \
-                     'X', 0, data_series.series[0].data[0].size - 1, 1, \
-                     'Y', 0, data_series.series[0].data.size - 1, 1]
+                     "X", 0, data_series.series[0].data[0].size - 1, 1, \
+                     "Y", 0, data_series.series[0].data.size - 1, 1]
 
       if (data_series.series.size > 1)
-        meta_string.concat( ['Z', 0, data_series.series.size, 1] )
+        meta_string.concat( ["Z", 0, data_series.series.size, 1] )
       else
-        meta_string.concat( ['Z', 0, 1, 1] )
+        meta_string.concat( ["Z", 0, 1, 1] )
       end
 
       return meta_string
@@ -177,7 +177,7 @@ module DataInput
     # @param [String] filename filepath
     # @return [Array] the data of the file as strings
     def read_file(filename)
-      RubyUtils::FileReader.new(filename, ',').data
+      RubyUtils::FileReader.new(filename, ",").data
     end
 
     # checks for meta data in the first line of the raw data and creates
@@ -195,7 +195,7 @@ module DataInput
     # @param [VisMetaData] key key that should be checked
     def check_for_existenz(key)
       if (@repository[key] != nil)
-          puts 'Info: A data set with this key already exists. Overwriting...'
+          puts "Info: A data set with this key already exists. Overwriting..."
       end
     end
 

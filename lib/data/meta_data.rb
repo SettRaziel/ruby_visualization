@@ -1,6 +1,6 @@
-require 'ruby_utils/string'
-require 'ruby_utils/meta_data'
-require_relative 'data_domain'
+require "ruby_utils/string"
+require "ruby_utils/meta_data"
+require_relative "data_domain"
 
 module TerminalVis
 
