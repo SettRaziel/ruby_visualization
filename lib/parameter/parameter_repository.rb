@@ -32,16 +32,16 @@ module TerminalVis
 
       # method to define the input string values that will match a given paramter symbol
       def define_mapping
-        @mapping[:all] = ['-a', '--all']
-        @mapping[:coord] = ['-c', '--coord']
-        @mapping[:delta] = ['-d', '--delta']
-        @mapping[:extreme] = ['-e', '--extreme']
-        @mapping[:index] = ['-i', '--index']
-        @mapping[:meta] = ['-m', '--meta']
-        @mapping[:option] = ['-o', '--option']
-        @mapping[:range] = ['-r', '--range']
-        @mapping[:section] = ['-s', '--section']
-        @mapping[:time] = ['-t', '--time']      
+        @mapping[:all]     = ["-a", "--all"]
+        @mapping[:coord]   = ["-c", "--coord"]
+        @mapping[:delta]   = ["-d", "--delta"]
+        @mapping[:extreme] = ["-e", "--extreme"]
+        @mapping[:index]   = ["-i", "--index"]
+        @mapping[:meta]    = ["-m", "--meta"]
+        @mapping[:option]  = ["-o", "--option"]
+        @mapping[:range]   = ["-r", "--range"]
+        @mapping[:section] = ["-s", "--section"]
+        @mapping[:time]    = ["-t", "--time"]      
       end
 
     end

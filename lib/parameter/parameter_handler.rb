@@ -55,9 +55,9 @@ module TerminalVis
       #   !(-a + -d), !(-d + -a)
       # @raise [ArgumentError] if invalid parameter combination occurs
       def check_constraints_for_a
-        check_constraint('-a', '-i', :index)
-        check_constraint('-a', '-d', :delta)
-        check_constraint('-a', '-t', :time)
+        check_constraint("-a", "-i", :index)
+        check_constraint("-a", "-d", :delta)
+        check_constraint("-a", "-t", :time)
       end
 
       # checks constraints:
@@ -65,8 +65,8 @@ module TerminalVis
       #   !(-c + -t), !(-t + -c)
       # @raise [ArgumentError] if invalid parameter combination occurs
       def check_constraints_for_c
-        check_constraint('-c', '-e', :extreme) if (!@repository.parameters[:section])
-        check_constraint('-c', '-t', :time)
+        check_constraint("-c", "-e", :extreme) if (!@repository.parameters[:section])
+        check_constraint("-c", "-t", :time)
       end
 
       # checks contraints:
@@ -74,16 +74,16 @@ module TerminalVis
       #   !(-d + -t), !(-t + -d)
       # @raise [ArgumentError] if invalid parameter combination occurs
       def check_constraints_for_d
-        check_constraint('-d', '-i', :index)
-        check_constraint('-d', '-t', :time)
+        check_constraint("-d", "-i", :index)
+        check_constraint("-d", "-t", :time)
       end
 
       # checks constraints:
       #   !(-r + -t), !(-t + -r),
       #   !(-r + -i), !(-i + -r)
       def check_constraints_for_r
-        check_constraint('-r', '-t', :time)
-        check_constraint('-r', '-i', :index)
+        check_constraint("-r", "-t", :time)
+        check_constraint("-r", "-i", :index)
       end
 
       # creates a constraint error if an invalid parameter combination occurs
