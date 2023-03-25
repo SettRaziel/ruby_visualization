@@ -1,6 +1,6 @@
-require 'ruby_utils/statistic'
-require_relative '../math/time_line'
-require_relative 'terminal_size'
+require "ruby_utils/statistic"
+require_relative "../math/time_line"
+require_relative "terminal_size"
 
 # This class collects all data values of the z dimension of a {DataSeries} for
 # a given pair of coordinates (x,y) in the same way its parent class {Timeline}
@@ -42,10 +42,10 @@ class TimelineScaling < Timeline
     @lines = ts.lines - 8
     @columns = ts.columns - 10
     if (@lines < 5)
-      raise RangeError, ' Error : invalid y_size of timeline (min.: 5)'.red
+      raise RangeError, " Error : invalid y_size of timeline (min.: 5)".red
     end
     if (@columns < 10)
-      raise RangeError, ' Error : invalid x_size of timeline (min.: 10)'.red
+      raise RangeError, " Error : invalid x_size of timeline (min.: 10)".red
     end
   end
 

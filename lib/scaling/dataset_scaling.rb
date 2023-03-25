@@ -1,5 +1,5 @@
-require_relative '../data/meta_data'
-require_relative 'terminal_size'
+require_relative "../data/meta_data"
+require_relative "terminal_size"
 
 # Helper class to generate a scaled {DataSet} from a ({MetaData::VisMetaData},
 # {DataSet}) pair with the scaling based on the size of the terminal where the
@@ -59,7 +59,7 @@ class DatasetScaling
   def check_value_boundaries
     if (@lines < 9 || @columns < 20)
       raise ArgumentError,
-            ' Error: The terminal size is to small for scaled output'.red
+            " Error: The terminal size is to small for scaled output".red
     end
   end
 
