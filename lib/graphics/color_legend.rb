@@ -3,10 +3,10 @@
 # classes only need to implement the method {BaseLegend#create_output_string_for}.
 module ColorLegend
 
-require 'ruby_utils/string'
+require "ruby_utils/string"
 
-require_relative 'base_legend'
-require_relative 'color_data'
-require_relative 'color_delta'
+require_relative "base_legend"
+require_relative "color_data"
+require_relative "color_delta"
 
 end
