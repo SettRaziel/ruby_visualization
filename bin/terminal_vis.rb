@@ -1,9 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-05-31 14:25:27
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-03-20 22:08:02
-
-
 require_relative '../lib/data/data_input'
 require_relative '../lib/main/main_module'
 

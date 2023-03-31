@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2017-05-08 22:11:18
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2017-05-08 22:13:21
-
 module ColorLegend
 
   # This class provides basic methods for the other color legends to work

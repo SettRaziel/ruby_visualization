@@ -1,10 +1,5 @@
-# @Author: Benjamin Held
-# @Date:   2016-03-10 11:45:32
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:32:37
-
-require_relative '../data/meta_data'
-require_relative 'terminal_size'
+require_relative "../data/meta_data"
+require_relative "terminal_size"
 
 # Helper class to generate a scaled {DataSet} from a ({MetaData::VisMetaData},
 # {DataSet}) pair with the scaling based on the size of the terminal where the
@@ -56,7 +51,7 @@ class DatasetScaling
     meta_string.concat(add_domain_information(@meta_data.domain_z,
                                               @meta_data.domain_z.step))
     # return the new meta data object
-    @scaled_meta = MetaData::VisMetaData.new(meta_string)
+    @scaled_meta = TerminalVis::MetaData::VisMetaData.new(meta_string)
   end
 
   # method to check if the dimensions of the terminal are big enough to
@@ -64,7 +59,7 @@ class DatasetScaling
   def check_value_boundaries
     if (@lines < 9 || @columns < 20)
       raise ArgumentError,
-            ' Error: The terminal size is to small for scaled output'.red
+            " Error: The terminal size is to small for scaled output".red
     end
   end
 

@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-10-09 12:50:02
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2016-07-19 16:49:20
-
 # Repository storing available configuration parameters. If no parameters are
 # set from the user, the default values for the parameters are used.
 class ConfigurationRepository
@@ -50,7 +45,7 @@ class ConfigurationRepository
   def check_symbol_existance(symbol)
     if (@repository[symbol] == nil)
       raise ArgumentError,
-            ' Error [Configuration]: the provided option does not exist.'.red
+            " Error [Configuration]: the provided option does not exist.".red
     end
   end
 
@@ -79,8 +74,8 @@ class ConfigurationRepository
   # @raise [TypeError] if the class of the now value does not fit the class
   #   of the old one
   def raise_type_error
-      raise TypeError, ' Error [Configuration]: the type of a new value does '\
-                       'not fit the original type.'.red
+      raise TypeError, " Error [Configuration]: the type of a new value does "\
+                       "not fit the original type.".red
   end
 
 end

@@ -1,7 +1,10 @@
-#Gitignore
+# Gitignore
 dev/
 .yardoc/
 doc/
+
+# ignore coverage directory
+coverage/
 
 # exclude gem informations
 *.gem

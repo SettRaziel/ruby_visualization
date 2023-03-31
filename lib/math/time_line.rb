@@ -1,9 +1,4 @@
-# @Author: Benjamin Held
-# @Date:   2015-08-24 10:28:58
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:26:53
-
-require_relative 'interpolation'
+require_relative "interpolation"
 
 # This class collects all data values of the z dimension of a {DataSeries} for
 # a given pair of coordinates (x,y). For a given resolution size the values
@@ -46,7 +41,7 @@ class Timeline
   # @raise [RangeError] if the number of y values is less than 5
   def check_and_set_ysize(y_size)
     if (y_size < 5)
-      raise RangeError, ' Error : invalid y_value of timeline (min.: 5)'.red
+      raise RangeError, " Error : invalid y_value of timeline (min.: 5)".red
     end
     @lines = y_size
   end
@@ -57,7 +52,7 @@ class Timeline
   def check_dataset_dimension(meta_data)
     if (!TerminalVis.data_repo.dataset_dimension_correct?(meta_data))
       raise RangeError,
-            ' Error: dimension of at least one dataset is incorrect'.red
+            " Error: dimension of at least one dataset is incorrect".red
     end
   end
 

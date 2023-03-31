@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-11-19 16:16:15
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-06-05 17:18:59
-
 module TerminalVis
 
   # This module holds methods who are collecting the required parameters for
@@ -13,7 +8,7 @@ module TerminalVis
     # method to get the required values to generate timeline output
     # @return [Hash] a hash with the required values
     def self.determine_timeline_values
-      values = retrieve_parameters(:x, :y, :time, 'Float')
+      values = retrieve_parameters(:x, :y, :time, "Float")
       values[:y_size] = TerminalVis.option_handler.options.
                          repository[:y_time_size]
       return values
@@ -21,13 +16,13 @@ module TerminalVis
 
     # method to get the required coordinates to start an interpolation
     def self.determine_interpolation_values
-      retrieve_parameters(:x, :y, :coord, 'Float')
+      retrieve_parameters(:x, :y, :coord, "Float")
     end
 
     # gets the indices of the data sets which should be substracted
     # @return [Hash] the indices of the two datasets
     def self.determine_indices_for_delta
-      data_indices = retrieve_parameters(:first, :second, :delta, 'Integer')
+      data_indices = retrieve_parameters(:first, :second, :delta, "Integer")
       data_indices[:first] -= 1
       data_indices[:second] -= 1
       return data_indices
@@ -36,7 +31,7 @@ module TerminalVis
     # method to determine the required parameters for the paramater -r
     # @return [Hash] a hash with with required parameters
     def self.determine_range_parameters
-      parameters = retrieve_parameters(:lower, :upper, :range, 'Integer')
+      parameters = retrieve_parameters(:lower, :upper, :range, "Integer")
       parameters[:lower] -= 1
       parameters[:upper] -= 1
       parameters[:all] = TerminalVis.parameter_handler.
@@ -48,7 +43,7 @@ module TerminalVis
     # interpolated
     # @return [Hash] the values to determine the interpolation region
     def self.determine_region_parameters
-      parameters = retrieve_parameters(:inter, :delta, :section, 'Float')
+      parameters = retrieve_parameters(:inter, :delta, :section, "Float")
       { :inter_x => parameters[:inter], :delta_x => parameters[:delta],
         :inter_y => parameters[:inter], :delta_y => parameters[:delta]}
     end
@@ -62,9 +57,9 @@ module TerminalVis
     private_class_method def self.retrieve_parameters(first, second, parameter, type)
       begin
         case type
-          when 'Integer'
+          when "Integer"
             return retrieve_integer_parameters(first, second, parameter)
-          when 'Float'
+          when "Float"
             return retrieve_float_parameters(first, second, parameter)
           else
             TerminalVis::print_error(" Error: unknown parameter: #{type}")

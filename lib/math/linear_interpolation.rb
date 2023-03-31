@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-12-01 16:52:18
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2015-12-03 07:34:27
-
 module TerminalVis
 
   module Interpolation

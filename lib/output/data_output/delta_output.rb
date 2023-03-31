@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2016-01-12 09:30:35
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:27:52
-
 module DataOutput
 
   # Data output for the difference of two data sets for the terminal
@@ -36,7 +31,7 @@ module DataOutput
     def print_output_head(indices)
       first_year = @meta_data.domain_z.lower + indices[:first]
       second_year = @meta_data.domain_z.lower + indices[:second]
-      puts "Printing difference for the datasets of #{first_year} and "\
+      puts "Printing difference for the datasets of #{first_year} and " \
            "#{second_year}.\n\n"
       nil
     end

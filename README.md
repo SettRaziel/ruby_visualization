@@ -1,5 +1,7 @@
 # Terminal Visualizer
+[![Build Status](https://travis-ci.org/SettRaziel/ruby_visualization.svg?branch=development)](https://travis-ci.org/SettRaziel/ruby_visualization)
 [![Code Climate](https://codeclimate.com/github/SettRaziel/ruby_visualization/badges/gpa.svg)](https://codeclimate.com/github/SettRaziel/ruby_visualization)
+[![Coverage Status](https://coveralls.io/repos/github/SettRaziel/ruby_visualization/badge.svg?branch=development)](https://coveralls.io/github/SettRaziel/ruby_visualization?branch=development)
 
 Ruby program to read a series of datasets from a csv-formatted file and
 visualize the data as terminal output. The first line of data will be drawn
@@ -29,7 +31,7 @@ TerminalVis help:
  -m, --meta     process the file <filename> containing meta data
  -a, --all      argument: <speed>; prints all specified datasets of a dataseries with a pause between the output of every dataset defined by speed: 0 means manual, a value > 0 an animation speed in seconds, excludes -i, -d and -t
  -i, --index    argument: <index>; shows the dataset at index, if index lies within [1,2, ..., # datasets], excludes -a, -d and -t
- -o, --options  argument: <option>; enables options, the source depends on the argument: file=<filename> loads options from <filename>, menu enables the possibility to input the desired values
+ -o, --option   argument: <option>; enables options, the source depends on the argument: file=<filename> loads options from <filename>, menu enables the possibility to input the desired values
  -c, --coord    arguments: <x> <y>; interpolates the data for the given coordinate (x,y) with default dataset index 0, excludes -e, -a, -r and -t
  -d, --delta    arguments: <first_index> <second_index>; subtracts the first dataset from the second dataset and visualizes the difference, indices as [1,2, ..., # datasets], excludes -a, -i and -t
  -r, --range    arguments: <start> <end>; prints all datasets within the range of the provided arguments, indices as [1,2, ..., # datasets], excludes -i, -t

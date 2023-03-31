@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2016-03-22 14:15:01
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:28:36
-
 module DataOutput
 
   # Child class of {DeltaOutput} to visualize a data set within the dimensions

@@ -1,8 +1,3 @@
-# @Author: Benjamin Held
-# @Date:   2015-12-31 14:02:17
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-01-16 19:29:01
-
 module DataOutput
 
   # Simple data output for the terminal visualization and a dataset
@@ -45,7 +40,7 @@ module DataOutput
     # domain informations
     def print_meta_tail
       if (@meta_data.domain_z != nil)
-        print_domain_information(@meta_data.domain_z, 'Z')
+        print_domain_information(@meta_data.domain_z, "Z")
       end
     end
 
