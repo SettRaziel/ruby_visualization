@@ -37,7 +37,7 @@ class ConfigurationMenu
       when 4 then return save_to_file(get_entry("Save destination: "))
       when 5 then return false
     else
-      puts " Error: Input is not valid.".red
+      puts " Error: Input #{input} is not valid.".red
       return true
     end
   end
@@ -67,8 +67,7 @@ class ConfigurationMenu
   # @raise [ArgumentError] if the value lies outside the interval
   def check_dimension_value(input)
     if (input <= 0 || input > 100)
-      raise ArgumentError,
-            " Error: y_dim value #{input} runs out of bound [1,100]".red
+      raise ArgumentError, " Error: y_dim value #{input} runs out of interval [0,100]".red
     end
   end
 
@@ -85,12 +84,10 @@ class ConfigurationMenu
   # @return [Boolean] true to mark the successful handling of the input
   def process_boolean_input(input, symbol)
     case input
-    when 0 then TerminalVis::option_handler.options.
-                             change_option(symbol, false)
-    when 1 then TerminalVis::option_handler.options.
-                             change_option(symbol, true)
+    when 0 then TerminalVis::option_handler.options.change_option(symbol, false)
+    when 1 then TerminalVis::option_handler.options.change_option(symbol, true)
     else
-      puts " Error: Input is not valid.".red
+      puts " Error: Input #{input} is not valid.".red
     end
     return true
   end
