@@ -63,8 +63,7 @@ module DataInput
       @repository[meta_data].series.each_with_index { |data_set, index|
         data_values = get_data_values(data_set)
 
-        if (domain_values[:x] != data_values[:x] ||
-            domain_values[:y] != data_values[:y])
+        if (domain_values[:x] != data_values[:x] || domain_values[:y] != data_values[:y])
           print_domain_mismatch(index, domain_values, data_values)
           return false
         end
@@ -123,9 +122,9 @@ module DataInput
 
       if (number_value_z != number_data_z)
         puts " Warning: Size of dataseries does not match with" \
-           " meta data information.".yellow
+             " meta data information.".yellow
         puts "   meta_data: #{number_value_z} datasets to data_series: " \
-           "#{number_data_z} datasets".yellow
+             "#{number_data_z} datasets".yellow
         return false
       end
 
@@ -195,7 +194,7 @@ module DataInput
     # @param [VisMetaData] key key that should be checked
     def check_for_existenz(key)
       if (@repository[key] != nil)
-          puts "Info: A data set with this key already exists. Overwriting..."
+        puts "Info: A data set with this key already exists. Overwriting..."
       end
     end
 

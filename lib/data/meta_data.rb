@@ -44,8 +44,7 @@ module TerminalVis
       #   the correct size
       def check_element_size(size)
         if !(size == 13 || size == 9)
-          raise IndexError, " Error in meta data: incorrect number of" \
-                    " arguments: #{size}.".red
+          raise IndexError, " Error in meta data: incorrect number of arguments: #{size}.".red
         end
       end
 

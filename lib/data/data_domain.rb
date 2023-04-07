@@ -41,7 +41,7 @@ module TerminalVis
           @step = Float(step)
         rescue ArgumentError
           raise ArgumentError,
-                " Error in data domain: received non number argument.".red
+                " Error in data domain: received non number argument for boundaries.".red
         end
       end
 
@@ -61,8 +61,7 @@ module TerminalVis
         coordinate = lower + index * step
         if (coordinate < lower || coordinate > upper)
           raise RangeError,
-          " Error: #{index} creates coordinate #{coordinate} that lies " \
-          "out of range".red
+          " Error: #{index} creates coordinate #{coordinate} that lies out of range".red
         end
         return coordinate
       end
