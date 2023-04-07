@@ -45,8 +45,7 @@ module ColorLegend
       @value_legend.each_index { |index|
         puts if (index % 5 == 0)
         value = @value_legend[index]
-        print create_output_string_for(value, " <= #{value};").
-              black.exchange_grounds
+        print create_output_string_for(value, " <= #{value};").black.exchange_grounds
       }
     end
 
@@ -54,8 +53,7 @@ module ColorLegend
     # @raise [NotImplementedError] if the subclass does not have this method
     def create_output_string_for(value, out_str)
       fail NotImplementedError, " Error: the subclass #{self.class} " \
-        "needs to implement the method: create_output_string_for " \
-        "from its base class".red
+        "needs to implement the method: create_output_string_for from its base class".red
     end
 
     private
