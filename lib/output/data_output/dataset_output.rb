@@ -25,8 +25,7 @@ module DataOutput
     # @raise [NotImplementedError] if the subclass does not have this method
     def print_meta_head
       fail NotImplementedError, " Error: the subclass #{self.class} needs " \
-           "to implement the method: print_meta_tail " \
-           "from its base class".red
+           "to implement the method: print_meta_tail from its base class".red
     end
 
     # method to print additional information after the x and y

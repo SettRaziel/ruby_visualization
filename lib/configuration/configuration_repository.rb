@@ -17,7 +17,6 @@ class ConfigurationRepository
   def change_option(symbol, value)
     check_symbol_existance(symbol)
     check_value_class(symbol, value)
-
     @repository[symbol] = value
   end
 
@@ -44,8 +43,7 @@ class ConfigurationRepository
   # @raise [ArgumentError] if the symbol does not occur in the options hash
   def check_symbol_existance(symbol)
     if (@repository[symbol] == nil)
-      raise ArgumentError,
-            " Error [Configuration]: the provided option does not exist.".red
+      raise ArgumentError, " Error [Configuration]: the provided option does not exist.".red
     end
   end
 

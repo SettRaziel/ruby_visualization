@@ -126,8 +126,7 @@ module DataOutput
     # @raise [NotImplementedError] if the subclass does not have this method
     def print_meta_information
       fail NotImplementedError, " Error: the subclass #{self.class} needs " \
-           "to implement the method: print_meta_information " \
-           "from its base class".red
+           "to implement the method: print_meta_information from its base class".red
     end
 
   end

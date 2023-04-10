@@ -51,8 +51,7 @@ class Timeline
   # @raise [RangeError] if one of the datasets has an incorrect dimension
   def check_dataset_dimension(meta_data)
     if (!TerminalVis.data_repo.dataset_dimension_correct?(meta_data))
-      raise RangeError,
-            " Error: dimension of at least one dataset is incorrect".red
+      raise RangeError, " Error: dimension of at least one dataset is incorrect".red
     end
   end
 

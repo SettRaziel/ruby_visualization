@@ -24,8 +24,7 @@ class ConfigurationHandler
     elsif (option.start_with?("file="))
       check_and_read_options(option.split("=")[1])
     elsif (!option.eql?("default"))
-      raise ArgumentError,
-            "Error [ConfigurationHandler]: Option parameter is not valid.".red
+      raise ArgumentError, "Error: Given Option #{option} is not a valid. Use input file or menu".red
     end
   end
 
@@ -86,8 +85,7 @@ class ConfigurationHandler
     }x
 
     if (!(filepath =~ unixfile_regex || filepath =~ windowsfile_regex))
-      raise ArgumentError,
-            " Error [ConfigurationHandler]: invalid filepath: #{filepath}".red
+      raise ArgumentError, " Configuration error: invalid filepath #{filepath}".red
     end
   end
 

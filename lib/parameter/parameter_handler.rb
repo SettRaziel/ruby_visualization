@@ -93,8 +93,7 @@ module TerminalVis
       # @raise [ArgumentError] for an invalid parameter combination
       def check_constraint(v, i, symbol)
         if (@repository.parameters[symbol])
-          raise ArgumentError,
-                " Error: invalid parameter combination: #{v} and #{i}"
+          raise ArgumentError, " Error: invalid parameter combination: #{v} and #{i}"
         end
       end
 

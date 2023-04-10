@@ -10,8 +10,7 @@ module ColorLegend
     # @param [Float] max_value the maximum value
     def initialize(min_value, max_value)
       if (max_value <= min_value)
-        raise ArgumentError,
-            " Error in ColorLegend: max_value <= min_value\n".red
+        raise ArgumentError, " Error in ColorLegend: max_value <= min_value\n".red
       end
 
       super

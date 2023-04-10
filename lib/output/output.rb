@@ -179,8 +179,7 @@ module TerminalVis
     private_class_method def self.get_and_check_data(index, meta_data)
       data = TerminalVis.data_repo.repository[meta_data].series[index]
       if (data == nil)
-        raise IndexError,
-              " Error: argument #{index + 1} from -d is out of bounds".red
+        raise IndexError, " Error: argument #{index + 1} from -d is out of bounds".red
       end
       return data
     end
