@@ -39,8 +39,7 @@ class RangeOutput
   # @raise [ArgumentError] if first >= second
   def first_lesser_second?(indices)
     if (indices[:lower] >= indices[:upper])
-      raise ArgumentError,
-        " Error: First parameter of -r is equal or greater than the second".red
+      raise ArgumentError, " Error: First parameter of -r is equal or greater than the second".red
     end
     return true
   end
@@ -55,13 +54,11 @@ class RangeOutput
     size = meta_data.domain_z.number_of_values
 
     if (indices[:lower] < 0)
-      raise ArgumentError,
-        " Error: First parameter of -r is lesser or equal 0".red
+      raise ArgumentError, " Error: First parameter of -r is lesser or equal 0".red
     end
 
     if (indices[:upper] >= size)
-      raise ArgumentError,
-        " Error: Second parameter of -r greater than size of data series".red
+      raise ArgumentError, " Error: Second parameter of -r greater than size of data series".red
     end
 
     return true

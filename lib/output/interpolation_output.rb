@@ -17,8 +17,7 @@ class InterpolationOutput
     print_result(value, boundary_points, data_series)
 
     puts "\nInterpolated value for coordinate (#{coordinates[:x]}, " \
-           "#{coordinates[:y]}) of dataset #{index} with result: " \
-           "#{value.round(3)}."
+           "#{coordinates[:y]}) of dataset #{index} with result: #{value.round(3)}."
   end
 
   private

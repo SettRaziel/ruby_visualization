@@ -33,8 +33,7 @@ module DataOutput
     # method to print additional information before the x and y
     # domain informations
     def print_meta_head
-      puts "\nScaled Dataset: Difference of #{@meta_data.name} between " \
-           "the two datasets"
+      puts "\nScaled Dataset: Difference of #{@meta_data.name} between the two datasets"
     end
 
   end
