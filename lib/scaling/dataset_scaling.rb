@@ -39,8 +39,7 @@ class DatasetScaling
     coordinates = determine_coordinates
     values = determine_values
 
-    TerminalVis::Interpolation.region_interpolation(@meta_data, data_set,
-                                                    coordinates, values)
+    TerminalVis::Interpolation.region_interpolation(@meta_data, data_set, coordinates, values)
   end
 
   # method to create the meta data object for the scaled dataset
@@ -48,8 +47,7 @@ class DatasetScaling
     # determine new meta information and create ne meta object
     meta_string = [@meta_data.name]
     meta_string.concat(create_new_data_dimensions)
-    meta_string.concat(add_domain_information(@meta_data.domain_z,
-                                              @meta_data.domain_z.step))
+    meta_string.concat(add_domain_information(@meta_data.domain_z, @meta_data.domain_z.step))
     # return the new meta data object
     @scaled_meta = TerminalVis::MetaData::VisMetaData.new(meta_string)
   end
@@ -58,8 +56,7 @@ class DatasetScaling
   # create a useful result
   def check_value_boundaries
     if (@lines < 9 || @columns < 20)
-      raise ArgumentError,
-            " Error: The terminal size is to small for scaled output".red
+      raise ArgumentError, " Error: The terminal size is to small for scaled output".red
     end
   end
 
